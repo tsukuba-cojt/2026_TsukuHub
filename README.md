@@ -42,10 +42,10 @@ TsukuHubは、このような情報格差をなくし、筑波大学生が必要
 '''
 
 2026_TsukuHub  
-    ├─assets  
-    ├─docs  
-    │  └─images  
-    └─src  
+    ├─assets            #画像等  
+    ├─docs              #ドキュメント  
+    │  └─images         #ドキュメント内使用画像  
+    └─src               #ソースコード  
 
 '''
 
