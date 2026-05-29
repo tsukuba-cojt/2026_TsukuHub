@@ -1,4 +1,4 @@
-import "../styles/App.css";
+import "../styles/Auth.css";
 import React, { useEffect, useState } from "react";
 import { createClient, type EmailOtpType, type User } from "@supabase/supabase-js";
 
