@@ -11,21 +11,18 @@ const supabase = createClient(
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
-  // 修正1: 初期値nullの場合、後からUser型が入ることを明示
   const [user, setUser] = useState<User | null>(null)
 
   const params = new URLSearchParams(window.location.search)
   const hasTokenHash = params.get('token_hash')
 
   const [verifying, setVerifying] = useState(!!hasTokenHash)
-  // 修正2: エラーメッセージ（文字列）が入ることを明示
   const [authError, setAuthError] = useState<string | null>(null)
   const [authSuccess, setAuthSuccess] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const token_hash = params.get('token_hash')
-    // Supabaseの型に合わせるためのキャスト（あるいはバリデーション）
     const type = params.get('type') as any 
 
     if (token_hash) {
@@ -45,12 +42,10 @@ export default function Auth() {
         })
     }
 
-    // 修正3: Supabase v2の仕様に合わせ、getClaimsではなくgetSession/getUserを使用
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
     })
 
-    // 修正4: Auth状態の変更リスナーもsessionを受け取る形に修正
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -60,7 +55,6 @@ export default function Auth() {
     return () => subscription.unsubscribe()
   }, [])
 
-  // 修正5: 引数eventに「フォーム送信イベント」の型を付与
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setLoading(true)
@@ -71,7 +65,6 @@ export default function Auth() {
       },
     })
     if (error) {
-      // 修正6: error_descriptionは型定義に存在しないため削除し、messageに統一
       alert(error.message)
     } else {
       alert('Check your email for the login link!')
@@ -112,7 +105,6 @@ export default function Auth() {
     )
   }
 
-  // 変数名をclaimsからuserに変更
   if (authSuccess && !user) {
     return (
       <div>
