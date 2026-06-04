@@ -19,6 +19,22 @@ input {
   font: inherit;
 }
 
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.homeLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
 .app {
   min-height: 100vh;
 }
