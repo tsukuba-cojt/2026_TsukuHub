@@ -1,21 +1,14 @@
 import Home from "./pages/Home";
-import Class from "./pages/class";
-import Login from "./pages/login";
-import ClassDetail from "./pages/classdetail";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Auth from "./pages/Auth";
 
 function App() {
-  return (
-    <BrowserRouter>
+  const path = window.location.pathname;
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/class" element={<Class />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/class/:id" element={<ClassDetail />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  if (path === '/auth') {
+    return <Auth />;
+  }
+  
+  return <Home />;
 }
 
 export default App;

@@ -1,17 +1,13 @@
-import { Link } from "react-router-dom";
-
 function Header() {
   return (
     <header className="header">
       <div className="headerTop">
         <div className="logoArea">
-         <Link to="/" className="homeLink">
           <div className="logoMark">✿</div>
           <div>
             <div className="logoText">TsukuHub</div>
             <div className="logoSub">筑波大生のためのキャンパス情報ポータル</div>
           </div>
-        </Link>
         </div>
 
         <div className="searchArea">
@@ -24,21 +20,17 @@ function Header() {
         </div>
 
         <div className="authButtons">
-          <Link to="/login">
+          <a href="/auth">
             <button className="loginButton">ログイン</button>
-          </Link>
-          <Link to="/register">
-            <button className="registerButton">新規登録</button>
-          </Link>
+          </a>
+          <button className="registerButton">新規登録</button>
         </div>
       </div>
 
       <nav className="globalNav">
         <a href="#">ホーム</a>
         <a href="#">就活・キャリア</a>
-        <Link to="/class">
-          <button className="navButton">授業・履修</button>
-        </Link>
+        <a href="#">授業・履修</a>
         <a href="#">サークル・課外活動</a>
         <a href="#">生活・便利情報</a>
         <a href="#">イベント・お知らせ</a>
