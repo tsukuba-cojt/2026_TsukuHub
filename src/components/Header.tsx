@@ -20,10 +20,8 @@ function Header() {
         </div>
 
         <div className="authButtons">
-          <a href="/auth">
-            <button className="loginButton">ログイン</button>
-          </a>
-          <button className="registerButton">新規登録</button>
+            <a href="/login" className="loginButton">ログイン</a>
+            <a href="/signup" className="registerButton">新規登録</a>
         </div>
       </div>
 

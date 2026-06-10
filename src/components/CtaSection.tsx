@@ -18,8 +18,8 @@ function CtaSection() {
         </p>
 
         <div className="ctaButtons">
-          <button className="registerButton large">新規登録（無料）</button>
-          <button className="loginButton large">ログイン</button>
+          <a href="/signup" className="registerButton large">新規登録（無料）</a>
+          <a href="/login" className="loginButton large">ログイン</a>
         </div>
       </div>
 
