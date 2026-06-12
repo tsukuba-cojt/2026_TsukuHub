@@ -1,0 +1,48 @@
+/* Topics */
+.topicList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.topicItem {
+  display: grid;
+  grid-template-columns: 74px 1fr 16px;
+  gap: 12px;
+  align-items: center;
+}
+
+.topicItem img {
+  width: 74px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.topicTag {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eee9ff;
+  color: #5c33c6;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.topicItem h3 {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.topicItem p {
+  margin: 4px 0 0;
+  color: #777;
+  font-size: 11px;
+}
+
+.topicArrow {
+  color: #6a39d8;
+  font-size: 22px;
+}

@@ -1,3 +1,5 @@
+import "../../styles/home/TopicSection.css";
+
 const topics = [
   {
     tag: "就活・キャリア",
