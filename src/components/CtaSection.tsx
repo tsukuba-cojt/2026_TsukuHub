@@ -1,4 +1,12 @@
-function CtaSection() {
+import { type User } from "@supabase/supabase-js";
+import { Link } from "react-router-dom";
+
+type Props = {
+  user: User | null;
+};
+
+function CtaSection({ user }: Props) {
+  if(user) return ;
   return (
     <section className="ctaSection">
       <div className="ctaImage">
@@ -18,8 +26,8 @@ function CtaSection() {
         </p>
 
         <div className="ctaButtons">
-          <a href="/signup" className="registerButton large">新規登録（無料）</a>
-          <a href="/login" className="loginButton large">ログイン</a>
+          <Link to="/signup" className="registerButton large">新規登録（無料）</Link>
+          <Link to="/login" className="loginButton large">ログイン</Link>
         </div>
       </div>
 

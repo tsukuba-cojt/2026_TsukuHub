@@ -112,6 +112,21 @@ input {
   background: white;
 }
 
+.logoutButton {
+  background: none;
+  border: 1px solid #e53e3e;
+  color: #e53e3e;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.logoutButton:hover {
+  background-color: #e53e3e;
+  color: white;
+}
+
 .registerButton {
   border: 1px solid #6a39d8;
   background: #6a39d8;

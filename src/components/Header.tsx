@@ -1,4 +1,12 @@
-function Header() {
+import { type User } from "@supabase/supabase-js";
+import { Link } from "react-router-dom";
+
+type Props = {
+  user: User | null;
+  onLogout: () => void;
+};
+
+function Header({ user, onLogout }: Props) {
   return (
     <header className="header">
       <div className="headerTop">
@@ -20,8 +28,18 @@ function Header() {
         </div>
 
         <div className="authButtons">
-            <a href="/login" className="loginButton">ログイン</a>
-            <a href="/signup" className="registerButton">新規登録</a>
+          {user ? (
+            <div className="userArea">
+              <span className="userEmail">{user.email}</span>
+              <Link to="/mypage" className="mypageButton">マイページ</Link>
+              <button className="logoutButton" onClick={onLogout}>ログアウト</button>
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="loginButton">ログイン</Link>
+              <Link to="/signup" className="registerButton">新規登録</Link>
+            </>
+          )}
         </div>
       </div>
 
