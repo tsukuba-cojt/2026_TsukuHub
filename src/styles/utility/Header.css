@@ -1,140 +1,198 @@
-/* Header */
-.header {
-  background: #fff;
-  border-bottom: 1px solid #e5defc;
-  position: sticky;
-  top: 0;
-  z-index: 20;
+/* CSS変数 */
+:root {
+  --header-bg: #eef5fc; /* 画像のような淡いブルーの背景 */
+  --text-main: #0a192f;
+  --text-sub: #55627a;
+  --primary-blue: #1e57e6;
+  --gradient-register: linear-gradient(135deg, #1e62e6, #793ce6);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(30, 87, 230, 0.15);
 }
 
-.headerTop {
-  height: 64px;
-  padding: 0 28px;
+.main-header {
+  width: 100%;
+  background: var(--header-bg);
+  padding: 12px 24px;
+  box-sizing: border-box;
+}
+
+.header-container {
+  max-width: 1180px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.logoArea {
+/* --- 左側: ロゴ ＆ キャッチコピー --- */
+.header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-width: 260px;
+  gap: 12px;
 }
 
-.logoMark {
-  color: #6a39d8;
-  font-size: 28px;
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
-.logoText {
+.logo-image {
+  height: 40px; /* 画像の縦幅に合わせて適宜調整してください */
+  width: auto;
+}
+
+.logo-text {
   font-size: 24px;
-  font-weight: 900;
-  color: #222;
-  line-height: 1;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
 }
 
-.logoSub {
-  margin-top: 4px;
+.tagline {
   font-size: 11px;
-  color: #666;
+  color: var(--text-sub);
+  margin-top: 8px;
 }
 
-.searchArea {
-  flex: 1;
-  max-width: 520px;
-  height: 40px;
-  display: flex;
-  border: 1px solid #ded7f5;
-  border-radius: 999px;
-  overflow: hidden;
-  background: #fafaff;
-}
-
-.searchInput {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 0 18px;
-  background: transparent;
-  font-size: 14px;
-}
-
-.searchIconButton {
-  width: 48px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.authButtons {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
-}
-
-.loginButton,
-.registerButton {
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.loginButton {
-  border: 1px solid #6a39d8;
-  color: #4d27b3;
-  background: white;
-}
-
-.registerButton {
-  border: 1px solid #6a39d8;
-  background: #6a39d8;
-  color: white;
-}
-
-.globalNav {
-  height: 40px;
-  padding: 0 28px;
+/* --- 右側: 検索 ＆ ボタン --- */
+.header-right {
   display: flex;
   align-items: center;
-  gap: 26px;
-  border-top: 1px solid #eee9ff;
-  color: #3b2b72;
-  font-size: 13px;
-  font-weight: 700;
-  overflow-x: auto;
+  gap: 16px;
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 
-.globalNav a:first-child {
-  color: #6a39d8;
+/* Google検索風 検索ボックス */
+.search-form {
+  width: 100%;
+  max-width: 420px;
 }
 
-@media (max-width: 1024px) {
-  .headerTop {
-    height: auto;
-    padding: 16px;
-    flex-wrap: wrap;
-  }
-
-  .logoArea {
-    min-width: auto;
-  }
-
-  .searchArea {
-    order: 3;
-    max-width: none;
-    flex-basis: 100%;
-  }
+.search-box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
+  padding: 0 8px 0 20px; /* 右側の余白をボタンに合わせて微調整 */
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
 }
 
-@media (max-width: 640px) {
-  .authButtons {
+/* フォーカス時に枠とシャドウを動的に変化させる */
+.search-box-wrapper:focus-within {
+  border-color: rgba(30, 87, 230, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.search-input {
+  width: 100%;
+  height: 44px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.search-input::placeholder {
+  color: #a0aec0;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease;
+}
+
+.search-button:active {
+  transform: scale(0.9);
+}
+
+/* 虫眼鏡画像のスタイル調整 */
+.search-icon-image {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* --- ボタン群 --- */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* ログイン */
+.btn-login {
+  background: #ffffff;
+  color: var(--text-main);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-login:hover {
+  background: #f7fafc;
+  transform: translateY(-1px);
+}
+
+/* 新規登録 */
+.btn-register {
+  background: var(--gradient-register);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(30, 87, 230, 0.25);
+}
+
+.btn-register:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(30, 87, 230, 0.35);
+}
+
+/* --- レスポンシブ対応 --- */
+@media (max-width: 768px) {
+  .tagline {
+    display: none;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .header-right {
     width: 100%;
+    justify-content: space-between;
   }
-
-  .loginButton,
-  .registerButton {
-    flex: 1;
+  
+  .search-form {
+    max-width: none;
+    flex-grow: 1;
   }
 }

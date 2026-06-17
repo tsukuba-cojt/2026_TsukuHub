@@ -1,4 +1,4 @@
-import "../../styles/utility/CategoryCard.css";
+import "../../styles/home/CategoryCard.css";
 // もし React Router を使って画面遷移させる場合は、通常の <a> タグの代わりに <Link> を使うのがおすすめなのでインポートしておきます
 import { Link } from "react-router-dom"; 
 

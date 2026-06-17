@@ -1,6 +1,6 @@
-import Header from "../components/utility/Header";
+import Globalnav from "../components/utility/Globalnav";
 import Hero from "../components/home/Hero";
-import CategorySection from "../components/utility/CategorySection";
+import CategorySection from "../components/home/CategorySection";
 import NewsBar from "../components/home/NewsBar";
 import TopicSection from "../components/home/TopicSection";
 import LatestNewsSection from "../components/home/LatestNewSection";
@@ -10,7 +10,7 @@ import CtaSection from "../components/home/CtaSection";
 function Home() {
   return (
     <div className="homepage">
-      <Header />
+      <Globalnav />
       <Hero />
       <CategorySection />
       <NewsBar />
