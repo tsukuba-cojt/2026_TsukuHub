@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { createClient, type User } from "@supabase/supabase-js";
 import Globalnav from "../components/utility/Globalnav";
 import Hero from "../components/home/Hero";
 import CategorySection from "../components/home/CategorySection";
@@ -7,8 +9,30 @@ import LatestNewsSection from "../components/home/LatestNewSection";
 import RankingSection from "../components/home/RankingSection";
 import CtaSection from "../components/home/CtaSection";
 
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+);
+
 function Home() {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
+    <div className="app">     
     <div className="homepage">
       <Globalnav />
       <Hero />
@@ -21,7 +45,8 @@ function Home() {
         <RankingSection />
       </main>
 
-      <CtaSection />
+      <CtaSection user={user} />
+    </div>
     </div>
   );
 }

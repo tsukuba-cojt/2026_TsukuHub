@@ -1,6 +1,7 @@
 import "../styles/Auth.css";
 import React, { useEffect, useState } from "react";
-import { createClient, type User } from "@supabase/supabase-js";
+import { useNavigate } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -8,23 +9,31 @@ const supabase = createClient(
 );
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [user, setUser] = useState<User | null>(null);
+  const [name, setName] = useState("");
+  const [grade, setGrade] = useState("");
+  const [major, setMajor] = useState("");
+  const [category, setCategory] = useState("");
   const [authError, setAuthError] = useState<string | null>(null);
   const [signupSuccess, setSignupSuccess] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+      if (session?.user) {
+        navigate("/");
+      }
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      if (session?.user) {
+        navigate("/");
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -49,6 +58,26 @@ export default function Signup() {
       return;
     }
 
+    if (!name.trim()) {
+      setAuthError("氏名を入力してください。");
+      return;
+    }
+
+    if (!grade) {
+      setAuthError("学年を選択してください。");
+      return;
+    }
+
+    if (!category) {
+      setAuthError("所属区分を選択してください。");
+      return;
+    }
+
+    if (!major) {
+      setAuthError(category === "undergraduate" ? "学類を選択してください。" : "学術院を選択してください。");
+      return;
+    }
+
     setLoading(true);
 
     const { error } = await supabase.auth.signUp({
@@ -56,6 +85,12 @@ export default function Signup() {
       password,
       options: {
         emailRedirectTo: window.location.origin,
+        data: {
+          name,
+          grade,
+          major,
+          category,
+        },
       },
     });
 
@@ -66,11 +101,6 @@ export default function Signup() {
     }
 
     setLoading(false);
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
   };
 
   // 登録完了（メール確認待ち）
@@ -89,57 +119,6 @@ export default function Signup() {
             ログイン画面へ
           </a>
         </div>
-      </div>
-    );
-  }
-
-  // すでにログイン済み
-  if (user) {
-    return (
-      <div className="auth-page">
-        <header className="auth-header">
-          <div className="brand">
-            <div className="brand-logo">T</div>
-            <span>TsukuHub</span>
-          </div>
-          <button className="nav-button" onClick={handleLogout}>
-            ログアウト
-          </button>
-        </header>
-
-        <main className="auth-main">
-          <section className="auth-hero">
-            <p className="label">Welcome to TsukuHub</p>
-            <h1>
-              筑波大生の情報を、
-              <br />
-              ひとつの場所に。
-            </h1>
-            <p>
-              授業、サークル、飲食店、住まい、バイト、就活・インターンなど、
-              筑波大生に必要な情報をまとめて探せるプラットフォームです。
-            </p>
-            <div className="hero-points">
-              <span>履修情報</span>
-              <span>サークル</span>
-              <span>就活・インターン</span>
-            </div>
-          </section>
-
-          <section className="auth-card">
-            <div className="card-title">
-              <h2>ログイン中</h2>
-              <p>現在、以下のアカウントでログインしています。</p>
-            </div>
-            <div className="user-box">
-              <span className="user-label">メールアドレス</span>
-              <strong>{user.email}</strong>
-            </div>
-            <button className="primary-button" onClick={handleLogout}>
-              ログアウト
-            </button>
-          </section>
-        </main>
       </div>
     );
   }
@@ -215,6 +194,102 @@ export default function Signup() {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
+            </label>
+
+            <label>
+              氏名
+              <input
+                type="text"
+                placeholder="筑波太郎"
+                value={name}
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+
+            <label>
+              所属区分
+              <select
+                value={category}
+                required
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  setMajor("");
+                }}
+              >
+                <option value="">選択してください</option>
+                <option value="undergraduate">学群生</option>
+                <option value="master">大学院生（修士）</option>
+                <option value="doctor">大学院生（博士）</option>
+              </select>
+            </label>
+
+            <label>
+              学年
+              <select
+                value={grade}
+                required
+                onChange={(e) => setGrade(e.target.value)}
+              >
+                <option value="">選択してください</option>
+                <option value="1">1年</option>
+                <option value="2">2年</option>
+                <option value="3">3年</option>
+                <option value="4">4年</option>
+                <option value="5">5年</option>
+                <option value="6">6年</option>
+              </select>
+            </label>
+
+            <label>
+              {category === "undergraduate" ? "学類" : category ? "学術院" : "学類・学術院"}
+              <select
+                value={major}
+                required
+                onChange={(e) => setMajor(e.target.value)}
+              >
+                <option value="">選択してください</option>
+
+                {category === "undergraduate" && (
+                  <>
+                    <option value="人文学類">人文学類</option>
+                    <option value="比較文化学類">比較文化学類</option>
+                    <option value="日本語・日本文化学類">日本語・日本文化学類</option>
+                    <option value="社会学類">社会学類</option>
+                    <option value="国際総合学類">国際総合学類</option>
+                    <option value="教育学類">教育学類</option>
+                    <option value="心理学類">心理学類</option>
+                    <option value="障害科学類">障害科学類</option>
+                    <option value="生物学類">生物学類</option>
+                    <option value="生物資源学類">生物資源学類</option>
+                    <option value="地球学類">地球学類</option>
+                    <option value="数学類">数学類</option>
+                    <option value="物理学類">物理学類</option>
+                    <option value="化学類">化学類</option>
+                    <option value="応用理工学類">応用理工学類</option>
+                    <option value="工学システム学類">工学システム学類</option>
+                    <option value="社会工学類">社会工学類</option>
+                    <option value="総合理工学類プログラム">総合理工学類プログラム</option>
+                    <option value="情報科学類">情報科学類</option>
+                    <option value="情報メディア創成学類">情報メディア創成学類</option>
+                    <option value="知識情報・図書館学類">知識情報・図書館学類</option>
+                    <option value="医学類">医学類</option>
+                    <option value="看護学類">看護学類</option>
+                    <option value="医療科学類">医療科学類</option>
+                    <option value="体育専門学群">体育専門学群</option>
+                    <option value="芸術専門学群">芸術専門学群</option>
+                  </>
+                )}
+
+                {(category === "master" || category === "doctor") && (
+                  <>
+                    <option value="人文社会ビジネス科学学術院">人文社会ビジネス科学学術院</option>
+                    <option value="理工情報生命学術院">理工情報生命学術院</option>
+                    <option value="人間総合科学学術院">人間総合科学学術院</option>
+                    <option value="グローバル教育院">グローバル教育院</option>
+                  </>
+                )}
+              </select>
             </label>
 
             {authError && <p className="auth-error">{authError}</p>}

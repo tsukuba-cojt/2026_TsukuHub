@@ -11,6 +11,18 @@ src
  └─styles/            #各ページで使用されている部品のcssファイル.表示ページ毎にフォルダが分かれています
     └─folders/        #ページを跨いで使用するものをutilityフォルダに入れています
 
+
+### .env.localの設定
+`2026-Tsukuhub/`直下に`.env.local`を作成
+
+```
+VITE_SUPABASE_URL=NEED_TO_REPLACE
+VITE_SUPABASE_PUBLISHABLE_KEY=NEED_TO_REPLACE
+```
+
+これら二つのパラメータはsupabaseのdashboardから確認可能。
+
+
 ### 起動方法
 `2026-Tsukuhub/` ディレクトリにおいてターミナルを開き、次を実行
 ```
