@@ -1,123 +1,174 @@
-/* Hero */
+/* Hero — Figma node 1360:908 */
 .hero {
-  padding: 40px 28px;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)),
-    url("https://images.unsplash.com/photo-1562774053-701939374585?w=1600");
-  background-size: cover;
-  background-position: center;
+  padding: 48px 56px 56px;
+  background: var(--color-bg-gradient);
 }
 
-.heroOverlay {
-  max-width: 1180px;
+.heroInner {
+  max-width: 1327px;
   margin: 0 auto;
-  min-height: 290px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 32px;
+  gap: 164px;
 }
 
-.heroCard,
-.keywordCard {
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid #e5defc;
-  box-shadow: 0 18px 40px rgba(82, 58, 150, 0.18);
-  border-radius: 16px;
-}
-
-.heroCard {
-  width: min(540px, 100%);
-  padding: 34px;
-}
-
-.heroCard h1 {
-  margin: 0 0 18px;
-  font-size: 34px;
-  line-height: 1.45;
-  font-weight: 900;
-}
-
-.heroCard p {
-  margin: 0 0 22px;
-  color: #555;
-  line-height: 1.8;
-  font-weight: 600;
-}
-
-.heroSearch {
+/* Left column — width 454px */
+.heroContent {
+  width: 454px;
+  flex-shrink: 0;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.heroSearch input {
-  flex: 1;
-  border: 1px solid #ddd4f5;
-  border-radius: 8px;
-  padding: 13px 16px;
-  outline: none;
-}
-
-.heroSearch button {
-  border: none;
-  border-radius: 8px;
-  background: #6a39d8;
-  color: white;
-  padding: 0 22px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.keywordCard {
-  width: 380px;
-  padding: 24px;
-}
-
-.keywordCard h2 {
-  margin: 0 0 16px;
-  font-size: 18px;
-}
-
-.keywordList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.keywordList span {
-  padding: 9px 14px;
-  background: #f1edff;
-  border-radius: 999px;
-  color: #4d27b3;
-  font-size: 13px;
+.heroTitle {
+  margin: 0;
+  font-family: var(--font-family-base);
   font-weight: 700;
+  font-size: 36px;
+  line-height: 1.4;
+  color: var(--color-text-primary);
 }
 
-@media (max-width: 1024px) {
-  .heroOverlay {
-    flex-direction: column;
-    align-items: stretch;
+.heroTitleAccent {
+  font-family: var(--font-family-serif);
+  font-weight: 900;
+  font-size: 36px;
+  background: linear-gradient(90deg, rgba(21,120,253,1) 0%, rgba(7,95,223,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroDescription {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.7em;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+/* Search box — 454x55, radius 21px */
+.heroSearch {
+  position: relative;
+  width: 454px;
+  height: 55px;
+  flex-shrink: 0;
+}
+
+.heroSearchInput {
+  width: 100%;
+  height: 100%;
+  padding: 0 110px 0 23px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 21px;
+  box-shadow: 0px 0px 20.7px 2px rgba(84, 160, 237, 0.25);
+  outline: none;
+  font-family: var(--font-family-logo);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.heroSearchInput::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.heroSearchBtn {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: 92px;
+  height: 43px;
+  background: var(--color-hero-search-btn);
+  box-shadow: 0px 0px 4px rgba(84, 160, 237, 0.5);
+  border-radius: 15px;
+  border: none;
+  color: #ffffff;
+  font-family: var(--font-family-logo);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.heroSearchBtn:hover {
+  opacity: 0.9;
+}
+
+/* Right illustration */
+.heroIllust {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroIllustImg {
+  width: 549px;
+  height: 549px;
+  object-fit: contain;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .hero {
+    padding: 40px 28px 48px;
   }
 
-  .keywordCard {
+  .heroInner {
+    gap: 60px;
+  }
+
+  .heroIllustImg {
+    width: 380px;
+    height: 380px;
+  }
+}
+
+@media (max-width: 900px) {
+  .heroInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .heroContent {
     width: 100%;
+  }
+
+  .heroSearch {
+    width: 100%;
+  }
+
+  .heroSearchInput {
+    width: 100%;
+  }
+
+  .heroIllust {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .heroIllustImg {
+    width: min(400px, 100%);
+    height: auto;
   }
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding: 28px 16px;
+    padding: 32px 16px 40px;
   }
 
-  .heroCard {
-    padding: 24px;
+  .heroTitle {
+    font-size: 28px;
   }
 
-  .heroCard h1 {
-    font-size: 26px;
-  }
-
-  .heroSearch {
-    flex-direction: column;
+  .heroTitleAccent {
+    font-size: 28px;
   }
 }

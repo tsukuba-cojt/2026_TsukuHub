@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createClient, type User } from "@supabase/supabase-js";
+import Header from "../components/utility/Header";
 import Globalnav from "../components/utility/Globalnav";
 import Hero from "../components/home/Hero";
 import CategorySection from "../components/home/CategorySection";
@@ -9,6 +10,8 @@ import LatestNewsSection from "../components/home/LatestNewSection";
 import RankingSection from "../components/home/RankingSection";
 import CtaSection from "../components/home/CtaSection";
 import CompanyScroll from "../components/home/CompanyScroll";
+import Footer from "../components/utility/Footer";
+import "../styles/home/Home.css";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -33,8 +36,8 @@ function Home() {
   }, []);
 
   return (
-    <div className="app">     
     <div className="homepage">
+      <Header />
       <Globalnav />
       <Hero />
       <CategorySection />
@@ -47,7 +50,8 @@ function Home() {
       </main>
 
       <CtaSection user={user} />
-    </div>
+      <CompanyScroll />
+      <Footer />
     </div>
   );
 }

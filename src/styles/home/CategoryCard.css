@@ -1,97 +1,131 @@
-/* Categories */
+/* Category cards — Figma node 1289:800  */
+
 .categorySection {
-  max-width: 1180px;
-  margin: -10px auto 0;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  background: white;
-  border-top: 1px solid #e5defc;
-  border-bottom: 1px solid #e5defc;
+  padding: 0 56px;
+  background: var(--color-bg-gradient);
 }
 
-/* ★ aタグ（ボタン）としての設定に変更 */
+.categorySectionInner {
+  max-width: 1327px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+/* Each card: 200x252, radius 19px */
 .categoryCard {
-  display: flex;             /* 中身を縦に綺麗に並べるため */
-  flex-direction: column;    /* 縦並びを指定 */
-  justify-content: space-between; /* 矢印を一番下に配置するため */
-  align-items: center;       /* 中央揃え */
-  min-height: 160px;
-  padding: 24px 16px 18px;
-  text-align: center;
-  border-right: 1px solid #eee9ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  height: 252px;
+  padding: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-card-cat);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
-  text-decoration: none;     /* リンクの下線を消す */
-  background: white;
-  cursor: pointer;           /* マウスカーソルを指マークにする */
-  transition: all 0.2s ease; /* ホバー時の動きを滑らかにする */
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
-/* ★ ホバー時の演出を、渡された変数（色）と連動させる */
 .categoryCard:hover {
-  /* 背景色を、渡された色の「透明度5%」にする（ほんのり色づく） */
-  background-color: color-mix(in srgb, var(--card-color) 5%, white); 
-  transform: translateY(-3px);
-  /* 影の色も、渡された色をベースにする */
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--card-color) 15%, transparent);
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 24px rgba(148, 172, 209, 0.4);
 }
 
-.categoryCard:last-child {
-  border-right: none;
-}
-
-/* ★ アイコン画像を調整するスタイル */
+/* Icon area: upper section ~35px from top */
 .categoryIcon {
-  width: 48px;               /* 画像の横幅（お好みで調整してください） */
-  height: 48px;              /* 画像の縦幅 */
-  object-fit: contain;       /* 縦横比を崩さずに枠に収める */
-  margin-bottom: 12px;
+  width: 72px;
+  height: 66px;
+  object-fit: contain;
+  margin-top: 35px;
+  flex-shrink: 0;
 }
 
-/* ★ タイトルの色を、TSXから受け取った変数にする */
+/* Category title: y=131 from card top */
 .categoryCard h3 {
-  margin: 0 0 8px;
-  color: var(--card-color); /* ← 元の固定色（#5c33c6）から変更 */
-  font-size: 15px;
+  margin: 0;
+  margin-top: auto;
+  padding-top: 30px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  /* gradient text applied via inline style class per card */
 }
 
+/* Description: y=162 */
 .categoryCard p {
   margin: 0;
-  color: #666;
-  font-size: 12px;
-  line-height: 1.6;
+  padding: 0 14px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 17px;
+  text-align: center;
+  color: var(--color-text-primary);
 }
 
-/* ★ 矢印の色も、TSXから受け取った変数にする */
-.arrow {
+/* Separator line at bottom */
+.categoryCard::after {
+  content: "";
   display: block;
-  margin-top: 12px;
-  color: var(--card-color); /* ← 元の固定色（#6a39d8）から変更 */
-  font-size: 24px;
-  transition: transform 0.2s ease;
+  width: 1px;
+  height: 0;
+  margin: auto auto 27px;
+  border-bottom: 1.7px solid var(--color-text-primary);
+  opacity: 0.15;
 }
 
-/* ★ ホバー時に矢印だけを少し右（または下）に動かす演出 */
-.categoryCard:hover .arrow {
-  transform: translateX(4px);
-}
+/* Gradient text per category */
+.catTextJob    { background: var(--color-category-job);    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextClass  { background: var(--color-category-class);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextClub   { background: var(--color-category-club);   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextLife   { background: var(--color-category-life);   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextEvent  { background: var(--color-category-event);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextGlobal { background: var(--color-category-global); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-/* --- レスポンシブ対応（ここは元のままでOKです） --- */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .categorySection {
-    grid-template-columns: repeat(3, 1fr);
+    padding: 0 28px;
+  }
+
+  .categorySectionInner {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
 @media (max-width: 640px) {
   .categorySection {
-    grid-template-columns: 1fr 1fr;
-    margin-left: 16px;
-    margin-right: 16px;
-    border-radius: 14px;
-    overflow: hidden;
+    padding: 0 16px;
   }
-  /* スマホの時は枠線がバッティングするので調整 */
+
+  .categorySectionInner {
+    gap: 12px;
+  }
+
   .categoryCard {
-    border-bottom: 1px solid #eee9ff;
+    width: calc(50% - 6px);
+    height: 200px;
+  }
+
+  .categoryIcon {
+    width: 52px;
+    height: 48px;
+    margin-top: 24px;
+  }
+
+  .categoryCard h3 {
+    font-size: 13px;
+    padding-top: 16px;
+  }
+
+  .categoryCard p {
+    font-size: 10px;
   }
 }

@@ -1,11 +1,13 @@
-/* CompanyScroll */
+/* CompanyScroll — Figma node 1245:896 (135px tall marquee) */
 .companyScroll {
   overflow: hidden;
   width: 100%;
   height: 135px;
   display: flex;
-  align-items: center;
-  margin-bottom: 0;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 35px;
+  background: var(--color-bg-gradient);
 }
 
 .companyScrollTrack {
@@ -18,7 +20,7 @@
 .companyScrollItem {
   display: inline-flex;
   align-items: center;
-  font-family: "LINE Seed JP", sans-serif;
+  font-family: var(--font-family-logo);
   font-weight: 800;
   font-size: 96px;
   color: rgba(255, 255, 255, 0.25);
@@ -35,10 +37,32 @@
 }
 
 @keyframes companyMarquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Logo placeholder strip below text */
+.companyLogoStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 27px;
+  padding: 16px 56px;
+}
+
+.companyLogoPlaceholder {
+  background: #D9D9D9;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.companyLogoPlaceholder.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.companyLogoPlaceholder.pill {
+  width: 80px;
+  height: 32px;
 }

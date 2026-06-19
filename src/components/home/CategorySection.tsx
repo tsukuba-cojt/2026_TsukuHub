@@ -1,69 +1,64 @@
+import { Link } from "react-router-dom";
 import "../../styles/home/CategoryCard.css";
-// もし React Router を使って画面遷移させる場合は、通常の <a> タグの代わりに <Link> を使うのがおすすめなのでインポートしておきます
-import { Link } from "react-router-dom"; 
 
 const categories = [
   {
     imageSrc: "/src/assets/CategoryCard/Bag.svg",
     title: "就活・キャリア",
-    text: "インターン・就職活動やキャリア支援をまとめて確認",
+    text: "インターン・就職活動や\nキャリア支援をまとめて確認",
     path: "/career",
-    color: "#7134FF",
+    textClass: "catTextJob",
   },
   {
     imageSrc: "/src/assets/CategoryCard/Book.svg",
     title: "授業・履修",
-    text: "授業の口コミや履修登録に役立つ情報",
+    text: "授業の口コミや\n履修登録情報はこちら",
     path: "/Class",
-    color: "#0F4FF1",
+    textClass: "catTextClass",
   },
   {
     imageSrc: "/src/assets/CategoryCard/People.svg",
     title: "サークル・課外活動",
-    text: "サークル・団体の情報や新歓情報",
+    text: "サークルや団体別の情報を\nジャンル別に検索",
     path: "/club",
-    color: "#17C88E",
+    textClass: "catTextClub",
   },
   {
-    imageSrc: "/src/assets/CategoryCard/eat.svg",
+    imageSrc: "/src/assets/CategoryCard/Eat.svg",
     title: "生活・便利情報",
-    text: "学食・住まい・交通などキャンパスライフに役立つ情報",
+    text: "学食・住まい・交通など\nキャンパスライフに役立つ情報",
     path: "/lifestyle",
-    color: "#FDC93C",
+    textClass: "catTextLife",
   },
   {
     imageSrc: "/src/assets/CategoryCard/Calendar.svg",
     title: "イベント・お知らせ",
-    text: "学内イベントや重要なお知らせを確認",
+    text: "学内イベントや学校からの\n最新情報をチェック",
     path: "/events",
-    color: "#FF5689",
+    textClass: "catTextEvent",
   },
   {
     imageSrc: "/src/assets/CategoryCard/Network.svg",
     title: "留学・国際交流",
-    text: "留学プログラムや国際交流情報",
+    text: "留学プログラムや\n国際交流の情報を掲載",
     path: "/global",
-    color: "#12EDFD",
+    textClass: "catTextGlobal",
   },
 ];
 
 function CategorySection() {
   return (
-    <section className="categorySection">
-      {categories.map((category) => (
-        <Link 
-          to={category.path} 
-          className="categoryCard" 
-          key={category.title}
-          style={{ "--card-color": category.color } as React.CSSProperties}
-        >
-          <img src={category.imageSrc} alt="" className="categoryIcon" />
-          <h3>{category.title}</h3>
-          <p>{category.text}</p>
-          <span className="arrow">›</span>
-        </Link>
-      ))}
-    </section>
+    <div className="categorySection">
+      <div className="categorySectionInner">
+        {categories.map((cat) => (
+          <Link to={cat.path} className="categoryCard" key={cat.title}>
+            <img src={cat.imageSrc} alt="" className="categoryIcon" />
+            <h3 className={cat.textClass}>{cat.title}</h3>
+            <p>{cat.text}</p>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }
 

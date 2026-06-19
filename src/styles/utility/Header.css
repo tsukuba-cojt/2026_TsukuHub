@@ -1,198 +1,214 @@
-/* CSS変数 */
-:root {
-  --header-bg: #eef5fc; /* 画像のような淡いブルーの背景 */
-  --text-main: #0a192f;
-  --text-sub: #55627a;
-  --primary-blue: #1e57e6;
-  --gradient-register: linear-gradient(135deg, #1e62e6, #793ce6);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(30, 87, 230, 0.15);
-}
-
+/* Header — Figma node 1219:1402 (BeforeLogin) */
 .main-header {
   width: 100%;
-  background: var(--header-bg);
-  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 16.2px 1px rgba(148, 172, 209, 0.25);
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header-container {
-  max-width: 1180px;
+  max-width: 1440px;
+  height: 96px;
   margin: 0 auto;
+  padding: 0 45px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
 
-/* --- 左側: ロゴ ＆ キャッチコピー --- */
+/* Logo area */
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  position: relative;
 }
 
 .logo-link {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 8px;
   text-decoration: none;
+  position: relative;
 }
 
 .logo-image {
-  height: 40px; /* 画像の縦幅に合わせて適宜調整してください */
-  width: auto;
+  width: 56px;
+  height: 79px;
+  object-fit: contain;
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
 }
 
 .logo-text {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text-main);
-  letter-spacing: -0.5px;
+  font-family: var(--font-family-logo);
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--color-text-primary);
+  line-height: 1;
+  text-shadow: 0px 0px 5.5px rgba(27, 73, 104, 0.1);
+  position: relative;
+}
+
+.logo-sparkle-blue {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  bottom: -17px;
+  left: 0;
+}
+
+.logo-sparkle-yellow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 0;
+  left: 195px;
 }
 
 .tagline {
-  font-size: 11px;
-  color: var(--text-sub);
-  margin-top: 8px;
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  margin-top: 4px;
 }
 
-/* --- 右側: 検索 ＆ ボタン --- */
+/* Right side */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-grow: 1;
-  justify-content: flex-end;
+  gap: 14px;
 }
 
-/* Google検索風 検索ボックス */
+/* Search box — 386x50, radius 10px */
 .search-form {
-  width: 100%;
-  max-width: 420px;
+  flex-shrink: 0;
 }
 
 .search-box-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 24px;
-  padding: 0 8px 0 20px; /* 右側の余白をボタンに合わせて微調整 */
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-}
-
-/* フォーカス時に枠とシャドウを動的に変化させる */
-.search-box-wrapper:focus-within {
-  border-color: rgba(30, 87, 230, 0.3);
-  box-shadow: var(--shadow-md);
+  width: 386px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 5px rgba(21, 120, 253, 0.1);
 }
 
 .search-input {
   width: 100%;
-  height: 44px;
+  height: 100%;
+  padding: 0 50px 0 18px;
   border: none;
   background: transparent;
   outline: none;
-  font-size: 14px;
-  color: var(--text-main);
+  font-family: var(--font-family-base);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-text-primary);
+  border-radius: 10px;
 }
 
 .search-input::placeholder {
-  color: #a0aec0;
+  color: #666666;
 }
 
 .search-button {
+  position: absolute;
+  right: 13px;
   background: none;
   border: none;
-  padding: 8px;
+  padding: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.1s ease;
 }
 
-.search-button:active {
-  transform: scale(0.9);
-}
-
-/* 虫眼鏡画像のスタイル調整 */
 .search-icon-image {
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
   object-fit: contain;
-  display: block;
 }
 
-/* --- ボタン群 --- */
+/* Auth buttons */
 .auth-buttons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 42px;
-  padding: 0 20px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 8px;
+  width: 117px;
+  height: 50px;
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 10px;
   text-decoration: none;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
-/* ログイン */
+.btn:hover {
+  opacity: 0.85;
+}
+
 .btn-login {
-  background: #ffffff;
-  color: var(--text-main);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-primary);
+  border: none;
+  box-shadow: 0px 0px 10px 3px rgba(21, 120, 253, 0.1);
 }
 
-.btn-login:hover {
-  background: #f7fafc;
-  transform: translateY(-1px);
-}
-
-/* 新規登録 */
 .btn-register {
-  background: var(--gradient-register);
+  background: var(--color-main-gradient);
   color: #ffffff;
   border: none;
-  box-shadow: 0 4px 12px rgba(30, 87, 230, 0.25);
+  box-shadow: 0px 0px 10px 3px rgba(21, 120, 253, 0.25);
 }
 
-.btn-register:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(30, 87, 230, 0.35);
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 0 24px;
+    height: auto;
+    min-height: 72px;
+  }
+
+  .search-box-wrapper {
+    width: 280px;
+  }
+
+  .logo-sparkle-yellow {
+    display: none;
+  }
 }
 
-/* --- レスポンシブ対応 --- */
 @media (max-width: 768px) {
   .tagline {
     display: none;
   }
-  
-  .header-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+
+  .search-box-wrapper {
+    width: 180px;
   }
-  
-  .header-right {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .search-form {
-    max-width: none;
-    flex-grow: 1;
+
+  .btn {
+    width: 90px;
+    font-size: 13px;
   }
 }

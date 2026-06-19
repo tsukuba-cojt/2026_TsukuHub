@@ -1,0 +1,174 @@
+/* Footer — Figma node 950:2844 */
+.footer {
+  background: var(--color-footer-bg);
+  padding: 35px 79px 28px;
+  margin-top: 35px;
+}
+
+.footerInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 420px 1fr 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Column 1: Logo */
+.footerLogo {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footerLogoTop {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  position: relative;
+}
+
+.footerLogoImg {
+  width: 56px;
+  height: 79px;
+  object-fit: contain;
+}
+
+.footerLogoTextGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.footerLogoText {
+  font-family: var(--font-family-logo);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--color-text-primary);
+  text-shadow: 0px 0px 5.5px rgba(27, 73, 104, 0.1);
+  line-height: 1;
+}
+
+.footerSparkleBlue {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  bottom: -2px;
+  left: 0;
+}
+
+.footerSparkleYellow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 0;
+  right: -12px;
+}
+
+.footerTagline {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  margin-top: 8px;
+}
+
+/* Columns 2-3: Service / Support links */
+.footerCol h3 {
+  margin: 0 0 16px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+}
+
+.footerLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footerLinks li a {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5em;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  display: block;
+  transition: color 0.15s;
+}
+
+.footerLinks li a:hover {
+  color: var(--color-primary);
+}
+
+/* Column 4: SNS */
+.footerSns h3 {
+  margin: 0 0 16px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+}
+
+.footerSnsIcons {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.footerSnsIcons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.footerSnsIcons a:hover {
+  opacity: 1;
+}
+
+.footerSnsIcons img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+@media (max-width: 1200px) {
+  .footer {
+    padding: 32px 40px 24px;
+  }
+
+  .footerInner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footerLogo {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 24px 16px 20px;
+  }
+
+  .footerInner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footerLogo {
+    grid-column: unset;
+  }
+}
