@@ -276,6 +276,12 @@ a {
   font-size: 15px;
 }
 
+.auth-error {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin: -0.25rem 0 0.5rem;
+}
+
 @media (max-width: 900px) {
   .auth-main {
     grid-template-columns: 1fr;
