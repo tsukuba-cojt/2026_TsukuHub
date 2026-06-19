@@ -1,3 +1,5 @@
+import "../../styles/home/RankingSection.css";
+
 const ranking = [
   "長期インターン",
   "履修登録",

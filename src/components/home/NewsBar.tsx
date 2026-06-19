@@ -1,3 +1,5 @@
+import "../../styles/home/NewsBar.css";
+
 function NewsBar() {
   return (
     <div className="newsBar">

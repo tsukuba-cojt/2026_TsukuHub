@@ -1,0 +1,47 @@
+/* Ranking */
+.rankingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rankingList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f0ebff;
+}
+
+.rankingList span {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f4f1ff;
+  color: #5c33c6;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.rankingList li:nth-child(1) span {
+  background: #ffdf6b;
+  color: #6b4d00;
+}
+
+.rankingList li:nth-child(2) span {
+  background: #d7dbe3;
+  color: #333;
+}
+
+.rankingList li:nth-child(3) span {
+  background: #f1b982;
+  color: #5a2c00;
+}
+
+.rankingList p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}

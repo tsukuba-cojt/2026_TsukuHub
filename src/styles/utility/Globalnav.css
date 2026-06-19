@@ -1,0 +1,115 @@
+/* ① ヘッダーの外枠（背景） */
+.globalHeader {
+  width: 100%;             /* 常に画面の横幅いっぱいに広げる */
+  background-color: #ebf3fe;
+  border-bottom: 1px solid #dbe6f5;
+}
+
+/* ② 中のナビゲーション（ボタンの並び） */
+.headerNav {
+  width: 100%;             /* ★ max-width を入れず、常に100%にする */
+  padding: 0 24px;         /* 左右に少しだけクッション用の余白を作る */
+  
+  display: flex;
+  justify-content: space-between; /* ボタンを端から端まで均等に綺麗に並べる */
+  align-items: center;
+}
+
+/* 各ボタン（リンク）のスタイル */
+.navLinkItem {
+  flex: 1;                 /* すべてのボタンの横幅を均等にする */
+  min-width: 0;
+  
+  display: flex;
+  /* ★ 縦並び(column)から、横並び(row)に変更します */
+  flex-direction: row;     
+  
+  /* ★ 上下左右の真ん中に要素を集める */
+  justify-content: center; 
+  align-items: center;     
+  
+  gap: 8px;                /* ★ アイコンと文字の間の隙間（お好みで調整） */
+  padding: 16px 4px;       /* 上下の押しやすさの余白 */
+  
+  color: #1a2a4a;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+/* アイコン画像のサイズ微調整 */
+.navIcon {
+  width: 18px;             /* アイコンの大きさを文字に合わせる */
+  height: 18px;
+  object-fit: contain;
+  transition: filter 0.2s ease;
+  
+  /* ★ アイコンが文字より少し上に浮き気味に見える場合、
+     1〜2px下に下げる微調整（フォントの種類によって調整してください） */
+  margin-top: 1px; 
+}
+
+.navLinkItem.active .navIcon,
+.navLinkItem:hover .navIcon {
+  /* 黒系統の画像を鮮やかな青色に変える魔法の数値（必要に応じて調整してください） */
+  filter: invert(44%) sepia(91%) saturate(1243%) hue-rotate(202deg) brightness(100%) contrast(93%);
+}
+
+/* マウスを乗せたとき（Hover）の文字色変更 */
+.navLinkItem:hover {
+  color: #3b82f6; /* 青色に変える */
+}
+
+/* ★ 現在地（Active）およびホバー時に下に出る青い線の設定 */
+.navLinkItem::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* 一番下に配置 */
+  left: 0;
+  width: 100%;
+  height: 3px; /* 線の太さ */
+  background-color: #3b82f6; /* 青い線の色 */
+  transform: scaleX(0); /* 通常時は線を非表示(幅0)に */
+  transition: transform 0.2s ease;
+}
+
+/* ★ React Routerが自動付与する .active クラスがついた時、またはホバー時に線を表示 */
+.navLinkItem.active,
+.navLinkItem:hover::after {
+  transform: scaleX(1); /* 線をニュッと表示させる */
+}
+
+/* ★ 現在地（Active）の時は文字色も青で固定する */
+.navLinkItem.active {
+  color: #3b82f6;
+}
+
+/* 画面幅が 1024px 以下になったら適用するルール */
+@media (max-width: 1024px) {
+  .navLinkItem {
+    font-size: 9px; /* 文字を少し小さくして1行に収める */
+    gap: 2px;
+  }
+  .navIconImg {
+    width: 16px;     /* アイコンも一回り小さく */
+    height: 16px;
+  }
+}
+
+/* スマホサイズ（640px以下）になったら、はみ出た分を横スクロールさせる場合 */
+@media (max-width: 640px) {
+  .headerNav {
+    justify-content: flex-start; /* 左詰めに変更 */
+    overflow-x: auto;            /* ★ 横スクロールを許可 */
+    white-space: nowrap;         /* ボタン内の文字の改行を防ぐ */
+    padding-bottom: 8px;         /* スクロールバー用の微調整 */
+  }
+  .navLinkItem {
+    flex: shrink;                /* ボタンを無理に縮めず、本来のサイズを維持 */
+    min-width: 80px;             /* 最低限の幅を確保 */
+  }
+}
+

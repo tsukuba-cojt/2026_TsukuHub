@@ -1,3 +1,5 @@
+import "../../styles/home/Hero.css";
+
 const keywords = [
   "長期インターン",
   "インターンシップ",

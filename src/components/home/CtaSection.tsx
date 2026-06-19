@@ -1,3 +1,5 @@
+import "../../styles/home/CtaSection.css";
+
 function CtaSection() {
   return (
     <section className="ctaSection">

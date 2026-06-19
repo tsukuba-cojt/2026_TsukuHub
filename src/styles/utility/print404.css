@@ -1,0 +1,108 @@
+:root {
+  --notfound-bg: #f8fafc;
+  --text-dark: #0a192f;
+  --text-muted: #64748b;
+  --primary-blue: #1e57e6;
+  --primary-hover: #1646c1;
+}
+
+/* 画面全体を覆うラッパー（縦横中央寄せ） */
+.not-found-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px); /* ヘッダーの高さ分を引いて画面いっぱいに広げる */
+  background: var(--notfound-bg);
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+/* コンテンツのコンテナ */
+.not-found-container {
+  text-align: center;
+  max-width: 560px;
+  width: 100%;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* ビジュアル部分 */
+.not-found-visual {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.not-found-image {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.not-found-code {
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--primary-blue);
+  margin: 0;
+  letter-spacing: -2px;
+  /* ほんのりグラデーションにする場合 */
+  background: linear-gradient(135deg, #1e57e6, #793ce6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* テキスト部分 */
+.not-found-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 16px 0;
+}
+
+.not-found-message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 32px 0;
+}
+
+/* ボタンのスタイリング */
+.btn-home-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--primary-blue);
+  border-radius: 24px; /* 丸みのあるクリーンなボタン */
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(30, 87, 230, 0.25);
+  transition: all 0.25s ease;
+}
+
+/* ホバー時の浮き上がるアニメーション */
+.btn-home-back:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 87, 230, 0.35);
+}
+
+.btn-home-back:active {
+  transform: translateY(-0px);
+}
+
+/* ふんわり表示させるアニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
