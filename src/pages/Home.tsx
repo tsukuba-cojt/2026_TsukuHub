@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { createClient, type User } from "@supabase/supabase-js";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import CategorySection from "../components/CategoryCard";
-import NewsBar from "../components/NewsBar";
-import TopicSection from "../components/TopicSection";
-import LatestNewsSection from "../components/LatestNewSection";
-import RankingSection from "../components/RankingSection";
-import CtaSection from "../components/CtaSection";
-import "../styles/App.css";
+import Globalnav from "../components/utility/Globalnav";
+import Hero from "../components/home/Hero";
+import CategorySection from "../components/home/CategorySection";
+import NewsBar from "../components/home/NewsBar";
+import TopicSection from "../components/home/TopicSection";
+import LatestNewsSection from "../components/home/LatestNewSection";
+import RankingSection from "../components/home/RankingSection";
+import CtaSection from "../components/home/CtaSection";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -32,25 +31,22 @@ function Home() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-  };
-
   return (
-    <div className="app">
-      <Header user={user} onLogout={handleLogout} />
+    <div className="app">     
+    <div className="homepage">
+      <Globalnav />
       <Hero />
       <CategorySection />
       <NewsBar />
 
-      <main className="mainLayout">
+      <main className="homepageLayout">
         <TopicSection />
         <LatestNewsSection />
         <RankingSection />
       </main>
 
       <CtaSection user={user} />
+    </div>
     </div>
   );
 }

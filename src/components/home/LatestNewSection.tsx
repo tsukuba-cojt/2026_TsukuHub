@@ -1,3 +1,5 @@
+import "../../styles/home/LatestNewSection.css";
+
 const latestNews = [
   {
     tag: "就活・キャリア",

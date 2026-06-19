@@ -1,12 +1,13 @@
 import { type User } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
+import "../../styles/home/CtaSection.css";
 
 type Props = {
   user: User | null;
 };
 
 function CtaSection({ user }: Props) {
-  if(user) return ;
+  if(user) return ;  
   return (
     <section className="ctaSection">
       <div className="ctaImage">

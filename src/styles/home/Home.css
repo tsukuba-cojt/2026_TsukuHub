@@ -1,0 +1,42 @@
+.app {
+  min-height: 100vh;
+}
+
+/* Main layout */
+.mainLayout {
+  max-width: 1180px;
+  margin: 0 auto 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 1.5fr 0.9fr;
+  gap: 18px;
+}
+
+.panel {
+  background: white;
+  border: 1px solid #e5defc;
+  border-radius: 14px;
+  padding: 18px;
+  min-height: 360px;
+}
+
+.panelTitle h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+}
+
+.panelLink {
+  display: block;
+  margin-top: 16px;
+  text-align: right;
+  color: #6a39d8;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+}
