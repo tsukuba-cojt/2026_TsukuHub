@@ -6,6 +6,7 @@ import TopicSection from "../components/home/TopicSection";
 import LatestNewsSection from "../components/home/LatestNewSection";
 import RankingSection from "../components/home/RankingSection";
 import CtaSection from "../components/home/CtaSection";
+import CompanyScroll from "../components/home/CompanyScroll";
 
 function Home() {
   return (
@@ -22,6 +23,7 @@ function Home() {
       </main>
 
       <CtaSection />
+      <CompanyScroll />
     </div>
   );
 }

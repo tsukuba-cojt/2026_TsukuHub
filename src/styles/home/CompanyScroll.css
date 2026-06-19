@@ -1,0 +1,44 @@
+/* CompanyScroll */
+.companyScroll {
+  overflow: hidden;
+  width: 100%;
+  height: 135px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.companyScrollTrack {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: companyMarquee 18s linear infinite;
+}
+
+.companyScrollItem {
+  display: inline-flex;
+  align-items: center;
+  font-family: "LINE Seed JP", sans-serif;
+  font-weight: 800;
+  font-size: 96px;
+  color: rgba(255, 255, 255, 0.25);
+  padding-right: 40px;
+}
+
+.companyScrollDivider {
+  display: inline-block;
+  width: 3px;
+  height: 96px;
+  background: rgba(255, 255, 255, 0.25);
+  margin-right: 40px;
+  flex-shrink: 0;
+}
+
+@keyframes companyMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
