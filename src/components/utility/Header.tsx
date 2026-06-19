@@ -57,7 +57,7 @@ export default function Header() {
           {/* ボタン類 */}
           <div className="auth-buttons">
             <Link to="/login" className="btn btn-login">ログイン</Link>
-            <Link to="/register" className="btn btn-register">新規登録</Link>
+            <Link to="/signup" className="btn btn-register">新規登録</Link>
           </div>
         </div>
 
