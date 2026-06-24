@@ -1,61 +1,87 @@
+import { useState } from "react";
 import "../../styles/home/LatestNewSection.css";
+
+type Category = "all" | "job" | "class" | "event" | "life";
+
+const tabs: { key: Category; label: string }[] = [
+  { key: "all", label: "すべて" },
+  { key: "job", label: "就活・キャリア" },
+  { key: "class", label: "授業・履修" },
+  { key: "event", label: "イベント" },
+  { key: "life", label: "生活・便利情報" },
+];
 
 const latestNews = [
   {
+    category: "job" as Category,
     tag: "就活・キャリア",
-    title: "【新規掲載】大手IT企業 サマーインターン募集開始！",
-    date: "2024/05/20",
+    tagClass: "tagJob",
+    title: "【締切間近】大手IT企業 サマーインターン募集開始！",
+    date: "2026/05/12",
   },
   {
+    category: "event" as Category,
     tag: "イベント",
-    title: "5/25（土）業界研究セミナー開催のお知らせ",
-    date: "2024/05/19",
+    tagClass: "tagEvent",
+    title: "中高生合同　交流会のお知らせ",
+    date: "2026/05/11",
   },
   {
-    tag: "授業・履修",
-    title: "「機械学習入門」の資料・過去問を追加しました",
-    date: "2024/05/19",
-  },
-  {
+    category: "event" as Category,
     tag: "サークル・課外活動",
-    title: "軽音楽部5ライブ開催決定！",
-    date: "2024/05/18",
+    tagClass: "tagClub",
+    title: "軽音サークルライブ開催決定！",
+    date: "2026/05/11",
   },
   {
-    tag: "生活・便利情報",
-    title: "学食の新メニュー情報（5月版）",
-    date: "2024/05/18",
+    category: "class" as Category,
+    tag: "授業・履修",
+    tagClass: "tagClass",
+    title: "「統計学入門」の資料を追加しました",
+    date: "2026/05/09",
   },
 ];
 
 function LatestNewsSection() {
+  const [activeTab, setActiveTab] = useState<Category>("all");
+
+  const filtered =
+    activeTab === "all"
+      ? latestNews
+      : latestNews.filter((n) => n.category === activeTab);
+
   return (
     <section className="panel latestPanel">
       <div className="panelTitle">
-        <h2>🔔 新着情報</h2>
+        {/* icon-bell.svg — replace when asset arrives */}
+        <img src="/src/assets/home/LatestNewSection/icon-bell.svg" alt="" />
+        <h2>新着情報</h2>
       </div>
 
       <div className="tabList">
-        <button className="active">すべて</button>
-        <button>就活・キャリア</button>
-        <button>授業・履修</button>
-        <button>イベント</button>
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            className={activeTab === tab.key ? "active" : ""}
+            onClick={() => setActiveTab(tab.key)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       <div className="latestList">
-        {latestNews.map((news) => (
+        {filtered.map((news) => (
           <article className="latestItem" key={news.title}>
-            <div>
-              <span className="latestTag">{news.tag}</span>
-              <h3>{news.title}</h3>
-            </div>
+            <span className={`latestTag ${news.tagClass}`}>{news.tag}</span>
+            <h3>{news.title}</h3>
             <time>{news.date}</time>
           </article>
         ))}
       </div>
 
       <a className="panelLink" href="#">
-        新着情報一覧へ ›
+        新着情報一覧へ
       </a>
     </section>
   );

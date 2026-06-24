@@ -1,48 +1,56 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home/Hero.css";
 
-const keywords = [
-  "長期インターン",
-  "インターンシップ",
-  "就活準備",
-  "履修登録",
-  "新歓情報",
-  "おすすめ授業",
-  "学食",
-  "一人暮らし",
-  "留学",
-  "ボランティア",
-];
-
 function Hero() {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+  };
+
   return (
     <section className="hero">
-      <div className="heroOverlay">
-        <div className="heroCard">
-          <h1>
-            筑波大生の「知りたい」が、
+      <div className="heroInner">
+        <div className="heroContent">
+          <h1 className="heroTitle">
+            筑波大生の「
+            <span className="heroTitleAccent">知りたい</span>
+            」が、
             <br />
             ここに全部ある。
           </h1>
 
-          <p>
-            授業、サークル、就活、生活情報まで。
+          <p className="heroDescription">
+            授業、サークル、就活、生活情報まで、
             <br />
-            筑波大学生に必要な情報をまとめて見つけよう。
+            筑波大生に必要な情報をまとめて見つけよう。
           </p>
 
           <div className="heroSearch">
-            <input type="text" placeholder="気になる情報を検索してみよう！" />
-            <button>検索</button>
+            <form onSubmit={handleSearchSubmit} className="heroSearchForm">
+              <input
+                className="heroSearchInput"
+                type="text"
+                placeholder="気になる情報を検索してみよう！"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <button type="submit" className="heroSearchBtn">検索</button>
+            </form>
           </div>
         </div>
 
-        <div className="keywordCard">
-          <h2>🔥 いま注目のキーワード</h2>
-          <div className="keywordList">
-            {keywords.map((keyword) => (
-              <span key={keyword}>{keyword}</span>
-            ))}
-          </div>
+        {/* Right: hero-illustration.svg — replace when asset arrives */}
+        <div className="heroIllust">
+          <img
+            src="/src/assets/home/Hero/hero-illustration.svg"
+            alt=""
+            className="heroIllustImg"
+          />
         </div>
       </div>
     </section>

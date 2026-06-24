@@ -1,42 +1,87 @@
-.app {
+/* Home page layout */
+.homepage {
+  background: var(--color-bg-gradient);
   min-height: 100vh;
 }
 
-/* Main layout */
-.mainLayout {
-  max-width: 1180px;
-  margin: 0 auto 24px;
+/* 3-column panel layout — Figma node 1290:909 */
+.homepageLayout {
+  max-width: 1327px;
+  margin: 0 auto;
+  padding: 35px 56px 0;
   display: grid;
-  grid-template-columns: 1.1fr 1.5fr 0.9fr;
-  gap: 18px;
+  grid-template-columns: 351px 1fr 259px;
+  gap: 24px;
+  align-items: start;
 }
 
+/* Panel base — shared by all 3 panels */
 .panel {
-  background: white;
-  border: 1px solid #e5defc;
-  border-radius: 14px;
-  padding: 18px;
-  min-height: 360px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card);
+  padding: 20px 28px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel heading row */
+.panelTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.panelTitle img {
+  width: 24px;
+  height: auto;
+  flex-shrink: 0;
 }
 
 .panelTitle h2 {
-  margin: 0 0 16px;
-  font-size: 18px;
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
 }
 
+/* Gradient link at bottom */
 .panelLink {
   display: block;
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 20px;
   text-align: right;
-  color: #6a39d8;
-  font-weight: 800;
-  font-size: 13px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  background: var(--color-link-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .mainLayout {
+@media (max-width: 1200px) {
+  .homepageLayout {
+    padding: 24px 28px 0;
+    grid-template-columns: 1fr 1.8fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .homepageLayout {
     grid-template-columns: 1fr;
-    padding: 0 16px;
+    padding: 24px 16px 0;
+    gap: 16px;
+  }
+
+  .panel {
+    min-height: unset;
   }
 }
