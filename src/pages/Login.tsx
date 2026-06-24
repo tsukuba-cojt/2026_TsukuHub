@@ -2,7 +2,7 @@ import "../styles/Auth.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
-import Header from "../components/utility/Header";
+
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -105,7 +105,6 @@ export default function Login() {
 
   return (
     <div className="auth-page">
-      <Header />
 
       <main className="login-main">
         <h1 className="login-title">ログイン</h1>
