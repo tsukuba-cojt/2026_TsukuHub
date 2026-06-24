@@ -2,30 +2,13 @@ import "../styles/Auth.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
-import SignupStepper from "../components/SignupStepper";
+import SignupStepper from "../components/auth/SignupStepper";
+import { MailIcon, LockIcon } from "../components/auth/AuthIcons";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
-
-function MailIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <polyline points="2,4 12,13 22,4" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
-  );
-}
 
 function EyeIcon() {
   return (
@@ -387,7 +370,7 @@ export default function Signup() {
             <div className="step3-content">
               <h2 className="step3-heading">ご登録ありがとうございます！</h2>
               <div className="step3-mail-icon">
-                <MailIcon size={56} />
+                <MailIcon width={56} height={44} color="#1e57e6" />
               </div>
               <p className="step3-body">
                 入力いただいたメールアドレスに確認メールをお送りしました<br />

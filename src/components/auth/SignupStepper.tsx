@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Auth.css";
+import "../../styles/Auth.css";
 
 interface StepperProps {
   currentStep: number;
