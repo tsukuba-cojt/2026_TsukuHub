@@ -1,69 +1,118 @@
-/* RankingSection — Figma "Famous Word" panel (259x420) */
+/* =========================================
+   RankingSection.css
+========================================= */
 
-/* Rank list — column gap 9px */
-.rankingList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* ① パネル全体 */
+.rankingPanel {
+  width: 300px; /* 既存の指定があればそちらを優先 */
+  height: 100%; /* 親の高さに追従 */
   display: flex;
   flex-direction: column;
-  gap: 9px;
-  flex: 1;
+
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 16px rgba(148, 172, 209, 0.2);
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-.rankingList li {
+/* パネルタイトル（共通） */
+.panelTitle {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 20px;
 }
 
-/* Badge — ranks 1-3: 30x30 circle with crown icon */
+.panelTitle img {
+  width: 24px;
+  height: 24px;
+}
+
+.panelTitle h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0a192f;
+}
+
+/* ② ランキングリスト（ここで余白を吸収） */
+.rankingList {
+  flex-grow: 1; /* パネルが伸びた分のスペースを吸収 */
+  
+  margin: 0;
+  padding: 0;
+  list-style: none; /* デフォルトの数字を消す */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* 個別のリストアイテム */
+.rankingList li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 順位バッジのコンテナ */
 .rankBadge {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 14px;
   flex-shrink: 0;
-  position: relative;
 }
 
-.rankBadge.gold   { background: var(--color-rank-gold); }
-.rankBadge.silver { background: var(--color-rank-silver); }
-.rankBadge.bronze { background: var(--color-rank-bronze); }
-.rankBadge.normal { background: var(--color-rank-neutral); width: 25px; height: 25px; }
+/* Top3とそれ以外のバッジ装飾 */
+.rankBadge.gold   { background: linear-gradient(135deg, #ffd700, #daa520); color: #fff; }
+.rankBadge.silver { background: linear-gradient(135deg, #e0e0e0, #9e9e9e); color: #fff; }
+.rankBadge.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); color: #fff; }
+.rankBadge.normal { background: #f1f5f9; color: #64748b; }
 
-/* Crown icon for 1-3 */
 .rankCrownImg {
-  width: 29.5px;
-  height: 23px;
-  object-fit: contain;
   position: absolute;
+  top: -12px;
+  left: -6px;
+  width: 20px;
+  height: auto;
 }
 
-/* Number inside badge */
-.rankNum {
-  font-family: var(--font-family-base);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  text-shadow: 0px 0px 4px rgba(148, 172, 209, 0.5);
-  position: relative;
-  z-index: 1;
-  line-height: 1;
-}
-
-.rankNum.top3  { font-size: 10px; }
-.rankNum.other { font-size: 13px; color: var(--color-text-primary); text-shadow: none; }
-
-/* Keyword text */
-.rankingList p {
+/* キーワードテキスト */
+.rankKeywordTop {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0a192f;
   margin: 0;
-  font-family: var(--font-family-base);
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
 }
 
-.rankKeywordTop { font-weight: 700; font-size: 14px; }
-.rankKeywordOther { font-weight: 500; font-size: 14px; }
+.rankKeywordOther {
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  margin: 0;
+}
+
+/* ③ パネル下部のリンク */
+.panelLink {
+  margin-top: auto; /* 一番下に押し下げる */
+  padding-top: 20px;
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e57e6;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.panelLink:hover {
+  color: #1646c1;
+  text-decoration: underline;
+}

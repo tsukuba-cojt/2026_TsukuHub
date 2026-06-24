@@ -54,7 +54,7 @@ function LatestNewsSection() {
     <section className="panel latestPanel">
       <div className="panelTitle">
         {/* icon-bell.svg — replace when asset arrives */}
-        <img src="/src/assets/icon-bell.svg" alt="" />
+        <img src="/src/assets/home/LatestNewSection/icon-bell.svg" alt="" />
         <h2>新着情報</h2>
       </div>
 

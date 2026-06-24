@@ -1,106 +1,138 @@
-/* LatestNewSection — Figma "New" panel (657x420) */
+/* =========================================
+   LatestNewSection.css
+========================================= */
 
-/* Tab row */
+/* ① パネル全体 */
+.latestPanel {
+  width: 600px; /* 真ん中のパネルなので少し広めに設定（既存の指定があればそちらを優先） */
+  height: 100%; /* 親の高さに追従 */
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 16px rgba(148, 172, 209, 0.2);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* パネルタイトル（共通） */
+/* ※共通クラスとして別ファイルに切り出してもOKです */
+.panelTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.panelTitle img {
+  width: 24px;
+  height: 24px;
+}
+
+.panelTitle h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0a192f;
+}
+
+/* タブ切り替えボタン群 */
 .tabList {
   display: flex;
-  align-items: baseline;
-  gap: 24px;
-  margin-bottom: 0;
-  position: relative;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .tabList button {
+  background: #f1f5f9;
   border: none;
-  background: none;
-  padding: 0;
-  font-family: var(--font-family-base);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: -0.02em;
-  color: var(--color-text-secondary);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
   cursor: pointer;
-  position: relative;
-  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.tabList button:hover {
+  background: #e2e8f0;
 }
 
 .tabList button.active {
-  background: var(--color-link-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: #1e57e6;
+  color: #ffffff;
 }
 
-.tabList button.active::after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--color-link-gradient);
-  border-radius: 2px;
-}
-
-/* News list — column gap 28px */
+/* ② 新着情報リスト（ここで余白を吸収） */
 .latestList {
+  flex-grow: 1; /* パネルが伸びた分のスペースを吸収 */
+  
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  margin-top: 20px;
-  flex: 1;
+  gap: 16px;
+  overflow-y: auto;
 }
 
-/* Each news row */
+/* 個別のニュースアイテム */
 .latestItem {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-/* Label badge */
+.latestItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* タグの装飾（TopicSectionのタグと共通化しても綺麗です） */
 .latestTag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 5px;
-  border-radius: 3px;
-  font-family: var(--font-family-base);
-  font-weight: 700;
-  font-size: 7px;
-  letter-spacing: -0.02em;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
   color: #ffffff;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
+.tagJob   { background: linear-gradient(135deg, #1e62e6, #793ce6); }
+.tagClass { background: linear-gradient(135deg, #10b981, #059669); }
+.tagEvent { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+.tagClub  { background: linear-gradient(135deg, #f59e0b, #d97706); }
 
-.latestTag.tagJob   { background: var(--color-label-job); }
-.latestTag.tagClass { background: var(--color-label-class); }
-.latestTag.tagClub  { background: var(--color-label-club); }
-.latestTag.tagLife  { background: var(--color-label-life); }
-.latestTag.tagEvent { background: var(--color-label-event); }
-
-/* Title */
 .latestItem h3 {
   margin: 0;
-  font-family: var(--font-family-base);
+  font-size: 14px;
   font-weight: 700;
-  font-size: 15px;
-  line-height: 15px;
-  color: var(--color-text-primary);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  line-height: 1.5;
+  color: #0a192f;
 }
 
-/* Date */
 .latestItem time {
-  font-family: var(--font-family-base);
-  font-weight: 500;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* ③ パネル下部のリンク */
+.panelLink {
+  margin-top: auto; /* 一番下に押し下げる */
+  padding-top: 20px;
+  text-align: center;
+  display: block;
   font-size: 14px;
-  line-height: 15px;
-  color: var(--color-text-secondary);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-weight: 600;
+  color: #1e57e6;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.panelLink:hover {
+  color: #1646c1;
+  text-decoration: underline;
 }

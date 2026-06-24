@@ -1,8 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home/Hero.css";
 
 function Hero() {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+  };
 
   return (
     <section className="hero">
@@ -23,21 +31,23 @@ function Hero() {
           </p>
 
           <div className="heroSearch">
-            <input
-              className="heroSearchInput"
-              type="text"
-              placeholder="気になる情報を検索してみよう！"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button className="heroSearchBtn">検索</button>
+            <form onSubmit={handleSearchSubmit} className="heroSearchForm">
+              <input
+                className="heroSearchInput"
+                type="text"
+                placeholder="気になる情報を検索してみよう！"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <button type="submit" className="heroSearchBtn">検索</button>
+            </form>
           </div>
         </div>
 
         {/* Right: hero-illustration.svg — replace when asset arrives */}
         <div className="heroIllust">
           <img
-            src="/src/assets/hero-illustration.svg"
+            src="/src/assets/home/Hero/hero-illustration.svg"
             alt=""
             className="heroIllustImg"
           />

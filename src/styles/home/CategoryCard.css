@@ -1,25 +1,28 @@
 /* Category cards — Figma node 1289:800  */
 
 .categorySection {
-  padding: 0 56px;
+  padding: 0 24px;
   background: var(--color-bg-gradient);
 }
 
+/* カードを囲むコンテナの調整 */
 .categorySectionInner {
-  max-width: 1327px;
+  max-width: 1250px;
   margin: 0 auto;
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
 }
 
-/* Each card: 200x252, radius 19px */
+/* Each card: 180x240, radius 19px */
+/* カード単体のサイズ調整 */
 .categoryCard {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px;
-  height: 252px;
+  width: 180px;
+  height: 240px;
   padding: 0;
   background: var(--color-surface);
   border-radius: var(--radius-card-cat);
@@ -29,7 +32,7 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
   overflow: hidden;
-  flex-shrink: 0;
+  /* flex-shrink: 0; は削除するか、wrapを設定したためそのままでもOKです */
 }
 
 .categoryCard:hover {
@@ -39,10 +42,10 @@
 
 /* Icon area: upper section ~35px from top */
 .categoryIcon {
-  width: 72px;
-  height: 66px;
+  width: 64px;
+  height: 60px;
   object-fit: contain;
-  margin-top: 35px;
+  margin-top: 30px;
   flex-shrink: 0;
 }
 
@@ -89,9 +92,9 @@
 .catTextEvent  { background: var(--color-category-event);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .catTextGlobal { background: var(--color-category-global); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .categorySection {
-    padding: 0 28px;
+    padding: 0 24px;
   }
 
   .categorySectionInner {

@@ -13,9 +13,9 @@ const ranking = [
 ];
 
 const crownSrc: Record<number, string> = {
-  1: "/src/assets/icon-rank-gold.svg",
-  2: "/src/assets/icon-rank-silver.svg",
-  3: "/src/assets/icon-rank-bronze.svg",
+  1: "/src/assets/home/RankingSection/icon-rank-gold.svg",
+  2: "/src/assets/home/RankingSection/icon-rank-silver.svg",
+  3: "/src/assets/home/RankingSection/icon-rank-bronze.svg",
 };
 
 const badgeClass: Record<number, string> = {
@@ -29,7 +29,7 @@ function RankingSection() {
     <section className="panel rankingPanel">
       <div className="panelTitle">
         {/* icon-trending.svg — replace when asset arrives */}
-        <img src="/src/assets/icon-trending.svg" alt="" />
+        <img src="/src/assets/home/RankingSection/icon-trending.svg" alt="" />
         <h2>人気の検索ワード</h2>
       </div>
 

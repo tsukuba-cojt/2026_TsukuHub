@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { createClient, type User } from "@supabase/supabase-js";
-import Header from "../components/utility/Header";
 import Globalnav from "../components/utility/Globalnav";
 import Hero from "../components/home/Hero";
 import CategorySection from "../components/home/CategorySection";
@@ -37,13 +36,21 @@ function Home() {
 
   return (
     <div className="homepage">
-      <Header />
       <Globalnav />
       <Hero />
       <CategorySection />
       <NewsBar />
 
-      <main className="homepageLayout">
+      <main 
+        className="homepageLayout" 
+        style={{ 
+          height: '500px',          /* ① 高さをここで決める（minHeightでも可） */
+          width: '100%',            /* ① 横幅をここで決める（minWidthでも可） */
+          display: 'flex',          /* ② Flexboxを有効にする */
+          justifyContent: 'center', /* ③ 横並びにした要素全体を「中央揃え」にする */
+          gap: '24px'               /* ④ コンポーネント間の隙間（お好みの数値に） */
+        }}
+      >
         <TopicSection />
         <LatestNewsSection />
         <RankingSection />

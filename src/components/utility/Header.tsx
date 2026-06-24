@@ -18,7 +18,7 @@ export default function Header() {
         <div className="header-left">
           <Link to="/" className="logo-link">
             <img
-              src="/src/assets/header/Property 1=Blue.svg"
+              src="/src/assets/utility/header_footer/Property 1=Blue.svg"
               alt="TsukuHub Logo"
               className="logo-image"
             />
@@ -27,7 +27,7 @@ export default function Header() {
                 TsukuHub
                 {/* Sparkle yellow — icon-sparkle.svg arrives later */}
                 <img
-                  src="/src/assets/icon-sparkle.svg"
+                  src="/src/assets/utility/header_footer/icon-sparkle.svg"
                   alt=""
                   className="logo-sparkle-yellow"
                   aria-hidden="true"
@@ -36,7 +36,7 @@ export default function Header() {
               <span className="tagline">筑波大生のためのキャンパス情報ポータル</span>
               {/* Sparkle blue */}
               <img
-                src="/src/assets/icon-sparkle.svg"
+                src="/src/assets/utility/header_footer/icon-sparkle.svg"
                 alt=""
                 className="logo-sparkle-blue"
                 aria-hidden="true"
@@ -57,7 +57,7 @@ export default function Header() {
               />
               <button type="submit" className="search-button" aria-label="検索">
                 <img
-                  src="/src/assets/header/Search.svg"
+                  src="/src/assets/utility/header_footer/Search.svg"
                   alt=""
                   className="search-icon-image"
                 />
