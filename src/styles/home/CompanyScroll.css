@@ -1,0 +1,51 @@
+/* CompanyScroll — Figma node 1245:896 (135px tall marquee) */
+.companyScroll {
+  overflow: hidden;
+  width: 100%;
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 35px;
+  background: var(--color-bg-gradient);
+}
+
+.companyScrollTrack {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: companyMarquee 18s linear infinite;
+}
+
+.companyScrollItem {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-family-logo);
+  font-weight: 800;
+  font-size: 96px;
+  color: rgba(255, 255, 255, 0.25);
+  padding-right: 40px;
+}
+
+.companyScrollDivider {
+  display: inline-block;
+  width: 3px;
+  height: 96px;
+  background: rgba(255, 255, 255, 0.25);
+  margin-right: 40px;
+  flex-shrink: 0;
+}
+
+@keyframes companyMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Logo placeholder strip below text */
+.companyLogoStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 27px;
+  padding: 16px 56px;
+}

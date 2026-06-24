@@ -1,9 +1,15 @@
 /* ① ヘッダーの外枠（背景） */
 .globalHeader {
   width: 100%;             /* 常に画面の横幅いっぱいに広げる */
-  background-color: #ebf3fe;
-  border-bottom: 1px solid #dbe6f5;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 16.2px 1px rgba(148, 172, 209, 0.25);
+  box-sizing: border-box;
+  position: sticky;
+  top: 96px;                  /* ヘッダーの高さ分だけ下にずらす */
+  z-index: 100;
 }
+
+
 
 /* ② 中のナビゲーション（ボタンの並び） */
 .headerNav {
