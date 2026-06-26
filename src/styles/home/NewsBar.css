@@ -7,7 +7,7 @@
 .newsBar {
   max-width: 1327px;
   margin: 0 auto;
-  height: 73px;
+  height: 50px;
   display: flex;
   align-items: center;
   gap: 0;
@@ -24,14 +24,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 132px;
-  height: 48px;
+  width: 70px;
+  height: 30px;
   background: var(--color-main-gradient);
   box-shadow: 0px 0px 5.4px 0px rgba(148, 172, 209, 0.25);
-  border-radius: 33px;
+  border-radius: 8px;
   font-family: var(--font-family-base);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 12px;
   color: #ffffff;
 }
 
@@ -40,7 +40,7 @@
   margin: 0 24px;
   font-family: var(--font-family-base);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 14px;
   color: var(--color-text-primary);
   white-space: nowrap;
   overflow: hidden;
@@ -51,7 +51,7 @@
   flex-shrink: 0;
   font-family: var(--font-family-base);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 14px;
   background: var(--color-link-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

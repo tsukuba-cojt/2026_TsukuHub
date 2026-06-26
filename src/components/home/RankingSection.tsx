@@ -47,9 +47,7 @@ function RankingSection() {
                     className="rankCrownImg"
                   />
                 )}
-                <span className={`rankNum ${isTop3 ? "top3" : "other"}`}>
-                  {rank}
-                </span>
+                <span className="rankNum">{rank}</span>
               </span>
               <p className={isTop3 ? "rankKeywordTop" : "rankKeywordOther"}>
                 {keyword}
