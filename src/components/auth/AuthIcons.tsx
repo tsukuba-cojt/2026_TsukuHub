@@ -1,4 +1,4 @@
-import MailSvgRaw from "../../assets/Globalnav/MailMono.svg?raw";
+import MailSvgRaw from "../../assets/home/Globalnav/MailMono.svg?raw";
 import KeySvgRaw from "../../assets/Signup/Key.svg?raw";
 
 // Figma: Login #970:3648 → 22×17px, NeutralGray #B6BFD4

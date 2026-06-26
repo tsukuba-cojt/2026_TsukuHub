@@ -56,9 +56,27 @@
   gap: 12px;
 }
 
+/* 順位バッジのラッパー（クラウン＋バッジを縦積み） */
+.rankBadgeWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 28px;
+}
+
+/* クラウンアイコン（通常フローで配置し、overflow clippingを回避） */
+.rankCrownImg {
+  width: 20px;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -20px;
+}
+
 /* 順位バッジのコンテナ */
 .rankBadge {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +85,6 @@
   border-radius: 50%;
   font-weight: 800;
   font-size: 14px;
-  flex-shrink: 0;
 }
 
 /* Top3とそれ以外のバッジ装飾 */
@@ -75,14 +92,6 @@
 .rankBadge.silver { background: linear-gradient(135deg, #e0e0e0, #9e9e9e); color: #fff; }
 .rankBadge.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); color: #fff; }
 .rankBadge.normal { background: #f1f5f9; color: #64748b; }
-
-.rankCrownImg {
-  position: absolute;
-  top: -12px;
-  left: -6px;
-  width: 20px;
-  height: auto;
-}
 
 /* キーワードテキスト */
 .rankKeywordTop {

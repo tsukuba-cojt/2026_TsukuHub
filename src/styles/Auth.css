@@ -380,7 +380,7 @@ a {
 
 /* ログインボタングラデーション（ヘッダーの新規登録ボタンと同じ） */
 .login-gradient-button {
-  background: var(--gradient-register) !important;
+  background: var(--color-main-gradient) !important;
   box-shadow: 0 14px 30px rgba(30, 87, 230, 0.25) !important;
 }
 
@@ -588,7 +588,7 @@ a {
 }
 
 .stepper-circle--active {
-  background: var(--gradient-register);
+  background: var(--color-main-gradient);
   color: #ffffff;
 }
 
