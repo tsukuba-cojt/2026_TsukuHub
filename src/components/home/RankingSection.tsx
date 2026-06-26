@@ -39,7 +39,7 @@ function RankingSection() {
           const isTop3 = rank <= 3;
           return (
             <li key={keyword}>
-              <span className="rankBadgeWrap">
+              <span className={`rankBadge ${isTop3 ? badgeClass[rank] : "normal"}`}>
                 {isTop3 && (
                   <img
                     src={crownSrc[rank]}
@@ -47,10 +47,8 @@ function RankingSection() {
                     className="rankCrownImg"
                   />
                 )}
-                <span className={`rankBadge ${isTop3 ? badgeClass[rank] : "normal"}`}>
-                  <span className={`rankNum ${isTop3 ? "top3" : "other"}`}>
-                    {rank}
-                  </span>
+                <span className={`rankNum ${isTop3 ? "top3" : "other"}`}>
+                  {rank}
                 </span>
               </span>
               <p className={isTop3 ? "rankKeywordTop" : "rankKeywordOther"}>
