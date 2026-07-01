@@ -1,0 +1,156 @@
+.classPageLayout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.classFilterArea {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+}
+
+.classFilterInput,
+.classFilterSelect {
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-family: var(--font-family-base);
+}
+
+.classFilterClearButton {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+
+.classListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.classResultCount {
+  color: var(--color-text-secondary);
+}
+
+.classCardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.classCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.classDepartmentBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-label-class);
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.classCode {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+}
+
+.classCourseName {
+  margin: 4px 0;
+  font-size: 1.25rem;
+}
+
+.classInstructor {
+  color: var(--color-text-secondary);
+  margin: 0 0 8px;
+}
+
+.classTags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.classTag {
+  padding: 2px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.classRating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.classStars {
+  color: #FEB304;
+}
+
+.classReviewCount {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.classBookmarkButton {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+.classBookmarkButton.isBookmarked {
+  color: #FEB304;
+}
+
+.classPagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.classPagination button {
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+
+.classPagination button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.classPagination button.isActivePage {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}

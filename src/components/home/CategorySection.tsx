@@ -13,7 +13,7 @@ const categories = [
     imageSrc: "/src/assets/home/CategoryCard/Book.svg",
     title: "授業・履修",
     text: "授業の口コミや\n履修登録情報はこちら",
-    path: "/Class",
+    path: "/class",
     textClass: "catTextClass",
   },
   {
