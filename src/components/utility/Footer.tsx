@@ -45,7 +45,7 @@ function Footer() {
             <li><Link to="/career">就活・キャリア</Link></li>
             <li><Link to="/circles">サークル・課外活動</Link></li>
             <li><Link to="/news">イベント・お知らせ</Link></li>
-            <li><Link to="/classes">授業・履修</Link></li>
+            <li><Link to="/class">授業・履修</Link></li>
             <li><Link to="/lifestyle">生活・便利情報</Link></li>
             <li><Link to="/global">留学・国際情報</Link></li>
           </ul>

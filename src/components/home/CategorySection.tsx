@@ -13,14 +13,14 @@ const categories = [
     imageSrc: "/src/assets/home/CategoryCard/Book.svg",
     title: "授業・履修",
     text: "授業の口コミや\n履修登録情報はこちら",
-    path: "/Class",
+    path: "/class",
     textClass: "catTextClass",
   },
   {
     imageSrc: "/src/assets/home/CategoryCard/People.svg",
     title: "サークル・課外活動",
     text: "サークルや団体別の情報を\nジャンル別に検索",
-    path: "/club",
+    path: "/circles",
     textClass: "catTextClub",
   },
   {

@@ -1,0 +1,12 @@
+.ratingStars {
+  display: flex;
+  gap: 0;
+  color: #c7d0df;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ratingStars .isFilled {
+  color: #ffb800;
+}
