@@ -1,42 +1,73 @@
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "../../styles/utility/print404.css";
 
 export default function Notfound404() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e: { preventDefault(): void }) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+  };
+
   return (
-    <div className="not-found-wrapper">
-      <div className="not-found-container">
-        
-        {/* エラーのビジュアルエリア */}
-        <div className="not-found-visual">
-          {/* 404用のイラストや画像があればここに配置（なければテキストだけでも成立します） */}
-          <img 
-            src="/images/404-illustration.svg" 
-            alt="404 Not Found" 
-            className="not-found-image" 
-            onError={(e) => {
-              // 画像がない場合のフォールバック（非表示にする、またはプレースホルダーにする）
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-          <h1 className="not-found-code">404</h1>
-        </div>
-
-        {/* テキストエリア */}
-        <div className="not-found-content">
-          <h2 className="not-found-title">ページが見つかりません</h2>
-          <p className="not-found-message">
-            お探しのページは削除されたか、URLが変更された可能性があります。<br />
-            または、現在絶賛開発中のエリアかもしれません！
+    <div className="nf-page">
+      <div className="nf-inner">
+        {/* Left column */}
+        <div className="nf-left">
+          <h1 className="nf-code">404</h1>
+          <h2 className="nf-title">ページが見つかりません</h2>
+          <p className="nf-body">
+            お探しのページは存在しないか、<br />
+            移動・削除された可能性があります。<br />
+            <br />
+            URLをご確認いただくか、<br />
+            以下から目的のページを探してみて下さい。
           </p>
+
+          <form className="nf-search-form" onSubmit={handleSearchSubmit}>
+            <div className="nf-search-box">
+              <input
+                type="text"
+                className="nf-search-input"
+                placeholder="キーワードで検索"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="nf-search-btn" aria-label="検索">
+                <img
+                  src="/src/assets/utility/header_footer/Search.svg"
+                  alt=""
+                  className="nf-search-icon"
+                />
+              </button>
+            </div>
+          </form>
+
+          <div className="nf-buttons">
+            <button
+              className="nf-btn nf-btn-back"
+              onClick={() => navigate(-1)}
+            >
+              <span className="nf-btn-back-text">← 前のページへ戻る</span>
+            </button>
+            <Link to="/" className="nf-btn nf-btn-home">
+              トップページへ戻る
+            </Link>
+          </div>
         </div>
 
-        {/* アクションエリア */}
-        <div className="not-found-actions">
-          <Link to="/" className="btn-home-back">
-            トップページへ戻る
-          </Link>
+        {/* Right column — illustration */}
+        <div className="nf-right">
+          <img
+            src="/src/assets/NotFound/SearchIllust.svg"
+            alt=""
+            className="nf-illust"
+            aria-hidden="true"
+          />
         </div>
-
       </div>
     </div>
   );
