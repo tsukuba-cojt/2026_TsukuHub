@@ -168,7 +168,7 @@
 /* Primary button — blue gradient fill */
 .nf-btn-home {
   width: 231px;
-  background: var(--color-primary-gradient);
+  background: var(--color-main-gradient);
   color: #ffffff;
   border: none;
 }
@@ -177,16 +177,18 @@
 .nf-right {
   flex: 1;
   position: relative;
-  min-height: 780px;
-  overflow: hidden;
+  min-height: clamp(400px, 54vw, 780px);
+  overflow: visible; /* hidden → visible（イラストが左に食み出せるように） */
+  z-index: 0;
 }
 
 .nf-illust {
   position: absolute;
-  top: -91px; /* Figma: y=5 from page top; content area starts at y=96 → offset 91px up */
-  left: 0;
-  width: 872px;
-  height: 872px;
+  top: -91px;
+  right: 0;
+  left: auto;
+  width: clamp(480px, 54vw, 780px); /* 固定780px → viewport幅に追従 */
+  height: auto;                      /* 縦横比を自動維持 */
   pointer-events: none;
   display: block;
 }
@@ -210,6 +212,7 @@
     overflow: hidden;
   }
 
+  /*
   .nf-illust {
     position: relative;
     top: 0;
@@ -219,6 +222,7 @@
     margin: 0 auto;
     display: block;
   }
+    */
 
   .nf-code {
     font-size: 80px;
