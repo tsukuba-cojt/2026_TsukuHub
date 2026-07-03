@@ -9,7 +9,7 @@ function Footer() {
         <div className="footerLogo">
           <div className="footerLogoTop">
             <img
-              src="/src/assets/utility/header_footer/Property 1=Blue.svg"
+              src="/src/assets/utility/header_footer/logo-blue.svg"
               alt="TsukuHub Logo"
               className="footerLogoImg"
             />
