@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
@@ -32,9 +32,6 @@ type CourseRow = {
 const toClassCourse = (row: CourseRow): ClassCourse => ({
   id: String(row.id),
   code: row.course_number,
-  // coursesテーブルに学群カテゴリ列が無いため暫定値。列が用意でき次第差し替え。
-  category: "情報学群",
-  categoryTone: "cyan",
   title: row.course_name,
   teacher: row.instructor,
   term: row.semester,
@@ -49,6 +46,24 @@ function Class() {
   const [courses, setCourses] = useState<ClassCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // 検索フィルタの状態（ClassSearchPanel と連携）
+  type Filters = {
+    text: string;
+    code: string;
+    module: string;
+    semester: string;
+    schedule: string;
+  };
+
+  const [filters, setFilters] = useState<Filters>({
+    text: "",
+    code: "",
+    module: "all",
+    semester: "all",
+    schedule: "all",
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -75,12 +90,69 @@ function Class() {
     fetchCourses();
   }, []);
 
+  // フィルタを適用した配列をメモ化
+  const filteredCourses = useMemo(() => {
+    const text = filters.text.trim().toLowerCase();
+    const code = filters.code.trim().toLowerCase();
+
+    return courses.filter((c) => {
+      // text: タイトル・教員名を検索
+      if (text) {
+        const hay = `${c.title} ${c.teacher}`.toLowerCase();
+        if (!hay.includes(text)) return false;
+      }
+
+      // code: コード部分を部分一致
+      if (code) {
+        if (!c.code.toLowerCase().includes(code)) return false;
+      }
+
+      // semester: 'spring' / 'fall' / 'all' を簡易マッチ（英語・日本語を考慮）
+      if (filters.semester !== "all") {
+        const term = (c.term || "").toLowerCase();
+        if (filters.semester === "spring") {
+          if (!/春|spring/.test(term)) return false;
+        } else if (filters.semester === "fall") {
+          if (!/秋|fall/.test(term)) return false;
+        }
+      }
+
+      // schedule: フィルタが 'all' でなければ文字列包含で判定（簡易実装）
+      if (filters.schedule !== "all") {
+        const sched = (c.period || "").toLowerCase();
+        if (!sched.includes(filters.schedule.replace("-", " ").toLowerCase())) return false;
+      }
+
+      // module: 現状 DB にモジュール列がないため all のみ意味を持つ
+      return true;
+    });
+  }, [courses, filters]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / pageSize));
+  const currentPageCourses = useMemo(() => {
+    const offset = (currentPage - 1) * pageSize;
+    return filteredCourses.slice(offset, offset + pageSize);
+  }, [filteredCourses, currentPage, pageSize]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
+
   return (
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
         <p className="classBreadcrumb">ホーム &gt; 授業・履修</p>
-        <ClassSearchPanel />
+        <ClassSearchPanel
+          filters={filters}
+          onChange={(next) => setFilters((prev) => ({ ...prev, ...next }))}
+        />
         <ClassSortBar />
 
         {loading && <p className="classStatus">読み込み中...</p>}
@@ -88,13 +160,17 @@ function Class() {
 
         {!loading && !error && (
           <div className="classCourseList">
-            {courses.map((course) => (
+            {currentPageCourses.map((course) => (
               <ClassCard course={course} key={course.id} />
             ))}
           </div>
         )}
 
-        <ClassPagination />
+        <ClassPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onChangePage={setCurrentPage}
+        />
       </main>
       <Footer />
     </div>

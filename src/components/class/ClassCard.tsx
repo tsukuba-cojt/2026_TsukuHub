@@ -4,8 +4,6 @@ import "../../styles/class/ClassCard.css";
 export type ClassCourse = {
   id: string;
   code: string;
-  category: string;
-  categoryTone: "coral" | "cyan";
   title: string;
   teacher: string;
   term: string;
@@ -61,7 +59,6 @@ function ClassCard({ course }: ClassCardProps) {
     <article className="classCard">
       <div className="classCardMain">
         <div className="classCardMeta">
-          <span className={`classCategoryTag ${course.categoryTone}`}>{course.category}</span>
           <span className="classCode">{course.code}</span>
         </div>
         <div className="classTitleRow">
