@@ -52,15 +52,22 @@ export default function Header() {
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo-link">
+            {/* Sparkle blue — アイコン左下 */}
             <img
-              src="/src/assets/utility/header_footer/Property 1=Blue.svg"
+              src="/src/assets/utility/header_footer/icon-sparkle-blue.svg"
+              alt=""
+              className="logo-sparkle-blue"
+              aria-hidden="true"
+            />
+            <img
+              src="/src/assets/utility/header_footer/logo-blue.svg"
               alt="TsukuHub Logo"
               className="logo-image"
             />
             <div className="logo-text-group">
               <span className="logo-text">
                 TsukuHub
-                {/* Sparkle yellow — icon-sparkle.svg arrives later */}
+                {/* Sparkle yellow — ロゴタイプ右上 */}
                 <img
                   src="/src/assets/utility/header_footer/icon-sparkle.svg"
                   alt=""
@@ -69,13 +76,6 @@ export default function Header() {
                 />
               </span>
               <span className="tagline">筑波大生のためのキャンパス情報ポータル</span>
-              {/* Sparkle blue */}
-              <img
-                src="/src/assets/utility/header_footer/icon-sparkle.svg"
-                alt=""
-                className="logo-sparkle-blue"
-                aria-hidden="true"
-              />
             </div>
           </Link>
         </div>
@@ -111,26 +111,12 @@ export default function Header() {
                   /* 通知の動作は今後実装 */
                 }}
               >
-                <svg
+                <img
+                  src="/src/assets/utility/header_footer/Bell.svg"
+                  alt=""
                   className="notification-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
                   aria-hidden="true"
-                >
-                  <path
-                    d="M12 3a6 6 0 0 0-6 6v3.6l-1.4 2.8A1 1 0 0 0 5.5 17h13a1 1 0 0 0 .9-1.6L18 12.6V9a6 6 0 0 0-6-6Z"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M10 20a2 2 0 0 0 4 0"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                />
                 <span className="notification-dot" />
               </button>
 
@@ -144,18 +130,11 @@ export default function Header() {
                   onClick={() => setMenuOpen((v) => !v)}
                 >
                   <span className="mypage-avatar">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <img
+                      src="/src/assets/utility/header_footer/People.svg"
+                      alt=""
                       aria-hidden="true"
-                    >
-                      <circle cx="12" cy="8" r="4" fill="currentColor" />
-                      <path
-                        d="M4 20c0-4 3.6-6 8-6s8 2 8 6"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    />
                   </span>
                   <span className="mypage-label">マイページ</span>
                   <svg
