@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import type { Session } from "@supabase/supabase-js";
 import "../../styles/utility/Header.css";
+import logoBlue from "../../assets/utility/header_footer/Property 1=Blue.svg";
+import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
+import searchIcon from "../../assets/utility/header_footer/Search.svg";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -53,7 +56,7 @@ export default function Header() {
         <div className="header-left">
           <Link to="/" className="logo-link">
             <img
-              src="/src/assets/utility/header_footer/Property 1=Blue.svg"
+              src={logoBlue}
               alt="TsukuHub Logo"
               className="logo-image"
             />
@@ -62,7 +65,7 @@ export default function Header() {
                 TsukuHub
                 {/* Sparkle yellow — icon-sparkle.svg arrives later */}
                 <img
-                  src="/src/assets/utility/header_footer/icon-sparkle.svg"
+                  src={sparkleIcon}
                   alt=""
                   className="logo-sparkle-yellow"
                   aria-hidden="true"
@@ -71,7 +74,7 @@ export default function Header() {
               <span className="tagline">筑波大生のためのキャンパス情報ポータル</span>
               {/* Sparkle blue */}
               <img
-                src="/src/assets/utility/header_footer/icon-sparkle.svg"
+                src={sparkleIcon}
                 alt=""
                 className="logo-sparkle-blue"
                 aria-hidden="true"
@@ -92,7 +95,7 @@ export default function Header() {
               />
               <button type="submit" className="search-button" aria-label="検索">
                 <img
-                  src="/src/assets/utility/header_footer/Search.svg"
+                  src={searchIcon}
                   alt=""
                   className="search-icon-image"
                 />

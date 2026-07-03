@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/home/Hero.css";
+import heroIllustration from "../../assets/home/hero/hero-illustration.svg";
 
 function Hero() {
   const [query, setQuery] = useState("");
@@ -47,7 +48,7 @@ function Hero() {
         {/* Right: hero-illustration.svg — replace when asset arrives */}
         <div className="heroIllust">
           <img
-            src="/src/assets/home/Hero/hero-illustration.svg"
+            src={heroIllustration}
             alt=""
             className="heroIllustImg"
           />

@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
 import "../../styles/utility/Footer.css";
+import logoBlue from "../../assets/utility/header_footer/Property 1=Blue.svg";
+import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
+import snsXIcon from "../../assets/utility/header_footer/icon-sns-x.svg";
+import snsInstagramIcon from "../../assets/utility/header_footer/icon-sns-instagram.svg";
+import snsLineIcon from "../../assets/utility/header_footer/icon-sns-line.svg";
 
 function Footer() {
   return (
@@ -9,7 +14,7 @@ function Footer() {
         <div className="footerLogo">
           <div className="footerLogoTop">
             <img
-              src="/src/assets/utility/header_footer/Property 1=Blue.svg"
+              src={logoBlue}
               alt="TsukuHub Logo"
               className="footerLogoImg"
             />
@@ -18,7 +23,7 @@ function Footer() {
                 TsukuHub
                 {/* icon-sparkle.svg — replace when asset arrives */}
                 <img
-                  src="/src/assets/utility/header_footer/icon-sparkle.svg"
+                  src={sparkleIcon}
                   alt=""
                   className="footerSparkleYellow"
                   aria-hidden="true"
@@ -26,7 +31,7 @@ function Footer() {
               </span>
               {/* icon-sparkle.svg (blue) */}
               <img
-                src="/src/assets/utility/header_footer/icon-sparkle.svg"
+                src={sparkleIcon}
                 alt=""
                 className="footerSparkleBlue"
                 aria-hidden="true"
@@ -68,13 +73,13 @@ function Footer() {
           <div className="footerSnsIcons">
             {/* icon-sns-*.svg — replace when assets arrive */}
             <a href="#" aria-label="X（旧Twitter）">
-              <img src="/src/assets/utility/header_footer/icon-sns-x.svg" alt="X" />
+              <img src={snsXIcon} alt="X" />
             </a>
             <a href="#" aria-label="Instagram">
-              <img src="/src/assets/utility/header_footer/icon-sns-instagram.svg" alt="Instagram" />
+              <img src={snsInstagramIcon} alt="Instagram" />
             </a>
             <a href="#" aria-label="LINE">
-              <img src="/src/assets/utility/header_footer/icon-sns-line.svg" alt="LINE" />
+              <img src={snsLineIcon} alt="LINE" />
             </a>
           </div>
         </div>
