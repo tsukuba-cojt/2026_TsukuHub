@@ -1,4 +1,8 @@
 import "../../styles/home/RankingSection.css";
+import rankGoldIcon from "../../assets/home/RankingSection/icon-rank-gold.svg";
+import rankSilverIcon from "../../assets/home/RankingSection/icon-rank-silver.svg";
+import rankBronzeIcon from "../../assets/home/RankingSection/icon-rank-bronze.svg";
+import trendingIcon from "../../assets/home/RankingSection/icon-trending.svg";
 
 const ranking = [
   "長期インターン",
@@ -13,9 +17,9 @@ const ranking = [
 ];
 
 const crownSrc: Record<number, string> = {
-  1: "/src/assets/home/RankingSection/icon-rank-gold.svg",
-  2: "/src/assets/home/RankingSection/icon-rank-silver.svg",
-  3: "/src/assets/home/RankingSection/icon-rank-bronze.svg",
+  1: rankGoldIcon,
+  2: rankSilverIcon,
+  3: rankBronzeIcon,
 };
 
 const badgeClass: Record<number, string> = {
@@ -29,7 +33,7 @@ function RankingSection() {
     <section className="panel rankingPanel">
       <div className="panelTitle">
         {/* icon-trending.svg — replace when asset arrives */}
-        <img src="/src/assets/home/RankingSection/icon-trending.svg" alt="" />
+        <img src={trendingIcon} alt="" />
         <h2>人気の検索ワード</h2>
       </div>
 

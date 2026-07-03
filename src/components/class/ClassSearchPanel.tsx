@@ -1,4 +1,5 @@
 import "../../styles/class/ClassSearchPanel.css";
+import bookMonoIcon from "../../assets/utility/Globalnav/BookMono.svg";
 
 function SearchIcon() {
   return (
@@ -26,7 +27,7 @@ function ClassSearchPanel() {
   return (
     <section className="classSearchPanel" aria-labelledby="class-search-title">
       <div className="classSearchHeading">
-        <img src="/src/assets/utility/Globalnav/BookMono.svg" alt="" />
+        <img src={bookMonoIcon} alt="" />
         <div>
           <h1 id="class-search-title">講義検索</h1>
           <p>キーワード・条件から学びたい講義を検索</p>

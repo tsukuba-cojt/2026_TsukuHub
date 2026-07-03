@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../../styles/utility/print404.css";
+import searchIcon from "../../assets/utility/header_footer/Search.svg";
+import searchIllust from "../../assets/NotFound/SearchIllust.svg";
 
 export default function Notfound404() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,7 +40,7 @@ export default function Notfound404() {
               />
               <button type="submit" className="nf-search-btn" aria-label="検索">
                 <img
-                  src="/src/assets/utility/header_footer/Search.svg"
+                  src={searchIcon}
                   alt=""
                   className="nf-search-icon"
                 />
@@ -62,7 +64,7 @@ export default function Notfound404() {
         {/* Right column — illustration */}
         <div className="nf-right">
           <img
-            src="/src/assets/NotFound/SearchIllust.svg"
+            src={searchIllust}
             alt=""
             className="nf-illust"
             aria-hidden="true"
