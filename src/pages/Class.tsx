@@ -153,7 +153,7 @@ function Class() {
           filters={filters}
           onChange={(next) => setFilters((prev) => ({ ...prev, ...next }))}
         />
-        <ClassSortBar />
+        <ClassSortBar currentPage={currentPage} totalCount={filteredCourses.length} />
 
         {loading && <p className="classStatus">読み込み中...</p>}
         {error && <p className="classStatus classStatusError">{error}</p>}

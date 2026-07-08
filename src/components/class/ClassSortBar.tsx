@@ -1,9 +1,16 @@
 import "../../styles/class/ClassSortBar.css";
 
-function ClassSortBar() {
+type ClassSortBarProps = {
+  currentPage: number;
+  totalCount: number;
+};
+
+function ClassSortBar({ currentPage, totalCount }: ClassSortBarProps) {
+  const displayedCount = Math.min(currentPage * 20, totalCount);
+
   return (
     <div className="classSortBar">
-      <p>20件/1234件中</p>
+      <p>{displayedCount}件/{totalCount}件中</p>
       <label>
         <span>並び替え</span>
         <select defaultValue="rating">
