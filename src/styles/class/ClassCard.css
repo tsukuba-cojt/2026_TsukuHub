@@ -1,0 +1,209 @@
+.classCard {
+  display: flex;
+  justify-content: space-between;
+  min-height: 132px;
+  padding: 22px 40px 20px 18px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 22px rgba(148, 172, 209, 0.22);
+}
+
+.classCardMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.classCardMeta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+
+.classCategoryTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 75px;
+  height: 16px;
+  padding: 0 10px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.classCategoryTag.coral {
+  background: #ff5d63;
+}
+
+.classCategoryTag.cyan {
+  background: #19bfca;
+}
+
+.classCode {
+  color: #7d7d7d;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.classTitleRow {
+  display: flex;
+  align-items: end;
+  gap: 34px;
+  min-width: 0;
+}
+
+.classTitleRow h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.classTeacher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 3px;
+  color: #777;
+  white-space: nowrap;
+}
+
+.classTeacher svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.classTeacher span {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.classTeacher small {
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.classBadges {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.classBadges span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 10px;
+  border: 1px solid #c9d8ee;
+  border-radius: 3px;
+  color: #6f7d91;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.classBadges .classTermBadge {
+  border-color: #d7e8ff;
+  background: #dcebff;
+  color: var(--color-primary);
+}
+
+.classBadges svg {
+  width: 11px;
+  height: 11px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.classCardRating {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  justify-items: center;
+  min-width: 130px;
+  color: #777;
+}
+
+.classCardRating button {
+  align-self: start;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: #9ab1d8;
+  cursor: pointer;
+}
+
+.classCardRating button svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.classCardRating span,
+.classCardRating strong,
+.classCardRating .ratingStars,
+.classCardRating p {
+  grid-column: 2;
+}
+
+.classCardRating span {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.classCardRating strong {
+  color: #777;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.classCardRating p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .classCard {
+    padding-right: 22px;
+  }
+}
+
+@media (max-width: 760px) {
+  .classCard {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .classTitleRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .classTitleRow h2 {
+    font-size: 25px;
+  }
+
+  .classCardRating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+  }
+}

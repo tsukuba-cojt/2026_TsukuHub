@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../styles/home/LatestNewSection.css";
+import bellIcon from "../../assets/home/LatestNewSection/icon-bell.svg";
 
 type Category = "all" | "job" | "class" | "event" | "life";
 
@@ -54,7 +55,7 @@ function LatestNewsSection() {
     <section className="panel latestPanel">
       <div className="panelTitle">
         {/* icon-bell.svg — replace when asset arrives */}
-        <img src="/src/assets/home/LatestNewSection/icon-bell.svg" alt="" />
+        <img src={bellIcon} alt="" />
         <h2>新着情報</h2>
       </div>
 

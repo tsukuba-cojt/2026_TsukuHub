@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import "../../styles/utility/Footer.css";
+import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
+import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
+import sparkleIconBlue from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
+import snsXIcon from "../../assets/utility/header_footer/icon-sns-x.svg";
+import snsInstagramIcon from "../../assets/utility/header_footer/icon-sns-instagram.svg";
+import snsLineIcon from "../../assets/utility/header_footer/icon-sns-line.svg";
 
 function Footer() {
   return (
@@ -9,7 +15,7 @@ function Footer() {
         <div className="footerLogo">
           <div className="footerLogoTop">
             <img
-              src="/src/assets/utility/header_footer/logo-blue.svg"
+              src={logoBlue}
               alt="TsukuHub Logo"
               className="footerLogoImg"
             />
@@ -18,13 +24,13 @@ function Footer() {
                 TsukuHub
                 {/* ロゴタイプ右上のスパークル: 青(大)+黄(小) */}
                 <img
-                  src="/src/assets/utility/header_footer/icon-sparkle-blue.svg"
+                  src={sparkleIconBlue}
                   alt=""
                   className="footerSparkleBlue"
                   aria-hidden="true"
                 />
                 <img
-                  src="/src/assets/utility/header_footer/icon-sparkle.svg"
+                  src={sparkleIcon}
                   alt=""
                   className="footerSparkleYellow"
                   aria-hidden="true"
@@ -44,7 +50,7 @@ function Footer() {
             <li><Link to="/career">就活・キャリア</Link></li>
             <li><Link to="/circles">サークル・課外活動</Link></li>
             <li><Link to="/news">イベント・お知らせ</Link></li>
-            <li><Link to="/classes">授業・履修</Link></li>
+            <li><Link to="/class">授業・履修</Link></li>
             <li><Link to="/lifestyle">生活・便利情報</Link></li>
             <li><Link to="/global">留学・国際情報</Link></li>
           </ul>
@@ -67,13 +73,13 @@ function Footer() {
           <div className="footerSnsIcons">
             {/* icon-sns-*.svg — replace when assets arrive */}
             <a href="#" aria-label="X（旧Twitter）">
-              <img src="/src/assets/utility/header_footer/icon-sns-x.svg" alt="X" />
+              <img src={snsXIcon} alt="X" />
             </a>
             <a href="#" aria-label="Instagram">
-              <img src="/src/assets/utility/header_footer/icon-sns-instagram.svg" alt="Instagram" />
+              <img src={snsInstagramIcon} alt="Instagram" />
             </a>
             <a href="#" aria-label="LINE">
-              <img src="/src/assets/utility/header_footer/icon-sns-line.svg" alt="LINE" />
+              <img src={snsLineIcon} alt="LINE" />
             </a>
           </div>
         </div>

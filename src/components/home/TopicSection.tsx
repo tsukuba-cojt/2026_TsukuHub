@@ -1,4 +1,5 @@
 import "../../styles/home/TopicSection.css";
+import crownIcon from "../../assets/home/TopicSection/icon-crown.svg";
 
 const topics = [
   {
@@ -32,7 +33,7 @@ function TopicSection() {
     <section className="panel topicPanel">
       <div className="panelTitle">
         {/* icon-crown.svg — replace when asset arrives */}
-        <img src="/src/assets/home/TopicSection/icon-crown.svg" alt="" />
+        <img src={crownIcon} alt="" />
         <h2>注目のトピック</h2>
       </div>
 
