@@ -9,7 +9,8 @@
   max-width: 1440px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 420px 1fr 1fr auto;
+  grid-template-columns: 420px auto auto auto;
+  justify-content: space-between;
   gap: 40px;
   align-items: start;
 }
@@ -23,8 +24,8 @@
 
 .footerLogoTop {
   display: flex;
-  align-items: flex-end;
-  gap: 10px;
+  align-items: center;
+  gap: 4px;
   position: relative;
 }
 
@@ -43,26 +44,29 @@
 .footerLogoText {
   font-family: var(--font-family-logo);
   font-weight: 700;
-  font-size: 32px;
+  font-size: 36px;
   color: var(--color-text-primary);
+  -webkit-text-stroke: 0.5px var(--color-text-primary);
   text-shadow: 0px 0px 5.5px rgba(27, 73, 104, 0.1);
   line-height: 1;
+  position: relative;
+  align-self: flex-start;
 }
 
 .footerSparkleBlue {
   position: absolute;
   width: 17px;
   height: 17px;
-  top: -20px;
-  right: 0;
+  top: -12px;
+  right: -25px;
 }
 
 .footerSparkleYellow {
   position: absolute;
   width: 10px;
   height: 10px;
-  top: 3px;
-  right: -12px;
+  top: 2px;
+  right: -36px;
 }
 
 .footerTagline {
@@ -71,15 +75,15 @@
   font-size: 10px;
   letter-spacing: 0.05em;
   color: var(--color-text-primary);
-  margin-top: 8px;
+  margin: 10px 0 0;
 }
 
 /* Columns 2-3: Service / Support links */
 .footerCol h3 {
-  margin: 0 0 16px;
+  margin: 0 0 20px;
   font-family: var(--font-family-base);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   letter-spacing: 0.05em;
   color: var(--color-text-primary);
 }
@@ -93,11 +97,18 @@
   gap: 0;
 }
 
+.footerLinksService {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  column-gap: 44px;
+}
+
 .footerLinks li a {
   font-family: var(--font-family-base);
   font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5em;
+  font-size: 14px;
+  line-height: 2.1;
   letter-spacing: 0.05em;
   color: var(--color-text-secondary);
   text-decoration: none;
@@ -122,7 +133,7 @@
 .footerSnsIcons {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 22px;
 }
 
 .footerSnsIcons a {
@@ -138,8 +149,8 @@
 }
 
 .footerSnsIcons img {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
 }
 
