@@ -261,8 +261,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: linear-gradient(151deg, #d9d9d9 0%, #bdbdbd 100%);
   overflow: hidden;
