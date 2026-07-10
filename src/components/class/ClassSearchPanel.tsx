@@ -1,5 +1,5 @@
 import "../../styles/class/ClassSearchPanel.css";
-import bookMonoIcon from "../../assets/utility/Globalnav/BookMono.svg";
+import bookIcon from "../../assets/home/CategoryCard/Book.svg";
 
 function SearchIcon() {
   return (
@@ -40,7 +40,7 @@ function ClassSearchPanel({ filters, onChange }: Props) {
   return (
     <section className="classSearchPanel" aria-labelledby="class-search-title">
       <div className="classSearchHeading">
-        <img src={bookMonoIcon} alt="" />
+        <img src={bookIcon} alt="" className="classSearchHeadingIcon" />
         <div>
           <h1 id="class-search-title">講義検索</h1>
           <p>キーワード・条件から学びたい講義を検索</p>
