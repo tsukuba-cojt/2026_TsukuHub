@@ -7,6 +7,13 @@
   position: sticky;
   top: 96px;                  /* ヘッダーの高さ分だけ下にずらす */
   z-index: 100;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ホームの一番上にいる間だけ背景を透明にする */
+.globalHeader.isTransparent {
+  background: transparent;
+  box-shadow: none;
 }
 
 

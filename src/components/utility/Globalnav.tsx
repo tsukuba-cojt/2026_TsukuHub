@@ -1,5 +1,6 @@
 import "../../styles/utility/Globalnav.css";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   House,
   BriefcaseBusiness,
@@ -23,8 +24,23 @@ const navItems = [
 ];
 
 function Globalnav() {
+  const { pathname } = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // ホーム（トップページ）の一番上にいる間だけ背景を透明にする
+  const isTransparent = pathname === "/" && !isScrolled;
+
   return (
-    <header className="globalHeader">
+    <header
+      className={`globalHeader${isTransparent ? " isTransparent" : ""}`}
+    >
       {/* --color-main-gradient と同じ色停止（#1578FD → #5E2CFC, 90deg）を SVG stroke 用に定義 */}
       <svg
         width="0"
@@ -34,7 +50,17 @@ function Globalnav() {
         style={{ position: "absolute" }}
       >
         <defs>
-          <linearGradient id="navIconGradient" x1="0" y1="0" x2="1" y2="0">
+          {/* objectBoundingBox（デフォルト）だと幅・高さ0の直線パーツで
+              グラデーションが描画されず線が消えるため、userSpaceOnUse で
+              アイコンの viewBox（24x24）基準に固定する */}
+          <linearGradient
+            id="navIconGradient"
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="0"
+            x2="24"
+            y2="0"
+          >
             <stop offset="0%" stopColor="#1578FD" />
             <stop offset="100%" stopColor="#5E2CFC" />
           </linearGradient>
