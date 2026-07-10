@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../styles/home/LatestNewSection.css";
+import "../../styles/utility/Tags.css";
 import bellIcon from "../../assets/home/LatestNewSection/icon-bell.svg";
 
 type Category = "all" | "job" | "class" | "event" | "life";
@@ -74,7 +75,7 @@ function LatestNewsSection() {
       <div className="latestList">
         {filtered.map((news) => (
           <article className="latestItem" key={news.title}>
-            <span className={`latestTag ${news.tagClass}`}>{news.tag}</span>
+            <span className={`tag ${news.tagClass}`}>{news.tag}</span>
             <h3>{news.title}</h3>
             <time>{news.date}</time>
           </article>

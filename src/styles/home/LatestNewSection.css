@@ -92,19 +92,7 @@
   padding-bottom: 0;
 }
 
-/* タグの装飾（TopicSectionのタグと共通化しても綺麗です） */
-.latestTag {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 4px;
-  width: fit-content;
-  color: #ffffff;
-}
-.tagJob   { background: linear-gradient(135deg, #1e62e6, #793ce6); }
-.tagClass { background: linear-gradient(135deg, #10b981, #059669); }
-.tagEvent { background: linear-gradient(135deg, #ef4444, #b91c1c); }
-.tagClub  { background: linear-gradient(135deg, #f59e0b, #d97706); }
+/* タグ（形状・色とも）は共通の utility/Tags.css を参照 */
 
 .latestItem h3 {
   margin: 0;
