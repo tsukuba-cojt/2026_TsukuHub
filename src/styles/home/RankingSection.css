@@ -70,19 +70,19 @@
   flex-shrink: 0;
 }
 
-/* Top3とそれ以外のバッジ装飾 */
-.rankBadge.gold   { background: linear-gradient(135deg, rgba(255, 215, 0, 0.6), rgba(218, 165, 32, 0.6)); color: #fff; }
-.rankBadge.silver { background: linear-gradient(135deg, rgba(224, 224, 224, 0.6), rgba(158, 158, 158, 0.6)); color: #fff; }
-.rankBadge.bronze { background: linear-gradient(135deg, rgba(205, 127, 50, 0.6), rgba(139, 69, 19, 0.6)); color: #fff; }
+/* Top3とそれ以外のバッジ装飾（背景は薄い単色トークン） */
+.rankBadge.gold   { background: var(--color-rank-gold); color: #fff; }
+.rankBadge.silver { background: var(--color-rank-silver); color: #fff; }
+.rankBadge.bronze { background: var(--color-rank-bronze); color: #fff; }
 .rankBadge.normal { background: #f1f5f9; color: #64748b; }
 
 .rankCrownImg {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 28px;
-  height: 28px;
+  transform: translate(-50%, calc(-50% - 4px)); /* 王冠を少し上にずらす */
+  width: 32px;
+  height: 32px;
   z-index: 1;
 }
 
