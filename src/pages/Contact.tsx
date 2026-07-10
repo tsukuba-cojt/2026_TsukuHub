@@ -83,7 +83,12 @@ function Contact() {
     <div className="contactPage">
       <Globalnav />
       <main className="contactPageLayout">
-        <p className="contactBreadcrumb">ホーム &gt; お問い合わせ</p>
+        <p className="contactBreadcrumb">
+          <Link to="/" className="contactBreadcrumbLink">
+            ホーム
+          </Link>{" "}
+          &gt; お問い合わせ
+        </p>
 
         {/* 見出しエリア */}
         <div className="contactHeading">
