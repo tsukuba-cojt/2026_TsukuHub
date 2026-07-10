@@ -7,7 +7,8 @@ import Signup from "./pages/Signup";
 import Class from "./pages/Class";
 import Notfound404 from "./pages/404";
 import Confirm from "./components/auth/Confirm";
-import Mypage from "./pages/Mypage"
+import FloatingAgentChat from "./components/AI_agent/FloatingAgentChat";
+import Mypage from "./pages/Mypage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="*" element={<Notfound404 />} />
 
       </Routes>
+      <FloatingAgentChat />
     </BrowserRouter>
   );
 }
