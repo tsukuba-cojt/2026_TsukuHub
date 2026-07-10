@@ -6,8 +6,8 @@ import "../../styles/auth/Unauthorized.css";
 function KeyIcon() {
   return (
     <svg
-      width="120"
-      height="133"
+      width="72"
+      height="80"
       viewBox="0 0 272 301"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
