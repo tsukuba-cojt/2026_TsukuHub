@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
@@ -148,7 +149,12 @@ function Class() {
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
-        <p className="classBreadcrumb">ホーム &gt; 授業・履修</p>
+        <p className="classBreadcrumb">
+          <Link to="/" className="classBreadcrumbLink">
+            ホーム
+          </Link>{" "}
+          &gt; 授業・履修
+        </p>
         <ClassSearchPanel
           filters={filters}
           onChange={(next) => setFilters((prev) => ({ ...prev, ...next }))}

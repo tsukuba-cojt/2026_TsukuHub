@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Bookmark, Calendar, Clock, UserRound } from "lucide-react";
 import RatingStars from "./RatingStars";
 import "../../styles/class/ClassCard.css";
 
@@ -17,46 +19,10 @@ type ClassCardProps = {
   course: ClassCourse;
 };
 
-function UserIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 21c1.7-4.5 4.3-6.5 8-6.5s6.3 2 8 6.5" />
-    </svg>
-  );
-}
-
-function BookmarkIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M7 4h10v16l-5-3-5 3z" />
-    </svg>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="4" y="5" width="16" height="15" rx="2" />
-      <path d="M8 3v4" />
-      <path d="M16 3v4" />
-      <path d="M4 10h16" />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="8" />
-      <path d="M12 8v5l3 2" />
-    </svg>
-  );
-}
-
 function ClassCard({ course }: ClassCardProps) {
   return (
-    <article className="classCard">
+    <Link to={`/class/${course.code}`} className="classCardLink">
+      <article className="classCard">
       <div className="classCardMain">
         <div className="classCardMeta">
           <span className="classCode">{course.code}</span>
@@ -64,7 +30,7 @@ function ClassCard({ course }: ClassCardProps) {
         <div className="classTitleRow">
           <h2>{course.title}</h2>
           <div className="classTeacher">
-            <UserIcon />
+            <UserRound aria-hidden="true" />
             <span>{course.teacher}</span>
             <small>先生</small>
           </div>
@@ -72,26 +38,34 @@ function ClassCard({ course }: ClassCardProps) {
         <div className="classBadges">
           <span className="classTermBadge">{course.term}</span>
           <span>
-            <CalendarIcon />
+            <Calendar aria-hidden="true" />
             {course.period}
           </span>
           <span>
-            <ClockIcon />
+            <Clock aria-hidden="true" />
             {course.credits}
           </span>
         </div>
       </div>
 
       <div className="classCardRating">
-        <button type="button" aria-label={`${course.title}をブックマーク`}>
-          <BookmarkIcon />
+        <button
+          type="button"
+          aria-label={`${course.title}をブックマーク`}
+          onClick={(e) => {
+            // ブックマークは後日実装。カード全体のリンク遷移だけ止める
+            e.preventDefault();
+          }}
+        >
+          <Bookmark aria-hidden="true" />
         </button>
         <span>おすすめ度</span>
         <strong>{course.rating.toFixed(1)}</strong>
         <RatingStars rating={course.rating} />
         <p>({course.reviews}件)</p>
       </div>
-    </article>
+      </article>
+    </Link>
   );
 }
 
