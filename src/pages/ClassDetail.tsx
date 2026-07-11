@@ -14,6 +14,10 @@ import RatingStars from "../components/class/RatingStars";
 import ClassReviewCard from "../components/class/ClassReviewCard";
 import FeatureTag from "../components/class/FeatureTag";
 import {
+  getClassFormats,
+  getMethodLabel,
+} from "../components/class/courseBadges";
+import {
   mockReviews,
   mockRelatedCourses,
 } from "../components/class/mockReviews";
@@ -115,6 +119,10 @@ function ClassDetail() {
     // 後日実装：口コミ投稿フォームへの遷移／モーダル表示
   };
 
+  // 授業方法（数字コード→日本語ラベル）と講義形式（備考から判定）のバッジ
+  const methodLabel = course ? getMethodLabel(course.method) : null;
+  const classFormats = course ? getClassFormats(course.remarks) : [];
+
   return (
     <div className="classPage">
       <Globalnav />
@@ -166,7 +174,10 @@ function ClassDetail() {
                     <Clock aria-hidden="true" />
                     {course.credits}単位
                   </span>
-                  {course.method && <span>{course.method}</span>}
+                  {methodLabel && <span>{methodLabel}</span>}
+                  {classFormats.map((format) => (
+                    <span key={format}>{format}</span>
+                  ))}
                   {/* 教室・成績評価方法は DB にカラムが無いため非表示（追加後に表示する） */}
                 </div>
               </div>
