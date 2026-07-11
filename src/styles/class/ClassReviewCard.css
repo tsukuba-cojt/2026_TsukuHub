@@ -1,0 +1,199 @@
+/* 口コミカード（講義詳細ページ）
+   注：細部の数値は添付デザイン画像からの目測（Figma未取得）。 */
+
+.reviewCard {
+  padding: 16px 20px;
+  border: 1px solid #e3eaf5;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.reviewCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.reviewCardMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reviewAuthor {
+  color: #7d7d7d;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.reviewCardHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reviewDate {
+  color: #9d9d9d;
+  font-size: 11px;
+}
+
+.reviewMenuWrap {
+  position: relative;
+}
+
+.reviewMenuBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: #9d9d9d;
+  cursor: pointer;
+}
+
+.reviewMenuBtn:hover {
+  background: #f1f5fb;
+}
+
+.reviewMenuBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.reviewMenu {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  z-index: 10;
+  min-width: 120px;
+  padding: 4px;
+  border: 1px solid #e3eaf5;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.reviewMenuItem {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: #e5484d;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.reviewMenuItem:hover {
+  background: #fff1f1;
+}
+
+/* コメント本文（長文は3行に省略） */
+.reviewComment {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.reviewComment.isClamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.reviewExpandBtn {
+  margin-top: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.reviewExpandBtn:hover {
+  text-decoration: underline;
+}
+
+/* 添付ファイル */
+.reviewFiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.reviewFileChip {
+  padding: 3px 10px;
+  border: 1px solid #d7e3f5;
+  border-radius: 4px;
+  background: #f6f9fe;
+  color: #6f7d91;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.reviewCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* 特徴タグ */
+.reviewTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reviewTag {
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: #dcebff;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* 参考になった（カウント加算は見た目のみ・後日実装） */
+.reviewHelpfulBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid #d7e3f5;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.reviewHelpfulBtn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.reviewHelpfulBtn.isVoted {
+  background: #dcebff;
+}
+
+.reviewHelpfulCount {
+  color: #6f7d91;
+}
