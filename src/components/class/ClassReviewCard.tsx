@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Ellipsis, ThumbsUp } from "lucide-react";
 import RatingStars from "./RatingStars";
+import FeatureTag from "./FeatureTag";
 import type { Review } from "./mockReviews";
 import "../../styles/class/ClassReviewCard.css";
 
@@ -109,9 +110,7 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
       <div className="reviewCardFooter">
         <div className="reviewTags">
           {review.tags.map((tag) => (
-            <span className="reviewTag" key={tag}>
-              {tag}
-            </span>
+            <FeatureTag label={tag} key={tag} />
           ))}
         </div>
         <button

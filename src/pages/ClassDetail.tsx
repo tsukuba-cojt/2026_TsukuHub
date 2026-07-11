@@ -12,6 +12,7 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import RatingStars from "../components/class/RatingStars";
 import ClassReviewCard from "../components/class/ClassReviewCard";
+import FeatureTag from "../components/class/FeatureTag";
 import {
   mockReviews,
   mockRelatedCourses,
@@ -46,14 +47,6 @@ const sortTabs: { key: SortKey; label: string }[] = [
   { key: "rating", label: "評価順" },
   { key: "helpful", label: "参考順" },
 ];
-
-// 特徴タグの色分け（Figma未取得のため添付デザイン画像からの目測。要調整）
-const featureChipClass: Record<string, string> = {
-  わかりやすい: "isRed",
-  実践的: "isGreen",
-  課題が多い: "isBlue",
-  先生が優しい: "isYellow",
-};
 
 function ClassDetail() {
   const { courseCode } = useParams<{ courseCode: string }>();
@@ -277,12 +270,7 @@ function ClassDetail() {
                     <h2>この授業の特徴</h2>
                     <div className="sidebarFeatures">
                       {stats.features.map((feature) => (
-                        <span
-                          className={`sidebarFeatureChip ${featureChipClass[feature] ?? "isBlue"}`}
-                          key={feature}
-                        >
-                          {feature}
-                        </span>
+                        <FeatureTag label={feature} key={feature} />
                       ))}
                     </div>
                   </section>

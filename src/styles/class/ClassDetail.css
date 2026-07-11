@@ -300,38 +300,11 @@
   text-align: right;
 }
 
-/* この授業の特徴（色は画像目測。Figma 取得後に調整） */
+/* この授業の特徴（チップの見た目は共通の FeatureTag.css を参照） */
 .sidebarFeatures {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.sidebarFeatureChip {
-  padding: 3px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.sidebarFeatureChip.isRed {
-  background: #ffe9e3;
-  color: #e8552f;
-}
-
-.sidebarFeatureChip.isGreen {
-  background: #e2f6ec;
-  color: #23a866;
-}
-
-.sidebarFeatureChip.isBlue {
-  background: #dcebff;
-  color: var(--color-primary);
-}
-
-.sidebarFeatureChip.isYellow {
-  background: #fff3d8;
-  color: #e5a300;
 }
 
 /* 関連授業 */
