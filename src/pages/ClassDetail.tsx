@@ -14,6 +14,7 @@ import Toast from "../components/utility/Toast";
 import RatingStars from "../components/class/RatingStars";
 import ClassReviewCard from "../components/class/ClassReviewCard";
 import FeatureTag from "../components/class/FeatureTag";
+import CreditRateCard from "../components/class/CreditRateCard";
 import {
   getClassFormats,
   getMethodLabel,
@@ -291,6 +292,9 @@ function ClassDetail() {
                       ))}
                     </div>
                   </section>
+
+                  {/* 単位取得率（現状ダミーデータ。実データ接続時は props を渡す） */}
+                  <CreditRateCard />
 
                   <section className="sidebarCard">
                     <h2>この授業の特徴</h2>
