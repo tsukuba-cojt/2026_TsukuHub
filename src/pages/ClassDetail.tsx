@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import {
   Bookmark,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
+import Toast from "../components/utility/Toast";
 import RatingStars from "../components/class/RatingStars";
 import ClassReviewCard from "../components/class/ClassReviewCard";
 import FeatureTag from "../components/class/FeatureTag";
@@ -54,6 +55,20 @@ const sortTabs: { key: SortKey; label: string }[] = [
 
 function ClassDetail() {
   const { courseCode } = useParams<{ courseCode: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // 口コミ投稿ページから router state で渡されるトーストメッセージ
+  const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    const state = location.state as { toast?: string } | null;
+    if (state?.toast) {
+      setToast(state.toast);
+      // リロードや戻る操作で再表示されないよう state をクリアする
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location, navigate]);
+
   const [course, setCourse] = useState<CourseRow | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,7 +131,7 @@ function ClassDetail() {
   }, []);
 
   const handlePostReview = () => {
-    // 後日実装：口コミ投稿フォームへの遷移／モーダル表示
+    navigate(`/class/${courseCode}/review`);
   };
 
   // 授業方法（数字コード→日本語ラベル）と講義形式（備考から判定）のバッジ
@@ -312,6 +327,7 @@ function ClassDetail() {
         )}
       </main>
       <Footer />
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
 }

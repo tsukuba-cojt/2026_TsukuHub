@@ -1,0 +1,48 @@
+/* 自動で消える軽量トースト（画面下部中央） */
+
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+  animation: toastIn 0.25s ease;
+}
+
+.toastIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3fc89b; /* 受付完了と同系の緑（--color-label-club と同値） */
+  flex-shrink: 0;
+}
+
+.toastIcon svg {
+  width: 14px;
+  height: 14px;
+  color: #fff;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

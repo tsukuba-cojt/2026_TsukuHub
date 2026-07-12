@@ -6,14 +6,18 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Class from "./pages/Class";
 import ClassDetail from "./pages/ClassDetail";
+import ClassReviewForm from "./pages/ClassReviewForm";
 import Notfound404 from "./pages/404";
 import Confirm from "./components/auth/Confirm";
 import Mypage from "./pages/Mypage"
 import Contact from "./pages/Contact";
+import { AuthProvider } from "./components/auth/AuthContext";
+import RequireAuth from "./components/auth/RequireAuth";
 
 function App() {
   return (
     <BrowserRouter>
+      <AuthProvider>
 
       <Header />
       <Routes>
@@ -22,6 +26,15 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/class" element={<Class />} />
         <Route path="/class/:courseCode" element={<ClassDetail />} />
+        {/* 会員限定ページは RequireAuth でラップする（未ログイン時はオーバーレイ表示） */}
+        <Route
+          path="/class/:courseCode/review"
+          element={
+            <RequireAuth>
+              <ClassReviewForm />
+            </RequireAuth>
+          }
+        />
         <Route path="/auth/confirm" element={<Confirm />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/contact" element={<Contact />} />
@@ -30,6 +43,7 @@ function App() {
         <Route path="*" element={<Notfound404 />} />
 
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
