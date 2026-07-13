@@ -99,6 +99,263 @@
   transform: scaleX(1); /* 線をニュッと表示させる */
 }
 
+/* ── 「授業・履修」のドロップダウン ─────────────
+   注：Figma の node-id 未提供＋MCP レート制限中のため、
+   数値は添付デザイン画像からの目測。 */
+
+.navDropdownWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+.navDropdownWrap .navLinkItem {
+  flex: 1;
+}
+
+/* フル画面版：3カラムのメガメニュー */
+.navDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  gap: 24px;
+  width: min(720px, calc(100vw - 48px));
+  padding: 28px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(148, 172, 209, 0.35);
+}
+
+/* タブとの隙間でホバーが途切れないようにする透明ブリッジ */
+.navDropdown::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+/* タブ側を指す吹き出しのしっぽ */
+.navDropdownTail {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #fff;
+  border-radius: 3px;
+}
+
+/* 左の見出しブロック */
+.navDropdownIntro {
+  width: 170px;
+  flex-shrink: 0;
+}
+
+.navDropdownTitle {
+  margin: 0 0 8px;
+  color: var(--color-text-primary);
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.navDropdownDesc {
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ダミーのプレースホルダー画像（本実装時に差し替える） */
+.navDropdownImage {
+  width: 120px;
+  height: 96px;
+  background: #d9d9d9;
+}
+
+/* 右の3カラム */
+.navDropdownColumns {
+  flex: 1;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #e8eef7;
+  border-radius: 10px;
+}
+
+.navDropdownColumns li {
+  flex: 1;
+  display: flex;
+}
+
+/* カラム間の縦区切り線 */
+.navDropdownColumns li + li {
+  border-left: 1px solid #e8eef7;
+}
+
+.navDropdownCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 16px 18px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.navDropdownCard:hover {
+  background: #f6f9fe;
+}
+
+.navDropdownIconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.navDropdownIconCircle svg {
+  width: 28px;
+  height: 28px;
+}
+
+.navDropdownIconCircle.isBlue {
+  background: #dfe9fd;
+  color: #3b76f0;
+}
+
+.navDropdownIconCircle.isGreen {
+  background: #d9f4ea; /* #3FC89B（--color-label-club）の薄いティント */
+  color: var(--color-label-club);
+}
+
+.navDropdownIconCircle.isYellow {
+  background: #ffefcc; /* #FEB304（--color-label-life）の薄いティント */
+  color: var(--color-label-life);
+}
+
+.navDropdownCardLabel {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.navDropdownCardLabel.isBlue {
+  color: var(--color-primary);
+}
+
+.navDropdownCardLabel.isGreen {
+  color: var(--color-label-club);
+}
+
+.navDropdownCardLabel.isYellow {
+  color: var(--color-label-life);
+}
+
+.navDropdownCardDivider {
+  width: 100%;
+  height: 1px;
+  margin-top: auto;
+  background: #e8eef7;
+}
+
+.navDropdownCardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.navDropdownCard:hover .navDropdownCardLink {
+  text-decoration: underline;
+}
+
+.navDropdownCardLink svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 行末シェブロンはモバイル版のみ表示 */
+.navDropdownRowChevron {
+  display: none;
+}
+
+/* 画面幅が 1024px 以下になったら適用するルール */
+@media (max-width: 1024px) {
+  /* モバイル版：見出しブロックなしのコンパクト縦リスト */
+  .navDropdown {
+    width: 280px;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px;
+  }
+
+  .navDropdownIntro {
+    display: none;
+  }
+
+  .navDropdownColumns {
+    flex-direction: column;
+    border: none;
+    border-radius: 0;
+  }
+
+  .navDropdownColumns li + li {
+    border-left: none;
+  }
+
+  .navDropdownCard {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+
+  .navDropdownIconCircle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navDropdownIconCircle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .navDropdownCardLabel.isBlue,
+  .navDropdownCardLabel.isGreen,
+  .navDropdownCardLabel.isYellow {
+    color: var(--color-text-primary);
+    font-size: 13px;
+  }
+
+  .navDropdownCardDivider,
+  .navDropdownCardLink {
+    display: none;
+  }
+
+  .navDropdownRowChevron {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+  }
+}
+
 /* 画面幅が 1024px 以下になったら適用するルール */
 @media (max-width: 1024px) {
   .navLinkItem {

@@ -1,6 +1,6 @@
 import "../../styles/utility/Globalnav.css";
-import { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   House,
   BriefcaseBusiness,
@@ -10,7 +10,9 @@ import {
   Globe,
   Info,
   Mail,
+  ChevronRight,
 } from "lucide-react";
+import { classMenuItems } from "./classMenuItems";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
@@ -23,9 +25,14 @@ const navItems = [
   { icon: Mail, label: "お問い合わせ", path: "/contact" },
 ];
 
+// 「授業・履修」ドロップダウンの項目定義は
+// トップページ（/class/top）と共有の classMenuItems.ts を参照
+
 function Globalnav() {
   const { pathname } = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [classMenuOpen, setClassMenuOpen] = useState(false);
+  const classMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 0);
@@ -33,6 +40,27 @@ function Globalnav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // メニュー外クリックで閉じる（Header のマイページメニューと同じパターン）
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (classMenuRef.current && !classMenuRef.current.contains(e.target as Node)) {
+        setClassMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // ESC キーでも閉じる
+  useEffect(() => {
+    if (!classMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setClassMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [classMenuOpen]);
 
   // ホーム（トップページ）の一番上にいる間だけ背景を透明にする
   const isTransparent = pathname === "/" && !isScrolled;
@@ -67,12 +95,93 @@ function Globalnav() {
         </defs>
       </svg>
       <nav className="headerNav">
-        {navItems.map((item) => (
-          <NavLink to={item.path} key={item.label} className="navLinkItem">
-            <item.icon className="navIcon" aria-hidden="true" />
-            <span className="navLabel">{item.label}</span>
-          </NavLink>
-        ))}
+        {navItems.map((item) =>
+          item.path === "/class" ? (
+            /* 「授業・履修」だけドロップダウン付き（ホバー or クリックで開閉） */
+            <div
+              className="navDropdownWrap"
+              key={item.label}
+              ref={classMenuRef}
+              onMouseEnter={() => setClassMenuOpen(true)}
+              onMouseLeave={() => setClassMenuOpen(false)}
+            >
+              <NavLink
+                to={item.path}
+                className="navLinkItem"
+                aria-haspopup="menu"
+                aria-expanded={classMenuOpen}
+                onClick={(e) => {
+                  // クリックはメニューを開くのに使う（遷移はメニュー内の「講義検索」から）。
+                  // ホバーで開いた直後のクリックで閉じないよう、トグルではなく常に開く。
+                  // 閉じるのは外側クリック・ESC・マウス離脱で行う。
+                  e.preventDefault();
+                  setClassMenuOpen(true);
+                }}
+              >
+                <item.icon className="navIcon" aria-hidden="true" />
+                <span className="navLabel">{item.label}</span>
+              </NavLink>
+
+              {classMenuOpen && (
+                <div className="navDropdown" role="menu">
+                  <span className="navDropdownTail" aria-hidden="true" />
+                  <div className="navDropdownIntro">
+                    <p className="navDropdownTitle">講義・履修</p>
+                    <p className="navDropdownDesc">
+                      授業の検索や履修計画、卒業要件の確認まで。筑波大生の学びをサポートする機能がそろっています。
+                    </p>
+                    {/* ダミーのプレースホルダー画像（本実装時に差し替える） */}
+                    <div
+                      className="navDropdownImage"
+                      role="img"
+                      aria-label="講義・履修のイメージ画像（準備中）"
+                    />
+                  </div>
+                  <ul className="navDropdownColumns">
+                    {classMenuItems.map((menu) => (
+                      <li key={menu.label}>
+                        <Link
+                          to={menu.path}
+                          className="navDropdownCard"
+                          role="menuitem"
+                          onClick={() => setClassMenuOpen(false)}
+                        >
+                          <span
+                            className={`navDropdownIconCircle ${menu.colorClass}`}
+                          >
+                            <menu.icon aria-hidden="true" />
+                          </span>
+                          <span
+                            className={`navDropdownCardLabel ${menu.colorClass}`}
+                          >
+                            {menu.label}
+                          </span>
+                          <span
+                            className="navDropdownCardDivider"
+                            aria-hidden="true"
+                          />
+                          <span className="navDropdownCardLink">
+                            {menu.linkLabel}
+                            <ChevronRight aria-hidden="true" />
+                          </span>
+                          <ChevronRight
+                            className="navDropdownRowChevron"
+                            aria-hidden="true"
+                          />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          ) : (
+            <NavLink to={item.path} key={item.label} className="navLinkItem">
+              <item.icon className="navIcon" aria-hidden="true" />
+              <span className="navLabel">{item.label}</span>
+            </NavLink>
+          )
+        )}
       </nav>
     </header>
   );

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Class from "./pages/Class";
+import ClassTop from "./pages/ClassTop";
 import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
 import Notfound404 from "./pages/404";
@@ -25,6 +26,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/class" element={<Class />} />
+        {/* 授業・履修トップ（静的セグメントのため :courseCode より優先される） */}
+        <Route path="/class/top" element={<ClassTop />} />
         <Route path="/class/:courseCode" element={<ClassDetail />} />
         {/* 会員限定ページは RequireAuth でラップする（未ログイン時はオーバーレイ表示） */}
         <Route
