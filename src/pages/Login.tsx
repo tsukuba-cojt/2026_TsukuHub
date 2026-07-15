@@ -114,9 +114,9 @@ export default function Login() {
                   aria-label={showPassword ? "パスワードを隠す" : "パスワードを表示"}
                 >
                   {showPassword ? (
-                    <EyeOff size={18} aria-hidden="true" />
-                  ) : (
                     <Eye size={18} aria-hidden="true" />
+                  ) : (
+                    <EyeOff size={18} aria-hidden="true" />
                   )}
                 </button>
               </div>

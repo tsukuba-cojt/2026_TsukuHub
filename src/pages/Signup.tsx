@@ -188,7 +188,7 @@ export default function Signup() {
                     onClick={() => setShowPassword((v) => !v)}
                     aria-label={showPassword ? "パスワードを隠す" : "パスワードを表示"}
                   >
-                    {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                    {showPassword ? <EyeIcon /> : <EyeOffIcon />}
                   </button>
                 </div>
                 <span className="helper-text">8文字以上で入力して下さい</span>
@@ -213,7 +213,7 @@ export default function Signup() {
                     onClick={() => setShowConfirmPassword((v) => !v)}
                     aria-label={showConfirmPassword ? "パスワードを隠す" : "パスワードを表示"}
                   >
-                    {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+                    {showConfirmPassword ? <EyeIcon /> : <EyeOffIcon />}
                   </button>
                 </div>
               </label>
