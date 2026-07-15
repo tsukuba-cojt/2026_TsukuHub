@@ -6,7 +6,7 @@ type ClassSortBarProps = {
 };
 
 function ClassSortBar({ currentPage, totalCount }: ClassSortBarProps) {
-  const displayedCount = Math.min(currentPage * 20, totalCount);
+  const displayedCount = Math.min(currentPage * 10, totalCount);
 
   return (
     <div className="classSortBar">
