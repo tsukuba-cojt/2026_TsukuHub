@@ -200,11 +200,18 @@ function ClassDetail() {
               <div className="classDetailActions">
                 <button
                   type="button"
-                  className={`classDetailActionBtn${bookmarked ? " isActive" : ""}`}
+                  className={`classDetailActionBtn classDetailBookmarkBtn${bookmarked ? " isActive" : ""}`}
                   aria-pressed={bookmarked}
+                  aria-label={
+                    bookmarked ? "ブックマークを解除" : "ブックマークに登録"
+                  }
                   onClick={() => setBookmarked((v) => !v)}
                 >
-                  <Bookmark aria-hidden="true" />
+                  <Bookmark
+                    aria-hidden="true"
+                    fill={bookmarked ? "currentColor" : "none"}
+                    stroke="currentColor"
+                  />
                   ブックマーク
                 </button>
                 <button

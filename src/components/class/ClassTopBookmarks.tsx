@@ -61,7 +61,24 @@ function ClassTopBookmarks({ bookmarks }: ClassTopBookmarksProps) {
                     {course.rating.toFixed(1)}
                     <small>({course.reviews})</small>
                   </span>
-                  <Bookmark className="classTopBookmarkIcon" aria-hidden="true" />
+                  {/* 一覧に載る講義は登録済みのため常に塗りつぶし表示。
+                      解除ロジックは未実装（実データ接続時に実装）。 */}
+                  <button
+                    type="button"
+                    className="classTopBookmarkBtn"
+                    aria-pressed="true"
+                    aria-label={`${course.title}のブックマークを解除`}
+                    onClick={(e) => {
+                      // 行全体のリンク遷移だけ止める
+                      e.preventDefault();
+                    }}
+                  >
+                    <Bookmark
+                      aria-hidden="true"
+                      fill="currentColor"
+                      stroke="currentColor"
+                    />
+                  </button>
                   <ChevronRight className="classTopRowChevron" aria-hidden="true" />
                 </div>
               </Link>

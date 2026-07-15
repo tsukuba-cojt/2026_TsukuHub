@@ -141,13 +141,14 @@
   color: var(--color-primary);
 }
 
-/* ブックマークON時（永続化は後日実装） */
-.classDetailActionBtn.isActive {
-  color: var(--color-primary);
+/* ブックマークボタン：未登録はミュート色、登録済みはアクセント色。
+   アイコンの fill/stroke は currentColor 指定（JSX 側）で色に追従する */
+.classDetailBookmarkBtn {
+  color: var(--color-text-muted);
 }
 
-.classDetailActionBtn.isActive svg {
-  fill: currentColor;
+.classDetailBookmarkBtn.isActive {
+  color: var(--color-primary);
 }
 
 /* ── タブ ─────────────────────────────── */

@@ -3,7 +3,10 @@
 .unauthorized-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  /* ページ本体（最大 z-index: 20）より前面、
+     Globalnav (100) / Header (300) より背面に置き、
+     ロゴ・グローバルナビのクリックを遮らない */
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
