@@ -1,4 +1,5 @@
 import "../../styles/home/CompanyScroll.css";
+import logoWhiteLine from "../../assets/home/CompanyScroll/LogoWhiteLine.svg";
 
 const items = ["TsukuHub", "TsukuHub", "TsukuHub", "TsukuHub"];
 
@@ -9,7 +10,12 @@ function CompanyScroll() {
         <div className="companyScrollTrack">
           {[...items, ...items].map((text, i) => (
             <span key={i} className="companyScrollItem">
-              <span className="companyScrollDivider" />
+              <img
+                src={logoWhiteLine}
+                alt=""
+                aria-hidden="true"
+                className="companyScrollDivider"
+              />
               {text}
             </span>
           ))}

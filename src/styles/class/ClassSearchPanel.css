@@ -13,10 +13,11 @@
   margin-bottom: 18px;
 }
 
-.classSearchHeading img {
+.classSearchHeadingIcon {
   width: 36px;
   height: 36px;
-  filter: invert(44%) sepia(91%) saturate(1243%) hue-rotate(202deg) brightness(100%) contrast(93%);
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .classSearchHeading h1 {

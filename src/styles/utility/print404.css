@@ -107,6 +107,8 @@
 .nf-search-icon {
   width: 23px;
   height: 23px;
+  /* --color-primary-gradient と同じ色停止の <linearGradient> を stroke で参照 */
+  stroke: url(#nfSearchGradient);
 }
 
 /* ── Buttons ─────────────────────────────────── */

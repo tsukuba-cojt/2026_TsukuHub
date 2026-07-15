@@ -27,11 +27,11 @@
   padding-right: 40px;
 }
 
+/* セパレーター：ロゴイラスト（白半透明の質感はSVG側の指定を尊重） */
 .companyScrollDivider {
   display: inline-block;
-  width: 3px;
-  height: 96px;
-  background: rgba(255, 255, 255, 0.25);
+  width: auto;
+  height: 96px; /* ロゴテキスト（font-size: 96px）に高さを揃える */
   margin-right: 40px;
   flex-shrink: 0;
 }
