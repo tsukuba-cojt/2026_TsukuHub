@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Search } from "lucide-react";
 import "../../styles/utility/print404.css";
-import searchIcon from "../../assets/utility/header_footer/Search.svg";
 import searchIllust from "../../assets/NotFound/SearchIllust.svg";
 
 export default function Notfound404() {
@@ -16,6 +16,29 @@ export default function Notfound404() {
 
   return (
     <div className="nf-page">
+      {/* --color-primary-gradient と同じ色停止（#1578FD → #075FDF, 90deg）を
+          検索アイコンの stroke 用に定義（userSpaceOnUse・lucide の viewBox 24x24 基準） */}
+      <svg
+        width="0"
+        height="0"
+        aria-hidden="true"
+        focusable="false"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <linearGradient
+            id="nfSearchGradient"
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="0"
+            x2="24"
+            y2="0"
+          >
+            <stop offset="0%" stopColor="#1578FD" />
+            <stop offset="100%" stopColor="#075FDF" />
+          </linearGradient>
+        </defs>
+      </svg>
       <div className="nf-inner">
         {/* Left column */}
         <div className="nf-left">
@@ -39,11 +62,7 @@ export default function Notfound404() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button type="submit" className="nf-search-btn" aria-label="検索">
-                <img
-                  src={searchIcon}
-                  alt=""
-                  className="nf-search-icon"
-                />
+                <Search className="nf-search-icon" aria-hidden="true" />
               </button>
             </div>
           </form>

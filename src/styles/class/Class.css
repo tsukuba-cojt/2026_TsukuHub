@@ -16,6 +16,16 @@
   font-weight: 500;
 }
 
+/* パンくずのリンク：見た目は現状のまま、ホバー時のみ下線 */
+.classBreadcrumbLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.classBreadcrumbLink:hover {
+  text-decoration: underline;
+}
+
 .classCourseList {
   display: flex;
   flex-direction: column;

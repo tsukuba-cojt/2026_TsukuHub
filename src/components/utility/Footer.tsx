@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import "../../styles/utility/Footer.css";
-import logoBlue from "../../assets/utility/header_footer/Property 1=Blue.svg";
+import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
+import sparkleIconBlue from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
 import snsXIcon from "../../assets/utility/header_footer/icon-sns-x.svg";
 import snsInstagramIcon from "../../assets/utility/header_footer/icon-sns-instagram.svg";
 import snsLineIcon from "../../assets/utility/header_footer/icon-sns-line.svg";
@@ -21,7 +22,13 @@ function Footer() {
             <div className="footerLogoTextGroup">
               <span className="footerLogoText">
                 TsukuHub
-                {/* icon-sparkle.svg — replace when asset arrives */}
+                {/* ロゴタイプ右上のスパークル: 青(大)+黄(小) */}
+                <img
+                  src={sparkleIconBlue}
+                  alt=""
+                  className="footerSparkleBlue"
+                  aria-hidden="true"
+                />
                 <img
                   src={sparkleIcon}
                   alt=""
@@ -29,24 +36,17 @@ function Footer() {
                   aria-hidden="true"
                 />
               </span>
-              {/* icon-sparkle.svg (blue) */}
-              <img
-                src={sparkleIcon}
-                alt=""
-                className="footerSparkleBlue"
-                aria-hidden="true"
-              />
+              <p className="footerTagline">
+                筑波大生のためのキャンパスライフを、もっと便利に、もっと楽しく。
+              </p>
             </div>
           </div>
-          <p className="footerTagline">
-            筑波大生のためのキャンパスライフを、もっと便利に、もっと楽しく。
-          </p>
         </div>
 
         {/* Column 2: サービス */}
         <div className="footerCol">
           <h3>サービス</h3>
-          <ul className="footerLinks">
+          <ul className="footerLinks footerLinksService">
             <li><Link to="/career">就活・キャリア</Link></li>
             <li><Link to="/circles">サークル・課外活動</Link></li>
             <li><Link to="/news">イベント・お知らせ</Link></li>

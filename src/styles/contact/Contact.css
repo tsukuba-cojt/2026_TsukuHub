@@ -1,0 +1,479 @@
+/* お問い合わせページ（/contact）
+   注：Figma MCP がレート制限のため、tokens.css に無い数値
+   （緑ボックスの配色・エラー赤・細かい余白）はデザイン画像からの
+   目測値。Figma 取得後に微調整すること。 */
+
+.contactPage {
+  min-height: 100vh;
+  background: var(--color-bg-gradient);
+}
+
+.contactPageLayout {
+  width: min(1360px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 14px 0 64px;
+}
+
+.contactBreadcrumb {
+  margin: 0 0 8px 6px;
+  color: #bdc9dc;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* パンくずの「ホーム」リンク：見た目は現状のまま、ホバー時のみ下線 */
+.contactBreadcrumbLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contactBreadcrumbLink:hover {
+  text-decoration: underline;
+}
+
+/* 見出しエリア */
+.contactHeading {
+  margin: 24px 6px 28px;
+}
+
+.contactEyebrow {
+  margin: 0 0 4px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.contactTitle {
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.contactLead {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* 2カラム */
+.contactColumns {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* 左カラム：フォームカード */
+.contactFormCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 40px 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contactField {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.contactFieldBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contactLabel {
+  padding-top: 10px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contactFieldBlock .contactLabel {
+  padding-top: 0;
+}
+
+.contactRequired {
+  margin-left: 4px;
+  color: #e5484d; /* エラー・必須の赤：tokens 未定義のため画像目測 */
+}
+
+.contactControl {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactInput,
+.contactSelect,
+.contactTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.contactInput::placeholder,
+.contactTextarea::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.contactInput:focus,
+.contactSelect:focus,
+.contactTextarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* 区分（ラジオ・横並び） */
+.contactRadioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-top: 10px;
+}
+
+.contactRadioLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contactRadioLabel input {
+  accent-color: var(--color-primary);
+}
+
+/* プルダウン */
+.contactSelectWrap {
+  position: relative;
+}
+
+.contactSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.contactSelect.isPlaceholder {
+  color: var(--color-text-placeholder);
+}
+
+.contactSelectChevron {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* お問い合わせ内容（textarea＋文字数カウンター） */
+.contactTextareaWrap {
+  position: relative;
+}
+
+.contactTextarea {
+  min-height: 200px;
+  resize: vertical;
+  line-height: 1.7;
+  padding-bottom: 32px; /* カウンターと重ならない余白 */
+}
+
+.contactCounter {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+/* 同意チェック */
+.contactAgreeRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactAgreeLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.contactAgreeLabel input {
+  accent-color: var(--color-primary);
+}
+
+.contactPolicyLink {
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-family: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* エラーメッセージ */
+.contactError {
+  margin: 0;
+  color: #e5484d; /* tokens 未定義のため画像目測 */
+  font-size: 12px;
+}
+
+/* 送信ボタン（カード右下） */
+.contactSubmitRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contactSubmitBtn {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 40px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.contactSubmitBtn:hover {
+  background: var(--color-primary-dark);
+}
+
+/* 右カラム：案内サイドバー */
+.contactSidebar {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contactSidebarIllust img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.contactSidebarTitle {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contactSidebarItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contactSidebarItemTitle {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.contactSidebarIcon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--color-text-primary);
+}
+
+.contactSidebarItemBody {
+  margin: 0;
+  padding-left: 21px; /* アイコン幅＋gap 分のインデント */
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.contactFaqTextLink {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.contactSidebarNotes {
+  margin: 0;
+  padding-left: 35px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.contactSidebarNotes li {
+  margin-bottom: 4px;
+}
+
+.contactFaqBtn {
+  display: block;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  padding: 9px 12px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.contactFaqBtn:hover {
+  background: rgba(21, 120, 253, 0.08);
+}
+
+/* 受付完了ボックス（送信後・全幅） */
+.contactSuccessBox {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #bfe0cd; /* 緑系は tokens 未定義のため画像目測 */
+  border-radius: var(--radius-card);
+  padding: 20px 28px;
+  background: #e9f5ee; /* 画像目測 */
+}
+
+.contactSuccessBadge {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #3fc89b; /* --color-label-club と同値の緑 */
+}
+
+.contactSuccessBadge svg {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+}
+
+.contactSuccessTitle {
+  margin: 0 0 4px;
+  color: #2f9e70; /* 画像目測 */
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.contactSuccessBody {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* プライバシーポリシーのモーダル */
+.contactModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 28, 66, 0.45);
+  padding: 24px;
+}
+
+.contactModalPanel {
+  position: relative;
+  width: min(640px, 100%);
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+}
+
+.contactModalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  padding: 4px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.contactModalClose svg {
+  width: 20px;
+  height: 20px;
+}
+
+.contactModalTitle {
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.contactModalBody p {
+  margin: 0 0 12px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* レスポンシブ：サイドバーを下に回す */
+@media (max-width: 1100px) {
+  .contactPageLayout {
+    width: min(100% - 32px, 960px);
+  }
+  .contactColumns {
+    grid-template-columns: 1fr;
+  }
+  .contactField {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .contactLabel {
+    padding-top: 0;
+  }
+  .contactRadioGroup {
+    padding-top: 0;
+  }
+  .contactFormCard {
+    padding: 24px 20px;
+  }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/class/ClassSearchPanel.css";
 import "rc-slider/assets/index.css";
 import Slider from "rc-slider";
-import bookMonoIcon from "../../assets/utility/Globalnav/BookMono.svg";
+import bookIcon from "../../assets/home/CategoryCard/Book.svg";
 
 function SearchIcon() {
   return (
@@ -77,7 +77,7 @@ export default function ClassSearchPanel({ filters, onChange }: Props) {
   return (
     <section className="classSearchPanel">
       <div className="classSearchHeading">
-        <img src={bookMonoIcon} alt="" />
+        <img src={bookIcon} alt="" className="classSearchHeadingIcon" />
         <div>
           <h1>授業検索</h1>
           <p>条件で授業を絞り込みます</p>

@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import type { Session } from "@supabase/supabase-js";
+import { Bell, Search } from "lucide-react";
 import "../../styles/utility/Header.css";
-import logoBlue from "../../assets/utility/header_footer/Property 1=Blue.svg";
+import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
-import searchIcon from "../../assets/utility/header_footer/Search.svg";
+import sparkleBlueIcon from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -52,9 +53,39 @@ export default function Header() {
 
   return (
     <header className="main-header">
+      {/* --color-primary-gradient と同じ色停止（#1578FD → #075FDF, 90deg）を
+          検索アイコンの stroke 用に定義（userSpaceOnUse・lucide の viewBox 24x24 基準） */}
+      <svg
+        width="0"
+        height="0"
+        aria-hidden="true"
+        focusable="false"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <linearGradient
+            id="headerSearchGradient"
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="0"
+            x2="24"
+            y2="0"
+          >
+            <stop offset="0%" stopColor="#1578FD" />
+            <stop offset="100%" stopColor="#075FDF" />
+          </linearGradient>
+        </defs>
+      </svg>
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo-link">
+            {/* Sparkle blue — アイコン左下 */}
+            <img
+              src={sparkleBlueIcon}
+              alt=""
+              className="logo-sparkle-blue"
+              aria-hidden="true"
+            />
             <img
               src={logoBlue}
               alt="TsukuHub Logo"
@@ -63,7 +94,7 @@ export default function Header() {
             <div className="logo-text-group">
               <span className="logo-text">
                 TsukuHub
-                {/* Sparkle yellow — icon-sparkle.svg arrives later */}
+                {/* Sparkle yellow — ロゴタイプ右上 */}
                 <img
                   src={sparkleIcon}
                   alt=""
@@ -72,13 +103,6 @@ export default function Header() {
                 />
               </span>
               <span className="tagline">筑波大生のためのキャンパス情報ポータル</span>
-              {/* Sparkle blue */}
-              <img
-                src={sparkleIcon}
-                alt=""
-                className="logo-sparkle-blue"
-                aria-hidden="true"
-              />
             </div>
           </Link>
         </div>
@@ -94,11 +118,7 @@ export default function Header() {
                 className="search-input"
               />
               <button type="submit" className="search-button" aria-label="検索">
-                <img
-                  src={searchIcon}
-                  alt=""
-                  className="search-icon-image"
-                />
+                <Search className="search-icon-image" aria-hidden="true" />
               </button>
             </div>
           </form>
@@ -114,26 +134,7 @@ export default function Header() {
                   /* 通知の動作は今後実装 */
                 }}
               >
-                <svg
-                  className="notification-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 3a6 6 0 0 0-6 6v3.6l-1.4 2.8A1 1 0 0 0 5.5 17h13a1 1 0 0 0 .9-1.6L18 12.6V9a6 6 0 0 0-6-6Z"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M10 20a2 2 0 0 0 4 0"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <Bell className="notification-icon" aria-hidden="true" />
                 <span className="notification-dot" />
               </button>
 
@@ -147,18 +148,11 @@ export default function Header() {
                   onClick={() => setMenuOpen((v) => !v)}
                 >
                   <span className="mypage-avatar">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <img
+                      src="/src/assets/utility/header_footer/People.svg"
+                      alt=""
                       aria-hidden="true"
-                    >
-                      <circle cx="12" cy="8" r="4" fill="currentColor" />
-                      <path
-                        d="M4 20c0-4 3.6-6 8-6s8 2 8 6"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    />
                   </span>
                   <span className="mypage-label">マイページ</span>
                   <svg

@@ -1,4 +1,5 @@
 import "../../styles/home/TopicSection.css";
+import "../../styles/utility/Tags.css";
 import crownIcon from "../../assets/home/TopicSection/icon-crown.svg";
 
 const topics = [
@@ -43,7 +44,7 @@ function TopicSection() {
             {/* Thumbnail placeholder */}
             <div className="topicThumb" />
             <div className="topicMeta">
-              <span className={`topicTag ${topic.tagClass}`}>{topic.tag}</span>
+              <span className={`tag ${topic.tagClass}`}>{topic.tag}</span>
               <h3>{topic.title}</h3>
               <p>{topic.date}</p>
             </div>

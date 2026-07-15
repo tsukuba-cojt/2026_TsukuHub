@@ -1,0 +1,40 @@
+/* 授業の特徴タグ（口コミ欄・「この授業の特徴」欄で共通）
+   新しいタグを追加するときは FeatureTag.tsx の登録簿に1行足し、
+   ここに .featureTag.isXxx を1つ定義する。 */
+
+.featureTag {
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.featureTag.isOrange {
+  background: #fbe0d3; /* わかりやすい */
+  color: #e8552f;
+}
+
+.featureTag.isPink {
+  background: #f9d4e2; /* 楽しい */
+  color: #d81b5f;
+}
+
+.featureTag.isGreen {
+  background: #d8f2e0; /* 実践的 */
+  color: #2fa35f;
+}
+
+.featureTag.isBlue {
+  background: #cfe2fd; /* 課題が多い（未登録タグの既定色も兼ねる） */
+  color: var(--color-primary);
+}
+
+.featureTag.isPurple {
+  background: #dcdcf9; /* 資料が充実 */
+  color: #5e35d1;
+}
+
+.featureTag.isYellow {
+  background: #fdf0c9; /* 先生が優しい */
+  color: #e5a300;
+}
