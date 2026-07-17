@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
-import ClassSearchPanel from "../components/class/ClassSearchPanel";
+import ClassSearchPanel from "../components/class/ClassSearchPanel.tsx";
 import ClassSortBar from "../components/class/ClassSortBar";
 import ClassCard, { type ClassCourse } from "../components/class/ClassCard";
 import ClassPagination from "../components/class/ClassPagination";
@@ -25,46 +25,49 @@ type CourseRow = {
   semester: string;
   schedule: string;
   instructor: string;
-  overview: string;
-  remarks: string;
+  overview?: string;
+  remarks?: string;
 };
 
-// DBの行 → 表示用の ClassCourse に整形
-const toClassCourse = (row: CourseRow): ClassCourse => ({
-  id: String(row.id),
-  code: row.course_number,
-  title: row.course_name,
-  teacher: row.instructor,
-  term: row.semester,
-  period: row.schedule,
-  credits: `${row.credits}単位`,
-  // rating / reviews も現状DBに無いため暫定的に0。
-  rating: 0,
-  reviews: 0,
-});
+type FiltersState = {
+  text: string;
+  code: string;
+  moduleRangeStart: number;
+  moduleRangeEnd: number;
+  classType: "normal" | "intensive" | "consultation" | "anytime" | "nt";
+  schedule: string;
+  scheduleDay: string;
+  schedulePeriod: string;
+};
 
 function Class() {
   const [courses, setCourses] = useState<ClassCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  // 検索フィルタの状態（ClassSearchPanel と連携）
-  type Filters = {
-    text: string;
-    code: string;
-    module: string;
-    semester: string;
-    schedule: string;
-  };
-
-  const [filters, setFilters] = useState<Filters>({
+  const [filters, setFilters] = useState<FiltersState>({
     text: "",
     code: "",
-    module: "all",
-    semester: "all",
+    moduleRangeStart: 1,
+    moduleRangeEnd: 6,
+    classType: "normal",
     schedule: "all",
+    scheduleDay: "all",
+    schedulePeriod: "all",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
+
+  const toClassCourse = (r: CourseRow): ClassCourse => ({
+    id: String(r.id),
+    code: r.course_number,
+    title: r.course_name,
+    teacher: r.instructor || r.method || "",
+    term: r.semester || "",
+    period: r.schedule || "",
+    credits: r.credits || "",
+    rating: 0,
+    reviews: 0,
+  });
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -96,6 +99,28 @@ function Class() {
     const text = filters.text.trim().toLowerCase();
     const code = filters.code.trim().toLowerCase();
 
+    // モジュールと数値のマッピング
+    const moduleMap: { [key: string]: number } = {
+      "春A": 1,
+      "春B": 2,
+      "春C": 3,
+      "秋A": 4,
+      "秋B": 5,
+      "秋C": 6,
+    };
+
+    const moduleLabels = Object.keys(moduleMap);
+
+    const getAllowedTermModules = (start: number, end: number) => {
+      return Object.entries(moduleMap)
+        .filter(([, num]) => num >= start && num <= end)
+        .map(([label]) => label);
+    };
+
+    const getTermModules = (term: string) => {
+      return moduleLabels.filter((label) => term.includes(label));
+    };
+
     return courses.filter((c) => {
       // text: タイトル・教員名を検索
       if (text) {
@@ -108,23 +133,75 @@ function Class() {
         if (!c.code.toLowerCase().includes(code)) return false;
       }
 
-      // semester: 'spring' / 'fall' / 'all' を簡易マッチ（英語・日本語を考慮）
-      if (filters.semester !== "all") {
-        const term = (c.term || "").toLowerCase();
-        if (filters.semester === "spring") {
-          if (!/春|spring/.test(term)) return false;
-        } else if (filters.semester === "fall") {
-          if (!/秋|fall/.test(term)) return false;
+      // module: 範囲指定で判定
+      const term = (c.term || "");
+      const allowedModules = getAllowedTermModules(filters.moduleRangeStart, filters.moduleRangeEnd);
+      const termModules = getTermModules(term);
+
+      if (term.includes("通年")) {
+        // 通年科目は、モジュール範囲が 1〜6 全選択のときのみ表示する
+        if (filters.moduleRangeStart !== 1 || filters.moduleRangeEnd !== 6) {
+          return false;
+        }
+      } else if (term.includes("集中講義")) {
+        // 集中講義は範囲指定にかかわらず残す
+      } else {
+        if (termModules.length === 0) {
+          return false;
+        }
+
+        // 範囲内のモジュールが1つも含まれていない場合は除外
+        if (!termModules.some((moduleLabel) => allowedModules.includes(moduleLabel))) {
+          return false;
+        }
+
+        // 範囲外のモジュールが含まれていれば除外
+        if (termModules.some((moduleLabel) => !allowedModules.includes(moduleLabel))) {
+          return false;
         }
       }
 
-      // schedule: フィルタが 'all' でなければ文字列包含で判定（簡易実装）
-      if (filters.schedule !== "all") {
-        const sched = (c.period || "").toLowerCase();
-        if (!sched.includes(filters.schedule.replace("-", " ").toLowerCase())) return false;
+      // schedule 判定:
+      // - 通年かつモジュールが全選択(1..6) の場合は schedule フィルターを無視する
+      // - filters.classType !== 'normal' の場合は DB の schedule に種別キーワードが含まれるかで判定
+      // - normal の場合は曜日/時限で判定（split モード：scheduleDay/schedulePeriod、combined モード：schedule）
+      const schedRaw = (c.period || "");
+      if (term.includes("通年") && filters.moduleRangeStart === 1 && filters.moduleRangeEnd === 6) {
+        // 通年かつモジュール全選択：schedule 条件を適用しない
+      } else if (filters.classType && filters.classType !== "normal") {
+        const classTypeMap: { [key: string]: string[] } = {
+          intensive: ["集中", "集中講義"],
+          consultation: ["応談", "応相談", "応談可"],
+          anytime: ["随時"],
+          nt: ["NT", "ＮＴ"],
+        };
+        const keywords = classTypeMap[filters.classType] || [];
+        const lowerSched = schedRaw.toLowerCase();
+        if (!keywords.some((k) => lowerSched.includes(k.toLowerCase()))) return false;
+      } else {
+        // normal の場合
+        const DAY_JP: { [key: string]: string } = {
+          mon: "月",
+          tue: "火",
+          wed: "水",
+          thu: "木",
+          fri: "金",
+        };
+
+        if (filters.schedule && filters.schedule !== "all") {
+          // combined モード（例: "mon-2" を "mon 2" に変換して検索）
+          const schedSearch = filters.schedule.replace("-", " ");
+          if (!schedRaw.toLowerCase().includes(schedSearch.toLowerCase())) return false;
+        } else if (filters.scheduleDay && filters.scheduleDay !== "all") {
+          const day = DAY_JP[filters.scheduleDay] || filters.scheduleDay;
+          const searchValue =
+            filters.schedulePeriod && filters.schedulePeriod !== "all"
+              ? `${day}${filters.schedulePeriod}`
+              : `${day}`;
+          if (!schedRaw.toLowerCase().includes(searchValue.toLowerCase())) return false;
+        }
       }
 
-      // module: 現状 DB にモジュール列がないため all のみ意味を持つ
       return true;
     });
   }, [courses, filters]);
@@ -157,7 +234,7 @@ function Class() {
         </p>
         <ClassSearchPanel
           filters={filters}
-          onChange={(next) => setFilters((prev) => ({ ...prev, ...next }))}
+          onChange={(next: Partial<FiltersState>) => setFilters((prev) => ({ ...prev, ...next }))}
         />
         <ClassSortBar currentPage={currentPage} totalCount={filteredCourses.length} />
 

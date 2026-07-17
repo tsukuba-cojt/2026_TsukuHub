@@ -1,4 +1,7 @@
+import React from "react";
 import "../../styles/class/ClassSearchPanel.css";
+import "rc-slider/assets/index.css";
+import Slider from "rc-slider";
 import bookIcon from "../../assets/home/CategoryCard/Book.svg";
 
 function SearchIcon() {
@@ -26,9 +29,12 @@ function SlidersIcon() {
 type Filters = {
   text: string;
   code: string;
-  module: string;
-  semester: string;
+  moduleRangeStart: number;
+  moduleRangeEnd: number;
+  classType: "normal" | "intensive" | "consultation" | "anytime" | "nt";
   schedule: string;
+  scheduleDay: string;
+  schedulePeriod: string;
 };
 
 type Props = {
@@ -36,31 +42,54 @@ type Props = {
   onChange: (next: Partial<Filters>) => void;
 };
 
-function ClassSearchPanel({ filters, onChange }: Props) {
+const SCHEDULE_SELECTION_MODE: "split" | "combined" = "split";
+const DAY_OPTIONS = [
+  { label: "すべて", value: "all" },
+  { label: "月", value: "mon" },
+  { label: "火", value: "tue" },
+  { label: "水", value: "wed" },
+  { label: "木", value: "thu" },
+  { label: "金", value: "fri" },
+];
+const CLASS_TYPE_OPTIONS = [
+  { label: "通常", value: "normal" },
+  { label: "集中", value: "intensive" },
+  { label: "相談", value: "consultation" },
+  { label: "オンデマンド", value: "anytime" },
+  { label: "その他", value: "nt" },
+];
+
+export default function ClassSearchPanel({ filters, onChange }: Props) {
+  const handleReset = (e?: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    onChange({
+      text: "",
+      code: "",
+      moduleRangeStart: 1,
+      moduleRangeEnd: 6,
+      classType: "normal",
+      schedule: "all",
+      scheduleDay: "all",
+      schedulePeriod: "all",
+    });
+  };
+
   return (
-    <section className="classSearchPanel" aria-labelledby="class-search-title">
+    <section className="classSearchPanel">
       <div className="classSearchHeading">
         <img src={bookIcon} alt="" className="classSearchHeadingIcon" />
         <div>
-          <h1 id="class-search-title">講義検索</h1>
-          <p>キーワード・条件から学びたい講義を検索</p>
+          <h1>授業検索</h1>
+          <p>条件で授業を絞り込みます</p>
         </div>
       </div>
 
-      <form
-        className="classSearchForm"
-        onSubmit={(e) => e.preventDefault()}
-        onReset={(e) => {
-          e.preventDefault();
-          onChange({ text: "", code: "", module: "all", semester: "all", schedule: "all" });
-        }}
-      >
+      <form className="classSearchForm" onReset={handleReset}>
         <label className="classField classFieldText">
-          <span>講義名・キーワードで検索</span>
+          <span>授業名</span>
           <div className="classInputShell">
             <input
-              type="search"
-              placeholder="例：データ構造"
+              placeholder="検索ワード"
               value={filters.text}
               onChange={(e) => onChange({ text: e.target.value })}
             />
@@ -69,46 +98,103 @@ function ClassSearchPanel({ filters, onChange }: Props) {
         </label>
 
         <label className="classField classFieldCode">
-          <span>講義番号で検索</span>
-          <div className="classInputShell">
+          <span>授業コード</span>
             <input
-              type="search"
-              placeholder="例：AB12345"
+              placeholder="XXXXXXXX"
               value={filters.code}
               onChange={(e) => onChange({ code: e.target.value })}
             />
-            <SearchIcon />
-          </div>
         </label>
 
-        <label className="classField">
-          <span>モジュール</span>
-          <select value={filters.module} onChange={(e) => onChange({ module: e.target.value })}>
-            <option value="all">すべて</option>
-            <option value="spring-a">春A</option>
-            <option value="spring-b">春B</option>
-            <option value="fall-a">秋A</option>
+        {SCHEDULE_SELECTION_MODE === "split" ? (
+          <>
+            <label className="classField classFieldScheduleDay">
+              <span>曜日</span>
+              <select value={filters.scheduleDay} onChange={(e) => onChange({ scheduleDay: e.target.value, schedulePeriod: "all" })}>
+                {DAY_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {filters.scheduleDay !== "all" && (
+              <label className="classField classFieldSchedulePeriod">
+                <span>時限</span>
+                <select value={filters.schedulePeriod} onChange={(e) => onChange({ schedulePeriod: e.target.value })}>
+                  <option value="all">すべて</option>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((period) => (
+                    <option key={period} value={String(period)}>
+                      {period}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+          </>
+        ) : (
+          <label className="classField classFieldScheduleCombined">
+            <span>曜日時限</span>
+            <select value={filters.schedule} onChange={(e) => onChange({ schedule: e.target.value })}>
+              <option value="all">すべて</option>
+              {DAY_OPTIONS.slice(1).flatMap((day) =>
+                [1, 2, 3, 4, 5, 6, 7, 8].map((period) => (
+                  <option key={`${day.value}-${period}`} value={`${day.value}-${period}`}>
+                    {day.label}
+                    {period}
+                  </option>
+                ))
+              )}
+            </select>
+          </label>
+        )}
+
+        <label className="classField classFieldClassType">
+          <span>授業の種類</span>
+          <select value={filters.classType} onChange={(e) => onChange({ classType: e.target.value as Filters["classType"] })}>
+            {CLASS_TYPE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </label>
 
-        <label className="classField">
-          <span>開設学期</span>
-          <select value={filters.semester} onChange={(e) => onChange({ semester: e.target.value })}>
-            <option value="all">すべて</option>
-            <option value="spring">春学期</option>
-            <option value="fall">秋学期</option>
-          </select>
-        </label>
-
-        <label className="classField">
-          <span>曜日時限</span>
-          <select value={filters.schedule} onChange={(e) => onChange({ schedule: e.target.value })}>
-            <option value="all">すべて</option>
-            <option value="mon-2">月2</option>
-            <option value="tue-3">火3</option>
-            <option value="fri-5">金5</option>
-          </select>
-        </label>
+        {filters.classType === "normal" && (
+          <label className="classField classFieldModule">
+            <span>モジュール</span>
+            <div className="classModuleRangeSlider">
+              <Slider
+                range
+                min={1}
+                max={6}
+                step={1}
+                allowCross={false}
+                dots={false}
+                value={[filters.moduleRangeStart, filters.moduleRangeEnd]}
+                marks={{ 1: "春A", 2: "春B", 3: "春C", 4: "秋A", 5: "秋B", 6: "秋C" }}
+                onChange={(value) => {
+                  const [start, end] = value as number[];
+                  onChange({ moduleRangeStart: start, moduleRangeEnd: end });
+                }}
+                styles={{
+                  rail: { backgroundColor: "#dce5f4", height: 6 },
+                  track: { backgroundColor: "var(--color-primary)", height: 6 },
+                  handle: {
+                    borderColor: "var(--color-primary)",
+                    backgroundColor: "#fff",
+                    boxShadow: "0 2px 12px rgba(0, 81, 224, 0.24)",
+                    width: 18,
+                    height: 18,
+                    marginTop: -6,
+                    zIndex: 10,
+                  },
+                }}
+              />
+            </div>
+          </label>
+        )}
 
         <button className="classClearButton" type="reset">
           <SlidersIcon />
@@ -118,5 +204,3 @@ function ClassSearchPanel({ filters, onChange }: Props) {
     </section>
   );
 }
-
-export default ClassSearchPanel;
