@@ -192,6 +192,13 @@
   pointer-events: none;
 }
 
+/* 対応外の学類・年度やCSV読み取り失敗の注意書き */
+.gradCheckFieldError {
+  margin: 12px 0 0;
+  color: var(--color-label-event);
+  font-size: 13px;
+}
+
 /* ステップ2：ドラッグ&ドロップ */
 .gradCheckDropzone {
   display: flex;

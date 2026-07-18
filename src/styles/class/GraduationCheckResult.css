@@ -258,6 +258,9 @@
   justify-content: center;
   border-radius: 50%;
   color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .gradResultReqBadge svg {

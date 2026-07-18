@@ -11,6 +11,10 @@ import {
 } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
+import type {
+  CategoryResult,
+  GraduationCheckReport,
+} from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 
@@ -20,46 +24,9 @@ type GraduationCheckResultState = {
   major: string;
   admissionYear: string;
   agreedStats: boolean;
+  /** アップロードページで判定済みの結果（features/graduationCheck） */
+  report: GraduationCheckReport;
 } | null;
-
-// ── 表示データの型（実データ連携時はここへ判定結果を流し込む） ──
-export type GraduationCheckSummary = {
-  earnedCredits: number;
-  requiredCredits: number;
-  gpa: number;
-  gpaMax: number;
-  /** 取得単位中 A以上の割合（%） */
-  aRatePercent: number;
-  /** GPAバーに重ねる目安マーカーの位置（%） */
-  aRateMarkerPercent: number;
-};
-
-export type RequirementItem = {
-  name: string;
-  earned: number;
-  required: number;
-};
-
-// ダミーデータ（デザイン実装用）。CSVパース・判定ロジックはスコープ外のため、
-// 実データ連携時はこの2つを判定結果で差し替える。
-// 注：デザイン画像の単位数・%表記は色分けルール（100%以上=緑）と矛盾するため、
-// 緑にする行は取得=必要のダミー値にしている（色分けロジックが正となる）。
-const dummySummary: GraduationCheckSummary = {
-  earnedCredits: 78,
-  requiredCredits: 124,
-  gpa: 2.85,
-  gpaMax: 4.3,
-  aRatePercent: 62,
-  aRateMarkerPercent: 70,
-};
-
-const dummyRequirements: RequirementItem[] = [
-  { name: "必修科目", earned: 40, required: 40 },
-  { name: "選択科目（専門）", earned: 24, required: 38 },
-  { name: "選択科目（専門基礎）", earned: 12, required: 38 },
-  { name: "選択科目（共通）", earned: 36, required: 36 },
-  { name: "選択科目（関連）", earned: 36, required: 36 },
-];
 
 // ── 達成率の色分け（サマリー・要件リスト共通仕様） ──
 // 100%以上=緑 / 51〜99%=黄 / 0〜50%=ピンク
@@ -175,11 +142,10 @@ function SummaryCard({
   );
 }
 
-// 要件項目リストの1行
-function RequirementRow({ item }: { item: RequirementItem }) {
-  const percent = item.required > 0 ? (item.earned / item.required) * 100 : 0;
-  const level = levelFromPercent(percent);
-  const LevelIcon = level === "ok" ? Check : TriangleAlert;
+// 要件項目リストの1行。
+// 単位数と%は未クランプの実値を出し（100%超あり）、バーの塗りのみ100%で頭打ち。
+function RequirementRow({ item }: { item: CategoryResult }) {
+  const level = levelFromPercent(item.percent);
   return (
     <li className={`gradResultReqRow ${levelClass[level]}`}>
       <div className="gradResultReqName">
@@ -187,21 +153,22 @@ function RequirementRow({ item }: { item: RequirementItem }) {
           className={`gradResultReqBadge ${levelClass[level]}`}
           aria-hidden="true"
         >
-          <LevelIcon />
+          {level === "ok" ? <Check /> : "！"}
         </span>
-        {item.name}
+        {item.label}
       </div>
       <p className="gradResultReqUnits">
         <span className="gradResultReqEarned gradResultNumFont">
-          {item.earned}
+          {item.earnedUnits}
         </span>
-        <span className="gradResultReqUnitsSub">/ {item.required} 単位</span>
+        <span className="gradResultReqUnitsSub">/ {item.requiredUnits} 単位</span>
       </p>
       <div className="gradResultReqBarCell">
-        <ProgressBar percent={percent} />
+        <ProgressBar percent={item.percent} />
       </div>
       <p className="gradResultReqPct">
-        <span className="gradResultNumFont">{formatPercent(percent)}</span> %
+        <span className="gradResultNumFont">{formatPercent(item.percent)}</span>{" "}
+        %
       </p>
       <ChevronRight className="gradResultReqChevron" aria-hidden="true" />
     </li>
@@ -226,17 +193,8 @@ function GraduationCheckResult() {
     }
   }, [location.state, navigate]);
 
-  // ダミー値をそのまま表示（実データ連携時に差し替え）
-  const summary = dummySummary;
-  const requirements = dummyRequirements;
-  const progressPercent =
-    summary.requiredCredits > 0
-      ? (summary.earnedCredits / summary.requiredCredits) * 100
-      : 0;
-  const shortageCredits = Math.max(
-    summary.requiredCredits - summary.earnedCredits,
-    0
-  );
+  // サマリーカード・要件項目リストとも同一の判定結果（report）を参照する
+  const report = result?.report ?? null;
 
   return (
     <div className="gradCheckPage">
@@ -265,7 +223,7 @@ function GraduationCheckResult() {
           </p>
         </div>
 
-        {result ? (
+        {report ? (
           <div className="gradCheckCard">
             {/* 見出し行＋CSV再アップロード */}
             <div className="gradResultCardHeader">
@@ -287,11 +245,11 @@ function GraduationCheckResult() {
                 tone="blue"
                 icon={<GraduationCap />}
                 label="取得済み単位"
-                value={String(summary.earnedCredits)}
-                valueSub={`/ ${summary.requiredCredits} 単位`}
+                value={String(report.summary.earnedUnits)}
+                valueSub={`/ ${report.summary.requiredUnits} 単位`}
                 meta={{
                   label: "進捗率",
-                  percent: progressPercent,
+                  percent: report.summary.percent,
                   barTone: "blue",
                 }}
               />
@@ -299,21 +257,24 @@ function GraduationCheckResult() {
                 tone="pink"
                 icon={<TriangleAlert />}
                 label="不足単位"
-                value={String(shortageCredits)}
+                value={String(report.summary.shortageUnits)}
                 valueSub="単位"
               />
               <SummaryCard
                 tone="purple"
                 icon={<Star fill="currentColor" />}
                 label="GPA"
-                value={summary.gpa.toFixed(2)}
-                valueSub={`/ ${summary.gpaMax.toFixed(2)}`}
-                meta={{
-                  label: "取得単位中 A以上の割合",
-                  percent: summary.aRatePercent,
-                  barTone: "purple",
-                  markerPercent: summary.aRateMarkerPercent,
-                }}
+                value={report.gpa.value === null ? "-" : report.gpa.value.toFixed(2)}
+                valueSub={`/ ${report.gpa.max.toFixed(2)}`}
+                meta={
+                  report.gpa.aRatePercent === null
+                    ? undefined
+                    : {
+                        label: "取得単位中 A以上の割合",
+                        percent: report.gpa.aRatePercent,
+                        barTone: "purple",
+                      }
+                }
               />
             </div>
 
@@ -325,8 +286,8 @@ function GraduationCheckResult() {
                 <span className="gradResultReqHeadDetail">詳細</span>
               </div>
               <ul className="gradResultReqList">
-                {requirements.map((item) => (
-                  <RequirementRow item={item} key={item.name} />
+                {report.categories.map((item) => (
+                  <RequirementRow item={item} key={item.category} />
                 ))}
               </ul>
               <div className="gradResultNotes">
