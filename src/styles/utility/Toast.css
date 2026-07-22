@@ -36,6 +36,41 @@
   color: #fff;
 }
 
+/* 警告バリエーション（黄色系。--color-label-life と、
+   注意書きボックスで使っている薄黄 #fdf6e3 に合わせる） */
+.toast.isWarning {
+  background: #fdf6e3;
+  border: 1px solid var(--color-label-life);
+}
+
+.toast.isWarning .toastIcon {
+  background: var(--color-label-life);
+}
+
+/* 閉じるボタン（dismissible のときのみ表示） */
+.toastClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 6px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toastClose:hover {
+  color: var(--color-text-primary);
+}
+
+.toastClose svg {
+  width: 16px;
+  height: 16px;
+}
+
 @keyframes toastIn {
   from {
     opacity: 0;

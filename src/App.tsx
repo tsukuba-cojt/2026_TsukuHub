@@ -9,6 +9,8 @@ import Class from "./pages/Class";
 import ClassTop from "./pages/ClassTop";
 import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
+import GraduationCheck from "./pages/GraduationCheck";
+import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Notfound404 from "./pages/404";
 import Confirm from "./components/auth/Confirm";
 import Mypage from "./pages/Mypage"
@@ -41,6 +43,9 @@ function App() {
               </RequireAuth>
             }
           />
+        {/* 卒業要件チェック（パスは classMenuItems.ts の定義に合わせる） */}
+          <Route path="/graduation-checker" element={<GraduationCheck />} />
+          <Route path="/graduation-checker/result" element={<GraduationCheckResult />} />
           <Route path="/auth/confirm" element={<Confirm />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/contact" element={<Contact />} />
