@@ -379,6 +379,23 @@
   font-size: 13px;
 }
 
+/* ── 判定結果を破棄する遷移の確認ダイアログ ─────────────────── */
+/* 警告なのでヘッダーアイコンだけ黄色にする（枠・ボタンは同意モーダルと共通） */
+.gradCheckLeaveIcon {
+  color: var(--color-label-life);
+}
+
+/* ボタンが3つ並ぶため、狭い幅では縦積みにする */
+.gradCheckLeaveActions {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .gradCheckLeaveActions {
+    flex-direction: column;
+  }
+}
+
 /* ── B：データ取り扱い確認ポップアップ ─────────────────── */
 /* 読み込んだファイル行 */
 .gradCheckFileRow {

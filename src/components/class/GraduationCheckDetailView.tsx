@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, Check, SquarePen } from "lucide-react";
+import GraduationCheckLeaveConfirmModal from "./GraduationCheckLeaveConfirmModal";
 import ProgressBar from "./GraduationProgressBar";
+import { useReviewedCourseCodes } from "./useReviewedCourseCodes";
 import {
   formatPercent,
   levelClass,
@@ -34,8 +36,17 @@ const gradeClass: Record<Grade, string> = {
 // 科目テーブルの1行。
 // 科目番号が無い科目（成績CSVに載っていない等）は講義を特定できないため、
 // 講義詳細・口コミ投稿への導線を非活性にする。
-function CourseRow({ course }: { course: Course }) {
-  const navigate = useNavigate();
+// 遷移は直接行わず、親へ依頼して確認ダイアログを挟む（判定結果が失われるため）。
+function CourseRow({
+  course,
+  isReviewed,
+  onRequestLeave,
+}: {
+  course: Course;
+  /** ログイン中ユーザーが口コミ投稿済みか */
+  isReviewed: boolean;
+  onRequestLeave: (path: string) => void;
+}) {
   const hasCourseCode = course.id !== "";
 
   return (
@@ -54,21 +65,33 @@ function CourseRow({ course }: { course: Course }) {
           className="gradDetailIconBtn"
           disabled={!hasCourseCode}
           aria-label={`${course.name}の講義詳細を見る`}
-          onClick={() => navigate(`/class/${course.id}`)}
+          onClick={() => onRequestLeave(`/class/${course.id}`)}
         >
           <ArrowUpRight aria-hidden="true" />
         </button>
       </td>
       <td className="gradDetailActionCell">
-        <button
-          type="button"
-          className="gradDetailIconBtn"
-          disabled={!hasCourseCode}
-          aria-label={`${course.name}の口コミを投稿する`}
-          onClick={() => navigate(`/class/${course.id}/review`)}
-        >
-          <SquarePen aria-hidden="true" />
-        </button>
+        {/* 投稿済みの講義は投稿導線を出さず、緑丸チェックの表示に置き換える */}
+        {isReviewed ? (
+          <span
+            className="gradDetailReviewedBadge"
+            role="img"
+            aria-label="口コミ投稿済み"
+            title="口コミ投稿済み"
+          >
+            <Check aria-hidden="true" />
+          </span>
+        ) : (
+          <button
+            type="button"
+            className="gradDetailIconBtn"
+            disabled={!hasCourseCode}
+            aria-label={`${course.name}の口コミを投稿する`}
+            onClick={() => onRequestLeave(`/class/${course.id}/review`)}
+          >
+            <SquarePen aria-hidden="true" />
+          </button>
+        )}
       </td>
     </tr>
   );
@@ -84,6 +107,7 @@ type Props = {
 // 卒業要件チェック 詳細画面（結果ページ内のビュー切替で表示）
 // 全区分を縦に並べ、区分ごとに計上された科目の一覧を出す。
 function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
+  const navigate = useNavigate();
   const categoryCourses = useMemo(
     () => collectCategoryCourses(report),
     [report]
@@ -91,6 +115,20 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
   const sectionRefs = useRef<Partial<Record<CategoryKey, HTMLElement | null>>>(
     {}
   );
+  // 投稿済み講義は科目番号の集合としてマウント時に一括取得する（行ごとには引かない）
+  const reviewedCodes = useReviewedCourseCodes();
+  // 確認ダイアログで保留中の遷移先（null なら未表示）
+  const [pendingPath, setPendingPath] = useState<string | null>(null);
+
+  // 新しいタブで開く。noopener,noreferrer 付きなので開いた側から
+  // このタブ（＝判定結果を持つページ）を触られることはない。
+  const openPendingInNewTab = () => {
+    if (pendingPath !== null) {
+      window.open(pendingPath, "_blank", "noopener,noreferrer");
+    }
+    // このページは何も変えずに閉じるだけ（スクロール位置も判定結果もそのまま）
+    setPendingPath(null);
+  };
 
   // 概要画面で押された区分を画面先頭に合わせる（未指定ならページ先頭）
   useEffect(() => {
@@ -174,6 +212,10 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
                     courses.map((course, index) => (
                       <CourseRow
                         course={course}
+                        isReviewed={
+                          course.id !== "" && reviewedCodes.has(course.id)
+                        }
+                        onRequestLeave={setPendingPath}
                         key={`${course.id}-${course.name}-${index}`}
                       />
                     ))
@@ -184,6 +226,14 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
           </section>
         );
       })}
+
+      {pendingPath !== null && (
+        <GraduationCheckLeaveConfirmModal
+          onCancel={() => setPendingPath(null)}
+          onOpenNewTab={openPendingInNewTab}
+          onNavigate={() => navigate(pendingPath)}
+        />
+      )}
     </>
   );
 }

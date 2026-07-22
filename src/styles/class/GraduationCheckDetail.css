@@ -228,6 +228,26 @@
   cursor: not-allowed;
 }
 
+/* 口コミ投稿済み（緑丸＋白チェック）。
+   .gradDetailIconBtn（padding 4px + svg 18px = 26px）と同じ占有サイズにして
+   列内での位置がずれないようにする。緑は達成バッジと同じ --color-label-club。 */
+.gradDetailReviewedBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-label-club);
+  color: #fff;
+  cursor: default;
+}
+
+.gradDetailReviewedBadge svg {
+  width: 14px;
+  height: 14px;
+}
+
 .gradDetailEmpty {
   padding: 20px 16px;
   color: var(--color-text-secondary);
