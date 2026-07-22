@@ -42,7 +42,6 @@ type CourseRow = {
   remarks: string;
 };
 
-// [変更] is_anonymous を削除、author_major / author_grade を追加
 type Review = {
   id: string;
   course_id: number;
@@ -89,10 +88,22 @@ function ClassDetail() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"reviews" | "syllabus">("reviews");
   const [sortKey, setSortKey] = useState<SortKey>("new");
-  // ブックマークはトグルの見た目のみ（汎用ブックマーク機能として後日実装）
   const [bookmarked, setBookmarked] = useState(false);
 
   const [reviews, setReviews] = useState<Review[]>([]);
+
+  // [変更] 現在のユーザーIDを取得して ClassReviewCard に渡す
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setCurrentUserId(user?.id ?? null);
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -120,7 +131,6 @@ function ClassDetail() {
     fetchCourse();
   }, [courseCode]);
 
-  // course 取得後に口コミを fetch
   useEffect(() => {
     if (!course) return;
 
@@ -169,15 +179,20 @@ function ClassDetail() {
     }));
 
     const counts: Record<string, number> = {};
+    const fieldLabels: [string, keyof Review][] = [
+      ["講義", "lecture_format"],
+      ["難易度", "difficulty"],
+      ["課題量", "workload"],
+      ["出席", "attendance"],
+      ["過去問", "past_exam"],
+    ];
     for (const r of reviews) {
-      for (const val of [
-        r.lecture_format,
-        r.difficulty,
-        r.workload,
-        r.attendance,
-        r.past_exam,
-      ]) {
-        if (val) counts[val] = (counts[val] || 0) + 1;
+      for (const [label, key] of fieldLabels) {
+        const val = r[key];
+        if (typeof val === "string") {
+          const tagged = `${label}：${val}`;
+          counts[tagged] = (counts[tagged] || 0) + 1;
+        }
       }
     }
     const features = Object.entries(counts)
@@ -187,6 +202,9 @@ function ClassDetail() {
 
     return { total, avg, dist, features };
   }, [reviews]);
+
+  // [変更] 自分のレビューがあるかどうかでボタンラベルを切り替え
+  const hasMyReview = reviews.some((r) => r.user_id === currentUserId);
 
   const handlePostReview = () => {
     navigate(`/class/${courseCode}/review`);
@@ -267,7 +285,8 @@ function ClassDetail() {
                   onClick={handlePostReview}
                 >
                   <SquarePen aria-hidden="true" />
-                  口コミを投稿
+                  {/* [変更] 投稿済みなら「口コミを編集」に切り替え */}
+                  {hasMyReview ? "口コミを編集" : "口コミを投稿"}
                 </button>
               </div>
             </section>
@@ -316,7 +335,12 @@ function ClassDetail() {
                       </p>
                     )}
                     {sortedReviews.map((review) => (
-                      <ClassReviewCard review={review} key={review.id} />
+                      <ClassReviewCard
+                        review={review}
+                        key={review.id}
+                        // [変更] currentUserId を渡す
+                        currentUserId={currentUserId}
+                      />
                     ))}
                   </div>
                 </div>

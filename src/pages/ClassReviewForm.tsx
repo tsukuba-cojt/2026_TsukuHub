@@ -69,7 +69,6 @@ const pastExamOptions = ["過去問あり（有効）", "過去問あり（無�
 
 const COMMENT_MAX = 1000;
 
-// [変更] anonymous を削除
 type ReviewDraft = {
   rating: number;
   lectureFormat: string;
@@ -103,12 +102,16 @@ function ClassReviewForm() {
   const [, setDraft] = useState<ReviewDraft | null>(null);
   const [draftSavedAt, setDraftSavedAt] = useState<string | null>(null);
 
-  // [変更] ログインユーザーのプロフィール（投稿時のスナップショットとして reviews に保存する）
+  // ユーザープロフィール
   const [userId, setUserId] = useState<string | null>(null);
   const [authorMajor, setAuthorMajor] = useState<string | null>(null);
   const [authorGrade, setAuthorGrade] = useState<number | null>(null);
 
-  // [変更] マウント時にログインユーザーの profiles を取得
+  // [変更] 編集モード
+  const [isEdit, setIsEdit] = useState(false);
+  const [existingReviewId, setExistingReviewId] = useState<string | null>(null);
+
+  // マウント時にログインユーザーの profiles を取得
   useEffect(() => {
     const fetchProfile = async () => {
       const {
@@ -159,6 +162,36 @@ function ClassReviewForm() {
     fetchCourse();
   }, [courseCode]);
 
+  // [変更] userId と course の両方が揃ったら、既存レビューをチェック→あれば編集モード
+  useEffect(() => {
+    if (!userId || !course) return;
+
+    const checkExisting = async () => {
+      const { data } = await supabase
+        .from("reviews")
+        .select("*")
+        .eq("course_id", course.id)
+        .eq("user_id", userId)
+        .maybeSingle();
+
+      if (data) {
+        setIsEdit(true);
+        setExistingReviewId(data.id);
+        // フォームをプリフィル
+        setRating(data.rating);
+        setLectureFormat(data.lecture_format ?? "");
+        setTestFormat(data.test_format ?? "");
+        setDifficulty(data.difficulty ?? "");
+        setWorkload(data.workload ?? "");
+        setAttendance(data.attendance ?? "");
+        setPastExam(data.past_exam ?? "");
+        setComment(data.comment ?? "");
+      }
+    };
+
+    checkExisting();
+  }, [userId, course]);
+
   const commentTooLong = comment.length > COMMENT_MAX;
 
   const currentValues = (): ReviewDraft => ({
@@ -192,10 +225,8 @@ function ClassReviewForm() {
       return;
     }
 
-    // [変更] author_major, author_grade を含め、is_anonymous を削除
-    const { error: insertError } = await supabase.from("reviews").insert({
-      course_id: course!.id,
-      user_id: userId,
+    // [変更] 編集モードなら UPDATE、新規なら INSERT
+    const payload = {
       rating,
       lecture_format: lectureFormat || null,
       test_format: testFormat || null,
@@ -206,21 +237,48 @@ function ClassReviewForm() {
       comment: comment || null,
       author_major: authorMajor,
       author_grade: authorGrade,
-    });
+    };
 
-    if (insertError) {
-      if (insertError.code === "23505") {
+    let submitError;
+
+    if (isEdit && existingReviewId) {
+      const { error: updateError } = await supabase
+        .from("reviews")
+        .update({ ...payload, updated_at: new Date().toISOString() })
+        .eq("id", existingReviewId);
+      submitError = updateError;
+    } else {
+      const { error: insertError } = await supabase
+        .from("reviews")
+        .insert({
+          ...payload,
+          course_id: course!.id,
+          user_id: userId,
+        });
+      submitError = insertError;
+    }
+
+    if (submitError) {
+      if (submitError.code === "23505") {
         setError("この講義にはすでに口コミを投稿済みです。");
       } else {
-        setError("投稿に失敗しました。時間をおいて再度お試しください。");
-        console.error(insertError);
+        setError(
+          isEdit
+            ? "更新に失敗しました。時間をおいて再度お試しください。"
+            : "投稿に失敗しました。時間をおいて再度お試しください。"
+        );
+        console.error(submitError);
       }
       setSubmitting(false);
       return;
     }
 
     navigate(`/class/${courseCode}`, {
-      state: { toast: "口コミの投稿に成功しました！" },
+      state: {
+        toast: isEdit
+          ? "口コミを更新しました！"
+          : "口コミの投稿に成功しました！",
+      },
     });
   };
 
@@ -284,7 +342,8 @@ function ClassReviewForm() {
           ) : (
             "講義詳細"
           )}{" "}
-          &gt; 口コミ投稿
+          {/* [変更] パンくずのラベルをモードで切り替え */}
+          &gt; {isEdit ? "口コミ編集" : "口コミ投稿"}
         </p>
 
         {loading && <p className="classStatus">読み込み中...</p>}
@@ -327,7 +386,8 @@ function ClassReviewForm() {
             <section className="reviewFormPanel">
               <div className="reviewFormHeading">
                 <img src={commentIcon} alt="" aria-hidden="true" />
-                <h2>口コミを投稿する</h2>
+                {/* [変更] 見出しをモードで切り替え */}
+                <h2>{isEdit ? "口コミを編集する" : "口コミを投稿する"}</h2>
               </div>
 
               <div className="reviewFormScroll">
@@ -417,7 +477,6 @@ function ClassReviewForm() {
                 </div>
               </div>
 
-              {/* [変更] 匿名チェックボックスを削除。投稿者の表示形式を案内する */}
               <p className="reviewFormAuthorNote">
                 投稿者は「{authorMajor ?? "―"} {authorGrade != null ? `${authorGrade}年` : "―"}」と表示されます
               </p>
@@ -466,7 +525,10 @@ function ClassReviewForm() {
                     onClick={handleSubmit}
                   >
                     <Send aria-hidden="true" />
-                    {submitting ? "投稿中..." : "口コミを投稿する"}
+                    {/* [変更] ボタンラベルをモードで切り替え */}
+                    {submitting
+                      ? isEdit ? "更新中..." : "投稿中..."
+                      : isEdit ? "口コミを更新する" : "口コミを投稿する"}
                   </button>
                 </div>
               </div>

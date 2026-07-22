@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Ellipsis, ThumbsUp } from "lucide-react";
 import RatingStars from "./RatingStars";
 import FeatureTag from "./FeatureTag";
@@ -26,6 +27,8 @@ type Review = {
 
 type ClassReviewCardProps = {
   review: Review;
+  // [変更] 自分のレビューかどうかを判定するために現在のユーザーIDを受け取る
+  currentUserId: string | null;
 };
 
 const CLAMP_THRESHOLD = 100;
@@ -38,7 +41,6 @@ function formatDate(iso: string): string {
   return `${y}/${m}/${day}`;
 }
 
-// [変更] 投稿者の表示文字列を生成（「○○学類 ○年」形式）
 function formatAuthor(major: string | null, grade: number | null): string {
   if (major && grade != null) return `${major} ${grade}年`;
   if (major) return major;
@@ -46,7 +48,11 @@ function formatAuthor(major: string | null, grade: number | null): string {
   return "ユーザー";
 }
 
-function ClassReviewCard({ review }: ClassReviewCardProps) {
+function ClassReviewCard({ review, currentUserId }: ClassReviewCardProps) {
+  // [変更] 編集画面への遷移用
+  const navigate = useNavigate();
+  const { courseCode } = useParams<{ courseCode: string }>();
+
   const [expanded, setExpanded] = useState(false);
   const [helpful, setHelpful] = useState(review.helpful_count);
   const [voted, setVoted] = useState(false);
@@ -56,7 +62,9 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
   const commentText = review.comment ?? "";
   const isLong = commentText.length > CLAMP_THRESHOLD;
 
-  // 口コミの任意フィールドからタグを動的に生成（「項目名：値」形式）
+  // [変更] 自分のレビューかどうか
+  const isOwn = currentUserId !== null && review.user_id === currentUserId;
+
   const tagSources: [string, string | null][] = [
     ["講義", review.lecture_format],
     ["難易度", review.difficulty],
@@ -84,6 +92,12 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
     setVoted((v) => !v);
   };
 
+  // [変更] 編集ボタンのハンドラ
+  const handleEdit = () => {
+    setMenuOpen(false);
+    navigate(`/class/${courseCode}/review`);
+  };
+
   const handleReport = () => {
     setMenuOpen(false);
     window.alert("通報を受け付けました（後日実装予定のスタブです）");
@@ -94,7 +108,6 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
       <div className="reviewCardHeader">
         <div className="reviewCardMeta">
           <RatingStars rating={review.rating} />
-          {/* [変更] author_major + author_grade で「○○学類 ○年」表示 */}
           <span className="reviewAuthor">
             {formatAuthor(review.author_major, review.author_grade)}
           </span>
@@ -114,6 +127,17 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
             </button>
             {menuOpen && (
               <div className="reviewMenu" role="menu">
+                {/* [変更] 自分のレビューにのみ「編集する」を表示 */}
+                {isOwn && (
+                  <button
+                    type="button"
+                    className="reviewMenuItem"
+                    role="menuitem"
+                    onClick={handleEdit}
+                  >
+                    編集する
+                  </button>
+                )}
                 <button
                   type="button"
                   className="reviewMenuItem"
