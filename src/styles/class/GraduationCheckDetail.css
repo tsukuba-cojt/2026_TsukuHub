@@ -1,0 +1,249 @@
+/* 卒業要件チェック 詳細画面（結果ページ内のビュー切替で表示）
+   デザイン画像基準。tokens.css に無い色は GraduationCheckResult.css と同じ
+   目測値（枠線 #e3eaf5 など）を踏襲する。
+   ステータスアイコン（.gradResultReqBadge）とプログレスバー（.gradResultBar）は
+   GraduationCheckResult.css のものを再利用する。 */
+
+/* ── カード上部（右寄せの「概要に戻る」） ─────────────────── */
+.gradDetailHeaderRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.gradDetailBackBtn {
+  border: 1px solid #e3eaf5;
+  border-radius: 10px;
+  padding: 10px 20px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn-soft);
+  transition: border-color 0.2s ease;
+}
+
+.gradDetailBackBtn:hover {
+  border-color: var(--color-primary);
+}
+
+/* ── 区分ブロック ─────────────────── */
+.gradDetailSection {
+  /* ヘッダーが sticky（main-header 96px + globalHeader 51px）なので、
+     区分ブロックがその下に隠れないよう余白を取る */
+  scroll-margin-top: 164px;
+}
+
+/* 概要画面の要件項目リスト（.gradResultReqRow）と同じ列構成に合わせる */
+.gradDetailSectionHeader {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) 150px minmax(140px, 320px) 56px;
+  grid-template-areas: "badge name units bar pct";
+  align-items: center;
+  gap: 12px 18px;
+  margin-bottom: 14px;
+  padding: 0 8px;
+}
+
+.gradDetailSectionHeader > .gradResultReqBadge {
+  grid-area: badge;
+}
+
+.gradDetailSectionTitle {
+  grid-area: name;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.gradDetailSectionUnits {
+  grid-area: units;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0;
+}
+
+.gradDetailSectionEarned {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.gradDetailSectionHeader.isOk .gradDetailSectionEarned {
+  color: var(--color-label-club);
+}
+
+.gradDetailSectionHeader.isWarn .gradDetailSectionEarned {
+  color: var(--color-label-life);
+}
+
+.gradDetailSectionHeader.isLow .gradDetailSectionEarned {
+  color: var(--color-label-event);
+}
+
+.gradDetailSectionUnitsSub {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.gradDetailSectionBarCell {
+  grid-area: bar;
+}
+
+.gradDetailSectionPct {
+  grid-area: pct;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ── 科目テーブル ─────────────────── */
+.gradDetailTableWrap {
+  border: 1px solid #e3eaf5;
+  border-radius: 10px;
+  background: #fff;
+  overflow-x: auto;
+}
+
+.gradDetailTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.gradDetailTable th {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e3eaf5;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.gradDetailTable th:first-child,
+.gradDetailTable th:nth-child(2) {
+  text-align: left;
+}
+
+.gradDetailTable td {
+  padding: 12px 16px;
+  color: var(--color-text-primary);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.gradDetailRow + .gradDetailRow td {
+  border-top: 1px solid #f0f4fa;
+}
+
+.gradDetailCode {
+  width: 130px;
+  text-align: left !important;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.gradDetailName {
+  text-align: left !important;
+  font-weight: 500;
+}
+
+.gradDetailUnit {
+  width: 90px;
+  font-weight: 700;
+}
+
+/* 成績（講義詳細ページの成績分布グラフ CreditRateCard.css と同じ配色） */
+.gradDetailGrade {
+  width: 90px;
+  font-weight: 700;
+}
+
+.gradDetailGrade.isGradient {
+  background: var(--color-main-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.gradDetailGrade.isBlue {
+  color: #3b76f0;
+}
+
+.gradDetailGrade.isGreen {
+  color: #2fa35f;
+}
+
+.gradDetailGrade.isYellow {
+  color: #e5a300;
+}
+
+.gradDetailGrade.isCoral {
+  color: #ec7d70;
+}
+
+.gradDetailGrade.isNeutral {
+  color: var(--color-text-primary);
+}
+
+/* 詳細・口コミ投稿のアイコンボタン */
+.gradDetailActionCell {
+  width: 90px;
+}
+
+.gradDetailIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.gradDetailIconBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.gradDetailIconBtn:hover:not(:disabled) {
+  background: rgba(21, 120, 253, 0.08);
+  color: var(--color-primary);
+}
+
+/* 科目番号が無く講義を特定できない行 */
+.gradDetailIconBtn:disabled {
+  color: var(--color-text-placeholder);
+  cursor: not-allowed;
+}
+
+.gradDetailEmpty {
+  padding: 20px 16px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+/* ── レスポンシブ ─────────────────── */
+@media (max-width: 1100px) {
+  .gradDetailSectionHeader {
+    grid-template-columns: 26px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "badge name units"
+      "bar bar pct";
+  }
+
+  .gradDetailSectionPct {
+    text-align: right;
+  }
+}

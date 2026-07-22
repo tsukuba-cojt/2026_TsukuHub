@@ -11,8 +11,18 @@ import {
 } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
+import Toast from "../components/utility/Toast";
+import GraduationCheckDetailView from "../components/class/GraduationCheckDetailView";
+import ProgressBar from "../components/class/GraduationProgressBar";
+import {
+  formatPercent,
+  levelClass,
+  levelFromPercent,
+} from "../components/class/graduationProgressLevel";
 import type {
+  CategoryKey,
   CategoryResult,
+  CsvRowError,
   GraduationCheckReport,
 } from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
@@ -24,63 +34,11 @@ type GraduationCheckResultState = {
   major: string;
   admissionYear: string;
   agreedStats: boolean;
+  /** CSVの行単位パースエラー（0件でない場合は警告トーストを出す） */
+  csvErrors: CsvRowError[];
   /** アップロードページで判定済みの結果（features/graduationCheck） */
   report: GraduationCheckReport;
 } | null;
-
-// ── 達成率の色分け（サマリー・要件リスト共通仕様） ──
-// 100%以上=緑 / 51〜99%=黄 / 0〜50%=ピンク
-type ProgressLevel = "ok" | "warn" | "low";
-
-const levelFromPercent = (percent: number): ProgressLevel =>
-  percent >= 100 ? "ok" : percent > 50 ? "warn" : "low";
-
-const levelClass: Record<ProgressLevel, string> = {
-  ok: "isOk",
-  warn: "isWarn",
-  low: "isLow",
-};
-
-// %表示用：小数1桁に丸め、整数なら小数点以下を省く（例：62.9 / 100）
-const formatPercent = (percent: number): string => {
-  const rounded = Math.round(percent * 10) / 10;
-  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
-};
-
-// プログレスバー（サマリー・要件リスト共通）
-// バーの塗りは100%で頭打ち。%の数字表示は超過した実値のまま呼び出し側で出す。
-// tone="auto" は達成率による色分け、"blue"/"purple" はサマリー用の固定色。
-function ProgressBar({
-  percent = 0,
-  tone = "auto",
-  markerPercent,
-}: {
-  percent?: number;
-  tone?: "auto" | "blue" | "purple";
-  markerPercent?: number;
-}) {
-  const fillClass =
-    tone === "auto"
-      ? levelClass[levelFromPercent(percent)]
-      : tone === "blue"
-        ? "isBlue"
-        : "isPurple";
-  return (
-    <div className="gradResultBar">
-      <div
-        className={`gradResultBarFill ${fillClass}`}
-        style={{ width: `${Math.min(percent, 100)}%` }}
-      />
-      {markerPercent !== undefined && (
-        <span
-          className="gradResultBarMarker"
-          style={{ left: `${Math.min(markerPercent, 100)}%` }}
-          aria-hidden="true"
-        />
-      )}
-    </div>
-  );
-}
 
 // サマリーカード（取得済み単位 / 不足単位 / GPA）
 function SummaryCard({
@@ -144,10 +102,20 @@ function SummaryCard({
 
 // 要件項目リストの1行。
 // 単位数と%は未クランプの実値を出し（100%超あり）、バーの塗りのみ100%で頭打ち。
-function RequirementRow({ item }: { item: CategoryResult }) {
+// 行（またはシェブロン）を押すとその区分の詳細画面へ移動する。
+function RequirementRow({
+  item,
+  onOpenDetail,
+}: {
+  item: CategoryResult;
+  onOpenDetail: (category: CategoryKey) => void;
+}) {
   const level = levelFromPercent(item.percent);
   return (
-    <li className={`gradResultReqRow ${levelClass[level]}`}>
+    <li
+      className={`gradResultReqRow ${levelClass[level]}`}
+      onClick={() => onOpenDetail(item.category)}
+    >
       <div className="gradResultReqName">
         <span
           className={`gradResultReqBadge ${levelClass[level]}`}
@@ -170,7 +138,18 @@ function RequirementRow({ item }: { item: CategoryResult }) {
         <span className="gradResultNumFont">{formatPercent(item.percent)}</span>{" "}
         %
       </p>
-      <ChevronRight className="gradResultReqChevron" aria-hidden="true" />
+      <button
+        type="button"
+        className="gradResultReqChevronBtn"
+        aria-label={`${item.label}の詳細を見る`}
+        onClick={(e) => {
+          // 親（行）の onClick と二重に発火させない
+          e.stopPropagation();
+          onOpenDetail(item.category);
+        }}
+      >
+        <ChevronRight className="gradResultReqChevron" aria-hidden="true" />
+      </button>
     </li>
   );
 }
@@ -186,6 +165,15 @@ function GraduationCheckResult() {
   const [result] = useState<GraduationCheckResultState>(
     () => location.state as GraduationCheckResultState
   );
+  // 詳細画面は同一ページ内のビュー切替にする。
+  // 別ルートへ遷移すると、下の useEffect で history state を消しているぶん
+  // 判定結果を引き継げず破棄されてしまうため。
+  const [view, setView] = useState<"summary" | "detail">("summary");
+  const [focusCategory, setFocusCategory] = useState<CategoryKey | null>(null);
+  // CSVに読めない行があった場合の警告（閉じるまで表示し続ける）
+  const [isCsvWarningOpen, setIsCsvWarningOpen] = useState(
+    () => (result?.csvErrors?.length ?? 0) > 0
+  );
 
   useEffect(() => {
     if (location.state !== null) {
@@ -193,8 +181,18 @@ function GraduationCheckResult() {
     }
   }, [location.state, navigate]);
 
-  // サマリーカード・要件項目リストとも同一の判定結果（report）を参照する
+  // サマリーカード・要件項目リスト・詳細画面とも同一の判定結果（report）を参照する
   const report = result?.report ?? null;
+
+  const openDetail = (category: CategoryKey) => {
+    setFocusCategory(category);
+    setView("detail");
+  };
+
+  const backToSummary = () => {
+    setView("summary");
+    window.scrollTo({ top: 0 });
+  };
 
   return (
     <div className="gradCheckPage">
@@ -223,7 +221,15 @@ function GraduationCheckResult() {
           </p>
         </div>
 
-        {report ? (
+        {report && view === "detail" ? (
+          <div className="gradCheckCard">
+            <GraduationCheckDetailView
+              report={report}
+              focusCategory={focusCategory}
+              onBack={backToSummary}
+            />
+          </div>
+        ) : report ? (
           <div className="gradCheckCard">
             {/* 見出し行＋CSV再アップロード */}
             <div className="gradResultCardHeader">
@@ -287,7 +293,11 @@ function GraduationCheckResult() {
               </div>
               <ul className="gradResultReqList">
                 {report.categories.map((item) => (
-                  <RequirementRow item={item} key={item.category} />
+                  <RequirementRow
+                    item={item}
+                    onOpenDetail={openDetail}
+                    key={item.category}
+                  />
                 ))}
               </ul>
               <div className="gradResultNotes">
@@ -361,6 +371,14 @@ function GraduationCheckResult() {
         )}
       </main>
       <Footer />
+      {isCsvWarningOpen && (
+        <Toast
+          message="CSVエラーのため一部不正確な場合があります"
+          variant="warning"
+          dismissible
+          onClose={() => setIsCsvWarningOpen(false)}
+        />
+      )}
     </div>
   );
 }

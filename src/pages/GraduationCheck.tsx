@@ -14,22 +14,24 @@ import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsv
 import {
   checkGraduation,
   findDepartment,
+  findMajor,
+  listAdmissionYearOptions,
   listDepartmentAdmissionYears,
+  listMajorAdmissionYears,
   parseGradesCsv,
   resolveRequirementId,
   supportedDepartments,
 } from "../features/graduationCheck";
+import type {
+  SupportedDepartment,
+  SupportedMajor,
+} from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
 
-// 学類・専攻の選択肢は features/graduationCheck/data/supportedDepartments.ts に集約。
-// 卒業要件データが用意できている学類・専攻のみを載せているため、
+// 学類・専攻・入学年度の選択肢は
+// features/graduationCheck/data/supportedDepartments.ts に集約。
+// 卒業要件データが用意できている学類・専攻・年度のみを載せているため、
 // 新規登録ページ（Signup.tsx）の全学類リストとは別物として持つ。
-
-// 入学年度：今年度から4年前まで（ダミー。年度切り替わりの厳密な扱いは本実装時に調整）
-// 将来的に学類・専攻ごとに対応年度を出し分ける場合は、
-// supportedDepartments の requirements.admissionYears から生成する。
-const currentYear = new Date().getFullYear();
-const admissionYears = Array.from({ length: 5 }, (_, i) => currentYear - i);
 
 // 対応外を選んだときの案内文（対応学類・年度もデータ定義から生成する）
 const supportedSummary = supportedDepartments
@@ -58,6 +60,16 @@ function GraduationCheck() {
     () => findDepartment(departmentKey),
     [departmentKey]
   );
+  const major = useMemo(
+    () => findMajor(departmentKey, majorKey),
+    [departmentKey, majorKey]
+  );
+  // 入学年度の選択肢は要件データが存在する年度のみ。
+  // 専攻まで選ばれていれば専攻単位、学類のみなら学類単位の対応年度に絞る。
+  const admissionYearOptions = useMemo(
+    () => listAdmissionYearOptions(department, major),
+    [department, major]
+  );
   // 学類・専攻・入学年度の3つが揃うと要件データが一意に決まる（対応外なら null）
   const requirementId = useMemo(
     () => resolveRequirementId(departmentKey, majorKey, admissionYear),
@@ -69,12 +81,38 @@ function GraduationCheck() {
     admissionYear !== "" &&
     requirementId === null;
 
+  // 学類・専攻を変えたとき、新しい対応年度に含まれない入学年度の選択はリセットする
+  const keepAdmissionYearIfSupported = (
+    nextDepartment: SupportedDepartment | undefined,
+    nextMajor: SupportedMajor | undefined
+  ) => {
+    const years = nextMajor
+      ? listMajorAdmissionYears(nextMajor)
+      : nextDepartment
+        ? listDepartmentAdmissionYears(nextDepartment)
+        : [];
+    setAdmissionYear((current) =>
+      current !== "" && years.includes(Number(current)) ? current : ""
+    );
+  };
+
   // 学類を選び直したら専攻はリセット。専攻が1件だけの学類は、
   // 主専攻が1件のときに自動確定していた従来挙動に合わせてその1件を自動選択する。
   const handleDepartmentChange = (nextDepartmentKey: string) => {
+    const nextDepartment = findDepartment(nextDepartmentKey);
+    const majors = nextDepartment?.majors ?? [];
+    const nextMajor = majors.length === 1 ? majors[0] : undefined;
     setDepartmentKey(nextDepartmentKey);
-    const majors = findDepartment(nextDepartmentKey)?.majors ?? [];
-    setMajorKey(majors.length === 1 ? majors[0].key : "");
+    setMajorKey(nextMajor?.key ?? "");
+    keepAdmissionYearIfSupported(nextDepartment, nextMajor);
+  };
+
+  const handleMajorChange = (nextMajorKey: string) => {
+    setMajorKey(nextMajorKey);
+    keepAdmissionYearIfSupported(
+      department,
+      findMajor(departmentKey, nextMajorKey)
+    );
   };
 
   const openFilePicker = () => fileInputRef.current?.click();
@@ -91,9 +129,12 @@ function GraduationCheck() {
 
   // 「チェックを開始する」→ CSVをその場で判定して結果ページへ遷移。
   // 判定結果は永続化せず、遷移時の state のみで受け渡す（離脱で破棄）。
+  //
+  // 行単位のパースエラーがあっても中断せず、読めた科目だけで判定して結果を出す。
+  // エラーは結果ページへ渡し、警告として表示させる（1件も読めなかった場合のみ中断）。
   const handleStart = async (agreedStats: boolean) => {
     if (!file || requirementId === null) return;
-    const { courses } = parseGradesCsv(await file.text());
+    const { courses, errors } = parseGradesCsv(await file.text());
     setIsConsentOpen(false);
     if (courses.length === 0) {
       setCsvError(
@@ -107,6 +148,7 @@ function GraduationCheck() {
         major: department?.label ?? "",
         admissionYear,
         agreedStats,
+        csvErrors: errors,
         report: checkGraduation(courses, requirementId),
       },
     });
@@ -188,7 +230,7 @@ function GraduationCheck() {
                     className={`gradCheckSelect${majorKey === "" ? " isPlaceholder" : ""}`}
                     value={majorKey}
                     disabled={department === undefined}
-                    onChange={(e) => setMajorKey(e.target.value)}
+                    onChange={(e) => handleMajorChange(e.target.value)}
                   >
                     <option value="" disabled>
                       -- 選択する --
@@ -203,6 +245,7 @@ function GraduationCheck() {
                 </div>
               </div>
 
+              {/* 選択肢は要件データが存在する年度のみ。学類が未選択のうちは選べない */}
               <div className="gradCheckField">
                 <label className="gradCheckFieldLabel" htmlFor="grad-check-year">
                   入学年度
@@ -212,14 +255,15 @@ function GraduationCheck() {
                     id="grad-check-year"
                     className={`gradCheckSelect${admissionYear === "" ? " isPlaceholder" : ""}`}
                     value={admissionYear}
+                    disabled={admissionYearOptions.length === 0}
                     onChange={(e) => setAdmissionYear(e.target.value)}
                   >
                     <option value="" disabled>
                       -- 選択する --
                     </option>
-                    {admissionYears.map((y) => (
-                      <option value={y} key={y}>
-                        {y}年度
+                    {admissionYearOptions.map((option) => (
+                      <option value={option.value} key={option.value}>
+                        {option.label}
                       </option>
                     ))}
                   </select>

@@ -23,16 +23,20 @@ export {
 export {
   findDepartment,
   findMajor,
+  listAdmissionYearOptions,
   listDepartmentAdmissionYears,
   listMajorAdmissionYears,
   resolveRequirementId,
   supportedDepartments,
 } from "./data/supportedDepartments";
 export type {
+  AdmissionYearOption,
   RequirementEntry,
   SupportedDepartment,
   SupportedMajor,
 } from "./data/supportedDepartments";
+export { collectCategoryCourses } from "./categoryCourses";
+export type { CategoryCourses } from "./categoryCourses";
 export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
 export { categoryLabels, categoryOrder } from "./categoryMapping";
 export type {
