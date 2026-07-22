@@ -19,7 +19,6 @@ import {
   getClassFormats,
   getMethodLabel,
 } from "../components/class/courseBadges";
-// [変更] mockReviews を削除。mockRelatedCourses は関連授業DB未実装のため残す
 import { mockRelatedCourses } from "../components/class/mockReviews";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
@@ -29,7 +28,6 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
 
-// coursesテーブルの行の型（ClassReviewForm.tsx と同じ形。共通化は後日検討）
 type CourseRow = {
   id: number;
   course_number: string;
@@ -44,7 +42,7 @@ type CourseRow = {
   remarks: string;
 };
 
-// [変更] 口コミの型（DBスキーマに対応）
+// [変更] is_anonymous を削除、author_major / author_grade を追加
 type Review = {
   id: string;
   course_id: number;
@@ -57,10 +55,11 @@ type Review = {
   attendance: string | null;
   past_exam: string | null;
   comment: string | null;
-  is_anonymous: boolean;
+  author_major: string | null;
+  author_grade: number | null;
   created_at: string;
   updated_at: string;
-  helpful_count: number; // review_helpfuls 実装後に集計ビューから取得
+  helpful_count: number;
 };
 
 type SortKey = "new" | "rating" | "helpful";
@@ -75,14 +74,12 @@ function ClassDetail() {
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
   const location = useLocation();
-  // 口コミ投稿ページから router state で渡されるトーストメッセージ
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
     const state = location.state as { toast?: string } | null;
     if (state?.toast) {
       setToast(state.toast);
-      // リロードや戻る操作で再表示されないよう state をクリアする
       navigate(location.pathname, { replace: true, state: null });
     }
   }, [location, navigate]);
@@ -95,7 +92,6 @@ function ClassDetail() {
   // ブックマークはトグルの見た目のみ（汎用ブックマーク機能として後日実装）
   const [bookmarked, setBookmarked] = useState(false);
 
-  // [変更] 口コミ一覧を DB から取得して保持する
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
@@ -124,12 +120,11 @@ function ClassDetail() {
     fetchCourse();
   }, [courseCode]);
 
-  // [変更] course 取得後に口コミを fetch する
+  // course 取得後に口コミを fetch
   useEffect(() => {
     if (!course) return;
 
     const fetchReviews = async () => {
-      // review_helpfuls 実装後は reviews_with_counts ビューに切り替える
       const { data, error: fetchError } = await supabase
         .from("reviews")
         .select("*")
@@ -142,7 +137,6 @@ function ClassDetail() {
       }
 
       if (data) {
-        // helpful_count は review_helpfuls テーブル実装後に集計する。現状は 0 固定
         setReviews(
           data.map((r) => ({ ...r, helpful_count: 0 }) as Review)
         );
@@ -152,7 +146,6 @@ function ClassDetail() {
     fetchReviews();
   }, [course]);
 
-  // [変更] mockReviews → reviews ステートを使用
   const sortedReviews = useMemo(() => {
     const arr = [...reviews];
     switch (sortKey) {
@@ -165,7 +158,6 @@ function ClassDetail() {
     }
   }, [sortKey, reviews]);
 
-  // [変更] サイドバー集計を reviews ステートから算出
   const stats = useMemo(() => {
     const total = reviews.length;
     const avg = total
@@ -176,7 +168,6 @@ function ClassDetail() {
       count: reviews.filter((r) => Math.round(r.rating) === star).length,
     }));
 
-    // [変更] 「この授業の特徴」を口コミの任意フィールドから動的に集計
     const counts: Record<string, number> = {};
     for (const r of reviews) {
       for (const val of [
@@ -201,7 +192,6 @@ function ClassDetail() {
     navigate(`/class/${courseCode}/review`);
   };
 
-  // 授業方法（数字コード→日本語ラベル）と講義形式（備考から判定）のバッジ
   const methodLabel = course ? getMethodLabel(course.method) : null;
   const classFormats = course ? getClassFormats(course.remarks) : [];
 
@@ -236,7 +226,6 @@ function ClassDetail() {
 
         {!loading && !error && course && (
           <div className="classDetailPanel">
-            {/* 授業情報カード */}
             <section className="classDetailInfoCard">
               <div className="classDetailInfoMain">
                 <h1 className="classDetailTitle">{course.course_name}</h1>
@@ -283,7 +272,6 @@ function ClassDetail() {
               </div>
             </section>
 
-            {/* タブ（口コミ / シラバス） */}
             <div className="classDetailTabs" role="tablist">
               <button
                 type="button"
@@ -307,7 +295,6 @@ function ClassDetail() {
 
             {activeTab === "reviews" ? (
               <div className="classDetailBody">
-                {/* 左：口コミ一覧 */}
                 <div className="classDetailReviews">
                   <div className="reviewSortBar">
                     <span>並び替え：</span>
@@ -323,8 +310,6 @@ function ClassDetail() {
                     ))}
                   </div>
                   <div className="reviewList">
-                    {/* [変更] sortedReviews が DB 由来の Review 型になったため
-                         ClassReviewCard 側の props 型も合わせて更新が必要 */}
                     {sortedReviews.length === 0 && (
                       <p className="classStatus">
                         まだ口コミがありません。最初の口コミを投稿しましょう！
@@ -336,7 +321,6 @@ function ClassDetail() {
                   </div>
                 </div>
 
-                {/* 右：サイドバー */}
                 <aside className="classDetailSidebar">
                   <section className="sidebarCard">
                     <h2>おすすめ度</h2>
@@ -371,7 +355,6 @@ function ClassDetail() {
                     )}
                   </section>
 
-                  {/* 単位取得率（現状ダミーデータ。実データ接続時は props を渡す） */}
                   <CreditRateCard />
 
                   {stats.features.length > 0 && (
@@ -401,8 +384,6 @@ function ClassDetail() {
                 </aside>
               </div>
             ) : (
-              /* シラバスタブ：DB にシラバス PDF の URL カラムが無いため
-                 白紙プレースホルダー。カラム追加後に <object> 埋め込みへ差し替える */
               <div className="classDetailSyllabus">
                 <p>シラバスは準備中です</p>
               </div>

@@ -31,7 +31,6 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
 
-// coursesテーブルの行の型（ClassDetail.tsx と同じ形。共通化は後日検討）
 type CourseRow = {
   id: number;
   course_number: string;
@@ -46,7 +45,6 @@ type CourseRow = {
   remarks: string;
 };
 
-// 任意項目の選択肢（口コミDBのマスタ設計が決まるまではフロントの定数として固定）
 const lectureFormatOptions = [
   "対面",
   "対面（オンライン併用）",
@@ -69,9 +67,9 @@ const workloadOptions = ["とても多い", "多い", "普通", "少ない", "�
 const attendanceOptions = ["毎回ある", "時々ある", "ない"];
 const pastExamOptions = ["過去問あり（有効）", "過去問あり（無効）", "過去問なし"];
 
-// コメント上限。DB設計時に確定させる（現状は仮の1000字）
 const COMMENT_MAX = 1000;
 
+// [変更] anonymous を削除
 type ReviewDraft = {
   rating: number;
   lectureFormat: string;
@@ -81,7 +79,6 @@ type ReviewDraft = {
   attendance: string;
   pastExam: string;
   comment: string;
-  anonymous: boolean;
 };
 
 function ClassReviewForm() {
@@ -101,12 +98,40 @@ function ClassReviewForm() {
   const [attendance, setAttendance] = useState("");
   const [pastExam, setPastExam] = useState("");
   const [comment, setComment] = useState("");
-  const [anonymous, setAnonymous] = useState(true); // デフォルトON
   const [ratingError, setRatingError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  // 下書きは React の状態として一時保持するのみ（永続化は後日実装）
   const [, setDraft] = useState<ReviewDraft | null>(null);
   const [draftSavedAt, setDraftSavedAt] = useState<string | null>(null);
+
+  // [変更] ログインユーザーのプロフィール（投稿時のスナップショットとして reviews に保存する）
+  const [userId, setUserId] = useState<string | null>(null);
+  const [authorMajor, setAuthorMajor] = useState<string | null>(null);
+  const [authorGrade, setAuthorGrade] = useState<number | null>(null);
+
+  // [変更] マウント時にログインユーザーの profiles を取得
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+
+      setUserId(user.id);
+
+      const { data } = await supabase
+        .from("profiles")
+        .select("major, grade")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (data) {
+        setAuthorMajor(data.major);
+        setAuthorGrade(data.grade);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -145,16 +170,13 @@ function ClassReviewForm() {
     attendance,
     pastExam,
     comment,
-    anonymous,
   });
 
   const handleSaveDraft = () => {
-    // ダミー実装：Reactの状態として保持するのみ（DB・localStorageへは保存しない）
     setDraft(currentValues());
     setDraftSavedAt(new Date().toLocaleTimeString());
   };
 
-  // [変更] async 化 + Supabase insert に差し替え
   const handleSubmit = async () => {
     if (rating === 0) {
       setRatingError("おすすめ度を選択してください");
@@ -164,21 +186,16 @@ function ClassReviewForm() {
     setRatingError(null);
     setSubmitting(true);
 
-    // [変更] ログインチェック
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
+    if (!userId) {
       setError("口コミを投稿するにはログインが必要です。");
       setSubmitting(false);
       return;
     }
 
-    // [変更] Supabase へ insert（空文字は null に変換して格納）
+    // [変更] author_major, author_grade を含め、is_anonymous を削除
     const { error: insertError } = await supabase.from("reviews").insert({
       course_id: course!.id,
-      user_id: user.id,
+      user_id: userId,
       rating,
       lecture_format: lectureFormat || null,
       test_format: testFormat || null,
@@ -187,11 +204,11 @@ function ClassReviewForm() {
       attendance: attendance || null,
       past_exam: pastExam || null,
       comment: comment || null,
-      is_anonymous: anonymous,
+      author_major: authorMajor,
+      author_grade: authorGrade,
     });
 
     if (insertError) {
-      // [変更] UNIQUE 違反（同一講義に二重投稿）の場合は専用メッセージ
       if (insertError.code === "23505") {
         setError("この講義にはすでに口コミを投稿済みです。");
       } else {
@@ -207,7 +224,6 @@ function ClassReviewForm() {
     });
   };
 
-  // 講義形式のアイコン：「対面」を含む→UsersRound／「オンライン」を含む→Laptop
   const LectureFormatIcon = lectureFormat.includes("対面")
     ? UsersRound
     : lectureFormat.includes("オンライン")
@@ -217,7 +233,6 @@ function ClassReviewForm() {
   const methodLabel = course ? getMethodLabel(course.method) : null;
   const classFormats = course ? getClassFormats(course.remarks) : [];
 
-  // セレクト1つ分（アイコン＋ラベル＋任意バッジ＋プルダウン）
   const renderSelect = (
     label: string,
     Icon: typeof NotebookPen,
@@ -288,7 +303,6 @@ function ClassReviewForm() {
 
         {!loading && !error && course && (
           <>
-            {/* 講義の簡易情報カード（詳細ページのヘッダーカードと同等・ボタンなし） */}
             <section className="classDetailInfoCard reviewFormCourseCard">
               <div className="classDetailInfoMain">
                 <h1 className="classDetailTitle">{course.course_name}</h1>
@@ -310,14 +324,12 @@ function ClassReviewForm() {
               </div>
             </section>
 
-            {/* 口コミ投稿フォーム */}
             <section className="reviewFormPanel">
               <div className="reviewFormHeading">
                 <img src={commentIcon} alt="" aria-hidden="true" />
                 <h2>口コミを投稿する</h2>
               </div>
 
-              {/* 内側スクロール領域（おすすめ度〜コメント欄） */}
               <div className="reviewFormScroll">
                 <div className="reviewFormField">
                   <p className="reviewFormLabel">
@@ -405,16 +417,10 @@ function ClassReviewForm() {
                 </div>
               </div>
 
-              {/* ここから下はスクロール領域の外（常に表示） */}
-              <label className="reviewFormAnonymous">
-                <input
-                  type="checkbox"
-                  checked={anonymous}
-                  onChange={(e) => setAnonymous(e.target.checked)}
-                />
-                匿名で投稿する
-                <small>（学群・学年のみ表示されます）</small>
-              </label>
+              {/* [変更] 匿名チェックボックスを削除。投稿者の表示形式を案内する */}
+              <p className="reviewFormAuthorNote">
+                投稿者は「{authorMajor ?? "―"} {authorGrade != null ? `${authorGrade}年` : "―"}」と表示されます
+              </p>
 
               <div className="reviewFormGuideline">
                 <p className="reviewFormGuidelineTitle">
