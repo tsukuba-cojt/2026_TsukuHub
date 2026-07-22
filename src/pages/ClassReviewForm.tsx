@@ -154,7 +154,8 @@ function ClassReviewForm() {
     setDraftSavedAt(new Date().toLocaleTimeString());
   };
 
-  const handleSubmit = () => {
+  // [変更] async 化 + Supabase insert に差し替え
+  const handleSubmit = async () => {
     if (rating === 0) {
       setRatingError("おすすめ度を選択してください");
       return;
@@ -163,18 +164,47 @@ function ClassReviewForm() {
     setRatingError(null);
     setSubmitting(true);
 
-    // 本来はここで Supabase へ insert する（口コミDBのスキーマ確定後に実装）
-    console.log("口コミ投稿（ダミー）:", {
-      courseCode,
-      ...currentValues(),
+    // [変更] ログインチェック
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setError("口コミを投稿するにはログインが必要です。");
+      setSubmitting(false);
+      return;
+    }
+
+    // [変更] Supabase へ insert（空文字は null に変換して格納）
+    const { error: insertError } = await supabase.from("reviews").insert({
+      course_id: course!.id,
+      user_id: user.id,
+      rating,
+      lecture_format: lectureFormat || null,
+      test_format: testFormat || null,
+      difficulty: difficulty || null,
+      workload: workload || null,
+      attendance: attendance || null,
+      past_exam: pastExam || null,
+      comment: comment || null,
+      is_anonymous: anonymous,
     });
 
-    // 送信中の雰囲気を出すための擬似遅延
-    setTimeout(() => {
-      navigate(`/class/${courseCode}`, {
-        state: { toast: "口コミの投稿に成功しました！" },
-      });
-    }, 700);
+    if (insertError) {
+      // [変更] UNIQUE 違反（同一講義に二重投稿）の場合は専用メッセージ
+      if (insertError.code === "23505") {
+        setError("この講義にはすでに口コミを投稿済みです。");
+      } else {
+        setError("投稿に失敗しました。時間をおいて再度お試しください。");
+        console.error(insertError);
+      }
+      setSubmitting(false);
+      return;
+    }
+
+    navigate(`/class/${courseCode}`, {
+      state: { toast: "口コミの投稿に成功しました！" },
+    });
   };
 
   // 講義形式のアイコン：「対面」を含む→UsersRound／「オンライン」を含む→Laptop

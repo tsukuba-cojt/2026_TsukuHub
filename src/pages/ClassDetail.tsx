@@ -19,10 +19,8 @@ import {
   getClassFormats,
   getMethodLabel,
 } from "../components/class/courseBadges";
-import {
-  mockReviews,
-  mockRelatedCourses,
-} from "../components/class/mockReviews";
+// [変更] mockReviews を削除。mockRelatedCourses は関連授業DB未実装のため残す
+import { mockRelatedCourses } from "../components/class/mockReviews";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 
@@ -31,7 +29,7 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
 
-// coursesテーブルの行の型（Class.tsx と同じ形。共通化は後日検討）
+// coursesテーブルの行の型（ClassReviewForm.tsx と同じ形。共通化は後日検討）
 type CourseRow = {
   id: number;
   course_number: string;
@@ -44,6 +42,25 @@ type CourseRow = {
   instructor: string;
   overview: string;
   remarks: string;
+};
+
+// [変更] 口コミの型（DBスキーマに対応）
+type Review = {
+  id: string;
+  course_id: number;
+  user_id: string;
+  rating: number;
+  lecture_format: string | null;
+  test_format: string | null;
+  difficulty: string | null;
+  workload: string | null;
+  attendance: string | null;
+  past_exam: string | null;
+  comment: string | null;
+  is_anonymous: boolean;
+  created_at: string;
+  updated_at: string;
+  helpful_count: number; // review_helpfuls 実装後に集計ビューから取得
 };
 
 type SortKey = "new" | "rating" | "helpful";
@@ -75,8 +92,11 @@ function ClassDetail() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"reviews" | "syllabus">("reviews");
   const [sortKey, setSortKey] = useState<SortKey>("new");
-  // ブックマークはトグルの見た目のみ（永続化は後日実装）
+  // ブックマークはトグルの見た目のみ（汎用ブックマーク機能として後日実装）
   const [bookmarked, setBookmarked] = useState(false);
+
+  // [変更] 口コミ一覧を DB から取得して保持する
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -104,32 +124,78 @@ function ClassDetail() {
     fetchCourse();
   }, [courseCode]);
 
-  // 並び替え済みの口コミ（データ元は mockReviews。DB移行時に差し替え）
+  // [変更] course 取得後に口コミを fetch する
+  useEffect(() => {
+    if (!course) return;
+
+    const fetchReviews = async () => {
+      // review_helpfuls 実装後は reviews_with_counts ビューに切り替える
+      const { data, error: fetchError } = await supabase
+        .from("reviews")
+        .select("*")
+        .eq("course_id", course.id)
+        .order("created_at", { ascending: false });
+
+      if (fetchError) {
+        console.error("口コミの取得に失敗:", fetchError);
+        return;
+      }
+
+      if (data) {
+        // helpful_count は review_helpfuls テーブル実装後に集計する。現状は 0 固定
+        setReviews(
+          data.map((r) => ({ ...r, helpful_count: 0 }) as Review)
+        );
+      }
+    };
+
+    fetchReviews();
+  }, [course]);
+
+  // [変更] mockReviews → reviews ステートを使用
   const sortedReviews = useMemo(() => {
-    const arr = [...mockReviews];
+    const arr = [...reviews];
     switch (sortKey) {
       case "rating":
         return arr.sort((a, b) => b.rating - a.rating);
       case "helpful":
-        return arr.sort((a, b) => b.helpfulCount - a.helpfulCount);
+        return arr.sort((a, b) => b.helpful_count - a.helpful_count);
       default:
-        return arr.sort((a, b) => b.date.localeCompare(a.date));
+        return arr.sort((a, b) => b.created_at.localeCompare(a.created_at));
     }
-  }, [sortKey]);
+  }, [sortKey, reviews]);
 
-  // サイドバー用の集計（モックデータから算出。DB移行時に差し替え）
+  // [変更] サイドバー集計を reviews ステートから算出
   const stats = useMemo(() => {
-    const total = mockReviews.length;
+    const total = reviews.length;
     const avg = total
-      ? mockReviews.reduce((sum, r) => sum + r.rating, 0) / total
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / total
       : 0;
     const dist = [5, 4, 3, 2, 1].map((star) => ({
       star,
-      count: mockReviews.filter((r) => Math.round(r.rating) === star).length,
+      count: reviews.filter((r) => Math.round(r.rating) === star).length,
     }));
-    const features = [...new Set(mockReviews.flatMap((r) => r.tags))];
+
+    // [変更] 「この授業の特徴」を口コミの任意フィールドから動的に集計
+    const counts: Record<string, number> = {};
+    for (const r of reviews) {
+      for (const val of [
+        r.lecture_format,
+        r.difficulty,
+        r.workload,
+        r.attendance,
+        r.past_exam,
+      ]) {
+        if (val) counts[val] = (counts[val] || 0) + 1;
+      }
+    }
+    const features = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([label]) => label);
+
     return { total, avg, dist, features };
-  }, []);
+  }, [reviews]);
 
   const handlePostReview = () => {
     navigate(`/class/${courseCode}/review`);
@@ -194,7 +260,6 @@ function ClassDetail() {
                   {classFormats.map((format) => (
                     <span key={format}>{format}</span>
                   ))}
-                  {/* 教室・成績評価方法は DB にカラムが無いため非表示（追加後に表示する） */}
                 </div>
               </div>
               <div className="classDetailActions">
@@ -258,6 +323,13 @@ function ClassDetail() {
                     ))}
                   </div>
                   <div className="reviewList">
+                    {/* [変更] sortedReviews が DB 由来の Review 型になったため
+                         ClassReviewCard 側の props 型も合わせて更新が必要 */}
+                    {sortedReviews.length === 0 && (
+                      <p className="classStatus">
+                        まだ口コミがありません。最初の口コミを投稿しましょう！
+                      </p>
+                    )}
                     {sortedReviews.map((review) => (
                       <ClassReviewCard review={review} key={review.id} />
                     ))}
@@ -268,42 +340,50 @@ function ClassDetail() {
                 <aside className="classDetailSidebar">
                   <section className="sidebarCard">
                     <h2>おすすめ度</h2>
-                    <div className="sidebarScoreRow">
-                      <strong>{stats.avg.toFixed(1)}</strong>
-                      <RatingStars rating={stats.avg} />
-                      <span>({stats.total}件の評価)</span>
-                    </div>
-                    <div className="sidebarDist">
-                      {stats.dist.map(({ star, count }) => (
-                        <div className="sidebarDistRow" key={star}>
-                          <span className="sidebarDistStar">★ {star}</span>
-                          <div className="sidebarDistBar">
-                            <div
-                              className="sidebarDistFill"
-                              style={{
-                                width: stats.total
-                                  ? `${(count / stats.total) * 100}%`
-                                  : "0%",
-                              }}
-                            />
-                          </div>
-                          <span className="sidebarDistCount">{count}件</span>
+                    {stats.total > 0 ? (
+                      <>
+                        <div className="sidebarScoreRow">
+                          <strong>{stats.avg.toFixed(1)}</strong>
+                          <RatingStars rating={stats.avg} />
+                          <span>({stats.total}件の評価)</span>
                         </div>
-                      ))}
-                    </div>
+                        <div className="sidebarDist">
+                          {stats.dist.map(({ star, count }) => (
+                            <div className="sidebarDistRow" key={star}>
+                              <span className="sidebarDistStar">★ {star}</span>
+                              <div className="sidebarDistBar">
+                                <div
+                                  className="sidebarDistFill"
+                                  style={{
+                                    width: stats.total
+                                      ? `${(count / stats.total) * 100}%`
+                                      : "0%",
+                                  }}
+                                />
+                              </div>
+                              <span className="sidebarDistCount">{count}件</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <p className="classStatus">まだ評価がありません</p>
+                    )}
                   </section>
 
                   {/* 単位取得率（現状ダミーデータ。実データ接続時は props を渡す） */}
                   <CreditRateCard />
 
-                  <section className="sidebarCard">
-                    <h2>この授業の特徴</h2>
-                    <div className="sidebarFeatures">
-                      {stats.features.map((feature) => (
-                        <FeatureTag label={feature} key={feature} />
-                      ))}
-                    </div>
-                  </section>
+                  {stats.features.length > 0 && (
+                    <section className="sidebarCard">
+                      <h2>この授業の特徴</h2>
+                      <div className="sidebarFeatures">
+                        {stats.features.map((feature) => (
+                          <FeatureTag label={feature} key={feature} />
+                        ))}
+                      </div>
+                    </section>
+                  )}
 
                   <section className="sidebarCard">
                     <h2>関連授業</h2>
