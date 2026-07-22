@@ -49,6 +49,12 @@ const report = checkGraduation(courses, ids[0]);
 2021 / 2022〜2024 / 2025、知識情報・図書館学類（知識科学・知識情報システム・
 情報資源経営）2021 / 2022〜2024）。`resolveRequirementIds` が空配列を返したら対応外。
 
+UIのプルダウン（学類 → 専攻 → 入学年度）は `data/supportedDepartments.ts` を
+唯一のデータ定義として参照する。対応学類・専攻を増やすときは、要件データを
+`data/gradRequirementData.ts` と `RequirementId` に足したうえで、
+`supportedDepartments` に1件追加すればプルダウンに反映される（UIの修正は不要）。
+選択結果から要件データキーを引くのは `resolveRequirementId(学類キー, 専攻キー, 入学年度)`。
+
 ## テスト
 
 ```

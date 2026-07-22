@@ -13,49 +13,31 @@ import GraduationCheckConsentModal from "../components/class/GraduationCheckCons
 import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsvGuideModal";
 import {
   checkGraduation,
-  listSupportedRequirements,
+  findDepartment,
+  listDepartmentAdmissionYears,
   parseGradesCsv,
-  resolveRequirementIds,
+  resolveRequirementId,
+  supportedDepartments,
 } from "../features/graduationCheck";
-import type { RequirementId } from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
 
-// 学類・専攻の選択肢：新規登録ページ（Signup.tsx）の学群生（undergraduate）の
-// 選択肢と同一リスト。卒業要件チェックは学士のみ対象のため大学院の選択肢は持たない。
-// （Signup 側は他ページのためインライン定義のまま変更せず、ここに複製している。
-//  共通データ化する際は両方をまとめて差し替えること。）
-const undergraduateMajors = [
-  "人文学類",
-  "比較文化学類",
-  "日本語・日本文化学類",
-  "社会学類",
-  "国際総合学類",
-  "教育学類",
-  "心理学類",
-  "障害科学類",
-  "生物学類",
-  "生物資源学類",
-  "地球学類",
-  "数学類",
-  "物理学類",
-  "化学類",
-  "応用理工学類",
-  "工学システム学類",
-  "社会工学類",
-  "総合理工学類プログラム",
-  "情報科学類",
-  "情報メディア創成学類",
-  "知識情報・図書館学類",
-  "医学類",
-  "看護学類",
-  "医療科学類",
-  "体育専門学群",
-  "芸術専門学群",
-];
+// 学類・専攻の選択肢は features/graduationCheck/data/supportedDepartments.ts に集約。
+// 卒業要件データが用意できている学類・専攻のみを載せているため、
+// 新規登録ページ（Signup.tsx）の全学類リストとは別物として持つ。
 
 // 入学年度：今年度から4年前まで（ダミー。年度切り替わりの厳密な扱いは本実装時に調整）
+// 将来的に学類・専攻ごとに対応年度を出し分ける場合は、
+// supportedDepartments の requirements.admissionYears から生成する。
 const currentYear = new Date().getFullYear();
 const admissionYears = Array.from({ length: 5 }, (_, i) => currentYear - i);
+
+// 対応外を選んだときの案内文（対応学類・年度もデータ定義から生成する）
+const supportedSummary = supportedDepartments
+  .map((department) => {
+    const years = listDepartmentAdmissionYears(department);
+    return `${department.label}の${years[0]}〜${years[years.length - 1]}年度入学`;
+  })
+  .join("、");
 
 // 卒業要件チェック アップロードページ（/graduation-checker）
 // CSVのパース・要件判定はクライアント内で完結する（features/graduationCheck）。
@@ -63,38 +45,37 @@ function GraduationCheck() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [major, setMajor] = useState("");
+  const [departmentKey, setDepartmentKey] = useState("");
+  const [majorKey, setMajorKey] = useState("");
   const [admissionYear, setAdmissionYear] = useState("");
-  const [subMajorId, setSubMajorId] = useState<RequirementId | "">("");
   const [file, setFile] = useState<File | null>(null);
   const [csvError, setCsvError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isConsentOpen, setIsConsentOpen] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
 
-  // 学類・入学年度から要件データの候補を引く。
-  // 知識情報・図書館学類のように主専攻で要件が分かれる場合は複数返るため、
-  // 主専攻セレクトで1件に絞る（1件ならそのまま確定）。
-  const requirementCandidates = useMemo(
-    () =>
-      major !== "" && admissionYear !== ""
-        ? resolveRequirementIds(major, admissionYear)
-        : [],
-    [major, admissionYear]
+  const department = useMemo(
+    () => findDepartment(departmentKey),
+    [departmentKey]
   );
-  const requirementId =
-    requirementCandidates.length === 1
-      ? requirementCandidates[0]
-      : requirementCandidates.find((id) => id === subMajorId) ?? null;
+  // 学類・専攻・入学年度の3つが揃うと要件データが一意に決まる（対応外なら null）
+  const requirementId = useMemo(
+    () => resolveRequirementId(departmentKey, majorKey, admissionYear),
+    [departmentKey, majorKey, admissionYear]
+  );
   const isUnsupported =
-    major !== "" && admissionYear !== "" && requirementCandidates.length === 0;
-  const subMajorOptions = useMemo(
-    () =>
-      listSupportedRequirements().filter((requirement) =>
-        requirementCandidates.includes(requirement.id)
-      ),
-    [requirementCandidates]
-  );
+    departmentKey !== "" &&
+    majorKey !== "" &&
+    admissionYear !== "" &&
+    requirementId === null;
+
+  // 学類を選び直したら専攻はリセット。専攻が1件だけの学類は、
+  // 主専攻が1件のときに自動確定していた従来挙動に合わせてその1件を自動選択する。
+  const handleDepartmentChange = (nextDepartmentKey: string) => {
+    setDepartmentKey(nextDepartmentKey);
+    const majors = findDepartment(nextDepartmentKey)?.majors ?? [];
+    setMajorKey(majors.length === 1 ? majors[0].key : "");
+  };
 
   const openFilePicker = () => fileInputRef.current?.click();
 
@@ -123,7 +104,7 @@ function GraduationCheck() {
     navigate("/graduation-checker/result", {
       state: {
         fileName: file.name,
-        major,
+        major: department?.label ?? "",
         admissionYear,
         agreedStats,
         report: checkGraduation(courses, requirementId),
@@ -170,25 +151,51 @@ function GraduationCheck() {
 
             <div className="gradCheckFieldList">
               <div className="gradCheckField">
-                <label className="gradCheckFieldLabel" htmlFor="grad-check-major">
-                  学類・専攻
+                <label
+                  className="gradCheckFieldLabel"
+                  htmlFor="grad-check-department"
+                >
+                  学類
                 </label>
                 <div className="gradCheckSelectWrap">
                   <select
-                    id="grad-check-major"
-                    className={`gradCheckSelect${major === "" ? " isPlaceholder" : ""}`}
-                    value={major}
-                    onChange={(e) => {
-                      setMajor(e.target.value);
-                      setSubMajorId("");
-                    }}
+                    id="grad-check-department"
+                    className={`gradCheckSelect${departmentKey === "" ? " isPlaceholder" : ""}`}
+                    value={departmentKey}
+                    onChange={(e) => handleDepartmentChange(e.target.value)}
                   >
                     <option value="" disabled>
                       -- 選択する --
                     </option>
-                    {undergraduateMajors.map((m) => (
-                      <option value={m} key={m}>
-                        {m}
+                    {supportedDepartments.map((d) => (
+                      <option value={d.key} key={d.key}>
+                        {d.label}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="gradCheckSelectChevron" aria-hidden="true" />
+                </div>
+              </div>
+
+              {/* 学類が未選択のうちは選べない（学類を選ぶと連動して選択肢が入る） */}
+              <div className="gradCheckField">
+                <label className="gradCheckFieldLabel" htmlFor="grad-check-major">
+                  専攻
+                </label>
+                <div className="gradCheckSelectWrap">
+                  <select
+                    id="grad-check-major"
+                    className={`gradCheckSelect${majorKey === "" ? " isPlaceholder" : ""}`}
+                    value={majorKey}
+                    disabled={department === undefined}
+                    onChange={(e) => setMajorKey(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      -- 選択する --
+                    </option>
+                    {(department?.majors ?? []).map((m) => (
+                      <option value={m.key} key={m.key}>
+                        {m.label}
                       </option>
                     ))}
                   </select>
@@ -205,10 +212,7 @@ function GraduationCheck() {
                     id="grad-check-year"
                     className={`gradCheckSelect${admissionYear === "" ? " isPlaceholder" : ""}`}
                     value={admissionYear}
-                    onChange={(e) => {
-                      setAdmissionYear(e.target.value);
-                      setSubMajorId("");
-                    }}
+                    onChange={(e) => setAdmissionYear(e.target.value)}
                   >
                     <option value="" disabled>
                       -- 選択する --
@@ -222,47 +226,12 @@ function GraduationCheck() {
                   <ChevronDown className="gradCheckSelectChevron" aria-hidden="true" />
                 </div>
               </div>
-
-              {/* 主専攻で要件が分かれる学類（知識情報・図書館学類）のみ表示 */}
-              {requirementCandidates.length > 1 && (
-                <div className="gradCheckField">
-                  <label
-                    className="gradCheckFieldLabel"
-                    htmlFor="grad-check-submajor"
-                  >
-                    主専攻
-                  </label>
-                  <div className="gradCheckSelectWrap">
-                    <select
-                      id="grad-check-submajor"
-                      className={`gradCheckSelect${subMajorId === "" ? " isPlaceholder" : ""}`}
-                      value={subMajorId}
-                      onChange={(e) =>
-                        setSubMajorId(e.target.value as RequirementId)
-                      }
-                    >
-                      <option value="" disabled>
-                        -- 選択する --
-                      </option>
-                      {subMajorOptions.map((requirement) => (
-                        <option value={requirement.id} key={requirement.id}>
-                          {requirement.major}主専攻
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown
-                      className="gradCheckSelectChevron"
-                      aria-hidden="true"
-                    />
-                  </div>
-                </div>
-              )}
             </div>
 
             {isUnsupported && (
               <p className="gradCheckFieldError">
-                選択した学類・入学年度の卒業要件データには現在対応していません（対応:
-                情報メディア創成学類、知識情報・図書館学類の2021年度以降入学）
+                選択した学類・専攻・入学年度の卒業要件データには現在対応していません（対応:
+                {supportedSummary}）
               </p>
             )}
           </section>

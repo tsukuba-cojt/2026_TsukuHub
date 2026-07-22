@@ -20,6 +20,19 @@ export {
   listSupportedRequirements,
   resolveRequirementIds,
 } from "./checkGraduation";
+export {
+  findDepartment,
+  findMajor,
+  listDepartmentAdmissionYears,
+  listMajorAdmissionYears,
+  resolveRequirementId,
+  supportedDepartments,
+} from "./data/supportedDepartments";
+export type {
+  RequirementEntry,
+  SupportedDepartment,
+  SupportedMajor,
+} from "./data/supportedDepartments";
 export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
 export { categoryLabels, categoryOrder } from "./categoryMapping";
 export type {
