@@ -19,10 +19,6 @@ import {
   levelClass,
   levelFromPercent,
 } from "../components/class/graduationProgressLevel";
-import {
-  listDepartmentAdmissionYears,
-  supportedDepartments,
-} from "../features/graduationCheck";
 import type {
   CategoryKey,
   CategoryResult,
@@ -31,19 +27,6 @@ import type {
 } from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
-
-// 対応範囲の注記は要件データ定義（supportedDepartments）から生成する。
-// 対応年度が増減しても supportedDepartments を直すだけで注記に反映される。
-const supportedScopeSummary = supportedDepartments
-  .map((department) => {
-    const years = listDepartmentAdmissionYears(department);
-    const range =
-      years.length <= 1
-        ? `${years[0]}年度`
-        : `${years[0]}〜${years[years.length - 1]}年度`;
-    return `${department.label}の${range}入学`;
-  })
-  .join("、");
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
@@ -318,7 +301,12 @@ function GraduationCheckResult() {
                 ))}
               </ul>
               <div className="gradResultNotes">
-                <p>現在は{supportedScopeSummary}の卒業要件のみに対応しています</p>
+                <p>
+                  この判定結果は参考情報であり、卒業要件の充足を保証するものではありません
+                </p>
+                <p>
+                  必ず学群等履修細則やTWINSなど大学の公式情報でご自身でご確認ください
+                </p>
                 <p>
                   卒業要件は、
                   <a
