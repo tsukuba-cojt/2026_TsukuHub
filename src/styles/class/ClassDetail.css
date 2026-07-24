@@ -346,23 +346,101 @@
   font-weight: 700;
 }
 
-/* ── シラバスタブ（プレースホルダー） ────────
-   DB にシラバス PDF の URL カラムが追加されたら
-   <object data={url} type="application/pdf"> の埋め込みに差し替える */
+/* ── シラバス表示 ─────────────────────── */
 .classDetailSyllabus {
-  min-height: 360px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  border: 1px dashed #d7e3f5;
-  border-radius: 12px;
-  background: #fff;
 }
 
-.classDetailSyllabus p {
+.classDetailSyllabusCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #d7e3f5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.classDetailSyllabusHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.classDetailSyllabusHeader h2 {
+  margin: 0 0 4px;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.classDetailSyllabusHeader p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.classDetailSyllabusLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.classDetailSyllabusFrame {
+  width: 100%;
+  min-height: 640px;
+  border: 1px solid #e3eaf5;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+.classDetailSyllabusSummary {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f8fbff;
+  color: var(--color-text-primary);
+}
+
+.classDetailSyllabusSummary h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.classDetailSyllabusSummary p {
+  margin: 0;
+  white-space: pre-line;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.classDetailSyllabusPlaceholder {
+  padding: 24px;
+  border-radius: 10px;
+  background: #f8fbff;
   color: var(--color-text-muted);
   font-size: 14px;
   font-weight: 700;
+}
+
+.classDetailSyllabusPlaceholder p {
+  margin: 0 0 8px;
 }
 
 /* レスポンシブ */
