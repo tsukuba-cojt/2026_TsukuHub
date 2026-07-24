@@ -85,6 +85,36 @@ export const supportedDepartments: SupportedDepartment[] = [
       },
     ],
   },
+  {
+    key: "coins",
+    label: "情報科学類",
+    majors: [
+      {
+        key: "coins-ss",
+        label: "ソフトウェアサイエンス主専攻",
+        requirements: [
+          { admissionYears: [2023, 2024, 2025], requirementId: "coins-ss-23" },
+          { admissionYears: [2026], requirementId: "coins-ss-26" },
+        ],
+      },
+      {
+        key: "coins-is",
+        label: "情報システム主専攻",
+        requirements: [
+          { admissionYears: [2023, 2024, 2025], requirementId: "coins-is-23" },
+          { admissionYears: [2026], requirementId: "coins-is-26" },
+        ],
+      },
+      {
+        key: "coins-im",
+        label: "知能情報メディア主専攻",
+        requirements: [
+          { admissionYears: [2023, 2024, 2025], requirementId: "coins-im-23" },
+          { admissionYears: [2026], requirementId: "coins-im-26" },
+        ],
+      },
+    ],
+  },
 ];
 
 /** 学類キーから学類を引く（未対応・未選択なら undefined） */

@@ -98,7 +98,13 @@ export type RequirementId =
   | "mast-25"
   | "klis-ksc-22"
   | "klis-kis-22"
-  | "klis-irm-22";
+  | "klis-irm-22"
+  | "coins-ss-23"
+  | "coins-is-23"
+  | "coins-im-23"
+  | "coins-ss-26"
+  | "coins-is-26"
+  | "coins-im-26";
 
 export type GradRequirementTable = Record<RequirementId, GradRequirement>;
 
