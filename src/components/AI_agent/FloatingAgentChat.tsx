@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { createClient } from "@supabase/supabase-js";
 import "../../styles/AI_agent/FloatingAgentChat.css";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+);
+
+type Source = {
+  title: string;
+  url: string;
+};
 
 type Message = {
   id: number;
   role: "user" | "assistant";
   text: string;
+  sources?: Source[];
 };
 
 const INITIAL_MESSAGE: Message = {
@@ -19,6 +31,13 @@ function FloatingAgentChat() {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isOpen, isLoading, messages]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,13 +58,17 @@ function FloatingAgentChat() {
     setIsLoading(true);
 
     try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const accessToken = sessionData.session?.access_token;
+      const publishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/course-agent`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            apikey: publishableKey,
+            Authorization: `Bearer ${accessToken ?? publishableKey}`,
           },
           body: JSON.stringify({
             message: userMessage.text,
@@ -55,10 +78,24 @@ function FloatingAgentChat() {
 
       const data = await res.json();
 
+      if (!res.ok || typeof data.answer !== "string") {
+        throw new Error(data.error ?? `Request failed (${res.status})`);
+      }
+
       const assistantMessage: Message = {
         id: Date.now() + 1,
         role: "assistant",
         text: data.answer,
+        sources: Array.isArray(data.sources)
+          ? data.sources.filter(
+              (source: unknown): source is Source =>
+                typeof source === "object" &&
+                source !== null &&
+                typeof (source as Source).title === "string" &&
+                typeof (source as Source).url === "string" &&
+                /^https?:\/\//i.test((source as Source).url),
+            )
+          : undefined,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -119,6 +156,23 @@ function FloatingAgentChat() {
                     }`}
                   >
                     {message.text}
+                    {message.sources && message.sources.length > 0 && (
+                      <div className="floating-agent-chat__sources">
+                        <span className="floating-agent-chat__sources-label">
+                          参照元
+                        </span>
+                        {message.sources.map((source) => (
+                          <a
+                            href={source.url}
+                            key={source.url}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                          >
+                            {source.title}
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -131,6 +185,7 @@ function FloatingAgentChat() {
                 </div>
               </div>
             )}
+            <div aria-hidden="true" ref={messagesEndRef} />
           </div>
 
           <form className="floating-agent-chat__form" onSubmit={handleSubmit}>

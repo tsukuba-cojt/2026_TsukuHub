@@ -1,0 +1,4 @@
+project_id = "lhwyycjbikukwrksmyeq"
+
+[functions.course-agent]
+verify_jwt = false
