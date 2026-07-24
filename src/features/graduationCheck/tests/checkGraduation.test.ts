@@ -4,10 +4,7 @@ import { course } from "./helpers";
 
 describe("resolveRequirementIds", () => {
   test("学類名と入学年度から要件データのキーを引く", () => {
-    expect(resolveRequirementIds("情報メディア創成学類", 2021)).toEqual([
-      "mast-21",
-    ]);
-    // 2022〜2024年度入学は同一要件
+    // 2023〜2024年度入学は同一要件
     expect(resolveRequirementIds("情報メディア創成学類", "2023")).toEqual([
       "mast-22",
     ]);
@@ -17,13 +14,14 @@ describe("resolveRequirementIds", () => {
   });
 
   test("主専攻で要件が分かれる学類は候補を複数返す（表記ゆれも吸収）", () => {
-    const ids = resolveRequirementIds("知識情報・図書館学類", 2022);
+    const ids = resolveRequirementIds("知識情報・図書館学類", 2023);
     expect(ids.sort()).toEqual(["klis-irm-22", "klis-kis-22", "klis-ksc-22"]);
   });
 
   test("要件データがない学類・年度は空配列", () => {
     expect(resolveRequirementIds("情報科学類", 2023)).toEqual([]);
     expect(resolveRequirementIds("情報メディア創成学類", 2019)).toEqual([]);
+    // 知識情報・図書館学類は2025年度のデータを持たない
     expect(resolveRequirementIds("知識情報・図書館学類", 2025)).toEqual([]);
   });
 });
@@ -54,7 +52,7 @@ describe("checkGraduation (mast-22 E2E)", () => {
     expect(report.requirement).toMatchObject({
       id: "mast-22",
       department: "情報メディア創成学類",
-      enrollYear: "2022~2024",
+      enrollYear: "2023~2024",
     });
   });
 

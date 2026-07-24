@@ -80,7 +80,7 @@ export type GradRequirement = {
   header: {
     department: string;
     major: string;
-    /** 対象の入学年度。単年は数値、範囲は "2022~2024" のような文字列 */
+    /** 対象の入学年度。単年は数値、範囲は "2023~2024" のような文字列 */
     enrollYear: number | string;
   };
   courses: {
@@ -94,14 +94,10 @@ export type GradRequirement = {
 
 /** 要件データの選択キー（学類・主専攻 × 入学年度） */
 export type RequirementId =
-  | "mast-21"
   | "mast-22"
   | "mast-25"
-  | "klis-ksc-21"
   | "klis-ksc-22"
-  | "klis-kis-21"
   | "klis-kis-22"
-  | "klis-irm-21"
   | "klis-irm-22";
 
 export type GradRequirementTable = Record<RequirementId, GradRequirement>;
@@ -178,7 +174,7 @@ export type GraduationCheckReport = {
     id: RequirementId;
     department: string;
     major: string;
-    /** 対象の入学年度。単年は数値、範囲は "2022~2024" のような文字列 */
+    /** 対象の入学年度。単年は数値、範囲は "2023~2024" のような文字列 */
     enrollYear: number | string;
   };
   /** 全体サマリー */

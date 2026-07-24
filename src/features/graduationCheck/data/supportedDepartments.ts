@@ -52,8 +52,7 @@ export const supportedDepartments: SupportedDepartment[] = [
         key: "mast",
         label: "情報メディア創成主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "mast-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "mast-22" },
+          { admissionYears: [2023, 2024], requirementId: "mast-22" },
           { admissionYears: [2025], requirementId: "mast-25" },
         ],
       },
@@ -67,24 +66,21 @@ export const supportedDepartments: SupportedDepartment[] = [
         key: "klis-ksc",
         label: "知識科学主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "klis-ksc-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "klis-ksc-22" },
+          { admissionYears: [2023, 2024], requirementId: "klis-ksc-22" },
         ],
       },
       {
         key: "klis-kis",
         label: "知識情報システム主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "klis-kis-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "klis-kis-22" },
+          { admissionYears: [2023, 2024], requirementId: "klis-kis-22" },
         ],
       },
       {
         key: "klis-irm",
         label: "情報資源経営主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "klis-irm-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "klis-irm-22" },
+          { admissionYears: [2023, 2024], requirementId: "klis-irm-22" },
         ],
       },
     ],
@@ -123,47 +119,35 @@ export const resolveRequirementId = (
 };
 
 /**
- * 入学年度セレクトの選択肢。要件データ1件（RequirementEntry）＝選択肢1件。
- * 要件データが複数年をまとめている場合（例: 2022〜2024）は年度を分割せず
- * まとめた表記のまま1件として出す。
+ * 入学年度セレクトの選択肢。1年ごとに1件（単年表示）。
+ * 複数の入学年度が同じ requirementId を指してよく、表示は年度単位・要件データは
+ * エントリ単位で分離する。要件データが存在する年度だけを選択肢に出す。
  */
 export type AdmissionYearOption = {
-  /** セレクトの value（この要件データが対象とする最初の入学年度） */
+  /** セレクトの value（入学年度そのもの） */
   value: number;
-  /** 表示名（単年なら「2021年度」、複数年なら「2022〜2024年度」） */
+  /** 表示名（例: 「2024年度」） */
   label: string;
-  /** この選択肢が対象とする入学年度 */
-  years: number[];
-};
-
-const toAdmissionYearOption = (entry: RequirementEntry): AdmissionYearOption => {
-  const years = [...entry.admissionYears].sort((a, b) => a - b);
-  const label =
-    years.length === 1
-      ? `${years[0]}年度`
-      : `${years[0]}〜${years[years.length - 1]}年度`;
-  return { value: years[0], label, years };
 };
 
 /**
  * 入学年度セレクトの選択肢を作る。
  * 専攻まで選ばれていればその専攻の対応年度、学類のみなら学類内の全専攻を
- * まとめた対応年度に絞る（どちらも要件データが存在する年度のみ）。
+ * まとめた対応年度から、要件データが存在する年度だけを新しい順に並べる。
  */
 export const listAdmissionYearOptions = (
   department: SupportedDepartment | undefined,
   major: SupportedMajor | undefined
 ): AdmissionYearOption[] => {
-  const requirements = major
-    ? major.requirements
-    : (department?.majors ?? []).flatMap((m) => m.requirements);
-  // 専攻をまたいで同じ年度区切りが重なる場合は1件にまとめる
-  const options = new Map<string, AdmissionYearOption>();
-  for (const requirement of requirements) {
-    const option = toAdmissionYearOption(requirement);
-    options.set(option.years.join(","), option);
-  }
-  return [...options.values()].sort((a, b) => a.value - b.value);
+  const years = major
+    ? listMajorAdmissionYears(major)
+    : department
+      ? listDepartmentAdmissionYears(department)
+      : [];
+  // 新しい順（2026 → 2023）
+  return [...years]
+    .sort((a, b) => b - a)
+    .map((year) => ({ value: year, label: `${year}年度` }));
 };
 
 /** 専攻が対応している入学年度（昇順・重複なし） */

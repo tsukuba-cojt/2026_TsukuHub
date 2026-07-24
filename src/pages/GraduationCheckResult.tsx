@@ -19,6 +19,10 @@ import {
   levelClass,
   levelFromPercent,
 } from "../components/class/graduationProgressLevel";
+import {
+  listDepartmentAdmissionYears,
+  supportedDepartments,
+} from "../features/graduationCheck";
 import type {
   CategoryKey,
   CategoryResult,
@@ -27,6 +31,19 @@ import type {
 } from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
+
+// 対応範囲の注記は要件データ定義（supportedDepartments）から生成する。
+// 対応年度が増減しても supportedDepartments を直すだけで注記に反映される。
+const supportedScopeSummary = supportedDepartments
+  .map((department) => {
+    const years = listDepartmentAdmissionYears(department);
+    const range =
+      years.length <= 1
+        ? `${years[0]}年度`
+        : `${years[0]}〜${years[years.length - 1]}年度`;
+    return `${department.label}の${range}入学`;
+  })
+  .join("、");
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
@@ -301,9 +318,7 @@ function GraduationCheckResult() {
                 ))}
               </ul>
               <div className="gradResultNotes">
-                <p>
-                  現在は2021〜2024年度入学の情報学群メディア創成学類、知識情報図書館学類の卒業要件のみに対応しています
-                </p>
+                <p>現在は{supportedScopeSummary}の卒業要件のみに対応しています</p>
                 <p>
                   卒業要件は、
                   <a
