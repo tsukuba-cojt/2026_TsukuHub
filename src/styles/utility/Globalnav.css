@@ -114,6 +114,17 @@
   flex: 1;
 }
 
+/* 2番目の「就活・キャリア」は中央基準だとメニュー左端が画面外へ出るため、
+   メニュー幅は維持したまま、ナビ項目1つ分だけ右へ配置を補正する */
+.navDropdownWrap.isCareerDropdown .navDropdown {
+  left: -100%;
+  transform: none;
+}
+
+.navDropdownWrap.isCareerDropdown .navDropdownTail {
+  left: 42%;
+}
+
 /* フル画面版：3カラムのメガメニュー */
 .navDropdown {
   position: absolute;
@@ -244,6 +255,11 @@
   color: var(--color-label-life);
 }
 
+.navDropdownIconCircle.isPurple {
+  background: #eee9ff;
+  color: #7557e8;
+}
+
 .navDropdownCardLabel {
   font-size: 14px;
   font-weight: 800;
@@ -259,6 +275,10 @@
 
 .navDropdownCardLabel.isYellow {
   color: var(--color-label-life);
+}
+
+.navDropdownCardLabel.isPurple {
+  color: #7557e8;
 }
 
 .navDropdownCardDivider {
@@ -301,6 +321,15 @@
     padding: 12px;
   }
 
+  .navDropdownWrap.isCareerDropdown .navDropdown {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navDropdownWrap.isCareerDropdown .navDropdownTail {
+    left: 50%;
+  }
+
   .navDropdownIntro {
     display: none;
   }
@@ -336,7 +365,8 @@
 
   .navDropdownCardLabel.isBlue,
   .navDropdownCardLabel.isGreen,
-  .navDropdownCardLabel.isYellow {
+  .navDropdownCardLabel.isYellow,
+  .navDropdownCardLabel.isPurple {
     color: var(--color-text-primary);
     font-size: 13px;
   }

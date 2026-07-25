@@ -13,6 +13,7 @@ import Notfound404 from "./pages/404";
 import Confirm from "./components/auth/Confirm";
 import Mypage from "./pages/Mypage"
 import Contact from "./pages/Contact";
+import Career from "./pages/Career";
 import { AuthProvider } from "./components/auth/AuthContext";
 import RequireAuth from "./components/auth/RequireAuth";
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/auth/confirm" element={<Confirm />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/career" element={<Career />} />
 
           {/* どのルートにもマッチしなかった場合は404ページを表示 */}
           <Route path="*" element={<Notfound404 />} />
