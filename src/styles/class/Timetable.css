@@ -1,0 +1,442 @@
+/* みんなの時間割（/timetable）
+   タイトル・フィルターカード・時間割カルーセル・空状態のスタイル。
+   数値はスクリーンショットからの目測値（tokens.css に無いもの）を含む。 */
+
+.classPageLayout {
+  padding-bottom: 64px;
+}
+
+/* ── 見出し行 ─────────────────── */
+.timetableHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 16px 6px 24px;
+}
+
+.timetableTitle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 10px;
+  color: var(--color-text-primary);
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.timetableTitle svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary);
+}
+
+/* 卒業要件チェック（.gradCheckBetaBadge）と同一のスタイル。 */
+.timetableBetaBadge {
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  padding: 2px 12px;
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.timetableLead {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* 「自分の時間割を共有する」ボタン（アウトライン／水色系） */
+.timetableShareBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-btn);
+  padding: 12px 20px;
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.timetableShareBtn:hover {
+  background: #eff5ff;
+}
+
+.timetableShareBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── フィルターカード ─────────────────── */
+.timetableFilterCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 32px 32px;
+}
+
+.timetableFilterRow {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.timetableField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 180px;
+  min-width: 160px;
+}
+
+.timetableFieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* 口コミ投稿ページの必須ラベルと同じ配色（--color-primary / #dcebff）。 */
+.timetableRequired {
+  padding: 1px 8px;
+  border-radius: 3px;
+  background: #dcebff;
+  color: var(--color-primary);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.timetableSelectWrap {
+  position: relative;
+}
+
+.timetableSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 9px 36px 9px 12px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.timetableSelect.isPlaceholder {
+  color: var(--color-text-placeholder);
+}
+
+.timetableSelect:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.timetableSelectChevron {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* リセットリンク（テキストリンク／水色） */
+.timetableResetLink {
+  flex-shrink: 0;
+  margin-bottom: 9px;
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.timetableResetLink:hover {
+  text-decoration: underline;
+}
+
+/* ── 検索結果セクション ─────────────────── */
+.timetableResults {
+  margin-top: 24px;
+}
+
+.timetableResultCount {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 16px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.timetableResultCount svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* カルーセル（横スクロール） */
+.timetableCarousel {
+  position: relative;
+}
+
+.timetableCarouselTrack {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 4px 4px 12px;
+  scroll-snap-type: x mandatory;
+}
+
+.timetableCarouselTrack::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timetableCarouselTrack::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #d5deec;
+}
+
+/* 右端の「次へ」シェブロン */
+.timetableCarouselNext {
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.timetableCarouselNext svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ── 時間割カード ─────────────────── */
+.timetableCard {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e6ecf5;
+  border-radius: var(--radius-card);
+  padding: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.timetableCardHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.timetableCardAvatar {
+  flex-shrink: 0;
+  display: flex;
+  width: 34px;
+  height: 34px;
+}
+
+.timetableCardAvatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.timetableCardMeta {
+  min-width: 0;
+}
+
+.timetableCardTerm {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.timetableCardSub {
+  margin: 2px 0 0;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+/* ミニ時間割グリッド：先頭列（コマ番号）＋月〜金の5列 */
+.timetableMiniGrid {
+  display: grid;
+  grid-template-columns: 18px repeat(5, 1fr);
+  gap: 3px;
+  margin-bottom: 14px;
+}
+
+.timetableMiniCorner {
+  display: block;
+}
+
+.timetableMiniDay {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.timetableMiniRow {
+  display: contents;
+}
+
+.timetableMiniPeriod {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.timetableMiniCell {
+  aspect-ratio: 1 / 1;
+  border-radius: 3px;
+  background: #f2f4f8;
+}
+
+.timetableMiniCell.is-purple {
+  background: #b7a7f5;
+}
+
+.timetableMiniCell.is-green {
+  background: #8fd6b0;
+}
+
+.timetableMiniCell.is-red {
+  background: #f4a3a0;
+}
+
+/* 「詳細を見る」リンク（矢印付き・水色） */
+.timetableCardDetailLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: auto;
+  align-self: flex-end;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.timetableCardDetailLink:hover {
+  text-decoration: underline;
+}
+
+.timetableCardDetailLink svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── 空状態カード ─────────────────── */
+.timetableEmpty {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  border: 1px solid #e6ecf5;
+  border-radius: var(--radius-card);
+  padding: 32px 40px;
+  background: #fbfcfe;
+}
+
+.timetableEmptyIllust {
+  flex-shrink: 0;
+  width: 220px;
+  max-width: 40%;
+  height: auto;
+}
+
+.timetableEmptyBody {
+  min-width: 0;
+}
+
+.timetableEmptyTitle {
+  margin: 0 0 10px;
+  color: var(--color-text-primary);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.timetableEmptyLead {
+  margin: 0 0 20px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.timetableEmptyHint {
+  margin: 0 0 10px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.timetableEmptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ピル型ボタン（緩和案） */
+.timetablePill {
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: #eff5ff;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.timetablePill:hover {
+  background: #dcebff;
+}
+
+@media (max-width: 900px) {
+  .timetableHeading {
+    flex-direction: column;
+  }
+
+  .timetableEmpty {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .timetableEmptyIllust {
+    max-width: 60%;
+  }
+
+  .timetableEmptyActions {
+    justify-content: center;
+  }
+}
