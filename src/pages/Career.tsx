@@ -21,6 +21,7 @@ const categories = [
     title: "基礎知識",
     description: "就活や長期インターンの進め方を、基礎から学べます",
     button: "基礎知識を見る",
+    path: "/career/basics",
     color: "blue",
   },
   {
@@ -30,6 +31,7 @@ const categories = [
     title: "長期インターン情報",
     description: "筑波大生が応募できる長期インターンを探せます",
     button: "インターンを探す",
+    path: "/career/internships",
     color: "green",
   },
   {
@@ -39,6 +41,7 @@ const categories = [
     title: "卒業生の体験記",
     description: "筑波大学の卒業生や先輩の経験から、就活とキャリアを学べます",
     button: "体験記を読む",
+    path: "/career/stories",
     color: "purple",
   },
 ] as const;
@@ -128,10 +131,10 @@ function Career() {
                     <p className="careerCategoryEyebrow">{category.eyebrow}</p>
                     <h3>{category.title}</h3>
                     <p className="careerCategoryDescription">{category.description}</p>
-                    <a className="careerCategoryButton" href="#career-articles">
+                    <Link className="careerCategoryButton" to={category.path}>
                       {category.button}
                       <ArrowRight aria-hidden="true" />
-                    </a>
+                    </Link>
                   </article>
                 );
               })}

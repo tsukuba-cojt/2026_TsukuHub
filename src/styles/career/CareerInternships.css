@@ -1,0 +1,69 @@
+.internPage { min-height: 100vh; background: var(--color-bg-gradient); }
+.internContainer { width: min(920px, calc(100% - 48px)); margin: 0 auto; padding-top: 22px; }
+.internBreadcrumb { display: flex; align-items: center; gap: 5px; color: var(--color-text-secondary); font-size: 11px; }
+.internBreadcrumb a { color: var(--color-primary-dark); font-weight: 700; }
+.internBreadcrumb svg { width: 13px; height: 13px; }
+.internTitle { padding: 48px 0 34px; text-align: center; }
+.internTitle > span { color: #159b70; font-size: 10px; font-weight: 900; letter-spacing: .15em; }
+.internTitle h1 { margin: 9px 0 12px; font-size: clamp(32px, 5vw, 45px); letter-spacing: -.04em; }
+.internTitle p { margin: 0; color: #65738a; font-size: 14px; }
+
+.internQuickSection { padding: 25px 27px; border: 1px solid rgba(148,172,209,.2); border-radius: 17px; background: rgba(255,255,255,.9); box-shadow: var(--shadow-card); }
+.internQuickHeading { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.internQuickHeading > div { display: flex; align-items: center; gap: 9px; }
+.internQuickHeading svg { width: 19px; color: #159b70; }
+.internQuickHeading h2 { margin: 0; font-size: 15px; }
+.internQuickHeading > span { color: #159b70; font-size: 9px; font-weight: 700; }
+.internQuickFilters { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+.internQuickFilters button { padding: 9px 15px; border: 1px solid #dce4ec; border-radius: 999px; color: #52637a; background: #fff; font-size: 11px; font-weight: 700; cursor: pointer; transition: .18s; }
+.internQuickFilters button:hover { border-color: #159b70; }
+.internQuickFilters button.isActive { border-color: #159b70; color: #087755; background: #e7f8f1; box-shadow: 0 3px 10px rgba(21,155,112,.12); }
+
+.internListings { padding: 45px 0 80px; }
+.internListingHeader { margin-bottom: 20px; }
+.internListingHeader h2 { margin: 0 0 5px; font-size: 22px; }
+.internListingHeader p { margin: 0; color: #7a8798; font-size: 11px; }
+.internListingHeader p strong { margin-right: 3px; color: #159b70; font-size: 15px; }
+.internCards { display: grid; gap: 16px; }
+.internCard { display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 21px; padding: 25px; border: 1px solid rgba(148,172,209,.2); border-radius: 16px; background: rgba(255,255,255,.93); box-shadow: var(--shadow-card); transition: transform .2s, box-shadow .2s; }
+.internCard:hover { transform: translateY(-2px); box-shadow: 0 13px 30px rgba(80,105,145,.14); }
+.internCardLogo { display: grid; width: 88px; height: 88px; place-items: center; border-radius: 14px; color: #fff; font-size: 22px; font-weight: 900; }
+.internCardBadges { display: flex; flex-wrap: wrap; gap: 5px; }
+.internCardBadges span { padding: 4px 8px; border-radius: 5px; color: #56677d; background: #f0f3f7; font-size: 8px; font-weight: 800; }
+.internCardBadges .isNew { color: #dc466a; background: #ffedf2; }
+.internCard h3 { margin: 10px 0 5px; color: #142b4b; font-size: 18px; line-height: 1.5; }
+.internCardCompany { margin: 0; color: #6d7b8c; font-size: 10px; font-weight: 700; }
+.internCardDetails { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 15px; padding: 13px 0; border-block: 1px solid #edf1f5; }
+.internCardDetails span { display: flex; align-items: center; gap: 5px; color: #4f6177; font-size: 9px; font-weight: 700; }
+.internCardDetails svg { width: 14px; height: 14px; color: #159b70; }
+.internRecommendation { display: flex; gap: 9px; margin-top: 14px; padding: 13px 15px; border-radius: 9px; background: #f0faf6; }
+.internRecommendation > svg { width: 17px; flex: 0 0 auto; color: #159b70; }
+.internRecommendation strong { display: block; color: #087755; font-size: 9px; }
+.internRecommendation p { margin: 4px 0 0; color: #526b66; font-size: 10px; line-height: 1.6; }
+.internCardFooter { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-top: 15px; }
+.internCardFooter > span { display: flex; align-items: center; gap: 5px; color: #8290a0; font-size: 9px; }
+.internCardFooter > span svg { width: 13px; }
+.internCardFooter a { display: flex; align-items: center; gap: 7px; padding: 10px 16px; border-radius: 8px; color: #fff; background: #159b70; font-size: 10px; font-weight: 800; }
+.internCardFooter a svg { width: 14px; }
+.internLoadMore { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; margin-top: 20px; padding: 14px; border: 1px solid #dce5ed; border-radius: 10px; color: #40536b; background: #fff; font-size: 11px; font-weight: 800; cursor: pointer; }
+.internLoadMore svg { width: 15px; }
+.internEmpty { padding: 60px 25px; border: 1px solid #e0e7ef; border-radius: 15px; background: #fff; text-align: center; }
+.internEmpty > svg { width: 38px; height: 38px; color: #aab6c4; }
+.internEmpty h3 { margin: 14px 0 6px; font-size: 16px; }
+.internEmpty p { margin: 0; color: #7a8798; font-size: 11px; }
+.internEmpty button { margin-top: 18px; padding: 10px 15px; border: 0; border-radius: 8px; color: #fff; background: #159b70; font-size: 10px; font-weight: 700; cursor: pointer; }
+
+@media (max-width: 650px) {
+  .internContainer { width: calc(100% - 30px); }
+  .internTitle { padding: 38px 0 27px; text-align: left; }
+  .internTitle p { font-size: 12px; line-height: 1.7; }
+  .internQuickSection { padding: 21px 18px; }
+  .internQuickHeading { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .internQuickFilters { gap: 7px; }
+  .internQuickFilters button { padding: 8px 12px; font-size: 10px; }
+  .internCard { grid-template-columns: 55px minmax(0,1fr); gap: 13px; padding: 18px; }
+  .internCardLogo { width: 55px; height: 55px; border-radius: 10px; font-size: 15px; }
+  .internCard h3 { font-size: 15px; }
+  .internCardDetails, .internRecommendation, .internCardFooter { grid-column: 1 / -1; }
+  .internCardDetails { margin-left: -68px; margin-top: 68px; }
+}
