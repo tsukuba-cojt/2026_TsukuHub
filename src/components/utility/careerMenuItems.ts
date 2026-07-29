@@ -24,7 +24,7 @@ export const careerMenuItems = [
     icon: MessageSquareQuote,
     label: "卒業生の体験記",
     linkLabel: "体験記を読む",
-    path: "/career/stories",
+    path: "/career/alumni",
     colorClass: "isPurple",
   },
 ];

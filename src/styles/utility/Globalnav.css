@@ -400,15 +400,38 @@
 
 /* スマホサイズ（640px以下）になったら、はみ出た分を横スクロールさせる場合 */
 @media (max-width: 640px) {
+  .globalHeader {
+    top: 64px;
+  }
+
   .headerNav {
+    box-sizing: border-box;
     justify-content: flex-start; /* 左詰めに変更 */
     overflow-x: auto;            /* ★ 横スクロールを許可 */
     white-space: nowrap;         /* ボタン内の文字の改行を防ぐ */
-    padding-bottom: 8px;         /* スクロールバー用の微調整 */
+    padding: 0 8px;
+    scrollbar-width: none;
   }
+
+  .headerNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .headerNav > .navLinkItem,
+  .navDropdownWrap {
+    flex: 0 0 auto;
+    min-width: 92px;
+  }
+
   .navLinkItem {
-    flex: shrink;                /* ボタンを無理に縮めず、本来のサイズを維持 */
-    min-width: 80px;             /* 最低限の幅を確保 */
+    flex: 0 0 auto;
+    min-width: 92px;
+    min-height: 44px;
+    padding: 11px 6px;
+  }
+
+  .navDropdownWrap .navLinkItem {
+    flex: 1 0 auto;
   }
 }
 

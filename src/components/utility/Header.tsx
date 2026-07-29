@@ -1,32 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
-import type { Session } from "@supabase/supabase-js";
 import { Bell, Search } from "lucide-react";
+import { supabase } from "../../lib/supabase";
+import { useAuth } from "../auth/authContextValue";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
 import sparkleBlueIcon from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
-
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [session, setSession] = useState<Session | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
-    });
-    return () => listener.subscription.unsubscribe();
-  }, []);
+  const { user, isAdmin } = useAuth();
 
   // メニュー外クリックで閉じる
   useEffect(() => {
@@ -123,7 +110,7 @@ export default function Header() {
             </div>
           </form>
 
-          {session ? (
+          {user ? (
             <div className="user-area">
               {/* 通知ボタン */}
               <button
@@ -182,6 +169,24 @@ export default function Header() {
                     >
                       ユーザー情報
                     </Link>
+                    <Link
+                      to="/mypage/applications"
+                      className="dropdown-item"
+                      role="menuitem"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      応募状況
+                    </Link>
+                    {isAdmin && (
+                      <Link
+                        to="/admin"
+                        className="dropdown-item"
+                        role="menuitem"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        管理者画面
+                      </Link>
+                    )}
                     <button
                       type="button"
                       className="dropdown-item dropdown-logout"

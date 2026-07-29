@@ -59,12 +59,13 @@ function ClassDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   // 口コミ投稿ページから router state で渡されるトーストメッセージ
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(() => {
+    const state = location.state as { toast?: string } | null;
+    return state?.toast ?? null;
+  });
 
   useEffect(() => {
-    const state = location.state as { toast?: string } | null;
-    if (state?.toast) {
-      setToast(state.toast);
+    if ((location.state as { toast?: string } | null)?.toast) {
       // リロードや戻る操作で再表示されないよう state をクリアする
       navigate(location.pathname, { replace: true, state: null });
     }

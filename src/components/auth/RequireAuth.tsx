@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./authContextValue";
 import Unauthorized from "./Unauthorized";
 
 // 会員限定ページ用のガード。

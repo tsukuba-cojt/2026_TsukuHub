@@ -375,3 +375,59 @@
     font-size: 13px;
   }
 }
+
+@media (max-width: 640px) {
+  .header-container {
+    min-height: 64px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .logo-link {
+    gap: 2px;
+    padding-left: 12px;
+  }
+
+  .logo-image {
+    width: 30px;
+    height: 44px;
+  }
+
+  .logo-text-group {
+    margin-bottom: 10px;
+  }
+
+  .logo-text {
+    font-size: 24px;
+  }
+
+  .logo-sparkle-blue {
+    width: 11px;
+    height: 11px;
+    left: 0;
+    bottom: 2px;
+  }
+
+  .search-form {
+    display: none;
+  }
+
+  .header-right,
+  .auth-buttons {
+    gap: 5px;
+  }
+
+  .btn {
+    width: 64px;
+    height: 38px;
+    font-size: 11px;
+  }
+
+  .notification-button {
+    display: none;
+  }
+
+  .mypage-label {
+    display: none;
+  }
+}

@@ -70,7 +70,7 @@ export default function Signup() {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const handleStep1Next = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

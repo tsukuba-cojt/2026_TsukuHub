@@ -1,198 +1,29 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  BookOpenCheck,
-  BriefcaseBusiness,
-  CalendarDays,
-  Clock3,
-  MapPin,
-  MessageSquareQuote,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, BookOpenCheck, BriefcaseBusiness, Clock3, GraduationCap, Sparkles } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
+import { alumniStories, careerArticles } from "../data/careerContent";
+import { listPublishedInternships } from "../services/careerService";
+import type { Internship } from "../types/career";
 import "../styles/career/Career.css";
+import "../styles/career/CareerPlatform.css";
 
 const categories = [
-  {
-    id: "career-basics",
-    icon: BookOpenCheck,
-    eyebrow: "JOB HUNTING BASICS",
-    title: "基礎知識",
-    description: "就活や長期インターンの進め方を、基礎から学べます",
-    button: "基礎知識を見る",
-    path: "/career/basics",
-    color: "blue",
-  },
-  {
-    id: "career-internships",
-    icon: BriefcaseBusiness,
-    eyebrow: "LONG-TERM INTERNSHIP",
-    title: "長期インターン情報",
-    description: "筑波大生が応募できる長期インターンを探せます",
-    button: "インターンを探す",
-    path: "/career/internships",
-    color: "green",
-  },
-  {
-    id: "career-stories",
-    icon: MessageSquareQuote,
-    eyebrow: "ALUMNI STORIES",
-    title: "卒業生の体験記",
-    description: "筑波大学の卒業生や先輩の経験から、就活とキャリアを学べます",
-    button: "体験記を読む",
-    path: "/career/stories",
-    color: "purple",
-  },
-] as const;
+  { icon: BookOpenCheck, title: "就活・長期インターンの基礎知識", description: "就活の進め方、長期インターンの探し方、ESや面接の基本を学べる。", to: "/career/basics", className: "" },
+  { icon: BriefcaseBusiness, title: "長期インターン情報", description: "筑波大生におすすめの長期インターンを確認し、そのまま応募できる。", to: "/career/internships", className: "is-green" },
+  { icon: GraduationCap, title: "卒業生のキャリア・体験記", description: "筑波大学の卒業生がどのように就活し、キャリアを選んだかを知る。", to: "/career/alumni", className: "is-purple" },
+];
 
-const articles = [
-  {
-    category: "基礎知識",
-    title: "就活はいつから？ 学年別スケジュールと最初にやること",
-    summary: "大学生活と両立しながら進めるための準備を、時期ごとに整理します。",
-    date: "2026/07/18",
-    readTime: "6分",
-  },
-  {
-    category: "長期インターン",
-    title: "筑波大生向け・長期インターンの探し方と選び方",
-    summary: "職種、勤務条件、通いやすさなど、応募前に確認したいポイントを紹介します。",
-    date: "2026/07/12",
-    readTime: "8分",
-  },
-  {
-    category: "卒業生の体験記",
-    title: "研究と就活を両立。理系院卒の先輩に聞いた選考対策",
-    summary: "研究スケジュールの組み方から面接準備まで、実体験をもとに聞きました。",
-    date: "2026/07/05",
-    readTime: "10分",
-  },
-  {
-    category: "基礎知識",
-    title: "自己分析で迷わないための3つの視点",
-    summary: "経験の棚卸しから、自分らしい強みを言葉にする方法を解説します。",
-    date: "2026/06/28",
-    readTime: "5分",
-  },
-] as const;
-
-function Career() {
-  return (
-    <div className="careerPage">
-      <Globalnav />
-
-      <main>
-        <div className="careerContainer">
-          <nav className="careerBreadcrumb" aria-label="パンくずリスト">
-            <Link to="/">ホーム</Link>
-            <span aria-hidden="true">/</span>
-            <span>就活・キャリア</span>
-          </nav>
-
-          <section className="careerHero">
-            <div className="careerHeroCopy">
-              <span className="careerHeroLabel">
-                <Sparkles aria-hidden="true" />
-                CAREER SUPPORT
-              </span>
-              <h1>就活・キャリア</h1>
-              <p>
-                筑波大生の就活とキャリア選択を、知る・探す・学ぶの3つの入口からサポートします。
-              </p>
-            </div>
-            <div className="careerHeroVisual" aria-hidden="true">
-              <BriefcaseBusiness />
-              <span className="careerHeroVisualDot dotOne" />
-              <span className="careerHeroVisualDot dotTwo" />
-              <span className="careerHeroVisualDot dotThree" />
-            </div>
-          </section>
-
-          <section className="careerCategories" aria-labelledby="career-categories-title">
-            <div className="careerSectionHeading">
-              <span>3つのカテゴリー</span>
-              <h2 id="career-categories-title">目的から探す</h2>
-              <p>知りたい情報に合わせて、カテゴリーを選んでください。</p>
-            </div>
-
-            <div className="careerCategoryGrid">
-              {categories.map((category) => {
-                const Icon = category.icon;
-                return (
-                  <article
-                    className={`careerCategoryCard is-${category.color}`}
-                    id={category.id}
-                    key={category.title}
-                  >
-                    <div className="careerCategoryIcon">
-                      <Icon aria-hidden="true" />
-                    </div>
-                    <p className="careerCategoryEyebrow">{category.eyebrow}</p>
-                    <h3>{category.title}</h3>
-                    <p className="careerCategoryDescription">{category.description}</p>
-                    <Link className="careerCategoryButton" to={category.path}>
-                      {category.button}
-                      <ArrowRight aria-hidden="true" />
-                    </Link>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="careerArticles" id="career-articles" aria-labelledby="career-articles-title">
-            <div className="careerArticlesHeader">
-              <div className="careerSectionHeading">
-                <span>CAREER ARTICLES</span>
-                <h2 id="career-articles-title">役立つ就活・キャリア情報</h2>
-                <p>就活準備やキャリアを考えるときに役立つ記事をお届けします。</p>
-              </div>
-              <a className="careerTextLink" href="#career-articles">
-                記事をすべて見る
-                <ArrowRight aria-hidden="true" />
-              </a>
-            </div>
-
-            <div className="careerArticleList">
-              {articles.map((article) => (
-                <article className="careerArticleCard" key={article.title}>
-                  <div className="careerArticleMeta">
-                    <span>{article.category}</span>
-                    <time dateTime={article.date.replaceAll("/", "-")}>
-                      <CalendarDays aria-hidden="true" />
-                      {article.date}
-                    </time>
-                  </div>
-                  <h3>{article.title}</h3>
-                  <p>{article.summary}</p>
-                  <div className="careerArticleFooter">
-                    <span>
-                      <Clock3 aria-hidden="true" />
-                      読了目安 {article.readTime}
-                    </span>
-                    <a href="#career-articles" aria-label={`${article.title}を読む`}>
-                      記事を読む
-                      <ArrowRight aria-hidden="true" />
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="careerLocationNote">
-              <MapPin aria-hidden="true" />
-              <p>
-                筑波大生向けの情報を中心に、オンライン参加やつくば周辺の情報も掲載しています。
-              </p>
-            </div>
-          </section>
-        </div>
-      </main>
-
-      <Footer />
-    </div>
-  );
+export default function Career() {
+  const [featured, setFeatured] = useState<Internship[]>([]);
+  useEffect(() => { void listPublishedInternships().then((items) => setFeatured(items.filter((item) => item.is_featured).slice(0, 3))).catch(() => setFeatured([])); }, []);
+  return <div className="careerPage"><Globalnav /><main className="careerContainer">
+    <section className="careerHero"><div className="careerHeroCopy"><span className="careerEyebrow">TSUKUBA CAREER HUB</span><h1>筑波大生の就活を、<br />情報収集から行動まで支える</h1><p>基礎を学び、先輩の経験を知り、自分に合う長期インターンへ。次の一歩に必要な情報を一か所にまとめました。</p><Link to="/career/internships" className="careerHeroButton">募集中のインターンを見る<ArrowRight /></Link></div><div className="careerHeroVisual" aria-hidden="true"><Sparkles /></div></section>
+    <section className="careerCategories"><div className="careerSectionHeading"><span>EXPLORE</span><h2>目的から探す</h2></div><div className="careerCategoryGrid">{categories.map(({ icon: Icon, ...item }) => <article className={`careerCategoryCard ${item.className}`} key={item.to}><span className="careerCategoryIcon"><Icon /></span><h3>{item.title}</h3><p className="careerCategoryDescription">{item.description}</p><Link className="careerCategoryButton" to={item.to}>詳しく見る<ArrowRight /></Link></article>)}</div></section>
+    <section className="careerHomeSection"><div className="careerSectionHeading"><span>FEATURED</span><h2>おすすめの長期インターン</h2></div>{featured.length ? <div className="careerMiniGrid">{featured.map((item) => <Link className="careerMiniCard" to={`/career/internships/${item.id}`} key={item.id}><span>{item.job_category}</span><h3>{item.title}</h3><p>{item.company_name}</p><strong>詳細を見る <ArrowRight /></strong></Link>)}</div> : <div className="careerInlineState">公開中のおすすめ求人は、現在準備中です。</div>}</section>
+    <section className="careerHomeSection"><div className="careerArticlesHeader"><div className="careerSectionHeading"><span>CAREER ARTICLES</span><h2>役立つ就活・キャリア情報</h2></div></div><div className="careerArticleList">{careerArticles.map((article) => <article className="careerArticleCard" key={article.id}><div className="careerArticleMeta"><span>{article.category}</span><time dateTime={article.publishedAt}>{article.publishedAt.replaceAll("-", ".")}</time></div><h3>{article.title}</h3><p>{article.description}</p><div className="careerArticleFooter"><span><Clock3 />{article.readMinutes}分で読めます</span><Link to="/career/basics">詳しく見る<ArrowRight /></Link></div></article>)}</div></section>
+    <section className="careerHomeSection"><div className="careerSectionHeading"><span>ALUMNI STORIES</span><h2>卒業生の体験記</h2></div><div className="careerMiniGrid">{alumniStories.slice(0, 3).map((story) => <Link className="careerMiniCard" to={`/career/alumni/${story.id}`} key={story.id}><span>{story.graduationYear}年度卒・{story.role}</span><h3>{story.title}</h3><p>{story.summary}</p><strong>体験記を読む <ArrowRight /></strong></Link>)}</div></section>
+    <section className="careerFirstGuide"><div><span>初めて利用する方へ</span><h2>まずは基礎を知り、気になる求人を保存する感覚で見てみよう</h2><p>応募前に仕事内容と勤務条件を確認し、不明点は面談で質問しましょう。</p></div><Link to="/career/basics">基礎知識を見る<ArrowRight /></Link></section>
+  </main><Footer /></div>;
 }
-
-export default Career;
