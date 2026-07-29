@@ -1,0 +1,74 @@
+
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "TsukubaGraduationRequirements",
+      "type": "object",
+      "required": ["school", "college", "tracks"],
+      "properties": {
+        "school_id": { "type": "string", "description": "学群コード（例: inf, sys, med）" },
+        "school_name": { "type": "string", "description": "学群名（例: 理工学群, 医学群, 情報学群）" },
+        "college_id": { "type": "string", "description": "学類コード（例: coins, mast, coins, esys）" },
+        "college_name": { "type": "string", "description": "学類名（例: 工学システム学類, 生物学類）" },
+        "academic_year": { "type": "integer", "description": "適用入学年度（例: 2024）" },
+        "tracks": {
+          "type": "array",
+          "description": "コース・主専攻・分野別の要件リスト",
+          "items": {
+            "type": "object",
+            "required": ["track_id", "track_name", "total_required_credits", "categories"],
+            "properties": {
+              "track_id": { "type": "string", "description": "コースID（例: default, robot_control, med_biology）" },
+              "track_name": { "type": "string", "description": "コース/主専攻名（例: 主専攻共通,
+  ロボティクス主専攻）" },
+              "total_required_credits": { "type": "number", "description": "卒業に必要な総単位数" },
+              "categories": {
+                "type": "array",
+                "description": "大区分（基礎科目, 専門基礎科目, 専門科目, 自由・関連科目等）",
+                "items": {
+                  "type": "object",
+                  "required": ["category_id", "category_name", "required_credits", "requirements"],
+                  "properties": {
+                    "category_id": { "type": "string", "description": "区分ID（例: general, foundation, major,
+  free）" },
+                    "category_name": { "type": "string", "description": "区分名（例: 専門基礎科目）" },
+                    "required_credits": { "type": "number", "description": "この区分で必要な合計単位数" },
+                    "requirements": {
+                      "type": "array",
+                      "description": "小区分・履修条件ルール",
+                      "items": {
+                        "type": "object",
+                        "required": ["rule_id", "name", "requirement_type", "required_credits",
+  "course_number_patterns"],
+                        "properties": {
+                          "rule_id": { "type": "string" },
+                          "name": { "type": "string", "description": "条件名・小区分名（例: 数学系専門基礎必修）" },
+                          "requirement_type": {
+                            "type": "string",
+                            "enum": ["REQUIRED", "ELECTIVE_REQUIRED", "FREE_ELECTIVE"],
+                            "description": "REQUIRED: 必修, ELECTIVE_REQUIRED: 選択必修, FREE_ELECTIVE: 自由選択"
+                          },
+                          "required_credits": { "type": "number", "description": "必要単位数（上限・下限指定も可）" },
+                          "max_credits_counted": { "type": "number", "description":
+  "卒業要件にカウントできる上限単位数（超過分は自由単位へ）" },
+                          "course_number_patterns": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "description": "該当する科目番号パターン（正規表現または * ワイルドカード）"
+                          },
+                          "excluded_course_number_patterns": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "description": "除外する科目番号パターン"
+                          },
+                          "description": { "type": "string", "description": "履修要件の補足説明・条件注記" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }

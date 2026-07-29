@@ -11,6 +11,7 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import GraduationCheckConsentModal from "../components/class/GraduationCheckConsentModal";
 import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsvGuideModal";
+import { useAuth } from "../components/auth/AuthContext";
 import {
   checkGraduation,
   findDepartment,
@@ -20,6 +21,7 @@ import {
   listMajorAdmissionYears,
   parseGradesCsv,
   resolveRequirementId,
+  saveGradeRecordsToDb,
   supportedDepartments,
 } from "../features/graduationCheck";
 import type {
@@ -45,6 +47,7 @@ const supportedSummary = supportedDepartments
 // CSVのパース・要件判定はクライアント内で完結する（features/graduationCheck）。
 function GraduationCheck() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [departmentKey, setDepartmentKey] = useState("");
@@ -142,6 +145,19 @@ function GraduationCheck() {
       );
       return;
     }
+
+    // 任意の保存同意があり、ログイン中の場合だけ成績レコードを保存する。
+    // 保存に失敗しても、卒業要件チェックの表示は続行する。
+    if (agreedStats && user) {
+      const saveResult = await saveGradeRecordsToDb({
+        coursesOrCsv: courses,
+        user,
+      });
+      if (!saveResult.success) {
+        console.error("成績レコードの保存に失敗しました。", saveResult.error);
+      }
+    }
+
     navigate("/graduation-checker/result", {
       state: {
         fileName: file.name,

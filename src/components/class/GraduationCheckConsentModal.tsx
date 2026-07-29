@@ -18,7 +18,7 @@ type Props = {
 const policyItems = [
   "判定はあなたの画面内だけで行われます",
   "CSVの元ファイルは解析後すぐに破棄されます",
-  "氏名・学籍番号・メールアドレスは保存しません",
+  "任意の保存同意がある場合のみ、科目番号・総合評価を学籍番号・学年・学類とひも付けて保存します",
 ];
 
 // データ取り扱い確認ポップアップ（B）
@@ -120,9 +120,9 @@ function GraduationCheckConsentModal({
               <span className="gradCheckBadgeOptional">任意</span>
             </label>
             <p className="gradCheckConsentNote">
-              内容は統計的に処理され、個人が特定されることはありません。
+              保存する成績データは、科目番号と総合評価です。
               <br />
-              また、本目的以外でデータを使用することは一切ございません。
+              保存には、あなたのプロフィールに登録された学籍番号・学年・学類を使用します。
             </p>
             <button
               type="button"

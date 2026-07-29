@@ -39,6 +39,16 @@ export { collectCategoryCourses } from "./categoryCourses";
 export type { CategoryCourses } from "./categoryCourses";
 export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
 export { categoryLabels, categoryOrder } from "./categoryMapping";
+export {
+  formatCoursesToJsonb,
+  getStudentNumberFromUser,
+  saveGradeRecordsToDb,
+} from "./saveGradeRecords";
+export type {
+  GradeRecordJsonbItem,
+  SaveGradeRecordsParams,
+  SaveGradeRecordsResult,
+} from "./saveGradeRecords";
 export type {
   CategoryKey,
   CategoryResult,
@@ -53,3 +63,4 @@ export type {
   SelectResult,
   UnitProgress,
 } from "./types";
+
