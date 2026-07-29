@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import type { Session } from "@supabase/supabase-js";
+import { Bell, Search } from "lucide-react";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
-import searchIcon from "../../assets/utility/header_footer/Search.svg";
+import sparkleBlueIcon from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -52,10 +53,39 @@ export default function Header() {
 
   return (
     <header className="main-header">
+      {/* --color-primary-gradient と同じ色停止（#1578FD → #075FDF, 90deg）を
+          検索アイコンの stroke 用に定義（userSpaceOnUse・lucide の viewBox 24x24 基準） */}
+      <svg
+        width="0"
+        height="0"
+        aria-hidden="true"
+        focusable="false"
+        style={{ position: "absolute" }}
+      >
+        <defs>
+          <linearGradient
+            id="headerSearchGradient"
+            gradientUnits="userSpaceOnUse"
+            x1="0"
+            y1="0"
+            x2="24"
+            y2="0"
+          >
+            <stop offset="0%" stopColor="#1578FD" />
+            <stop offset="100%" stopColor="#075FDF" />
+          </linearGradient>
+        </defs>
+      </svg>
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo-link">
             {/* Sparkle blue — アイコン左下 */}
+            <img
+              src={sparkleBlueIcon}
+              alt=""
+              className="logo-sparkle-blue"
+              aria-hidden="true"
+            />
             <img
               src={logoBlue}
               alt="TsukuHub Logo"
@@ -88,11 +118,7 @@ export default function Header() {
                 className="search-input"
               />
               <button type="submit" className="search-button" aria-label="検索">
-                <img
-                  src={searchIcon}
-                  alt=""
-                  className="search-icon-image"
-                />
+                <Search className="search-icon-image" aria-hidden="true" />
               </button>
             </div>
           </form>
@@ -108,12 +134,7 @@ export default function Header() {
                   /* 通知の動作は今後実装 */
                 }}
               >
-                <img
-                  src="/src/assets/utility/header_footer/Bell.svg"
-                  alt=""
-                  className="notification-icon"
-                  aria-hidden="true"
-                />
+                <Bell className="notification-icon" aria-hidden="true" />
                 <span className="notification-dot" />
               </button>
 

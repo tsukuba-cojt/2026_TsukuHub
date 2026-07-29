@@ -1,5 +1,4 @@
-import MailSvgRaw from "../../assets/home/Globalnav/MailMono.svg?raw";
-import KeySvgRaw from "../../assets/Signup/Key.svg?raw";
+import { LockKeyhole, Mail } from "lucide-react";
 
 // Figma: Login #970:3648 → 22×17px, NeutralGray #B6BFD4
 export function MailIcon({
@@ -11,16 +10,13 @@ export function MailIcon({
   height?: number;
   color?: string;
 }) {
-  const svg = MailSvgRaw
-    .replace(/\bwidth="[^"]*"/, `width="${width}"`)
-    .replace(/\bheight="[^"]*"/, `height="${height}"`)
-    .replace(/fill="(?!none)[^"]*"/g, `fill="${color}"`);
   return (
     <span
-      dangerouslySetInnerHTML={{ __html: svg }}
       style={{ display: "inline-flex", alignItems: "center", flexShrink: 0 }}
       aria-hidden="true"
-    />
+    >
+      <Mail width={width} height={height} color={color} />
+    </span>
   );
 }
 
@@ -34,15 +30,12 @@ export function LockIcon({
   height?: number;
   color?: string;
 }) {
-  const svg = KeySvgRaw
-    .replace(/\bwidth="[^"]*"/, `width="${width}"`)
-    .replace(/\bheight="[^"]*"/, `height="${height}"`)
-    .replace(/fill="(?!none)[^"]*"/g, `fill="${color}"`);
   return (
     <span
-      dangerouslySetInnerHTML={{ __html: svg }}
       style={{ display: "inline-flex", alignItems: "center", flexShrink: 0 }}
       aria-hidden="true"
-    />
+    >
+      <LockKeyhole width={width} height={height} color={color} />
+    </span>
   );
 }

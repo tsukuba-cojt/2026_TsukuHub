@@ -71,6 +71,14 @@
   left: 0;
 }
 
+.logo-sparkle-blue {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 0;
+  bottom: 4px;
+}
+
 .logo-sparkle-yellow {
   position: absolute;
   width: 10px;
@@ -144,7 +152,8 @@
 .search-icon-image {
   width: 23px;
   height: 23px;
-  object-fit: contain;
+  /* --color-primary-gradient と同じ色停止の <linearGradient> を stroke で参照 */
+  stroke: url(#headerSearchGradient);
 }
 
 /* Auth buttons */
@@ -218,7 +227,7 @@
 .notification-icon {
   width: 24px;
   height: 24px;
-  object-fit: contain;
+  color: var(--color-text-primary); /* 旧 Bell.svg のストローク色 #081C42 */
 }
 
 .notification-dot {

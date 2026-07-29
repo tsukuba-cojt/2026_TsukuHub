@@ -13,10 +13,11 @@
   margin-bottom: 18px;
 }
 
-.classSearchHeading img {
+.classSearchHeadingIcon {
   width: 36px;
   height: 36px;
-  filter: invert(44%) sepia(91%) saturate(1243%) hue-rotate(202deg) brightness(100%) contrast(93%);
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .classSearchHeading h1 {
@@ -35,9 +36,31 @@
 
 .classSearchForm {
   display: grid;
-  grid-template-columns: 244px 142px 138px 138px 138px auto;
-  align-items: end;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  align-items: start;
   gap: 20px 26px;
+}
+
+.classField.classFieldText,
+.classField.classFieldCode {
+  grid-column: span 4;
+}
+
+.classField.classFieldModule {
+  grid-column: span 4;
+}
+
+.classField.classFieldScheduleDay,
+.classField.classFieldScheduleCombined,
+.classField.classFieldClassType,
+.classField.classFieldSchedulePeriod{
+  grid-column: span 1;
+}
+
+.classClearButton {
+  grid-column: span 2;
+  justify-self: end;
+  align-self: center;
 }
 
 .classField {
@@ -117,14 +140,87 @@
   stroke-width: 2;
 }
 
+.classModuleRangeSlider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.classModuleRangeSlider .rc-slider {
+  margin: 0;
+  width: 100%;
+  padding-bottom: 30px;
+  touch-action: pan-x;
+  position: relative;
+}
+
+.classModuleRangeSlider .rc-slider-rail,
+.classModuleRangeSlider .rc-slider-track {
+  height: 6px;
+  border-radius: 999px;
+}
+
+.classModuleRangeSlider .rc-slider-handle {
+  width: 18px;
+  height: 18px;
+  margin-top: -6px;
+  border: 3px solid var(--color-primary);
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 81, 224, 0.24);
+  z-index: 10;
+  cursor: grab;
+}
+
+.classModuleRangeSlider .rc-slider-handle:active {
+  cursor: grabbing;
+}
+
+.classModuleRangeSlider .rc-slider-handle::before,
+.classModuleRangeSlider .rc-slider-handle::after {
+  display: none;
+}
+
+.classModuleRangeSlider .rc-slider-mark {
+  top: 1px;
+  pointer-events: none;
+}
+
+.classModuleRangeSlider .rc-slider-mark-text {
+  font-size: 10px;
+  font-weight: 600;
+  color: #666;
+  top: 30px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.classModuleRangeSlider .rc-slider-mark-text-active {
+  color: var(--color-primary);
+  font-weight: 900;
+}
+
+.classModuleRangeLabel {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.classModuleRangeLabel {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
 @media (max-width: 1100px) {
   .classSearchForm {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .classClearButton {
-    width: 100%;
-  }
 }
 
 @media (max-width: 760px) {

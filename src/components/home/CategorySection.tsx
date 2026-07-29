@@ -19,7 +19,7 @@ const categories = [
     imageSrc: bookIcon,
     title: "授業・履修",
     text: "授業の口コミや\n履修登録情報はこちら",
-    path: "/class",
+    path: "/class/top",
     textClass: "catTextClass",
   },
   {
