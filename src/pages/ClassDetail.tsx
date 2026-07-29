@@ -260,7 +260,7 @@ function ClassDetail() {
                   </div>
                   <div className="reviewList">
                     {sortedReviews.map((review) => (
-                      <ClassReviewCard review={review} key={review.id} />
+                      <ClassReviewCard review={review} courseCode={courseCode ?? ""} key={review.id} />
                     ))}
                   </div>
                 </div>

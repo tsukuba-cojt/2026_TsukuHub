@@ -21,12 +21,15 @@ import CareerInternships from "./pages/CareerInternships";
 import CareerInternshipDetail from "./pages/CareerInternshipDetail";
 import CareerAlumni from "./pages/CareerAlumni";
 import CareerAlumniDetail from "./pages/CareerAlumniDetail";
+import CareerArticleDetail from "./pages/CareerArticleDetail";
 import MyApplications from "./pages/MyApplications";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminInternships from "./pages/admin/AdminInternships";
 import AdminInternshipForm from "./pages/admin/AdminInternshipForm";
 import AdminApplications from "./pages/admin/AdminApplications";
 import AdminApplicationDetail from "./pages/admin/AdminApplicationDetail";
+import AdminCareerContent from "./pages/admin/AdminCareerContent";
+import AdminClassManagement from "./pages/admin/AdminClassManagement";
 
 function App() {
   return <BrowserRouter><ScrollToTop /><AuthProvider><Header /><Routes>
@@ -43,6 +46,7 @@ function App() {
     <Route path="/contact" element={<Contact />} />
     <Route path="/career" element={<Career />} />
     <Route path="/career/basics" element={<CareerBasics />} />
+    <Route path="/career/articles/:id" element={<CareerArticleDetail />} />
     <Route path="/career/internships" element={<CareerInternships />} />
     <Route path="/career/internships/:internshipId" element={<CareerInternshipDetail />} />
     <Route path="/career/alumni" element={<CareerAlumni />} />
@@ -54,6 +58,8 @@ function App() {
     <Route path="/admin/internships/:id/edit" element={<RequireAdmin><AdminInternshipForm /></RequireAdmin>} />
     <Route path="/admin/applications" element={<RequireAdmin><AdminApplications /></RequireAdmin>} />
     <Route path="/admin/applications/:id" element={<RequireAdmin><AdminApplicationDetail /></RequireAdmin>} />
+    <Route path="/admin/career-content" element={<RequireAdmin><AdminCareerContent /></RequireAdmin>} />
+    <Route path="/admin/class-management" element={<RequireAdmin><AdminClassManagement /></RequireAdmin>} />
     <Route path="*" element={<Notfound404 />} />
   </Routes></AuthProvider></BrowserRouter>;
 }

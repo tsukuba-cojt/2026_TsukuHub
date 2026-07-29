@@ -17,8 +17,8 @@ import { careerMenuItems } from "./careerMenuItems";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
-  { icon: BriefcaseBusiness, label: "就活・キャリア", path: "/career" },
-  { icon: BookOpen, label: "授業・履修", path: "/class" },
+  { icon: BriefcaseBusiness, label: "キャリア・インターン", path: "/career" },
+  { icon: BookOpen, label: "講義・履修", path: "/class/top" },
   { icon: UsersRound, label: "サークル・課外活動", path: "/circles" },
   { icon: Utensils, label: "生活・便利情報", path: "/lifestyle" },
   { icon: Globe, label: "留学・国際交流", path: "/global" },
@@ -28,13 +28,13 @@ const navItems = [
 
 const dropdownMenus = {
   "/career": {
-    title: "就活・キャリア",
+    title: "キャリア・インターン",
     description:
       "就活の基礎から長期インターン、卒業生の体験記まで。筑波大生のキャリア選択をサポートします。",
-    imageLabel: "就活・キャリアのイメージ画像（準備中）",
+    imageLabel: "キャリア・インターンのイメージ画像（準備中）",
     items: careerMenuItems,
   },
-  "/class": {
+  "/class/top": {
     title: "講義・履修",
     description:
       "授業の検索や履修計画、卒業要件の確認まで。筑波大生の学びをサポートする機能がそろっています。",
@@ -132,10 +132,7 @@ function Globalnav() {
                 className="navLinkItem"
                 aria-haspopup="menu"
                 aria-expanded={openMenu === item.path}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpenMenu(item.path as DropdownPath);
-                }}
+                onClick={() => setOpenMenu(null)}
               >
                 <item.icon className="navIcon" aria-hidden="true" />
                 <span className="navLabel">{item.label}</span>
