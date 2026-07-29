@@ -14,10 +14,10 @@ type Props = {
 // 1件分の時間割カード（プレゼンテーショナル）。
 // ミニ時間割は月〜金×1〜6限のグリッドで、セルは配色ブロックのみ（文字なし）。
 function TimetableCard({ timetable }: Props) {
-  // 「day-period」→ 色 の索引を作り、セル描画時に O(1) で参照する。
-  const cellColor = new Map<string, string>();
-  timetable.cells.forEach((cell) => {
-    cellColor.set(`${cell.day}-${cell.period}`, cell.color);
+  // 「day-period」→ 科目区分 の索引を作り、セル描画時に O(1) で参照する。
+  const cellCategory = new Map<string, string>();
+  (timetable.schedule[timetable.module] ?? []).forEach((cell) => {
+    cellCategory.set(`${cell.day}-${cell.period}`, cell.category);
   });
 
   return (
@@ -50,10 +50,12 @@ function TimetableCard({ timetable }: Props) {
           <div className="timetableMiniRow" key={period}>
             <span className="timetableMiniPeriod">{period}</span>
             {DAY_LABELS.map((_, day) => {
-              const color = cellColor.get(`${day}-${period}`);
+              const category = cellCategory.get(`${day}-${period}`);
               return (
                 <span
-                  className={`timetableMiniCell${color ? ` is-${color}` : ""}`}
+                  className={`timetableMiniCell${
+                    category ? ` is-${category}` : ""
+                  }`}
                   key={day}
                 />
               );
@@ -62,7 +64,6 @@ function TimetableCard({ timetable }: Props) {
         ))}
       </div>
 
-      {/* 遷移先の時間割詳細ページは未実装のためプレースホルダーのルート。 */}
       <Link to={`/timetable/${timetable.id}`} className="timetableCardDetailLink">
         詳細を見る
         <ChevronRight aria-hidden="true" />

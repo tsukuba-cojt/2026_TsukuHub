@@ -1,0 +1,396 @@
+/* 時間割詳細（/timetable/:timetableId）
+   モジュールタブ・時間割グリッド・属性ボックスのスタイル。
+   見出し行（タイトル／β版バッジ／共有ボタン）は Timetable.css を共用する。
+   数値はスクリーンショットからの目測値（tokens.css に無いもの）を含む。 */
+
+.timetableDetailCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 44px 40px;
+}
+
+/* 「みんなの時間割に戻る」 */
+.timetableBackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.timetableBackLink:hover {
+  text-decoration: underline;
+}
+
+.timetableBackLink svg {
+  width: 16px;
+  height: 16px;
+}
+
+.timetableDetailTitle {
+  margin: 0 0 6px;
+  color: var(--color-text-primary);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.timetableDetailSub {
+  margin: 0 0 22px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.timetableDetailMissing {
+  margin: 40px 0;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+/* 左：時間割 ／ 右：属性 の2カラム */
+.timetableDetailBody {
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── モジュールタブ ─────────────────── */
+.timetableModuleTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.timetableModuleTab {
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  background: none;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.timetableModuleTab:hover {
+  background: #eff5ff;
+}
+
+.timetableModuleTab.isActive {
+  background: #dcebff;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ── 時間割グリッド ─────────────────── */
+.timetableGridWrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* 前後のモジュールへ送る丸ボタン */
+.timetableGridNav {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.timetableGridNav:hover:not(:disabled) {
+  color: var(--color-primary);
+}
+
+.timetableGridNav:disabled {
+  color: #dbe2ec;
+  cursor: default;
+}
+
+.timetableGridNav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.timetableGrid {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* 曜日ヘッダーとコマ本体で同じ列定義を使い、列位置を揃える */
+.timetableGridHead,
+.timetableGridBody {
+  display: grid;
+  grid-template-columns: 34px repeat(5, 1fr);
+}
+
+.timetableGridHead {
+  margin-bottom: 6px;
+}
+
+.timetableGridDay {
+  text-align: center;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.timetableGridBody {
+  border: 1px solid #e6ecf5;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.timetableGridPeriod,
+.timetableGridCell {
+  border-right: 1px solid #e6ecf5;
+  border-bottom: 1px solid #e6ecf5;
+}
+
+/* 各行の最終列（金曜）と最終行は外周の枠線と重なるため内側の線を消す */
+.timetableGridBody > *:nth-child(6n) {
+  border-right: none;
+}
+
+.timetableGridBody > *:nth-child(n + 31) {
+  border-bottom: none;
+}
+
+.timetableGridPeriod {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-family-logo);
+  font-size: 13px;
+}
+
+/* 行の高さはモジュールを切り替えても一定に保つ（科目名が長い場合は省略表示） */
+.timetableGridCell {
+  height: 49px;
+  padding: 3px;
+}
+
+/* コマ（科目）のブロック */
+.timetableCourse {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 3px 5px;
+  overflow: hidden;
+}
+
+.timetableCourseCode {
+  font-family: var(--font-family-logo);
+  font-size: 8px;
+  line-height: 1.2;
+}
+
+.timetableCourseName {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.timetableCourseLabel {
+  font-size: 8px;
+  line-height: 1.2;
+}
+
+/* 科目区分ごとの配色（ミニ時間割の .timetableMiniCell と対応） */
+.timetableCourse.is-required {
+  border-color: #cdc0f7;
+  background: #ece7fd;
+  color: #8b7ae0;
+}
+
+.timetableCourse.is-required .timetableCourseName {
+  color: #5b45c4;
+}
+
+.timetableCourse.is-elective {
+  border-color: #b5e3ca;
+  background: #e2f5ec;
+  color: #4fae7f;
+}
+
+.timetableCourse.is-elective .timetableCourseName {
+  color: #2c8659;
+}
+
+.timetableCourse.is-common {
+  border-color: #f6c6c3;
+  background: #fdeae9;
+  color: #dd8a86;
+}
+
+.timetableCourse.is-common .timetableCourseName {
+  color: #c4615c;
+}
+
+/* ── 凡例 ─────────────────── */
+.timetableLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 18px 0 0;
+  padding: 0 0 0 48px;
+  list-style: none;
+}
+
+.timetableLegendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+
+.timetableLegendSwatch {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+.timetableLegendSwatch.is-required {
+  background: #cdc0f7;
+}
+
+.timetableLegendSwatch.is-elective {
+  background: #b5e3ca;
+}
+
+.timetableLegendSwatch.is-common {
+  background: #f6c6c3;
+}
+
+/* ── 属性ボックス ─────────────────── */
+.timetableDetailSide {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.timetableAttrBox {
+  border: 1px solid #dfe6f1;
+  border-radius: 10px;
+  padding: 22px 26px 26px;
+  background: #fff;
+}
+
+.timetableAttrTitle {
+  margin: 0 0 20px;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.timetableAttrGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 24px;
+  margin: 0;
+}
+
+.timetableAttrItem.isWide {
+  grid-column: 1 / -1;
+}
+
+.timetableAttrLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+.timetableAttrLabel svg {
+  width: 13px;
+  height: 13px;
+}
+
+.timetableAttrHelp {
+  color: var(--color-text-muted);
+}
+
+.timetableAttrValue {
+  margin: 5px 0 0;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 「この時間割をベースにする」（塗りボタン） */
+.timetableBaseBtn {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-btn);
+  padding: 16px 30px;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-btn-soft);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background 0.15s ease;
+}
+
+.timetableBaseBtn:hover {
+  background: var(--color-primary-dark);
+}
+
+.timetableBaseBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 1100px) {
+  .timetableDetailBody {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  .timetableDetailCard {
+    padding: 24px 20px 32px;
+  }
+
+  .timetableLegend {
+    padding-left: 0;
+  }
+
+  .timetableBaseBtn {
+    align-self: stretch;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .timetableAttrGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

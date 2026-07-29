@@ -12,6 +12,7 @@ import ClassReviewForm from "./pages/ClassReviewForm";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
+import TimetableDetail from "./pages/TimetableDetail";
 import Notfound404 from "./pages/404";
 import Confirm from "./components/auth/Confirm";
 import Mypage from "./pages/Mypage"
@@ -49,6 +50,10 @@ function App() {
           <Route path="/graduation-checker/result" element={<GraduationCheckResult />} />
         {/* みんなの時間割（パスは classMenuItems.ts の定義に合わせる） */}
           <Route path="/timetable" element={<Timetable />} />
+        {/* 時間割の共有フローは未実装。静的セグメントのため :timetableId より優先され、
+            実装時はこの element を差し替えるだけでよい */}
+          <Route path="/timetable/share" element={<Notfound404 />} />
+          <Route path="/timetable/:timetableId" element={<TimetableDetail />} />
           <Route path="/auth/confirm" element={<Confirm />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/contact" element={<Contact />} />

@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { CalendarDays, ChevronRight, Search, Upload } from "lucide-react";
+import { ChevronRight, Search } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import TimetableCard from "../components/class/TimetableCard";
+import TimetablePageHeader from "../components/class/TimetablePageHeader";
 import {
   EMPTY_FILTERS,
   filterTimetables,
@@ -42,35 +42,7 @@ function Timetable() {
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
-        <p className="classBreadcrumb">
-          <Link to="/" className="classBreadcrumbLink">
-            ホーム
-          </Link>{" "}
-          &gt;{" "}
-          <Link to="/class/top" className="classBreadcrumbLink">
-            授業・履修
-          </Link>{" "}
-          &gt; みんなの時間割
-        </p>
-
-        {/* 見出し行：タイトル＋β版バッジ＋共有ボタン */}
-        <div className="timetableHeading">
-          <div className="timetableHeadingMain">
-            <h1 className="timetableTitle">
-              <CalendarDays aria-hidden="true" />
-              みんなの時間割
-              <span className="timetableBetaBadge">β版</span>
-            </h1>
-            <p className="timetableLead">
-              みんなの時間割を参考に、あなたの履修計画を立てよう
-            </p>
-          </div>
-          {/* 共有フローは未実装のためプレースホルダーのルート。 */}
-          <Link to="/timetable/share" className="timetableShareBtn">
-            <Upload aria-hidden="true" />
-            自分の時間割を共有する
-          </Link>
-        </div>
+        <TimetablePageHeader />
 
         {/* フィルターカード */}
         <div className="timetableFilterCard">

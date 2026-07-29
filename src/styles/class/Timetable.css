@@ -324,15 +324,16 @@
   background: #f2f4f8;
 }
 
-.timetableMiniCell.is-purple {
+/* 科目区分ごとの配色（詳細ページの凡例と対応） */
+.timetableMiniCell.is-required {
   background: #b7a7f5;
 }
 
-.timetableMiniCell.is-green {
+.timetableMiniCell.is-elective {
   background: #8fd6b0;
 }
 
-.timetableMiniCell.is-red {
+.timetableMiniCell.is-common {
   background: #f4a3a0;
 }
 
