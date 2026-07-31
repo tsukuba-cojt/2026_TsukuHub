@@ -6,20 +6,14 @@ import FeaturedInternships from "../components/career/FeaturedInternships";
 import NoteArticleEmbed from "../components/career/NoteArticleEmbed";
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
-import { fallbackAlumniStories } from "../data/careerFallbacks";
 import { careerNoteArticles } from "../data/careerNoteArticles";
 import { listPublishedInternships } from "../services/careerService";
-import { listPublishedAlumniStories } from "../services/contentService";
 import type { Internship } from "../types/career";
-import type { AlumniStoryRecord } from "../types/content";
 import "../styles/career/Career.css";
 import "../styles/career/CareerPlatform.css";
 
 export default function Career() {
   const [featured, setFeatured] = useState<Internship[]>([]);
-  const [stories, setStories] = useState<AlumniStoryRecord[]>(
-    fallbackAlumniStories,
-  );
 
   useEffect(() => {
     void listPublishedInternships()
@@ -27,14 +21,6 @@ export default function Career() {
         setFeatured(items.filter((item) => item.is_featured).slice(0, 3)),
       )
       .catch(() => setFeatured([]));
-  }, []);
-
-  useEffect(() => {
-    void listPublishedAlumniStories()
-      .then(setStories)
-      .catch(() => {
-        // Supabase未設定時は既存サンプルを表示する
-      });
   }, []);
 
   return (
@@ -51,7 +37,7 @@ export default function Career() {
           <NoteArticleEmbed articles={careerNoteArticles} />
         </section>
         <FeaturedInternships items={featured} />
-        <AlumniStoryPreview stories={stories} />
+        <AlumniStoryPreview />
       </main>
       <Footer />
     </div>
