@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import type { Session } from "@supabase/supabase-js";
-import { Bell, Search } from "lucide-react";
+// 検索ボックス非表示中は Search アイコンと React 名前空間（React.FormEvent）が未使用になる。
+// 復活時は `import React, { useState, useEffect, useRef } from "react";` と
+// `import { Bell, Search } from "lucide-react";` に戻すこと。
+import { Bell } from "lucide-react";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
@@ -13,8 +16,9 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
 
-/* 検索機能は未実装のため、ホバー時に出す案内文言 */
-const SEARCH_NOTICE = "すみません！まだ準備中です";
+/* ===== ヘッダー検索ボックス：今回のリリースでは非表示（将来復活の可能性あり） =====
+   検索機能は未実装のため、ホバー時に出す案内文言 */
+// const SEARCH_NOTICE = "すみません！まだ準備中です";
 
 export default function Header() {
   const [session, setSession] = useState<Session | null>(null);
@@ -42,9 +46,10 @@ export default function Header() {
   }, []);
 
   // 検索は未実装。Enter キーでの送信も含め、何も起こらないようにする
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+  // （検索ボックス非表示に伴い一時コメントアウト）
+  // const handleSearchSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  // };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -54,8 +59,10 @@ export default function Header() {
 
   return (
     <header className="main-header">
-      {/* --color-primary-gradient と同じ色停止（#1578FD → #075FDF, 90deg）を
-          検索アイコンの stroke 用に定義（userSpaceOnUse・lucide の viewBox 24x24 基準） */}
+      {/* 検索ボックス非表示に伴いコメントアウト（参照元は .search-icon-image のみ）。
+          --color-primary-gradient と同じ色停止（#1578FD → #075FDF, 90deg）を
+          検索アイコンの stroke 用に定義（userSpaceOnUse・lucide の viewBox 24x24 基準）
+
       <svg
         width="0"
         height="0"
@@ -77,6 +84,7 @@ export default function Header() {
           </linearGradient>
         </defs>
       </svg>
+      */}
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo-link">
@@ -109,6 +117,20 @@ export default function Header() {
         </div>
 
         <div className="header-right">
+          {/* ===== 検索ボックス：今回のリリースでは非表示 =====
+              将来復活させる可能性があるため、削除せずコメントアウトで残す。
+              前回実装した「準備中」ツールチップ（.search-notice）も含めてそのまま保持。
+              スタイル（.search-form / .search-box-wrapper / .search-input /
+              .search-button / .search-notice）は Header.css に残してある。
+
+              復活させる手順:
+                1. このコメントの開き（上）と閉じ（下）を外す
+                2. 「// ホバー時の吹き出し…」の行を JSX コメント形式に戻す（任意）
+                   ※ ネストした JSX コメントは外側のコメントを閉じてしまうため、
+                     一時的に行コメント形式にしてある
+                3. ファイル冒頭の import と SEARCH_NOTICE / handleSearchSubmit、
+                   および headerSearchGradient の svg/defs のコメントアウトも外す
+
           <form onSubmit={handleSearchSubmit} className="search-form">
             <div className="search-box-wrapper">
               <input
@@ -128,13 +150,14 @@ export default function Header() {
                 onClick={(e) => e.preventDefault()}
               >
                 <Search className="search-icon-image" aria-hidden="true" />
-                {/* ホバー時の吹き出し。読み上げは title / aria-label に任せる */}
+                // ホバー時の吹き出し。読み上げは title / aria-label に任せる
                 <span className="search-notice" aria-hidden="true">
                   {SEARCH_NOTICE}
                 </span>
               </button>
             </div>
           </form>
+          */}
 
           {session ? (
             <div className="user-area">

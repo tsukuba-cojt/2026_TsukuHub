@@ -103,7 +103,10 @@
   gap: 14px;
 }
 
-/* Search box — 386x50, radius 10px */
+/* Search box — 386x50, radius 10px
+   ※ 今回のリリースでは検索ボックスを非表示にしているため、以下 .search-* の
+     スタイルは現在どこからも参照されていない。将来復活させる可能性があるため
+     削除せず残してある（マークアップは Header.tsx にコメントアウトで保持）。 */
 .search-form {
   flex-shrink: 0;
 }
