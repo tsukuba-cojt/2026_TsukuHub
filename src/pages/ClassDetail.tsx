@@ -140,6 +140,39 @@ function ClassDetail() {
   const methodLabel = course ? getMethodLabel(course.method) : null;
   const classFormats = course ? getClassFormats(course.remarks) : [];
 
+  const syllabusUrl = useMemo(() => {
+    const record = course as (CourseRow & Record<string, unknown>) | null;
+    const candidates = [
+      record?.["syllabus_url"],
+      record?.["syllabusUrl"],
+      record?.["syllabus_url_link"],
+      record?.["url"],
+      record?.["pdf_url"],
+    ];
+
+    for (const value of candidates) {
+      if (typeof value === "string" && value.trim()) {
+        return value;
+      }
+    }
+
+    const fallbackCode = course?.course_number ?? courseCode;
+    return fallbackCode
+      ? `https://kdb.tsukuba.ac.jp/syllabi/2026/${fallbackCode}/jpn`
+      : null;
+  }, [course, courseCode]);
+
+  const syllabusSummary = useMemo(() => {
+    const targetYear = course?.target_year?.trim();
+    const targetYearLabel = targetYear
+      ? `対象学年：${targetYear}${targetYear.endsWith("年") ? "" : "年"}`
+      : null;
+    const parts = [course?.overview, course?.remarks, targetYearLabel].filter(
+      (value): value is string => Boolean(value && value.trim())
+    );
+    return parts.join("\n\n");
+  }, [course]);
+
   return (
     <div className="classPage">
       <Globalnav />
@@ -322,10 +355,37 @@ function ClassDetail() {
                 </aside>
               </div>
             ) : (
-              /* シラバスタブ：DB にシラバス PDF の URL カラムが無いため
-                 白紙プレースホルダー。カラム追加後に <object> 埋め込みへ差し替える */
               <div className="classDetailSyllabus">
-                <p>シラバスは準備中です</p>
+                <div className="classDetailSyllabusCard">
+                  <div className="classDetailSyllabusHeader">
+                    <div>
+                      <h2>シラバス</h2>
+                      <p>筑波大学の教育課程編成支援システムの内容を表示します。</p>
+                    </div>
+                  </div>
+
+                  {syllabusUrl ? (
+                    <>
+                      {syllabusSummary && (
+                        <div className="classDetailSyllabusSummary">
+                          <h3>講義概要</h3>
+                          <p>{syllabusSummary}</p>
+                        </div>
+                      )}
+                      <iframe
+                        src={syllabusUrl}
+                        title={`${course?.course_name ?? "講義"} のシラバス`}
+                        className="classDetailSyllabusFrame"
+                        loading="lazy"
+                      />
+                    </>
+                  ) : (
+                    <div className="classDetailSyllabusPlaceholder">
+                      <p>シラバス情報を取得できませんでした。</p>
+                      {syllabusSummary && <p>{syllabusSummary}</p>}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>
