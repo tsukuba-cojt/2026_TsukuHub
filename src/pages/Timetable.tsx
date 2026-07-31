@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ChevronRight, Search } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
@@ -6,6 +7,8 @@ import TimetableCard from "../components/class/TimetableCard";
 import TimetablePageHeader from "../components/class/TimetablePageHeader";
 import {
   EMPTY_FILTERS,
+  filtersFromParams,
+  filtersToParams,
   filterTimetables,
   GAKURUI_OPTIONS,
   getTimetables,
@@ -20,7 +23,14 @@ import "../styles/class/Class.css";
 import "../styles/class/Timetable.css";
 
 function Timetable() {
-  const [filters, setFilters] = useState<TimetableFilters>(EMPTY_FILTERS);
+  // 絞り込み状態は URL クエリで保持する。
+  // 詳細ページへ引き継ぐことで、「みんなの時間割に戻る」で同じ検索結果に戻れる。
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.toString();
+  const filters = useMemo(
+    () => filtersFromParams(new URLSearchParams(query)),
+    [query]
+  );
 
   // データ取得と絞り込みは timetableData.ts に分離済み。
   const allTimetables = getTimetables();
@@ -33,10 +43,14 @@ function Timetable() {
   const showResults = filters.gakurui !== "";
 
   const updateFilter = (key: keyof TimetableFilters, value: string) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
+    // 絞り込みの操作で履歴を増やさないよう replace で置き換える
+    setSearchParams(filtersToParams({ ...filters, [key]: value }), {
+      replace: true,
+    });
   };
 
-  const resetFilters = () => setFilters(EMPTY_FILTERS);
+  const resetFilters = () =>
+    setSearchParams(filtersToParams(EMPTY_FILTERS), { replace: true });
 
   return (
     <div className="classPage">
@@ -165,7 +179,12 @@ function Timetable() {
                 <div className="timetableCarousel">
                   <div className="timetableCarouselTrack">
                     {results.map((timetable) => (
-                      <TimetableCard timetable={timetable} key={timetable.id} />
+                      <TimetableCard
+                        timetable={timetable}
+                        // 詳細ページに現在の絞り込み条件を引き継ぐ
+                        search={query}
+                        key={timetable.id}
+                      />
                     ))}
                   </div>
                   {/* 「次へ」を示すシェブロン（カルーセルの続きがあることの視覚的な合図） */}

@@ -54,7 +54,13 @@
   display: grid;
   grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
   gap: 56px;
-  align-items: start;
+}
+
+/* 凡例をカード下端に寄せるため、左カラムは高さいっぱいの縦フレックスにする
+   （「その他」タブのように中身が短いときも凡例の位置が保たれる） */
+.timetableDetailMain {
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── モジュールタブ ─────────────────── */
@@ -95,6 +101,13 @@
   gap: 14px;
 }
 
+/* グリッド／その他リストのどちらでも矢印の位置を揃える */
+.timetableGrid,
+.timetableOtherBox {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 /* 前後のモジュールへ送る丸ボタン */
 .timetableGridNav {
   flex-shrink: 0;
@@ -124,11 +137,6 @@
 .timetableGridNav svg {
   width: 18px;
   height: 18px;
-}
-
-.timetableGrid {
-  flex: 1 1 auto;
-  min-width: 0;
 }
 
 /* 曜日ヘッダーとコマ本体で同じ列定義を使い、列位置を揃える */
@@ -252,13 +260,120 @@
   color: #c4615c;
 }
 
+/* ── その他タブ（曜日・時限を持たない科目のリスト） ─────────────────── */
+.timetableOtherBox {
+  box-sizing: border-box;
+  /* グリッド表示時の曜日ヘッダー分だけ下げ、タブからの距離をグリッドと揃える */
+  margin-top: 25px;
+  min-height: 294px; /* 6行グリッドと同程度の高さ */
+  border: 1px solid #e6ecf5;
+  border-radius: 6px;
+  padding: 14px 16px;
+  background: #fff;
+}
+
+.timetableOtherSection + .timetableOtherSection {
+  margin-top: 18px;
+}
+
+.timetableOtherLabel {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.timetableOtherRows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 集中の実施時期サブ行（実施時期ラベル＋科目チップ） */
+.timetableOtherRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timetableOtherTerm {
+  flex-shrink: 0;
+  width: 32px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+/* 科目が無いカテゴリ・実施時期は中身が空のまま（白紙）になる */
+.timetableOtherChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.timetableOtherSection .timetableOtherChips:not(:empty),
+.timetableOtherRows:not(:empty) {
+  margin-top: 6px;
+}
+
+/* 科目チップ（グリッドのセルと同じ区分色） */
+.timetableChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 160px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+
+.timetableChipCode {
+  font-family: var(--font-family-logo);
+  font-size: 8px;
+}
+
+.timetableChipName {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.timetableChip.is-required {
+  border-color: #cdc0f7;
+  background: #ece7fd;
+  color: #8b7ae0;
+}
+
+.timetableChip.is-required .timetableChipName {
+  color: #5b45c4;
+}
+
+.timetableChip.is-elective {
+  border-color: #b5e3ca;
+  background: #e2f5ec;
+  color: #4fae7f;
+}
+
+.timetableChip.is-elective .timetableChipName {
+  color: #2c8659;
+}
+
+.timetableChip.is-common {
+  border-color: #f6c6c3;
+  background: #fdeae9;
+  color: #dd8a86;
+}
+
+.timetableChip.is-common .timetableChipName {
+  color: #c4615c;
+}
+
 /* ── 凡例 ─────────────────── */
 .timetableLegend {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
-  margin: 18px 0 0;
-  padding: 0 0 0 48px;
+  /* カード下端に寄せる（上の余白は最低 18px を確保） */
+  margin: auto 0 0;
+  padding: 18px 0 0 48px;
   list-style: none;
 }
 
@@ -316,8 +431,10 @@
   margin: 0;
 }
 
+/* 備考は他の項目と余白で区切って下部に配置する */
 .timetableAttrItem.isWide {
   grid-column: 1 / -1;
+  margin-top: 10px;
 }
 
 .timetableAttrLabel {

@@ -9,11 +9,13 @@ const PERIODS = [1, 2, 3, 4, 5, 6];
 
 type Props = {
   timetable: Timetable;
+  // 一覧の絞り込み条件（クエリ文字列）。詳細ページへそのまま引き継ぐ。
+  search?: string;
 };
 
 // 1件分の時間割カード（プレゼンテーショナル）。
 // ミニ時間割は月〜金×1〜6限のグリッドで、セルは配色ブロックのみ（文字なし）。
-function TimetableCard({ timetable }: Props) {
+function TimetableCard({ timetable, search = "" }: Props) {
   // 「day-period」→ 科目区分 の索引を作り、セル描画時に O(1) で参照する。
   const cellCategory = new Map<string, string>();
   (timetable.schedule[timetable.module] ?? []).forEach((cell) => {
@@ -64,7 +66,10 @@ function TimetableCard({ timetable }: Props) {
         ))}
       </div>
 
-      <Link to={`/timetable/${timetable.id}`} className="timetableCardDetailLink">
+      <Link
+        to={{ pathname: `/timetable/${timetable.id}`, search }}
+        className="timetableCardDetailLink"
+      >
         詳細を見る
         <ChevronRight aria-hidden="true" />
       </Link>

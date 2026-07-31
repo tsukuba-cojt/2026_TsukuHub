@@ -30,8 +30,25 @@ export type TimetableCell = {
   category: TimetableCategory;
 };
 
-// モジュール別の時間割。キーは MODULE_TABS の値。
+// モジュール別の時間割。キーは MODULE_OPTIONS の値（「その他」は otherCourses 側）。
 export type TimetableSchedule = Record<string, TimetableCell[]>;
+
+// 「その他」タブに並べる科目チップ（曜日・時限を持たない科目）。
+export type TimetableCourse = Omit<TimetableCell, "day" | "period">;
+
+// 集中講義は実施時期（春C・夏休 など）ごとにまとめる。
+export type IntensiveGroup = {
+  term: string;
+  courses: TimetableCourse[];
+};
+
+// 「その他」タブのデータ。該当科目が無いカテゴリは空配列＝UI では白紙になる。
+export type OtherCourses = {
+  intensive: IntensiveGroup[]; // 集中
+  negotiable: TimetableCourse[]; // 応談
+  anytime: TimetableCourse[]; // 随時
+  nt: TimetableCourse[]; // NT
+};
 
 export type Timetable = {
   id: string;
@@ -41,8 +58,10 @@ export type Timetable = {
   major: string; // 専攻（系）
   enrollYear: string; // 入学年度の下2桁（"23" など）
   springCredits: number; // 春学期取得単位数
+  autumnCredits: number; // 秋学期取得単位数
   note: string; // 備考
   schedule: TimetableSchedule; // モジュール別のコマ一覧
+  otherCourses: OtherCourses; // 「その他」タブの科目
 };
 
 // 未選択（絞り込みなし）は空文字で表現する。
@@ -78,8 +97,19 @@ export const GRADE_OPTIONS = [
 
 export const MODULE_OPTIONS = ["春A", "春B", "春C", "秋A", "秋B", "秋C"];
 
-// 詳細ページのモジュールタブ。通常モジュールに「その他」（集中講義など）を加えたもの。
-export const MODULE_TABS = [...MODULE_OPTIONS, "その他"];
+// 曜日・時限を持たない科目をまとめるタブ。時間割グリッドの代わりにリストを表示する。
+export const OTHER_MODULE = "その他";
+
+// 詳細ページの学期タブ。通常モジュールに「その他」（集中講義など）を加えたもの。
+export const MODULE_TABS = [...MODULE_OPTIONS, OTHER_MODULE];
+
+// 「その他」タブのカテゴリ。該当科目の有無に関わらず常にこの順で表示する。
+export const OTHER_CATEGORIES: { key: keyof OtherCourses; label: string }[] = [
+  { key: "intensive", label: "集中" },
+  { key: "negotiable", label: "応談" },
+  { key: "anytime", label: "随時" },
+  { key: "nt", label: "NT" },
+];
 
 export const MAJOR_OPTIONS = [
   "CG系",
@@ -148,17 +178,41 @@ function buildCells(rand: () => number, count: number): TimetableCell[] {
   return cells;
 }
 
-// モジュール別の時間割を生成する。「その他」（集中講義枠）は空のことが多い。
+// モジュール別の時間割を生成する。
 function buildSchedule(rand: () => number): TimetableSchedule {
   const schedule: TimetableSchedule = {};
-  MODULE_TABS.forEach((module) => {
-    const count =
-      module === "その他"
-        ? Math.floor(rand() * 2) // 0〜1コマ
-        : 6 + Math.floor(rand() * 5); // 6〜10コマ
-    schedule[module] = buildCells(rand, count);
+  MODULE_OPTIONS.forEach((module) => {
+    schedule[module] = buildCells(rand, 6 + Math.floor(rand() * 5)); // 6〜10コマ
   });
   return schedule;
+}
+
+// 集中講義の実施時期の候補。
+const INTENSIVE_TERMS = ["春C", "夏休", "秋C", "春休"];
+
+function pickCourses(rand: () => number, max: number): TimetableCourse[] {
+  const count = Math.floor(rand() * (max + 1)); // 0件（＝白紙）もあり得る
+  return Array.from(
+    { length: count },
+    () => COURSE_POOL[Math.floor(rand() * COURSE_POOL.length)]
+  );
+}
+
+// 「その他」タブのデータを生成する。
+// 該当科目が無いカテゴリ・実施時期は配列を空のままにし、UI 側で白紙として扱う。
+function buildOtherCourses(rand: () => number): OtherCourses {
+  const intensive: IntensiveGroup[] = [];
+  INTENSIVE_TERMS.forEach((term) => {
+    const courses = pickCourses(rand, 2);
+    // 科目がある実施時期のみサブ行として持たせる
+    if (courses.length > 0) intensive.push({ term, courses });
+  });
+  return {
+    intensive,
+    negotiable: pickCourses(rand, 2),
+    anytime: pickCourses(rand, 1),
+    nt: pickCourses(rand, 1),
+  };
 }
 
 // 学類・学年・モジュール・専攻の組み合わせを変えた24件を生成。
@@ -180,8 +234,10 @@ function generateTimetables(): Timetable[] {
       major,
       enrollYear,
       springCredits: 15 + (i % 9),
+      autumnCredits: 14 + ((i + 4) % 9),
       note: "なし",
       schedule: buildSchedule(rand),
+      otherCourses: buildOtherCourses(rand),
     });
   }
   return list;
@@ -195,9 +251,13 @@ export function getTimetables(): Timetable[] {
 }
 
 // 1件取得（詳細ページ用。将来的に Supabase 取得へ差し替える箇所）。
-export function getTimetableById(id: string | undefined): Timetable | undefined {
-  if (!id) return undefined;
-  return TIMETABLES.find((t) => t.id === id);
+// ダミーデータが無い ID でも詳細ページが破綻しないよう、ID から決定論的に
+// 既存の1件へフォールバックする（実データ連携時は 404 相当の扱いに変更する）。
+export function getTimetableById(id: string | undefined): Timetable {
+  const found = TIMETABLES.find((t) => t.id === id);
+  if (found) return found;
+  const seed = (id ?? "").split("").reduce((sum, c) => sum + c.charCodeAt(0), 0);
+  return TIMETABLES[seed % TIMETABLES.length];
 }
 
 // 絞り込み：学類は必須の一致条件、学年・モジュール・専攻は
@@ -214,6 +274,27 @@ export function filterTimetables(
     if (filters.major && t.major !== filters.major) return false;
     return true;
   });
+}
+
+// ── フィルター状態と URL クエリの相互変換 ───────────────────────────────
+// 一覧の絞り込み状態を URL に持たせることで、詳細ページから戻ったときに
+// 同じ検索結果を復元できるようにする（詳細ページのリンクにも引き継ぐ）。
+export function filtersFromParams(params: URLSearchParams): TimetableFilters {
+  return {
+    gakurui: params.get("gakurui") ?? "",
+    grade: params.get("grade") ?? "",
+    module: params.get("module") ?? "",
+    major: params.get("major") ?? "",
+  };
+}
+
+// 未選択（空文字）の項目は URL に載せない。
+export function filtersToParams(filters: TimetableFilters): URLSearchParams {
+  const params = new URLSearchParams();
+  (Object.keys(filters) as (keyof TimetableFilters)[]).forEach((key) => {
+    if (filters[key]) params.set(key, filters[key]);
+  });
+  return params;
 }
 
 // 学年の表示ラベル（"2" → "2年次"）。
