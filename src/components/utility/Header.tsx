@@ -13,8 +13,10 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
 
+/* 検索機能は未実装のため、ホバー時に出す案内文言 */
+const SEARCH_NOTICE = "すみません！まだ準備中です";
+
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
   const [session, setSession] = useState<Session | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -39,10 +41,9 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // 検索は未実装。Enter キーでの送信も含め、何も起こらないようにする
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchQuery.trim()) return;
-    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   const handleLogout = async () => {
@@ -113,12 +114,24 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="キーワードで検索"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-input"
+                readOnly
+                aria-disabled="true"
+                title={SEARCH_NOTICE}
               />
-              <button type="submit" className="search-button" aria-label="検索">
+              <button
+                type="button"
+                className="search-button"
+                aria-disabled="true"
+                aria-label={`検索（${SEARCH_NOTICE}）`}
+                title={SEARCH_NOTICE}
+                onClick={(e) => e.preventDefault()}
+              >
                 <Search className="search-icon-image" aria-hidden="true" />
+                {/* ホバー時の吹き出し。読み上げは title / aria-label に任せる */}
+                <span className="search-notice" aria-hidden="true">
+                  {SEARCH_NOTICE}
+                </span>
               </button>
             </div>
           </form>

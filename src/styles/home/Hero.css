@@ -83,6 +83,11 @@
   color: var(--color-text-placeholder);
 }
 
+/* 検索は未実装（readOnly）なので、押せないことをカーソルで示す */
+.heroSearchInput {
+  cursor: not-allowed;
+}
+
 .heroSearchBtn {
   position: absolute;
   right: 6px;
@@ -97,45 +102,97 @@
   font-family: var(--font-family-logo);
   font-weight: 700;
   font-size: 15px;
-  cursor: pointer;
-  transition: opacity 0.2s;
+  /* 検索は未実装のため、押せないことをカーソルで示す */
+  cursor: not-allowed;
 }
 
-.heroSearchBtn:hover {
-  opacity: 0.9;
+/* ホバー時の「準備中」吹き出し。
+   見た目は CreditRateCard の .creditRateBarTooltip に合わせている。 */
+.heroSearchNotice {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  padding: 6px 12px;
+  border: 1px solid #e3eaf5;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+/* 吹き出しのしっぽ（Globalnav の .navDropdownTail と同じ作り） */
+.heroSearchNotice::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #fff;
+  border-right: 1px solid #e3eaf5;
+  border-bottom: 1px solid #e3eaf5;
+}
+
+.heroSearchBtn:hover .heroSearchNotice,
+.heroSearchBtn:focus-visible .heroSearchNotice {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Right illustration */
 .heroIllust {
   flex: 1;
+  /* flex アイテムの min-width:auto によるはみ出しを防ぐ（イラストを列幅に追従させる） */
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* hero-illustration.svg は 564x564 のキャンバスに対して
+   上 20.6% / 下 18.3% が透明の余白（実際の絵は y=116〜461）。
+   この余白がそのままグロナビ下・カテゴリカード上の空きに見えているため、
+   ネガティブマージンで打ち消したうえでイラスト自体を列幅いっぱいまで拡大する。
+   マージンは幅に対する % なので、どの画面幅でも同じ比率で効く。 */
 .heroIllustImg {
-  width: 549px;
-  height: 549px;
+  width: 100%;
+  height: auto;
   object-fit: contain;
+  margin-top: -17%;
+  margin-bottom: -14.5%;
+  /* 透明部分がグロナビ・カテゴリカードに重なるため、クリックを透過させる */
+  pointer-events: none;
 }
 
 /* Responsive */
 @media (max-width: 1200px) {
+  /* 横並びのままなので、上下の余白は基本スタイルと同じ 2px に揃える */
   .hero {
-    padding: 40px 28px 48px;
+    padding: 2px 28px;
   }
 
   .heroInner {
     gap: 60px;
   }
-
-  .heroIllustImg {
-    width: 380px;
-    height: 380px;
-  }
 }
 
 @media (max-width: 900px) {
+  /* 縦積みに変わり、上下の余白はグロナビ〜見出しの間隔になるので戻す */
+  .hero {
+    padding: 32px 28px 40px;
+  }
+
   .heroInner {
     flex-direction: column;
     align-items: flex-start;
@@ -154,14 +211,10 @@
     width: 100%;
   }
 
+  /* イラストの幅＝コンテナ幅にして、上の % マージンを効かせる */
   .heroIllust {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .heroIllustImg {
-    width: min(400px, 100%);
-    height: auto;
+    width: min(460px, 100%);
+    margin-inline: auto;
   }
 }
 
