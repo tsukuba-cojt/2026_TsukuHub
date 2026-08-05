@@ -1,0 +1,41 @@
+import { Link } from "react-router-dom";
+import { Check } from "lucide-react";
+import "../../styles/class/TimetableShare.css";
+
+/** 完了画面のボタン1つ分 */
+export type DoneAction = {
+  label: string;
+  path: string;
+};
+
+type Props = {
+  /** 塗りボタン（既定：マイページで確認する） */
+  primary: DoneAction;
+  /** アウトラインボタン（呼び出し元へ戻る導線） */
+  secondary: DoneAction;
+};
+
+/** ステップ4：完了 */
+function StepComplete({ primary, secondary }: Props) {
+  return (
+    <section className="ttShareComplete">
+      <span className="ttShareCompleteIcon" aria-hidden="true">
+        <Check />
+      </span>
+      <h2 className="ttShareCompleteTitle">時間割の登録が完了しました！</h2>
+      <p className="ttShareCompleteText">
+        ご登録いただいた時間割は、マイページからいつでも確認・編集できます
+      </p>
+      <div className="ttShareCompleteActions">
+        <Link to={primary.path} className="ttSharePrimaryBtn">
+          {primary.label}
+        </Link>
+        <Link to={secondary.path} className="ttShareOutlineBtn">
+          {secondary.label}
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export default StepComplete;
