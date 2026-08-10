@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../auth/authContextValue";
 
 /**
  * ログイン中ユーザーが口コミを投稿済みの講義（科目番号）の集合。
@@ -58,7 +58,7 @@ export const useReviewedCourseCodes = (): ReadonlySet<string> => {
     };
   }, [authLoading, user]);
 
-  return user !== null && fetched?.userId === user.id
+  return user !== null && fetched !== null && fetched.userId === user.id
     ? fetched.codes
     : EMPTY_CODES;
 };
