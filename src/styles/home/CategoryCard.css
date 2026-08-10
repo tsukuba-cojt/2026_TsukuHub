@@ -40,6 +40,36 @@
   box-shadow: 0px 6px 24px rgba(148, 172, 209, 0.4);
 }
 
+/* ── 未実装ページのカード（.isComingSoon） ─────────────
+   対象パスは src/data/comingSoon.ts、ポップアップの見た目は ComingSoon.css。
+   押せないことが伝わるよう、ホバー時の浮き上がり演出は出さない。 */
+
+/* ホバーしても浮き上がらせない */
+.categoryCard.isComingSoon:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+/* .categoryCard は overflow: hidden のため、ポップアップはカード内側の中央に出す。
+   幅が 180px しかないので折り返しを許可する。
+   left/right を両方指定して幅を確定させる（left: 50% だけだと
+   絶対配置の shrink-to-fit 幅がカード半分に制限され、極端に折り返してしまう）。 */
+.categoryCard.isComingSoon .comingSoonTip {
+  top: 50%;
+  left: 12px;
+  right: 12px;
+  transform: translateY(-50%);
+  padding: 8px 10px;
+  white-space: normal;
+  text-align: center;
+}
+
+.categoryCard.isComingSoon:hover .comingSoonTip,
+.categoryCard.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* Icon area: upper section ~35px from top */
 .categoryIcon {
   width: 64px;

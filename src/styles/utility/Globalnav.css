@@ -99,6 +99,41 @@
   transform: scaleX(1); /* 線をニュッと表示させる */
 }
 
+/* ── 未実装ページの項目（.isComingSoon） ─────────────
+   対象パスは src/data/comingSoon.ts、ポップアップの見た目は ComingSoon.css。
+   押せないことが伝わるよう、ホバー時のグラデーション文字・下線は出さない。 */
+
+/* ポップアップは項目の下・中央に出す（.navLinkItem は position: relative 済み） */
+.navLinkItem.isComingSoon .comingSoonTip {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navLinkItem.isComingSoon:hover .comingSoonTip,
+.navLinkItem.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ホバーしてもラベルはグラデーションにしない */
+.navLinkItem.isComingSoon:hover .navLabel {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--color-text-primary);
+}
+
+/* ホバーしてもアイコンはグラデーションにしない */
+.navLinkItem.isComingSoon:hover .navIcon {
+  stroke: var(--color-text-primary);
+}
+
+/* ホバーしても下線は出さない */
+.navLinkItem.isComingSoon:hover::after {
+  transform: scaleX(0);
+}
+
 /* ── 「授業・履修」のドロップダウン ─────────────
    注：Figma の node-id 未提供＋MCP レート制限中のため、
    数値は添付デザイン画像からの目測。 */

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "../../styles/home/CategoryCard.css";
+import "../../styles/utility/ComingSoon.css";
+import { COMING_SOON_NOTICE, isComingSoon } from "../../data/comingSoon";
 import bagIcon from "../../assets/home/CategoryCard/Bag.svg";
 import bookIcon from "../../assets/home/CategoryCard/Book.svg";
 import peopleIcon from "../../assets/home/CategoryCard/People.svg";
@@ -56,13 +58,39 @@ function CategorySection() {
   return (
     <div className="categorySection">
       <div className="categorySectionInner">
-        {categories.map((cat) => (
-          <Link to={cat.path} className="categoryCard" key={cat.title}>
-            <img src={cat.imageSrc} alt="" className="categoryIcon" />
-            <h3 className={cat.textClass}>{cat.title}</h3>
-            <p>{cat.text}</p>
-          </Link>
-        ))}
+        {categories.map((cat) => {
+          const cardInner = (
+            <>
+              <img src={cat.imageSrc} alt="" className="categoryIcon" />
+              <h3 className={cat.textClass}>{cat.title}</h3>
+              <p>{cat.text}</p>
+            </>
+          );
+
+          /* 未実装ページ（src/data/comingSoon.ts で管理）は遷移させず、
+             ホバー・フォーカス時に「準備中」ポップアップを出す。
+             Link ではなく span にすることで、中クリックや
+             「新しいタブで開く」からも遷移できないようにしている。 */
+          return isComingSoon(cat.path) ? (
+            <span
+              key={cat.title}
+              className="categoryCard isComingSoon"
+              role="link"
+              aria-disabled="true"
+              tabIndex={0}
+              title={COMING_SOON_NOTICE}
+            >
+              {cardInner}
+              <span className="comingSoonTip" aria-hidden="true">
+                {COMING_SOON_NOTICE}
+              </span>
+            </span>
+          ) : (
+            <Link to={cat.path} className="categoryCard" key={cat.title}>
+              {cardInner}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

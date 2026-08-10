@@ -1,4 +1,5 @@
 import "../../styles/utility/Globalnav.css";
+import "../../styles/utility/ComingSoon.css";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 import { classMenuItems } from "./classMenuItems";
 import { careerMenuItems } from "./careerMenuItems";
+import { COMING_SOON_NOTICE, isComingSoon } from "../../data/comingSoon";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
@@ -190,6 +192,25 @@ function Globalnav() {
                 </div>
               )}
             </div>
+          ) : isComingSoon(item.path) ? (
+            /* 未実装ページ（src/data/comingSoon.ts で管理）は遷移させず、
+               ホバー・フォーカス時に「準備中」ポップアップを出す。
+               NavLink ではなく span にすることで、中クリックや
+               「新しいタブで開く」からも遷移できないようにしている。 */
+            <span
+              key={item.label}
+              className="navLinkItem isComingSoon"
+              role="link"
+              aria-disabled="true"
+              tabIndex={0}
+              title={COMING_SOON_NOTICE}
+            >
+              <item.icon className="navIcon" aria-hidden="true" />
+              <span className="navLabel">{item.label}</span>
+              <span className="comingSoonTip" aria-hidden="true">
+                {COMING_SOON_NOTICE}
+              </span>
+            </span>
           ) : (
             <NavLink to={item.path} key={item.label} className="navLinkItem">
               <item.icon className="navIcon" aria-hidden="true" />
