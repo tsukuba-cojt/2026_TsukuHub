@@ -1,6 +1,6 @@
 import "../styles/Auth.css";
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import { Eye, EyeOff } from "lucide-react";
 import { MailIcon, LockIcon } from "../components/auth/AuthIcons";
@@ -20,6 +20,8 @@ function ChevronLeftIcon() {
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnTo = (location.state as { from?: string } | null)?.from || "/";
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +31,7 @@ export default function Login() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
-        navigate("/");
+        navigate(returnTo, { replace: true });
       }
     });
 
@@ -37,12 +39,12 @@ export default function Login() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
-        navigate("/");
+        navigate(returnTo, { replace: true });
       }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate, returnTo]);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

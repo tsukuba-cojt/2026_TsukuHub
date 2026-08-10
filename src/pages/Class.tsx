@@ -207,20 +207,11 @@ function Class() {
   }, [courses, filters]);
 
   const totalPages = Math.max(1, Math.ceil(filteredCourses.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
   const currentPageCourses = useMemo(() => {
-    const offset = (currentPage - 1) * pageSize;
+    const offset = (safeCurrentPage - 1) * pageSize;
     return filteredCourses.slice(offset, offset + pageSize);
-  }, [filteredCourses, currentPage, pageSize]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filters]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
+  }, [filteredCourses, safeCurrentPage, pageSize]);
 
   return (
     <div className="classPage">
@@ -234,9 +225,12 @@ function Class() {
         </p>
         <ClassSearchPanel
           filters={filters}
-          onChange={(next: Partial<FiltersState>) => setFilters((prev) => ({ ...prev, ...next }))}
+          onChange={(next: Partial<FiltersState>) => {
+            setFilters((prev) => ({ ...prev, ...next }));
+            setCurrentPage(1);
+          }}
         />
-        <ClassSortBar currentPage={currentPage} totalCount={filteredCourses.length} />
+        <ClassSortBar currentPage={safeCurrentPage} totalCount={filteredCourses.length} />
 
         {loading && <p className="classStatus">読み込み中...</p>}
         {error && <p className="classStatus classStatusError">{error}</p>}
@@ -250,7 +244,7 @@ function Class() {
         )}
 
         <ClassPagination
-          currentPage={currentPage}
+          currentPage={safeCurrentPage}
           totalPages={totalPages}
           onChangePage={setCurrentPage}
         />

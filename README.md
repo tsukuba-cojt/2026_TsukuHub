@@ -1,5 +1,28 @@
 # TsukuHub
 
+## 就活・長期インターン機能のセットアップ
+
+Supabase SQL EditorまたはSupabase CLIで
+`supabase/migrations/20260729090000_career_platform.sql`を適用してください。求人の確認用データは
+`supabase/seed.sql`にあります。マイグレーションは次を作成・設定します。
+
+- `internships`、`applications`テーブル
+- `profiles.role`（`student` / `admin`）
+- 一般公開求人、本人の応募、管理者操作を分離するRLS
+- 学生に`admin_notes`の列権限を与えず、管理者だけが利用できる応募管理関数
+- 公開バケット`company-logos`と、管理者だけが変更できるStorageポリシー
+
+既存ユーザーを管理者にするには、Supabase SQL Editorで対象ユーザーIDを確認して次を実行します。
+
+```sql
+update public.profiles
+set role = 'admin'
+where id = '対象の auth.users.id';
+```
+
+フロントエンドへ`service_role`キーを設定しないでください。`.env.local`には従来どおり
+`VITE_SUPABASE_URL`と`VITE_SUPABASE_PUBLISHABLE_KEY`だけを設定します。
+
 ## 1. プロダクト名
 
 TsukuHub

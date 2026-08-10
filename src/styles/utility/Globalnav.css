@@ -149,6 +149,17 @@
   flex: 1;
 }
 
+/* 2番目の「就活・キャリア」は中央基準だとメニュー左端が画面外へ出るため、
+   メニュー幅は維持したまま、ナビ項目1つ分だけ右へ配置を補正する */
+.navDropdownWrap.isCareerDropdown .navDropdown {
+  left: -100%;
+  transform: none;
+}
+
+.navDropdownWrap.isCareerDropdown .navDropdownTail {
+  left: 42%;
+}
+
 /* フル画面版：3カラムのメガメニュー */
 .navDropdown {
   position: absolute;
@@ -279,6 +290,11 @@
   color: var(--color-label-life);
 }
 
+.navDropdownIconCircle.isPurple {
+  background: #eee9ff;
+  color: #7557e8;
+}
+
 .navDropdownCardLabel {
   font-size: 14px;
   font-weight: 800;
@@ -294,6 +310,10 @@
 
 .navDropdownCardLabel.isYellow {
   color: var(--color-label-life);
+}
+
+.navDropdownCardLabel.isPurple {
+  color: #7557e8;
 }
 
 .navDropdownCardDivider {
@@ -336,6 +356,15 @@
     padding: 12px;
   }
 
+  .navDropdownWrap.isCareerDropdown .navDropdown {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navDropdownWrap.isCareerDropdown .navDropdownTail {
+    left: 50%;
+  }
+
   .navDropdownIntro {
     display: none;
   }
@@ -371,7 +400,8 @@
 
   .navDropdownCardLabel.isBlue,
   .navDropdownCardLabel.isGreen,
-  .navDropdownCardLabel.isYellow {
+  .navDropdownCardLabel.isYellow,
+  .navDropdownCardLabel.isPurple {
     color: var(--color-text-primary);
     font-size: 13px;
   }
@@ -405,15 +435,38 @@
 
 /* スマホサイズ（640px以下）になったら、はみ出た分を横スクロールさせる場合 */
 @media (max-width: 640px) {
+  .globalHeader {
+    top: 64px;
+  }
+
   .headerNav {
+    box-sizing: border-box;
     justify-content: flex-start; /* 左詰めに変更 */
     overflow-x: auto;            /* ★ 横スクロールを許可 */
     white-space: nowrap;         /* ボタン内の文字の改行を防ぐ */
-    padding-bottom: 8px;         /* スクロールバー用の微調整 */
+    padding: 0 8px;
+    scrollbar-width: none;
   }
+
+  .headerNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .headerNav > .navLinkItem,
+  .navDropdownWrap {
+    flex: 0 0 auto;
+    min-width: 92px;
+  }
+
   .navLinkItem {
-    flex: shrink;                /* ボタンを無理に縮めず、本来のサイズを維持 */
-    min-width: 80px;             /* 最低限の幅を確保 */
+    flex: 0 0 auto;
+    min-width: 92px;
+    min-height: 44px;
+    padding: 11px 6px;
+  }
+
+  .navDropdownWrap .navLinkItem {
+    flex: 1 0 auto;
   }
 }
 

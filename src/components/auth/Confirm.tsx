@@ -30,7 +30,7 @@ export default function Confirm() {
     };
 
     confirm();
-  }, []);
+  }, [navigate]);
 
   return <p>Confirming...</p>;
 }

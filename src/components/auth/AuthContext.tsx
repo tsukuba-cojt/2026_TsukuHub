@@ -1,34 +1,40 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { createClient, type User } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
-
-const AuthContext = createContext<{ user: User | null; loading: boolean }>({
-  user: null,
-  loading: true,
-});
+import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
+import { supabase } from "../../lib/supabase";
+import { AuthContext } from "./authContextValue";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  // 初回の session 取得が完了するまで true（ゲートのちらつき防止に使う）
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState<"student" | "admin">("student");
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+    const syncUser = async (nextUser: User | null) => {
+      setUser(nextUser);
+      if (!nextUser) {
+        setRole("student");
+        setLoading(false);
+        return;
+      }
+      const { data } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", nextUser.id)
+        .maybeSingle();
+      setRole(data?.role === "admin" ? "admin" : "student");
       setLoading(false);
-    });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
+    };
+
+    void supabase.auth.getSession().then(({ data: { session } }) => syncUser(session?.user ?? null));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      void syncUser(session?.user ?? null);
     });
     return () => subscription.unsubscribe();
   }, []);
 
-  return <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loading, role, isAdmin: role === "admin" }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
-
-export const useAuth = () => useContext(AuthContext);

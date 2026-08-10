@@ -3,21 +3,26 @@ import { Ellipsis, ThumbsUp } from "lucide-react";
 import RatingStars from "./RatingStars";
 import FeatureTag from "./FeatureTag";
 import type { Review } from "./mockReviews";
+import { useAuth } from "../auth/authContextValue";
+import { createReviewReport } from "../../services/contentService";
 import "../../styles/class/ClassReviewCard.css";
 
 type ClassReviewCardProps = {
   review: Review;
+  courseCode: string;
 };
 
 // これ以上の文字数のコメントは省略表示＋「もっと見る」トグルにする
 const CLAMP_THRESHOLD = 100;
 
-function ClassReviewCard({ review }: ClassReviewCardProps) {
+function ClassReviewCard({ review, courseCode }: ClassReviewCardProps) {
+  const { user } = useAuth();
   const [expanded, setExpanded] = useState(false);
   // 参考になったの加算は見た目のみ（永続化は後日実装）
   const [helpful, setHelpful] = useState(review.helpfulCount);
   const [voted, setVoted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [reporting, setReporting] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const isLong = review.comment.length > CLAMP_THRESHOLD;
@@ -40,10 +45,30 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
     setVoted((v) => !v);
   };
 
-  const handleReport = () => {
-    // 後日実装：通報の送信処理。現状はスタブ
+  const handleReport = async () => {
     setMenuOpen(false);
-    window.alert("通報を受け付けました（後日実装予定のスタブです）");
+    if (!user) {
+      window.alert("口コミを通報するにはログインしてください。");
+      return;
+    }
+    const reason = window.prompt("通報理由を入力してください（例：個人情報、誹謗中傷、授業と無関係）");
+    if (!reason?.trim()) return;
+    setReporting(true);
+    try {
+      await createReviewReport({
+        review_id: review.id,
+        course_code: courseCode,
+        review_snapshot: review.comment,
+        reporter_id: user.id,
+        reason: reason.trim(),
+      });
+      window.alert("通報を受け付けました。管理者が内容を確認します。");
+    } catch (caught) {
+      const message = caught instanceof Error ? caught.message : "";
+      window.alert(message.includes("duplicate") || message.includes("unique") ? "この口コミはすでに通報済みです。" : "通報を送信できませんでした。時間をおいて再度お試しください。");
+    } finally {
+      setReporting(false);
+    }
   };
 
   return (
@@ -74,9 +99,10 @@ function ClassReviewCard({ review }: ClassReviewCardProps) {
                   type="button"
                   className="reviewMenuItem"
                   role="menuitem"
-                  onClick={handleReport}
+                  disabled={reporting}
+                  onClick={() => void handleReport()}
                 >
-                  通報する
+                  {reporting ? "送信中..." : "通報する"}
                 </button>
               </div>
             )}

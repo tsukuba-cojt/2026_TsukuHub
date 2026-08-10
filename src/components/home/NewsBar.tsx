@@ -6,7 +6,7 @@ function NewsBar() {
       <div className="newsBar">
         <span className="newsLabel">お知らせ</span>
         <span className="newsText">
-          5/20　　【新機能リリース】気になる情報を保存できる「マイリスト」機能が追加されました！
+          5/20 【新機能リリース】気になる情報を保存できる「マイリスト」機能が追加されました！
         </span>
         <a className="newsLink" href="#">
           お知らせ一覧へ
