@@ -103,7 +103,10 @@
   gap: 14px;
 }
 
-/* Search box — 386x50, radius 10px */
+/* Search box — 386x50, radius 10px
+   ※ 今回のリリースでは検索ボックスを非表示にしているため、以下 .search-* の
+     スタイルは現在どこからも参照されていない。将来復活させる可能性があるため
+     削除せず残してある（マークアップは Header.tsx にコメントアウトで保持）。 */
 .search-form {
   flex-shrink: 0;
 }
@@ -137,16 +140,66 @@
   color: #666666;
 }
 
+/* 検索は未実装（readOnly）なので、押せないことをカーソルで示す */
+.search-input {
+  cursor: not-allowed;
+}
+
 .search-button {
   position: absolute;
   right: 13px;
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
+  /* 検索は未実装のため、押せないことをカーソルで示す */
+  cursor: not-allowed;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ホバー時の「準備中」吹き出し。
+   ヘッダーは画面最上部なのでアイコンの下側に出す。
+   見た目は CreditRateCard の .creditRateBarTooltip に合わせている。 */
+.search-notice {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -14px;
+  z-index: 10;
+  padding: 6px 12px;
+  border: 1px solid #e3eaf5;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+/* 吹き出しのしっぽ（Globalnav の .navDropdownTail と同じ作り） */
+.search-notice::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 21px;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  background: #fff;
+  border-left: 1px solid #e3eaf5;
+  border-top: 1px solid #e3eaf5;
+}
+
+.search-button:hover .search-notice,
+.search-button:focus-visible .search-notice {
+  opacity: 1;
+  visibility: visible;
 }
 
 .search-icon-image {

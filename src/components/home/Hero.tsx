@@ -1,16 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../styles/home/Hero.css";
 import heroIllustration from "../../assets/home/hero/hero-illustration.svg";
 
-function Hero() {
-  const [query, setQuery] = useState("");
-  const navigate = useNavigate();
+/* 検索機能は未実装のため、ホバー時に出す案内文言 */
+const SEARCH_NOTICE = "すみません！まだ準備中です";
 
+function Hero() {
+  // 検索は未実装。Enter キーでの送信も含め、何も起こらないようにする
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) return;
-    navigate(`/search?q=${encodeURIComponent(query)}`);
   };
 
   return (
@@ -37,10 +34,24 @@ function Hero() {
                 className="heroSearchInput"
                 type="text"
                 placeholder="気になる情報を検索してみよう！"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                readOnly
+                aria-disabled="true"
+                title={SEARCH_NOTICE}
               />
-              <button type="submit" className="heroSearchBtn">検索</button>
+              <button
+                type="button"
+                className="heroSearchBtn"
+                aria-disabled="true"
+                aria-label={`検索（${SEARCH_NOTICE}）`}
+                title={SEARCH_NOTICE}
+                onClick={(e) => e.preventDefault()}
+              >
+                検索
+                {/* ホバー時の吹き出し。読み上げは title / aria-label に任せる */}
+                <span className="heroSearchNotice" aria-hidden="true">
+                  {SEARCH_NOTICE}
+                </span>
+              </button>
             </form>
           </div>
         </div>
