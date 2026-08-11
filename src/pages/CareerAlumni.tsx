@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import AlumniStoryCard from "../components/career/AlumniStoryCard";
-import CareerBreadcrumb from "../components/career/CareerBreadcrumb";
 import CareerPageHeader from "../components/career/CareerPageHeader";
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
@@ -24,12 +23,6 @@ export default function CareerAlumni() {
     <div className="careerPlatform">
       <Globalnav />
       <main className="careerShell">
-        <CareerBreadcrumb
-          items={[
-            { label: "就活", to: "/career" },
-            { label: "卒業生の体験記" },
-          ]}
-        />
         <CareerPageHeader
           eyebrow="ALUMNI STORIES"
           title="卒業生のキャリア・体験記"

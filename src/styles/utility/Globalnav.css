@@ -4,10 +4,17 @@
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 16.2px 1px rgba(148, 172, 209, 0.25);
   box-sizing: border-box;
-  position: sticky;
+  position: fixed;
   top: 96px;                  /* ヘッダーの高さ分だけ下にずらす */
-  z-index: 100;
+  left: 0;
+  right: 0;
+  z-index: 500;
   transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.globalHeaderSpacer {
+  height: 51px;
+  flex-shrink: 0;
 }
 
 /* ホームの一番上にいる間だけ背景を透明にする */
@@ -439,6 +446,11 @@
     top: 64px;
   }
 
+  .globalHeaderSpacer {
+    display: none;
+    height: 0;
+  }
+
   .headerNav {
     box-sizing: border-box;
     justify-content: flex-start; /* 左詰めに変更 */
@@ -469,4 +481,3 @@
     flex: 1 0 auto;
   }
 }
-

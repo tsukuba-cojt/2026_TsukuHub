@@ -133,6 +133,36 @@
   }
 }
 
+@media (min-width: 1025px) and (max-width: 1100px) {
+  .categorySectionInner {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .categoryCard {
+    width: calc((100% - 50px) / 6);
+    height: 220px;
+  }
+
+  .categoryIcon {
+    width: 54px;
+    height: 50px;
+    margin-top: 26px;
+  }
+
+  .categoryCard h3 {
+    font-size: 13px;
+    padding-top: 20px;
+    white-space: nowrap;
+  }
+
+  .categoryCard p {
+    padding-inline: 10px;
+    font-size: 10px;
+    line-height: 1.55;
+  }
+}
+
 @media (max-width: 640px) {
   .categorySection {
     padding: 0 16px;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../styles/home/NewsBar.css";
 
 function NewsBar() {
@@ -8,9 +9,9 @@ function NewsBar() {
         <span className="newsText">
           5/20 【新機能リリース】気になる情報を保存できる「マイリスト」機能が追加されました！
         </span>
-        <a className="newsLink" href="#">
+        <Link className="newsLink" to="/news">
           お知らせ一覧へ
-        </a>
+        </Link>
       </div>
     </div>
   );

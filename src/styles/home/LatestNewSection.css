@@ -87,6 +87,10 @@
   cursor: pointer;
 }
 
+.latestItemIcon {
+  display: none;
+}
+
 .latestItem:last-child {
   border-bottom: none;
   padding-bottom: 0;
@@ -123,4 +127,73 @@
 .panelLink:hover {
   color: #1646c1;
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .latestPanel {
+    overflow: hidden;
+  }
+
+  .tabList {
+    flex-wrap: nowrap;
+    margin-inline: -4px;
+    padding: 0 4px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabList button {
+    flex: 0 0 auto;
+  }
+
+  .latestList {
+    flex-direction: row;
+    gap: 12px;
+    margin-inline: -4px;
+    padding: 2px 4px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .latestList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .latestItem {
+    flex: 0 0 min(236px, 74vw);
+    min-height: 178px;
+    padding: 16px;
+    border: 1px solid #e8eef7;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 18px rgba(148, 172, 209, 0.18);
+    scroll-snap-align: start;
+  }
+
+  .latestItemIcon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 4px;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: var(--color-primary);
+  }
+
+  .latestItemIcon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .latestItemIcon.tagJob { background: #efecff; color: var(--color-label-job); }
+  .latestItemIcon.tagClass { background: #dfe9fd; color: var(--color-primary); }
+  .latestItemIcon.tagClub { background: #d9f4ea; color: var(--color-label-club); }
+  .latestItemIcon.tagEvent { background: #fde5ee; color: var(--color-label-event); }
 }

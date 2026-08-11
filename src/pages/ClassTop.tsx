@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import ClassTopHero from "../components/class/ClassTopHero";
@@ -71,13 +70,6 @@ function ClassTop() {
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
-        <p className="classBreadcrumb">
-          <Link to="/" className="classBreadcrumbLink">
-            ホーム
-          </Link>{" "}
-          &gt; 授業・履修
-        </p>
-
         <ClassTopHero />
         <ClassTopFeatureCards />
 

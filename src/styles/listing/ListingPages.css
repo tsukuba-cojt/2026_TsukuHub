@@ -1,0 +1,139 @@
+.listingPage {
+  min-height: 100vh;
+  background: var(--color-bg-gradient);
+  color: var(--color-text-primary);
+}
+
+.listingShell {
+  width: min(100% - 48px, 1080px);
+  margin: 0 auto;
+  padding: 56px 0 28px;
+}
+
+.listingHero {
+  margin-bottom: 28px;
+}
+
+.listingHero span {
+  color: var(--color-primary-dark);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.listingHero h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.25;
+}
+
+.listingHero p {
+  max-width: 640px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.listingCardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.listingCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 170px;
+  padding: 22px;
+  border: 1px solid #e8eef7;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 8px 24px rgba(148, 172, 209, 0.18);
+}
+
+.listingCard h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.listingCard time {
+  margin-top: auto;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.listingTag {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.listingTag.tagJob,
+.listingIcon.tagJob {
+  background: #efecff;
+  color: var(--color-label-job);
+}
+
+.listingTag.tagClass,
+.listingIcon.tagClass {
+  background: #dfe9fd;
+  color: var(--color-primary);
+}
+
+.listingTag.tagClub,
+.listingIcon.tagClub {
+  background: #d9f4ea;
+  color: var(--color-label-club);
+}
+
+.listingTag.tagLife,
+.listingIcon.tagLife {
+  background: #ffefcc;
+  color: var(--color-label-life);
+}
+
+.listingTag.tagEvent,
+.listingIcon.tagEvent {
+  background: #fde5ee;
+  color: var(--color-label-event);
+}
+
+.listingIcon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+}
+
+.listingIcon svg {
+  width: 26px;
+  height: 26px;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .listingShell {
+    width: min(100% - 40px, 920px);
+    padding-top: 44px;
+  }
+
+  .listingCardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .listingShell {
+    width: calc(100% - 30px);
+    padding-top: 32px;
+  }
+
+  .listingCardGrid {
+    grid-template-columns: 1fr;
+  }
+}

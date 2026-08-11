@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/utility/Header";
+import InternalLinkGuard from "./components/utility/InternalLinkGuard";
 import ScrollToTop from "./components/utility/ScrollToTop";
 import { AuthProvider } from "./components/auth/AuthContext";
 import RequireAuth from "./components/auth/RequireAuth";
@@ -17,6 +18,8 @@ import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Notfound404 from "./pages/404";
 import Mypage from "./pages/Mypage";
 import Contact from "./pages/Contact";
+import NewsList from "./pages/NewsList";
+import TopicList from "./pages/TopicList";
 import Career from "./pages/Career";
 import CareerBasics from "./pages/CareerBasics";
 import CareerInternships from "./pages/CareerInternships";
@@ -32,11 +35,13 @@ import AdminApplications from "./pages/admin/AdminApplications";
 import AdminApplicationDetail from "./pages/admin/AdminApplicationDetail";
 import AdminCareerContent from "./pages/admin/AdminCareerContent";
 import AdminClassManagement from "./pages/admin/AdminClassManagement";
+import "./styles/responsive.css";
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <InternalLinkGuard />
       <AuthProvider>
         <Header />
         <Routes>
@@ -60,6 +65,8 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/applications" element={<RequireAuth><MyApplications /></RequireAuth>} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/news" element={<NewsList />} />
+          <Route path="/topics" element={<TopicList />} />
           <Route path="/career" element={<Career />} />
           <Route path="/career/basics" element={<CareerBasics />} />
           <Route path="/career/articles/:id" element={<CareerArticleDetail />} />

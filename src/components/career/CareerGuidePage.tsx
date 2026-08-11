@@ -1,5 +1,3 @@
-import { ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import Footer from "../utility/Footer";
 import Globalnav from "../utility/Globalnav";
 import CareerGuideContent from "./CareerGuideContent";
@@ -15,16 +13,6 @@ export default function CareerGuidePage(props: CareerGuidePageProps) {
       <Globalnav />
       <main>
         <div className="careerGuideContainer">
-          <nav
-            className="careerGuideBreadcrumb"
-            aria-label="パンくずリスト"
-          >
-            <Link to="/">ホーム</Link>
-            <ChevronRight aria-hidden="true" />
-            <Link to="/career">就活・キャリア</Link>
-            <ChevronRight aria-hidden="true" />
-            <span>{props.title}</span>
-          </nav>
           <CareerGuideHero
             eyebrow={props.eyebrow}
             title={props.title}
