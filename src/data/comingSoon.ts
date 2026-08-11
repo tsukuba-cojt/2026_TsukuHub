@@ -37,6 +37,7 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
   "/class/top",
   "/graduation-checker",
   "/graduation-checker/result",
+  "/timetable",
   "/mypage",
   "/mypage/applications",
   "/contact",
