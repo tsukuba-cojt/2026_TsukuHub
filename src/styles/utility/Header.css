@@ -4,9 +4,11 @@
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 16.2px 1px rgba(148, 172, 209, 0.25);
   box-sizing: border-box;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 300;
+  left: 0;
+  right: 0;
+  z-index: 600;
 }
 
 .header-container {
@@ -101,6 +103,89 @@
   display: flex;
   align-items: center;
   gap: 14px;
+}
+
+.mobile-nav-menu {
+  display: none;
+  position: relative;
+}
+
+.mobile-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 10px 3px rgba(21, 120, 253, 0.1);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.mobile-nav-toggle svg {
+  width: 21px;
+  height: 21px;
+}
+
+.mobile-nav-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 430;
+  display: grid;
+  gap: 6px;
+  width: min(300px, calc(100vw - 24px));
+  padding: 10px;
+  border: 1px solid #e3eaf5;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(148, 172, 209, 0.35);
+}
+
+.mobile-nav-panel-item {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mobile-nav-panel-item:hover {
+  background: #f0f5fc;
+}
+
+.mobile-nav-panel-item svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+.mobile-nav-panel-item small {
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #8a6a0a;
+  background: #fff1c7;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.mobile-nav-panel-item.isComingSoon {
+  color: #7c8798;
+  cursor: not-allowed;
 }
 
 /* Search box — 386x50, radius 10px
@@ -482,5 +567,9 @@
 
   .mypage-label {
     display: none;
+  }
+
+  .user-area {
+    gap: 5px;
   }
 }

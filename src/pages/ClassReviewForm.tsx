@@ -223,25 +223,6 @@ function ClassReviewForm() {
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
-        <p className="classBreadcrumb">
-          <Link to="/" className="classBreadcrumbLink">
-            ホーム
-          </Link>{" "}
-          &gt;{" "}
-          <Link to="/class" className="classBreadcrumbLink">
-            授業・履修
-          </Link>{" "}
-          &gt;{" "}
-          {course ? (
-            <Link to={`/class/${course.course_number}`} className="classBreadcrumbLink">
-              {course.course_name}
-            </Link>
-          ) : (
-            "講義詳細"
-          )}{" "}
-          &gt; 口コミ投稿
-        </p>
-
         {loading && <p className="classStatus">読み込み中...</p>}
         {error && <p className="classStatus classStatusError">{error}</p>}
 

@@ -27,3 +27,61 @@ const COMING_SOON_PATHS: ReadonlySet<string> = new Set([
 export function isComingSoon(path: string): boolean {
   return COMING_SOON_PATHS.has(path);
 }
+
+const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
+  "/",
+  "/login",
+  "/signup",
+  "/auth/confirm",
+  "/class",
+  "/class/top",
+  "/graduation-checker",
+  "/graduation-checker/result",
+  "/mypage",
+  "/mypage/applications",
+  "/contact",
+  "/news",
+  "/topics",
+  "/career",
+  "/career/basics",
+  "/career/internships",
+  "/career/alumni",
+  "/career/stories",
+  "/admin",
+  "/admin/internships",
+  "/admin/internships/new",
+  "/admin/applications",
+  "/admin/career-content",
+  "/admin/class-management",
+]);
+
+const KNOWN_DYNAMIC_PATHS: readonly RegExp[] = [
+  /^\/class\/[^/]+$/,
+  /^\/class\/[^/]+\/review$/,
+  /^\/career\/articles\/[^/]+$/,
+  /^\/career\/internships\/[^/]+$/,
+  /^\/career\/alumni\/[^/]+$/,
+  /^\/admin\/internships\/[^/]+\/edit$/,
+  /^\/admin\/applications\/[^/]+$/,
+];
+
+function normalizeInternalPath(path: string): string {
+  const pathname = path.split(/[?#]/)[0] || "/";
+  if (pathname === "/") return pathname;
+  return pathname.replace(/\/+$/, "");
+}
+
+/** App.tsx に存在するルートかどうか */
+export function isKnownAppPath(path: string): boolean {
+  const pathname = normalizeInternalPath(path);
+  return (
+    KNOWN_STATIC_PATHS.has(pathname) ||
+    KNOWN_DYNAMIC_PATHS.some((pattern) => pattern.test(pathname))
+  );
+}
+
+/** 内部リンククリック時に遷移を止め、「準備中」として扱うべきか */
+export function shouldBlockInternalNavigation(path: string): boolean {
+  const pathname = normalizeInternalPath(path);
+  return isComingSoon(pathname) || !isKnownAppPath(pathname);
+}

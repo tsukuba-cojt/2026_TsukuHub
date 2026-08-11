@@ -69,12 +69,24 @@
 
 /* サムネイルのプレースホルダー */
 .topicThumb {
+  display: grid;
+  place-items: center;
   width: 64px;
   height: 64px;
   border-radius: 8px;
-  background: #f1f5f9; /* アセットが来るまでの仮のグレー背景 */
+  background: #f1f5f9;
   flex-shrink: 0;
 }
+
+.topicThumb svg {
+  width: 28px;
+  height: 28px;
+}
+
+.topicThumb.tagJob { background: #efecff; color: var(--color-label-job); }
+.topicThumb.tagClass { background: #dfe9fd; color: var(--color-primary); }
+.topicThumb.tagClub { background: #d9f4ea; color: var(--color-label-club); }
+.topicThumb.tagLife { background: #ffefcc; color: var(--color-label-life); }
 
 /* 記事のメタ情報（タグ、タイトル、日付） */
 .topicMeta {
@@ -121,4 +133,53 @@
 .panelLink:hover {
   color: #1646c1;
   text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .topicPanel {
+    overflow: hidden;
+  }
+
+  .topicList {
+    flex-direction: row;
+    gap: 12px;
+    margin-inline: -4px;
+    padding: 2px 4px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .topicList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topicItem {
+    flex: 0 0 min(250px, 78vw);
+    flex-direction: column;
+    min-height: 188px;
+    padding: 16px;
+    border: 1px solid #e8eef7;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 18px rgba(148, 172, 209, 0.18);
+    scroll-snap-align: start;
+  }
+
+  .topicThumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .topicThumb svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .topicMeta h3 {
+    font-size: 14px;
+    line-height: 1.55;
+  }
 }

@@ -1,16 +1,38 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Bell } from "lucide-react";
+import {
+  Bell,
+  BookOpen,
+  BriefcaseBusiness,
+  Globe,
+  House,
+  Menu,
+  UsersRound,
+  Utensils,
+  X,
+} from "lucide-react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../auth/authContextValue";
+import { COMING_SOON_NOTICE, isComingSoon } from "../../data/comingSoon";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
 import sparkleBlueIcon from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
 
+const mobileNavItems = [
+  { icon: House, label: "ホーム", path: "/" },
+  { icon: BriefcaseBusiness, label: "キャリア・インターン", path: "/career" },
+  { icon: BookOpen, label: "講義・履修", path: "/class/top" },
+  { icon: UsersRound, label: "サークル・課外活動", path: "/circles" },
+  { icon: Utensils, label: "生活・便利情報", path: "/lifestyle" },
+  { icon: Globe, label: "留学・国際交流", path: "/global" },
+];
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
 
@@ -24,6 +46,28 @@ export default function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target as Node)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
 
   // 検索は未実装。Enter キーでの送信も含め、何も起こらないようにする
   // （検索ボックス非表示に伴い一時コメントアウト）
@@ -238,6 +282,51 @@ export default function Header() {
               </Link>
             </div>
           )}
+
+          <div className="mobile-nav-menu" ref={mobileMenuRef}>
+            <button
+              type="button"
+              className="mobile-nav-toggle"
+              aria-label={mobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((v) => !v)}
+            >
+              {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+            </button>
+
+            {mobileMenuOpen && (
+              <div className="mobile-nav-panel">
+                {mobileNavItems.map((item) => {
+                  const ItemIcon = item.icon;
+                  const comingSoon = isComingSoon(item.path);
+                  return comingSoon ? (
+                    <button
+                      type="button"
+                      className="mobile-nav-panel-item isComingSoon"
+                      key={item.label}
+                      title={COMING_SOON_NOTICE}
+                      aria-disabled="true"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <ItemIcon aria-hidden="true" />
+                      <span>{item.label}</span>
+                      <small>準備中</small>
+                    </button>
+                  ) : (
+                    <Link
+                      className="mobile-nav-panel-item"
+                      to={item.path}
+                      key={item.label}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <ItemIcon aria-hidden="true" />
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

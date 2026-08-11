@@ -3,7 +3,7 @@
 ========================================= */
 
 /* ① パネル全体 */
-.rankingPanel {
+.externalServicesPanel {
   width: 300px; /* 既存の指定があればそちらを優先 */
   height: 100%; /* 親の高さに追従 */
   display: flex;
@@ -16,110 +16,157 @@
   box-sizing: border-box;
 }
 
-/* パネルタイトル（共通） */
-.panelTitle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.panelTitle img {
+.externalServicesPanel .panelTitle svg {
   width: 24px;
   height: 24px;
+  color: var(--color-primary);
 }
 
-.panelTitle h2 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 700;
-  color: #0a192f;
-}
-
-/* ② ランキングリスト（ここで余白を吸収） */
-.rankingList {
+/* ② 外部サービスリスト */
+.externalServiceList {
   flex-grow: 1; /* パネルが伸びた分のスペースを吸収 */
-  
-  margin: 0;
-  padding: 0;
-  list-style: none; /* デフォルトの数字を消す */
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   overflow-y: auto;
 }
 
-/* 個別のリストアイテム */
-.rankingList li {
+.externalServiceCard {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
+  padding: 14px;
+  border: 1px solid #e8eef7;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
-/* 順位バッジのコンテナ */
-.rankBadge {
-  position: relative;
+.externalServiceCard:hover {
+  border-color: #cfe0fb;
+  background: #f7fbff;
+  transform: translateY(-1px);
+}
+
+.externalServiceIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  font-weight: 800;
-  font-size: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   flex-shrink: 0;
 }
 
-/* Top3とそれ以外のバッジ装飾（背景は薄い単色トークン） */
-.rankBadge.gold   { background: var(--color-rank-gold); color: #fff; }
-.rankBadge.silver { background: var(--color-rank-silver); color: #fff; }
-.rankBadge.bronze { background: var(--color-rank-bronze); color: #fff; }
-.rankBadge.normal { background: #f1f5f9; color: #64748b; }
-
-.rankCrownImg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, calc(-50% - 4px)); /* 王冠を少し上にずらす */
-  width: 32px;
-  height: 32px;
-  z-index: 1;
+.externalServiceIcon svg {
+  width: 21px;
+  height: 21px;
 }
 
-.rankNum {
-  position: relative;
-  z-index: 2;
+.externalServiceIcon.isBlue {
+  background: #dfe9fd;
+  color: var(--color-primary);
 }
 
-/* キーワードテキスト */
-.rankKeywordTop {
-  font-size: 15px;
-  font-weight: 700;
-  color: #0a192f;
-  margin: 0;
+.externalServiceIcon.isPurple {
+  background: #eee9ff;
+  color: #7557e8;
 }
 
-.rankKeywordOther {
+.externalServiceIcon.isGreen {
+  background: #d9f4ea;
+  color: var(--color-label-club);
+}
+
+.externalServiceText {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.externalServiceText strong {
   font-size: 14px;
-  font-weight: 500;
-  color: #475569;
-  margin: 0;
+  line-height: 1.45;
 }
 
-/* ③ パネル下部のリンク */
-.panelLink {
-  margin-top: auto; /* 一番下に押し下げる */
-  padding-top: 20px;
-  text-align: center;
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e57e6;
-  text-decoration: none;
-  transition: color 0.2s;
+.externalServiceText small {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  line-height: 1.6;
 }
 
-.panelLink:hover {
-  color: #1646c1;
-  text-decoration: underline;
+.externalServiceArrow {
+  width: 15px;
+  height: 15px;
+  margin-left: auto;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .externalServicesPanel {
+    width: 100%;
+  }
+
+  .externalServiceList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .externalServiceCard {
+    min-height: 118px;
+    flex-direction: column;
+  }
+
+  .externalServiceArrow {
+    margin: 0 0 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .externalServicesPanel {
+    width: 100%;
+  }
+
+  .externalServiceList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+  }
+
+  .externalServiceCard {
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    padding: 10px;
+  }
+
+  .externalServiceText strong {
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+
+  .externalServiceText small {
+    font-size: 9px;
+    overflow-wrap: anywhere;
+  }
+
+  .externalServiceIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .externalServiceIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .externalServiceArrow {
+    margin: 0 0 0 auto;
+  }
 }

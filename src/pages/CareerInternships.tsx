@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import CareerBreadcrumb from "../components/career/CareerBreadcrumb";
 import CareerPageHeader from "../components/career/CareerPageHeader";
 import InternshipFilters from "../components/career/InternshipFilters";
 import InternshipList from "../components/career/InternshipList";
@@ -58,12 +57,6 @@ export default function CareerInternships() {
     <div className="careerPlatform">
       <Globalnav />
       <main className="careerShell">
-        <CareerBreadcrumb
-          items={[
-            { label: "就活", to: "/career" },
-            { label: "長期インターン" },
-          ]}
-        />
         <CareerPageHeader
           eyebrow="LONG-TERM INTERNSHIPS"
           title="長期インターン情報"

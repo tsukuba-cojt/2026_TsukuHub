@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { ExternalLink } from "lucide-react";
 import "../../styles/utility/Footer.css";
+import { externalServices } from "../../data/externalServices";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
 import sparkleIconBlue from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
@@ -43,17 +45,23 @@ function Footer() {
           </div>
         </div>
 
-        {/* Column 2: サービス */}
+        {/* Column 2: 外部サービス */}
         <div className="footerCol">
-          <h3>サービス</h3>
-          <ul className="footerLinks footerLinksService">
-            <li><Link to="/career">就活・キャリア</Link></li>
-            <li><Link to="/circles">サークル・課外活動</Link></li>
-            <li><Link to="/news">イベント・お知らせ</Link></li>
-            <li><Link to="/class">授業・履修</Link></li>
-            <li><Link to="/lifestyle">生活・便利情報</Link></li>
-            <li><Link to="/global">留学・国際情報</Link></li>
-          </ul>
+          <h3>外部サービス</h3>
+          <div className="footerExternalServices">
+            {externalServices.map((service) => (
+              <a
+                className="footerExternalLink"
+                href={service.href}
+                key={service.name}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>{service.name}</span>
+                <ExternalLink aria-hidden="true" />
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Column 3: サポート */}

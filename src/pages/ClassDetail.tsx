@@ -177,17 +177,6 @@ function ClassDetail() {
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
-        <p className="classBreadcrumb">
-          <Link to="/" className="classBreadcrumbLink">
-            ホーム
-          </Link>{" "}
-          &gt;{" "}
-          <Link to="/class" className="classBreadcrumbLink">
-            授業・履修
-          </Link>{" "}
-          &gt; {course ? course.course_name : "講義詳細"}
-        </p>
-
         {loading && <p className="classStatus">読み込み中...</p>}
         {error && <p className="classStatus classStatusError">{error}</p>}
 
