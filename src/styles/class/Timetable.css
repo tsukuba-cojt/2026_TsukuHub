@@ -1,0 +1,776 @@
+.timetablePage {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(21, 120, 253, 0.14), transparent 34%),
+    linear-gradient(180deg, #eaf4ff 0%, #f6f9ff 48%, #fff 100%);
+  color: #071c42;
+}
+
+.timetablePageLayout {
+  width: min(1360px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 18px 0 42px;
+}
+
+.timetableBreadcrumb {
+  margin: 0 0 28px;
+  color: rgba(7, 28, 66, 0.22);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.timetableBreadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.timetableHero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0 38px 28px;
+}
+
+.timetableHero h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 8px;
+  color: #1376ff;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.timetableHero h1 svg {
+  width: 34px;
+  height: 34px;
+}
+
+.timetableHero h1 span {
+  padding: 4px 10px;
+  border: 1px solid rgba(19, 118, 255, 0.35);
+  border-radius: 999px;
+  color: #1376ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.timetableHero p {
+  margin: 0;
+  color: rgba(7, 28, 66, 0.55);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.timetableShareBtn,
+.timetableBaseBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 64px;
+  padding: 0 28px;
+  border: 1.5px solid #1376ff;
+  border-radius: 14px;
+  color: #1376ff;
+  background: rgba(255, 255, 255, 0.78);
+  font-size: 16px;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 16px 30px rgba(16, 87, 180, 0.06);
+}
+
+.timetableShareBtn svg,
+.timetableBaseBtn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.timetablePanel {
+  padding: 40px 46px 56px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px rgba(23, 78, 152, 0.08);
+}
+
+.timetableFilterGrid {
+  display: grid;
+  grid-template-columns: 182px 182px 182px 182px auto;
+  align-items: end;
+  gap: 36px;
+  margin-bottom: 32px;
+}
+
+.timetableFilterField {
+  display: grid;
+  gap: 8px;
+  color: rgba(7, 28, 66, 0.62);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.timetableFilterField span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timetableFilterField small {
+  padding: 2px 8px;
+  border: 1px solid #1376ff;
+  border-radius: 5px;
+  color: #1376ff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.timetableSelectWrap {
+  position: relative;
+}
+
+.timetableSelectWrap select {
+  width: 100%;
+  height: 38px;
+  padding: 0 42px 0 36px;
+  border: 1px solid #b4c6e2;
+  border-radius: 9px;
+  color: #8da0bd;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  appearance: none;
+}
+
+.timetableSelectWrap svg {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  color: #a4b5cf;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.timetableResetBtn {
+  height: 38px;
+  border: 0;
+  color: #1376ff;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.timetableCount {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 20px;
+  color: rgba(7, 28, 66, 0.45);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.timetableCount svg {
+  width: 15px;
+  height: 15px;
+}
+
+.timetableError {
+  margin: -8px 0 16px;
+  color: #bf3f5b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.timetableEmptyState {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: center;
+  gap: 48px;
+  min-height: 256px;
+  padding: 30px 34px;
+  border: 1px solid #a9bddb;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #eef6ff, #f7fbff);
+}
+
+.timetableEmptyState h2 {
+  margin: 0 0 16px;
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.timetableEmptyState p {
+  margin: 0 0 28px;
+  color: rgba(7, 28, 66, 0.54);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.timetableEmptyState h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.timetableEmptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.timetableEmptyActions button {
+  padding: 10px 24px;
+  border: 1px solid rgba(19, 118, 255, 0.32);
+  border-radius: 999px;
+  color: #1376ff;
+  background: #e8f3ff;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.timetableEmptyIllustration {
+  position: relative;
+  width: 260px;
+  height: 160px;
+  border-radius: 22px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.65)),
+    linear-gradient(135deg, #aee6e1 0 34%, transparent 34%),
+    linear-gradient(45deg, #ffd2c8 0 24%, transparent 24%),
+    linear-gradient(160deg, #afd8ff, #dff2ff);
+  overflow: hidden;
+}
+
+.timetableEmptyIllustration .bubbleOne,
+.timetableEmptyIllustration .bubbleTwo {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(12, 83, 168, 0.12);
+}
+
+.timetableEmptyIllustration .bubbleOne {
+  top: 22px;
+  left: 34px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #ffb8b2, #6aa9ff);
+}
+
+.timetableEmptyIllustration .bubbleTwo {
+  top: 34px;
+  left: 138px;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  color: #7aacff;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.timetableEmptyIllustration .lens {
+  position: absolute;
+  left: 95px;
+  bottom: 28px;
+  width: 62px;
+  height: 62px;
+  border: 10px solid #1376ff;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+
+.timetableEmptyIllustration .lens::after {
+  position: absolute;
+  right: -38px;
+  bottom: -16px;
+  width: 48px;
+  height: 12px;
+  border-radius: 999px;
+  background: #1376ff;
+  content: "";
+}
+
+.timetableResultsScroller {
+  display: grid;
+  grid-auto-columns: 310px;
+  grid-auto-flow: column;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 0 4px 16px;
+  scroll-snap-type: x proximity;
+}
+
+.timetableResultsScroller::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timetableResultsScroller::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(19, 118, 255, 0.24);
+}
+
+.timetableResultCard {
+  scroll-snap-align: start;
+  padding: 24px 26px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(23, 78, 152, 0.1);
+}
+
+.timetableCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.timetableAvatar {
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 35%, #7f7f7f 0 24%, transparent 25%),
+    radial-gradient(circle at 50% 80%, #6f6f6f 0 34%, transparent 35%),
+    #e6e6e6;
+  flex-shrink: 0;
+}
+
+.timetableCardHeader h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.timetableCardHeader p {
+  margin: 0;
+  color: rgba(7, 28, 66, 0.5);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.timetableMiniGrid,
+.timetableFullGrid {
+  display: grid;
+  grid-template-columns: 34px repeat(5, 1fr);
+  border: 1px solid #d6e0ef;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.timetableMiniGrid {
+  height: 202px;
+}
+
+.timetableMiniCorner,
+.timetableMiniDay,
+.timetableMiniPeriod,
+.timetableMiniCell,
+.timetableFullCorner,
+.timetableFullDay,
+.timetableFullPeriod,
+.timetableFullCell {
+  border-right: 1px solid #e2e8f2;
+  border-bottom: 1px solid #e2e8f2;
+}
+
+.timetableMiniDay,
+.timetableMiniPeriod,
+.timetableFullDay,
+.timetableFullPeriod {
+  display: grid;
+  place-items: center;
+  color: rgba(7, 28, 66, 0.48);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.timetableMiniCell {
+  position: relative;
+  min-height: 32px;
+  padding: 2px;
+}
+
+.timetableMiniBlock {
+  display: block;
+  height: 100%;
+  min-height: 22px;
+  border-radius: 3px;
+}
+
+.timetableDetailLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  float: right;
+  margin-top: 18px;
+  border: 0;
+  color: #1376ff;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.timetableDetailLink svg {
+  width: 14px;
+  height: 14px;
+}
+
+.timetableDetailPanel {
+  padding: 34px 48px 28px;
+}
+
+.timetableBackBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 26px;
+  border: 0;
+  color: #071c42;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.timetableBackBtn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.timetableDetailHeading {
+  margin-bottom: 12px;
+}
+
+.timetableDetailHeading h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.timetableDetailHeading p {
+  margin: 0;
+  color: rgba(7, 28, 66, 0.54);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.timetableModuleTabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 34px 74px;
+}
+
+.timetableModuleTabs button {
+  min-width: 54px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(7, 28, 66, 0.54);
+  background: transparent;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.timetableModuleTabs button.isActive {
+  color: #1376ff;
+  background: #dbeeff;
+}
+
+.timetableDetailLayout {
+  display: grid;
+  grid-template-columns: minmax(520px, 1fr) 598px;
+  gap: 64px;
+  align-items: start;
+}
+
+.timetableFullGridWrap {
+  overflow-x: auto;
+}
+
+.timetableFullGrid {
+  min-width: 462px;
+  grid-template-columns: 50px repeat(5, 1fr);
+  height: 306px;
+}
+
+.timetableFullCell {
+  min-height: 50px;
+  padding: 3px;
+}
+
+.timetableCourseBlock {
+  display: grid;
+  gap: 1px;
+  min-height: 42px;
+  padding: 5px 7px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  overflow: hidden;
+}
+
+.timetableCourseBlock span,
+.timetableSpecialChip small {
+  font-size: 8px;
+  font-weight: 900;
+  opacity: 0.8;
+}
+
+.timetableCourseBlock strong {
+  font-size: 10px;
+  line-height: 1.15;
+}
+
+.timetableCourseBlock small {
+  font-size: 8px;
+}
+
+.timetableAttributeCard {
+  padding: 24px 26px;
+  border: 1px solid #a9bddb;
+  border-radius: 6px;
+  background: rgba(248, 252, 255, 0.86);
+}
+
+.timetableAttributeCard h3 {
+  margin: 0 0 20px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.timetableAttributeCard dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px 26px;
+  margin: 0;
+}
+
+.timetableAttributeCard div {
+  display: grid;
+  gap: 7px;
+}
+
+.timetableAttributeCard dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: rgba(7, 28, 66, 0.52);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.timetableAttributeCard dt svg {
+  width: 12px;
+  height: 12px;
+}
+
+.timetableAttributeCard dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.timetableBaseBtn {
+  width: 282px;
+  margin-top: 40px;
+  margin-left: auto;
+  color: #fff;
+  background: #1376ff;
+}
+
+.timetableSpecialPanel {
+  display: grid;
+  gap: 20px;
+  min-height: 224px;
+  padding: 12px;
+  border: 1px solid #a9bddb;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.timetableSpecialRow {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.timetableSpecialRow strong {
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.timetableSpecialRow > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timetableSpecialChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 170px;
+  padding: 8px 13px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.timetableSpecialEmpty {
+  color: rgba(7, 28, 66, 0.34);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.timetableLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 34px;
+  margin: 28px 0 0 48px;
+  color: rgba(7, 28, 66, 0.54);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.timetableLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timetableLegend i {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+.isRequired {
+  color: #5f56d9;
+  background: #d7d2ff;
+}
+
+.isSpecialized {
+  color: #148265;
+  background: #c7efe3;
+}
+
+.isCommon {
+  color: #b8454e;
+  background: #ffc3c1;
+}
+
+@media (max-width: 1024px) {
+  .timetablePageLayout {
+    width: min(100% - 40px, 920px);
+  }
+
+  .timetableHero {
+    margin-inline: 0;
+  }
+
+  .timetableFilterGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .timetableDetailLayout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .timetableAttributeCard dl {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timetableBaseBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .timetablePageLayout {
+    width: min(100% - 24px, 560px);
+    padding-top: 12px;
+  }
+
+  .timetableBreadcrumb {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .timetableHero {
+    display: grid;
+    gap: 18px;
+  }
+
+  .timetableHero h1 {
+    font-size: 30px;
+  }
+
+  .timetableShareBtn {
+    min-height: 52px;
+    width: 100%;
+  }
+
+  .timetablePanel {
+    padding: 24px 16px 34px;
+    border-radius: 12px;
+  }
+
+  .timetableFilterGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .timetableEmptyState {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .timetableEmptyIllustration {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .timetableResultsScroller {
+    grid-auto-columns: minmax(284px, 86vw);
+  }
+
+  .timetableModuleTabs {
+    margin-left: 0;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .timetableFullGrid {
+    min-width: 520px;
+  }
+
+  .timetableAttributeCard dl {
+    grid-template-columns: 1fr;
+  }
+
+  .timetableLegend {
+    margin-left: 0;
+    gap: 14px;
+  }
+}

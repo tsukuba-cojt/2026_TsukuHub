@@ -29,12 +29,15 @@ const defaultDistribution: GradeDistribution[] = [
 ];
 
 function CreditRateCard({
-  rate = 91,
+  rate,
   confidenceLabel = "高",
   sampleCount = 62,
   highlightLabel = "イチオシ授業",
   distribution = defaultDistribution,
 }: CreditRateCardProps) {
+  const hasEnoughData = typeof rate === "number" && sampleCount >= 10;
+  const chartDistribution = distribution.length > 0 ? distribution : defaultDistribution.map((item) => ({ ...item, ratio: 0 }));
+
   return (
     <section className="sidebarCard creditRateCard">
       <div className="creditRateHeader">
@@ -45,13 +48,13 @@ function CreditRateCard({
       </div>
 
       <div className="creditRateScoreRow">
-        <strong className="creditRateScore">{rate}%</strong>
+        <strong className="creditRateScore">{hasEnoughData ? `${rate}%` : "データ不足"}</strong>
         <span className="creditRateHighlight">{highlightLabel}</span>
       </div>
 
       <div className="creditRateChart" aria-hidden="true">
-        {distribution.map((item) => {
-          const maxRatio = Math.max(...distribution.map((d) => d.ratio), 1);
+        {chartDistribution.map((item) => {
+          const maxRatio = Math.max(...chartDistribution.map((d) => d.ratio), 1);
           return (
             <div className="creditRateBarCol" key={item.grade}>
               <span className={`creditRateBarLabel ${item.colorClass}`}>

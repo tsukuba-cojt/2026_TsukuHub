@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/authContextValue";
+import { fetchReviewedCourseCodes as fetchReviewedCourseCodesFromDb } from "../../services/classReviewService";
 
 /**
  * ログイン中ユーザーが口コミを投稿済みの講義（科目番号）の集合。
  *
- * ★現状、口コミは DB に保存されていない。
- *   - 表示は components/class/mockReviews.ts のモック配列（投稿者・講義の紐付けカラムなし）
- *   - 投稿は pages/ClassReviewForm.tsx の console.log ダミーで、insert していない
- *   - Supabase 上で実際に使われているテーブルは courses / profiles のみ
- *   そのため fetchReviewedCourseCodes は常に空を返し、全行が未投稿扱いになる。
- *
- * reviews テーブルができたら fetchReviewedCourseCodes の中身だけ差し替えればよい。
  * 1ユーザーあたり1クエリで完結させる設計（行数分のリクエストを出さない）。
  */
 
@@ -18,15 +12,7 @@ import { useAuth } from "../auth/authContextValue";
 const EMPTY_CODES: ReadonlySet<string> = new Set<string>();
 
 const fetchReviewedCourseCodes = async (userId: string): Promise<string[]> => {
-  // TODO: reviews テーブル実装後、ここを実クエリへ差し替える。
-  //   const { data, error } = await supabase
-  //     .from("reviews")
-  //     .select("course_number")
-  //     .eq("user_id", userId);
-  //   if (error) throw error;
-  //   return data.map((row) => row.course_number);
-  void userId;
-  return [];
+  return fetchReviewedCourseCodesFromDb(userId);
 };
 
 export const useReviewedCourseCodes = (): ReadonlySet<string> => {

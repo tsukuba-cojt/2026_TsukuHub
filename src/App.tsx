@@ -15,6 +15,7 @@ import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
+import Timetable from "./pages/Timetable";
 import Notfound404 from "./pages/404";
 import Mypage from "./pages/Mypage";
 import Contact from "./pages/Contact";
@@ -62,6 +63,7 @@ function App() {
           />
           <Route path="/graduation-checker" element={<GraduationCheck />} />
           <Route path="/graduation-checker/result" element={<GraduationCheckResult />} />
+          <Route path="/timetable" element={<Timetable />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/applications" element={<RequireAuth><MyApplications /></RequireAuth>} />
           <Route path="/contact" element={<Contact />} />

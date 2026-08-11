@@ -20,9 +20,13 @@ import {
   getMethodLabel,
 } from "../components/class/courseBadges";
 import {
-  mockReviews,
   mockRelatedCourses,
 } from "../components/class/mockReviews";
+import {
+  fetchClassReviews,
+  fetchCourseInsightStats,
+  type CourseInsightStats,
+} from "../services/classReviewService";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 
@@ -76,6 +80,9 @@ function ClassDetail() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"reviews" | "syllabus">("reviews");
   const [sortKey, setSortKey] = useState<SortKey>("new");
+  const [reviews, setReviews] = useState<Awaited<ReturnType<typeof fetchClassReviews>>>([]);
+  const [reviewError, setReviewError] = useState<string | null>(null);
+  const [insights, setInsights] = useState<CourseInsightStats | null>(null);
   // ブックマークはトグルの見た目のみ（永続化は後日実装）
   const [bookmarked, setBookmarked] = useState(false);
 
@@ -105,9 +112,35 @@ function ClassDetail() {
     fetchCourse();
   }, [courseCode]);
 
-  // 並び替え済みの口コミ（データ元は mockReviews。DB移行時に差し替え）
+  useEffect(() => {
+    if (!courseCode) return;
+    let cancelled = false;
+    fetchClassReviews(courseCode)
+      .then((items) => {
+        if (!cancelled) {
+          setReviewError(null);
+          setReviews(items);
+        }
+        return fetchCourseInsightStats(courseCode, items);
+      })
+      .then((nextInsights) => {
+        if (!cancelled) setInsights(nextInsights);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setReviews([]);
+          setInsights(null);
+          setReviewError("口コミ・難易度データを取得できませんでした。DBマイグレーション適用後に再度お試しください。");
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [courseCode]);
+
+  // 並び替え済みの口コミ
   const sortedReviews = useMemo(() => {
-    const arr = [...mockReviews];
+    const arr = [...reviews];
     switch (sortKey) {
       case "rating":
         return arr.sort((a, b) => b.rating - a.rating);
@@ -116,21 +149,21 @@ function ClassDetail() {
       default:
         return arr.sort((a, b) => b.date.localeCompare(a.date));
     }
-  }, [sortKey]);
+  }, [reviews, sortKey]);
 
-  // サイドバー用の集計（モックデータから算出。DB移行時に差し替え）
+  // サイドバー用の口コミ集計
   const stats = useMemo(() => {
-    const total = mockReviews.length;
+    const total = reviews.length;
     const avg = total
-      ? mockReviews.reduce((sum, r) => sum + r.rating, 0) / total
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / total
       : 0;
     const dist = [5, 4, 3, 2, 1].map((star) => ({
       star,
-      count: mockReviews.filter((r) => Math.round(r.rating) === star).length,
+      count: reviews.filter((r) => Math.round(r.rating) === star).length,
     }));
-    const features = [...new Set(mockReviews.flatMap((r) => r.tags))];
+    const features = [...new Set(reviews.flatMap((r) => r.tags))];
     return { total, avg, dist, features };
-  }, []);
+  }, [reviews]);
 
   const handlePostReview = () => {
     navigate(`/class/${courseCode}/review`);
@@ -281,9 +314,14 @@ function ClassDetail() {
                     ))}
                   </div>
                   <div className="reviewList">
-                    {sortedReviews.map((review) => (
-                      <ClassReviewCard review={review} courseCode={courseCode ?? ""} key={review.id} />
-                    ))}
+                    {reviewError && <p className="classStatus classStatusError">{reviewError}</p>}
+                    {sortedReviews.length === 0 && !reviewError ? (
+                      <p className="classStatus">まだ口コミがありません。最初の口コミを投稿してみませんか？</p>
+                    ) : (
+                      sortedReviews.map((review) => (
+                        <ClassReviewCard review={review} courseCode={courseCode ?? ""} key={review.id} />
+                      ))
+                    )}
                   </div>
                 </div>
 
@@ -316,15 +354,41 @@ function ClassDetail() {
                     </div>
                   </section>
 
-                  {/* 単位取得率（現状ダミーデータ。実データ接続時は props を渡す） */}
-                  <CreditRateCard />
+                  <section className="sidebarCard courseDifficultyCard">
+                    <h2>授業の難易度</h2>
+                    <div className="courseDifficultyRows">
+                      <p>
+                        <span>難易度</span>
+                        <strong>{insights?.difficultyLabel ?? "データ不足"}</strong>
+                      </p>
+                      <p>
+                        <span>課題量</span>
+                        <strong>{insights?.workloadLabel ?? "データ不足"}</strong>
+                      </p>
+                    </div>
+                    <small>
+                      口コミ{insights?.difficultySampleCount ?? 0}件と匿名統計をもとに表示しています。
+                    </small>
+                  </section>
+
+                  <CreditRateCard
+                    rate={insights?.creditRate ?? undefined}
+                    confidenceLabel={insights?.confidenceLabel ?? "不足"}
+                    sampleCount={insights?.sampleCount ?? 0}
+                    highlightLabel={insights?.highlightLabel ?? "データ不足"}
+                    distribution={insights?.gradeDistribution ?? []}
+                  />
 
                   <section className="sidebarCard">
                     <h2>この授業の特徴</h2>
                     <div className="sidebarFeatures">
-                      {stats.features.map((feature) => (
-                        <FeatureTag label={feature} key={feature} />
-                      ))}
+                      {stats.features.length === 0 ? (
+                        <p className="sidebarEmptyText">口コミが集まると特徴タグが表示されます。</p>
+                      ) : (
+                        stats.features.map((feature) => (
+                          <FeatureTag label={feature} key={feature} />
+                        ))
+                      )}
                     </div>
                   </section>
 

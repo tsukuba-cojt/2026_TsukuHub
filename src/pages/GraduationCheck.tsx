@@ -11,6 +11,7 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import GraduationCheckConsentModal from "../components/class/GraduationCheckConsentModal";
 import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsvGuideModal";
+import { useAuth } from "../components/auth/authContextValue";
 import {
   checkGraduation,
   findDepartment,
@@ -22,6 +23,10 @@ import {
   resolveRequirementId,
   supportedDepartments,
 } from "../features/graduationCheck";
+import {
+  buildTimetableHistoriesFromGraduationReport,
+  saveTimetableHistories,
+} from "../services/timetableService";
 import type {
   SupportedDepartment,
   SupportedMajor,
@@ -45,6 +50,7 @@ const supportedSummary = supportedDepartments
 // CSVのパース・要件判定はクライアント内で完結する（features/graduationCheck）。
 function GraduationCheck() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [departmentKey, setDepartmentKey] = useState("");
@@ -55,6 +61,7 @@ function GraduationCheck() {
   const [isDragOver, setIsDragOver] = useState(false);
   const [isConsentOpen, setIsConsentOpen] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const department = useMemo(
     () => findDepartment(departmentKey),
@@ -134,24 +141,51 @@ function GraduationCheck() {
   // エラーは結果ページへ渡し、警告として表示させる（1件も読めなかった場合のみ中断）。
   const handleStart = async (agreedStats: boolean) => {
     if (!file || requirementId === null) return;
+    setIsProcessing(true);
     const { courses, errors } = parseGradesCsv(await file.text());
     setIsConsentOpen(false);
     if (courses.length === 0) {
+      setIsProcessing(false);
       setCsvError(
         "CSVから成績データを読み取れませんでした。TWINSからダウンロードした成績CSVかご確認ください。"
       );
       return;
     }
+    const report = checkGraduation(courses, requirementId);
+    const departmentLabel = department?.label ?? "";
+    const majorLabel = major?.label ?? departmentLabel;
+    const timetableHistories = await buildTimetableHistoriesFromGraduationReport({
+      report,
+      department: departmentLabel,
+      major: majorLabel,
+      admissionYear: Number(admissionYear),
+      sharePublic: agreedStats,
+      ownerId: user?.id,
+    });
+
+    let timetableSaveStatus: "saved" | "guest" | "failed" = user ? "saved" : "guest";
+    if (user) {
+      try {
+        await saveTimetableHistories(timetableHistories, user.id);
+      } catch {
+        timetableSaveStatus = "failed";
+      }
+    }
+
     navigate("/graduation-checker/result", {
       state: {
         fileName: file.name,
-        major: department?.label ?? "",
+        department: departmentLabel,
+        major: majorLabel,
         admissionYear,
         agreedStats,
         csvErrors: errors,
-        report: checkGraduation(courses, requirementId),
+        report,
+        timetableHistories,
+        timetableSaveStatus,
       },
     });
+    setIsProcessing(false);
   };
 
   return (
@@ -371,7 +405,7 @@ function GraduationCheck() {
               disabled={!file || requirementId === null}
               onClick={() => setIsConsentOpen(true)}
             >
-              ファイルをアップロード
+              {isProcessing ? "解析しています..." : "ファイルをアップロード"}
             </button>
           </div>
         </div>

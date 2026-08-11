@@ -13,6 +13,12 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import Toast from "../components/utility/Toast";
 import GraduationCheckDetailView from "../components/class/GraduationCheckDetailView";
+import {
+  TimetableAttributeCard,
+  TimetableDetailView,
+  TimetableHistoryCard,
+  TimetableLegend,
+} from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
 import {
   formatPercent,
@@ -25,12 +31,15 @@ import type {
   CsvRowError,
   GraduationCheckReport,
 } from "../features/graduationCheck";
+import type { TimetableHistory, TimetableModuleKey } from "../types/timetable";
+import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
   fileName: string;
+  department?: string;
   major: string;
   admissionYear: string;
   agreedStats: boolean;
@@ -38,6 +47,8 @@ type GraduationCheckResultState = {
   csvErrors: CsvRowError[];
   /** アップロードページで判定済みの結果（features/graduationCheck） */
   report: GraduationCheckReport;
+  timetableHistories?: TimetableHistory[];
+  timetableSaveStatus?: "saved" | "guest" | "failed";
 } | null;
 
 // サマリーカード（取得済み単位 / 不足単位 / GPA）
@@ -168,8 +179,10 @@ function GraduationCheckResult() {
   // 詳細画面は同一ページ内のビュー切替にする。
   // 別ルートへ遷移すると、下の useEffect で history state を消しているぶん
   // 判定結果を引き継げず破棄されてしまうため。
-  const [view, setView] = useState<"summary" | "detail">("summary");
+  const [view, setView] = useState<"summary" | "detail" | "timetable">("summary");
   const [focusCategory, setFocusCategory] = useState<CategoryKey | null>(null);
+  const [selectedTimetable, setSelectedTimetable] = useState<TimetableHistory | null>(null);
+  const [activeTimetableModule, setActiveTimetableModule] = useState<TimetableModuleKey>("springA");
   // CSVに読めない行があった場合の警告（閉じるまで表示し続ける）
   const [isCsvWarningOpen, setIsCsvWarningOpen] = useState(
     () => (result?.csvErrors?.length ?? 0) > 0
@@ -191,6 +204,18 @@ function GraduationCheckResult() {
 
   const backToSummary = () => {
     setView("summary");
+    setSelectedTimetable(null);
+    window.scrollTo({ top: 0 });
+  };
+
+  const openTimetable = (history: TimetableHistory) => {
+    const module =
+      timetableModuleOrder.find((item) =>
+        history.courses.some((course) => course.modules.includes(item))
+      ) ?? "springA";
+    setSelectedTimetable(history);
+    setActiveTimetableModule(module);
+    setView("timetable");
     window.scrollTo({ top: 0 });
   };
 
@@ -228,6 +253,50 @@ function GraduationCheckResult() {
               focusCategory={focusCategory}
               onBack={backToSummary}
             />
+          </div>
+        ) : report && view === "timetable" && selectedTimetable ? (
+          <div className="gradCheckCard timetableDetailPanel">
+            <button
+              type="button"
+              className="timetableBackBtn"
+              onClick={backToSummary}
+            >
+              チェック結果に戻る
+            </button>
+            <div className="timetableDetailHeading">
+              <div>
+                <h2>{selectedTimetable.displayName}</h2>
+                <p>
+                  {selectedTimetable.admissionYear}年度入学・{selectedTimetable.academicYear}年度履修・{selectedTimetable.trackLabel}
+                </p>
+              </div>
+            </div>
+            <div className="timetableModuleTabs" role="tablist">
+              {timetableModuleOrder.map((module) => (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTimetableModule === module}
+                  className={activeTimetableModule === module ? "isActive" : ""}
+                  onClick={() => setActiveTimetableModule(module)}
+                  key={module}
+                >
+                  {timetableModuleLabels[module]}
+                </button>
+              ))}
+            </div>
+            <div className="timetableDetailLayout">
+              <div>
+                <TimetableDetailView
+                  history={selectedTimetable}
+                  activeModule={activeTimetableModule}
+                />
+              </div>
+              <aside>
+                <TimetableAttributeCard history={selectedTimetable} />
+              </aside>
+            </div>
+            <TimetableLegend />
           </div>
         ) : report ? (
           <div className="gradCheckCard">
@@ -322,6 +391,37 @@ function GraduationCheckResult() {
               </div>
             </section>
 
+            {(result?.timetableHistories?.length ?? 0) > 0 && (
+              <section className="gradResultTimetableSection">
+                <div className="gradResultReqHead">
+                  <span>過去の時間割</span>
+                  <span className="gradResultReqHeadStatus">
+                    {result?.timetableSaveStatus === "saved"
+                      ? "本人履歴として保存済み"
+                      : result?.timetableSaveStatus === "failed"
+                        ? "保存に失敗しました（画面内表示のみ）"
+                        : "未ログインのため画面内表示のみ"}
+                  </span>
+                </div>
+                <div className="timetableResultsScroller">
+                  {result?.timetableHistories?.map((history) => {
+                    const module =
+                      timetableModuleOrder.find((item) =>
+                        history.courses.some((course) => course.modules.includes(item))
+                      ) ?? "springA";
+                    return (
+                      <TimetableHistoryCard
+                        history={history}
+                        moduleKey={module}
+                        onOpen={() => openTimetable(history)}
+                        key={history.id}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
             {/* 見込みメッセージバー */}
             <div className="gradResultForecast">
               <div>
@@ -352,7 +452,7 @@ function GraduationCheckResult() {
                 </Link>
               </div>
               <p className="gradResultLeaveNote">
-                ページを離れると内容は破棄されます
+                未ログインの場合、ページを離れると時間割表示は破棄されます
               </p>
             </div>
           </div>

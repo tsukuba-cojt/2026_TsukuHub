@@ -23,6 +23,17 @@ export const emptyApplicationForm: ApplicationFormState = {
 export const textValue = (value: unknown) =>
   typeof value === "string" ? value : "";
 
+export const normalizeHttpUrl = (value: string) => {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  try {
+    const url = new URL(trimmed);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : "";
+  } catch {
+    return "";
+  }
+};
+
 export const validateApplicationForm = (form: ApplicationFormState) => {
   if (
     !form.applicant_name.trim() ||
@@ -38,9 +49,7 @@ export const validateApplicationForm = (form: ApplicationFormState) => {
     return "メールアドレスの形式を確認してください。";
   }
   if (form.portfolio_url) {
-    try {
-      new URL(form.portfolio_url);
-    } catch {
+    if (!normalizeHttpUrl(form.portfolio_url)) {
       return "ポートフォリオURLの形式を確認してください。";
     }
   }
