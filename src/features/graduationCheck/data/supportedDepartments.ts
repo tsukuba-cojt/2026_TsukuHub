@@ -123,27 +123,29 @@ export const resolveRequirementId = (
 };
 
 /**
- * 入学年度セレクトの選択肢。要件データ1件（RequirementEntry）＝選択肢1件。
- * 要件データが複数年をまとめている場合（例: 2022〜2024）は年度を分割せず
- * まとめた表記のまま1件として出す。
+ * 入学年度セレクトの選択肢。
+ * 要件データが複数年をまとめている場合（例: 2022〜2024）でも、
+ * 実際にユーザーが入学した年度を時間割履歴へ保存できるよう年度ごとに1件ずつ出す。
  */
 export type AdmissionYearOption = {
-  /** セレクトの value（この要件データが対象とする最初の入学年度） */
+  /** セレクトの value（ユーザーが実際に入学した年度） */
   value: number;
-  /** 表示名（単年なら「2021年度」、複数年なら「2022〜2024年度」） */
+  /** 表示名（例: 「2022年度」） */
   label: string;
-  /** この選択肢が対象とする入学年度 */
+  /** この選択肢が対象とする入学年度（互換用。常に単年） */
   years: number[];
 };
 
-const toAdmissionYearOption = (entry: RequirementEntry): AdmissionYearOption => {
-  const years = [...entry.admissionYears].sort((a, b) => a - b);
-  const label =
-    years.length === 1
-      ? `${years[0]}年度`
-      : `${years[0]}〜${years[years.length - 1]}年度`;
-  return { value: years[0], label, years };
-};
+const toAdmissionYearOptions = (
+  entry: RequirementEntry
+): AdmissionYearOption[] =>
+  [...entry.admissionYears]
+    .sort((a, b) => a - b)
+    .map((year) => ({
+      value: year,
+      label: `${year}年度`,
+      years: [year],
+    }));
 
 /**
  * 入学年度セレクトの選択肢を作る。
@@ -157,11 +159,12 @@ export const listAdmissionYearOptions = (
   const requirements = major
     ? major.requirements
     : (department?.majors ?? []).flatMap((m) => m.requirements);
-  // 専攻をまたいで同じ年度区切りが重なる場合は1件にまとめる
-  const options = new Map<string, AdmissionYearOption>();
+  // 専攻をまたいで同じ年度が重なる場合は1件にまとめる
+  const options = new Map<number, AdmissionYearOption>();
   for (const requirement of requirements) {
-    const option = toAdmissionYearOption(requirement);
-    options.set(option.years.join(","), option);
+    for (const option of toAdmissionYearOptions(requirement)) {
+      options.set(option.value, option);
+    }
   }
   return [...options.values()].sort((a, b) => a.value - b.value);
 };

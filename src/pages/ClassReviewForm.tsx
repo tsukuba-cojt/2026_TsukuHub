@@ -17,6 +17,7 @@ import {
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import RatingStarsInput from "../components/class/RatingStarsInput";
+import { createClassReview } from "../services/classReviewService";
 import {
   getClassFormats,
   getMethodLabel,
@@ -103,6 +104,7 @@ function ClassReviewForm() {
   const [comment, setComment] = useState("");
   const [anonymous, setAnonymous] = useState(true); // デフォルトON
   const [ratingError, setRatingError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   // 下書きは React の状態として一時保持するのみ（永続化は後日実装）
   const [, setDraft] = useState<ReviewDraft | null>(null);
@@ -154,27 +156,28 @@ function ClassReviewForm() {
     setDraftSavedAt(new Date().toLocaleTimeString());
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (rating === 0) {
       setRatingError("おすすめ度を選択してください");
       return;
     }
     if (commentTooLong) return;
     setRatingError(null);
+    setSubmitError(null);
     setSubmitting(true);
 
-    // 本来はここで Supabase へ insert する（口コミDBのスキーマ確定後に実装）
-    console.log("口コミ投稿（ダミー）:", {
-      courseCode,
-      ...currentValues(),
-    });
-
-    // 送信中の雰囲気を出すための擬似遅延
-    setTimeout(() => {
+    try {
+      await createClassReview({
+        courseCode: courseCode ?? "",
+        ...currentValues(),
+      });
       navigate(`/class/${courseCode}`, {
         state: { toast: "口コミの投稿に成功しました！" },
       });
-    }, 700);
+    } catch {
+      setSubmitError("口コミを投稿できませんでした。DBマイグレーション適用後に再度お試しください。");
+      setSubmitting(false);
+    }
   };
 
   // 講義形式のアイコン：「対面」を含む→UsersRound／「オンライン」を含む→Laptop
@@ -403,6 +406,7 @@ function ClassReviewForm() {
               </div>
 
               <div className="reviewFormActions">
+                {submitError && <p className="reviewFormError">{submitError}</p>}
                 <button
                   type="button"
                   className="reviewFormCancelBtn"
@@ -427,7 +431,7 @@ function ClassReviewForm() {
                     type="button"
                     className="reviewFormSubmitBtn"
                     disabled={rating === 0 || submitting || commentTooLong}
-                    onClick={handleSubmit}
+                    onClick={() => void handleSubmit()}
                   >
                     <Send aria-hidden="true" />
                     {submitting ? "投稿中..." : "口コミを投稿する"}

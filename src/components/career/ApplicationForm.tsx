@@ -5,6 +5,7 @@ import { createApplication, getProfileDefaults, hasApplied } from "../../service
 import ApplicationFormFields from "./ApplicationFormFields";
 import {
   emptyApplicationForm,
+  normalizeHttpUrl,
   textValue,
   validateApplicationForm,
   type ApplicationFormState,
@@ -85,7 +86,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
         graduation_year: Number(form.graduation_year),
         motivation: form.motivation.trim(),
         skills: form.skills.trim(),
-        portfolio_url: form.portfolio_url.trim() || null,
+        portfolio_url: normalizeHttpUrl(form.portfolio_url) || null,
         additional_notes: form.additional_notes.trim() || null,
       });
       setAlreadyApplied(true);

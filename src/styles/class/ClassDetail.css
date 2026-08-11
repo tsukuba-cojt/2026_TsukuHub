@@ -442,6 +442,52 @@
   margin: 0 0 8px;
 }
 
+.courseDifficultyCard {
+  background:
+    linear-gradient(180deg, rgba(232, 243, 255, 0.82), rgba(255, 255, 255, 0.98));
+}
+
+.courseDifficultyRows {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.courseDifficultyRows p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #dce8f8;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.courseDifficultyRows span {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.courseDifficultyRows strong {
+  color: var(--color-primary);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.courseDifficultyCard small,
+.sidebarEmptyText {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.sidebarEmptyText {
+  margin: 0;
+}
+
 /* レスポンシブ */
 @media (max-width: 1100px) {
   .classDetailBody {

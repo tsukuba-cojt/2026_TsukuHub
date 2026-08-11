@@ -14,9 +14,8 @@ type Props = {
   onStart: (agreedStats: boolean) => void;
 };
 
-// このチェックでのデータの扱い（表示のみ）
 const policyItems = [
-  "判定はあなたの画面内だけで行われます",
+  "ログイン中は、復元した時間割を本人履歴として保存します",
   "CSVの元ファイルは解析後すぐに破棄されます",
   "氏名・学籍番号・メールアドレスは保存しません",
 ];
@@ -116,13 +115,13 @@ function GraduationCheckConsentModal({
                 checked={agreedStats}
                 onChange={(e) => setAgreedStats(e.target.checked)}
               />
-              匿名の統計に協力する
+              匿名の統計・みんなの時間割に協力する
               <span className="gradCheckBadgeOptional">任意</span>
             </label>
             <p className="gradCheckConsentNote">
-              内容は統計的に処理され、個人が特定されることはありません。
+              公開されるのは学類・学年・履修科目などの匿名化された時間割情報のみです。
               <br />
-              また、本目的以外でデータを使用することは一切ございません。
+              個人が特定される情報やCSV元ファイルは公開・保存しません。
             </p>
             <button
               type="button"
