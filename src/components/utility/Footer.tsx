@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import "../../styles/utility/Footer.css";
-import { externalServices } from "../../data/externalServices";
+import { externalServicesByUniversity } from "../../data/externalServices";
+import { useUniversity } from "../university/universityContextValue";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
 import sparkleIconBlue from "../../assets/utility/header_footer/icon-sparkle-blue.svg";
@@ -10,6 +11,10 @@ import snsInstagramIcon from "../../assets/utility/header_footer/icon-sns-instag
 import snsLineIcon from "../../assets/utility/header_footer/icon-sns-line.svg";
 
 function Footer() {
+  const { university, path } = useUniversity();
+  const externalServices = university?.slug === "tsukuba"
+    ? externalServicesByUniversity.tsukuba
+    : externalServicesByUniversity.osaka;
   return (
     <footer className="footer">
       <div className="footerInner">
@@ -39,7 +44,7 @@ function Footer() {
                 />
               </span>
               <p className="footerTagline">
-                筑波大生のためのキャンパスライフを、もっと便利に、もっと楽しく。
+                {university?.short_name ?? "大学"}生のためのキャンパスライフを、もっと便利に、もっと楽しく。
               </p>
             </div>
           </div>
@@ -49,7 +54,7 @@ function Footer() {
         <div className="footerCol">
           <h3>外部サービス</h3>
           <div className="footerExternalServices">
-            {externalServices.map((service) => (
+            {externalServices.length === 0 ? <small>大学公式サービスは準備中です</small> : externalServices.map((service) => (
               <a
                 className="footerExternalLink"
                 href={service.href}
@@ -68,10 +73,10 @@ function Footer() {
         <div className="footerCol">
           <h3>サポート</h3>
           <ul className="footerLinks">
-            <li><Link to="/faq">よくある質問</Link></li>
-            <li><Link to="/contact">お問合せ</Link></li>
-            <li><Link to="/terms">利用規約</Link></li>
-            <li><Link to="/privacy">プライバシーポリシー</Link></li>
+            <li><Link to={path("/faq")}>よくある質問</Link></li>
+            <li><Link to={path("/contact")}>お問合せ</Link></li>
+            <li><Link to={path("/terms")}>利用規約</Link></li>
+            <li><Link to={path("/privacy")}>プライバシーポリシー</Link></li>
           </ul>
         </div>
 

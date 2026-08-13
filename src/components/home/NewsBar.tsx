@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
+import { useUniversity } from "../university/universityContextValue";
 import "../../styles/home/NewsBar.css";
 
-function NewsBar() {
+function NewsBar({ title }: { title?: string }) {
+  const { path } = useUniversity();
   return (
     <div className="newsBarWrap">
       <div className="newsBar">
         <span className="newsLabel">お知らせ</span>
         <span className="newsText">
-          5/20 【新機能リリース】気になる情報を保存できる「マイリスト」機能が追加されました！
+          {title ?? "現在、新しいお知らせはありません。"}
         </span>
-        <Link className="newsLink" to="/news">
+        <Link className="newsLink" to={path("/news")}>
           お知らせ一覧へ
         </Link>
       </div>

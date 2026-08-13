@@ -23,3 +23,8 @@ export const externalServices = [
     colorClass: "isGreen",
   },
 ] as const;
+
+export const externalServicesByUniversity = {
+  tsukuba: externalServices,
+  osaka: [],
+} as const;

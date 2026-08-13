@@ -19,6 +19,8 @@ import {
   type CareerArticleRecord,
   type PublishStatus,
 } from "../../types/content";
+import { listUniversities } from "../../services/universityService";
+import type { University } from "../../types/university";
 
 type Tab = "articles" | "alumni";
 
@@ -33,6 +35,7 @@ const emptyArticle: CareerArticleInput = {
 };
 
 const emptyAlumni: AlumniStoryInput = {
+  university_id: "",
   graduation_year: new Date().getFullYear(),
   faculty: "",
   destination: "",
@@ -55,6 +58,8 @@ export default function AdminCareerContent() {
   const [stories, setStories] = useState<AlumniStoryRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [universityFilter, setUniversityFilter] = useState("all");
 
   const reload = async () => {
     setError("");
@@ -64,8 +69,8 @@ export default function AdminCareerContent() {
   };
 
   useEffect(() => {
-    void Promise.all([listAdminCareerArticles(), listAdminAlumniStories()])
-      .then(([nextArticles, nextStories]) => { setArticles(nextArticles); setStories(nextStories); })
+    void Promise.all([listAdminCareerArticles(), listAdminAlumniStories(), listUniversities()])
+      .then(([nextArticles, nextStories, nextUniversities]) => { setArticles(nextArticles); setStories(nextStories); setUniversities(nextUniversities); })
       .catch(() => setError("就活コンテンツを取得できませんでした。DBマイグレーションを確認してください。"))
       .finally(() => setLoading(false));
   }, []);
@@ -75,33 +80,39 @@ export default function AdminCareerContent() {
     <div className="adminFilters" role="tablist">
       <button className={tab === "articles" ? "isActive" : ""} onClick={() => setTab("articles")}>役立つ就活情報 <span>{articles.length}</span></button>
       <button className={tab === "alumni" ? "isActive" : ""} onClick={() => setTab("alumni")}>卒業生体験記 <span>{stories.length}</span></button>
+      <select aria-label="大学で絞り込む" value={universityFilter} onChange={(event) => setUniversityFilter(event.target.value)}><option value="all">すべての大学</option>{universities.map((university) => <option value={university.id} key={university.id}>{university.name}</option>)}</select>
     </div>
     {error && <p className="formError" role="alert">{error}</p>}
     {loading ? <div className="careerState">読み込んでいます...</div> : tab === "articles"
-      ? <ArticleManager items={articles} onReload={reload} />
-      : <AlumniManager items={stories} onReload={reload} />}
+      ? <ArticleManager items={articles.filter((item) => universityFilter === "all" || item.university_ids?.includes(universityFilter))} universities={universities} onReload={reload} />
+      : <AlumniManager items={stories.filter((item) => universityFilter === "all" || item.university_id === universityFilter)} universities={universities} onReload={reload} />}
   </AdminLayout>;
 }
 
-function ArticleManager({ items, onReload }: { items: CareerArticleRecord[]; onReload: () => Promise<void> }) {
+function ArticleManager({ items, universities, onReload }: { items: CareerArticleRecord[]; universities: University[]; onReload: () => Promise<void> }) {
   const [form, setForm] = useState<CareerArticleInput>(emptyArticle);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [targetUniversityIds, setTargetUniversityIds] = useState<string[]>(
+    () => universities.filter((item) => item.slug === "tsukuba").map((item) => item.id),
+  );
   const update = <K extends keyof CareerArticleInput>(key: K, value: CareerArticleInput[K]) => setForm((current) => ({ ...current, [key]: value }));
 
   const edit = (item: CareerArticleRecord) => {
     setEditingId(item.id);
+    setTargetUniversityIds(item.university_ids ?? []);
     setForm({ category: item.category, title: item.title, description: item.description, content: item.content, published_at: item.published_at, read_minutes: item.read_minutes, status: item.status });
     setMessage(""); setError("");
   };
 
-  const reset = () => { setEditingId(null); setForm(emptyArticle); };
+  const reset = () => { setEditingId(null); setForm(emptyArticle); setTargetUniversityIds(universities.filter((item) => item.slug === "tsukuba").map((item) => item.id)); };
   const submit = async (event: React.FormEvent) => {
     event.preventDefault(); setSaving(true); setError(""); setMessage("");
     try {
-      if (editingId) await updateCareerArticle(editingId, form); else await createCareerArticle(form);
+      if (!targetUniversityIds.length) throw new Error("target_required");
+      if (editingId) await updateCareerArticle(editingId, form, targetUniversityIds); else await createCareerArticle(form, targetUniversityIds);
       await onReload(); reset(); setMessage(editingId ? "記事を更新しました。" : "記事を登録しました。");
     } catch { setError("記事を保存できませんでした。"); }
     finally { setSaving(false); }
@@ -130,6 +141,7 @@ function ArticleManager({ items, onReload }: { items: CareerArticleRecord[]; onR
       <label>タイトル <span>*</span><input required maxLength={160} value={form.title} onChange={(event) => update("title", event.target.value)} /></label>
       <label>一覧の説明 <span>*</span><textarea required rows={3} maxLength={500} value={form.description} onChange={(event) => update("description", event.target.value)} /></label>
       <label>本文<textarea rows={5} value={form.content} onChange={(event) => update("content", event.target.value)} /></label>
+      <fieldset className="adminUniversityTargets"><legend>掲載対象大学 <span>*</span></legend>{universities.map((university) => <label className="checkboxLabel" key={university.id}><input type="checkbox" checked={targetUniversityIds.includes(university.id)} onChange={(event) => setTargetUniversityIds((current) => event.target.checked ? [...current, university.id] : current.filter((id) => id !== university.id))} />{university.name}</label>)}</fieldset>
       {error && <p className="formError" role="alert">{error}</p>}{message && <p className="formSuccess" role="status">{message}</p>}
       <div className="formActions"><button className="careerPrimaryButton" disabled={saving}>{saving ? "保存中..." : editingId ? "変更を保存" : "記事を登録"}</button></div>
     </form>
@@ -137,7 +149,7 @@ function ArticleManager({ items, onReload }: { items: CareerArticleRecord[]; onR
   </div>;
 }
 
-function AlumniManager({ items, onReload }: { items: AlumniStoryRecord[]; onReload: () => Promise<void> }) {
+function AlumniManager({ items, universities, onReload }: { items: AlumniStoryRecord[]; universities: University[]; onReload: () => Promise<void> }) {
   const [form, setForm] = useState<AlumniStoryInput>(emptyAlumni);
   const [tags, setTags] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -174,6 +186,7 @@ function AlumniManager({ items, onReload }: { items: AlumniStoryRecord[]; onRelo
     <form className="careerForm adminCompactForm" onSubmit={submit}>
       <div className="adminPanelHeader"><h2>{editingId ? "体験記を編集" : "体験記を新規登録"}</h2>{editingId && <button className="adminTextButton" type="button" onClick={reset}>編集をキャンセル</button>}</div>
       <div className="formGrid">
+        <label>大学 <span>*</span><select required value={form.university_id} onChange={(event) => update("university_id", event.target.value)}><option value="">選択する</option>{universities.map((university) => <option value={university.id} key={university.id}>{university.name}</option>)}</select></label>
         <label>卒業年度 <span>*</span><input required type="number" min={1950} max={2100} value={form.graduation_year} onChange={(event) => update("graduation_year", Number(event.target.value))} /></label>
         <label>学群・学類 <span>*</span><input required value={form.faculty} onChange={(event) => update("faculty", event.target.value)} /></label>
         <label>進路・業界 <span>*</span><input required value={form.destination} onChange={(event) => update("destination", event.target.value)} /></label>

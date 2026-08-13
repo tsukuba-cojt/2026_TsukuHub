@@ -1,8 +1,10 @@
 import { BookOpen } from "lucide-react";
 import "../../styles/class/ClassTop.css";
+import { useUniversity } from "../university/universityContextValue";
 
 // 授業・履修トップページのヒーローセクション
 function ClassTopHero() {
+  const { university } = useUniversity();
   return (
     <section className="classTopHero">
       <div className="classTopHeroText">
@@ -13,7 +15,7 @@ function ClassTopHero() {
         <p className="classTopHeroDesc">
           講義の検索や履修計画、みんなの時間割まで。
           <br />
-          筑波大生の学びをサポートする機能をまとめました。
+          {university?.short_name}生の学びをサポートする機能をまとめました。
         </p>
       </div>
       {/* ダミーのプレースホルダー画像（本実装時にイラストへ差し替える） */}

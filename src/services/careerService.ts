@@ -11,10 +11,11 @@ import type {
 
 const internshipColumns = "id, company_name, company_logo_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
 
-export async function listPublishedInternships(): Promise<Internship[]> {
+export async function listPublishedInternships(universityId: string): Promise<Internship[]> {
   const { data, error } = await supabase
     .from("internships")
-    .select(internshipColumns)
+    .select(`${internshipColumns}, internship_universities!inner(university_id)`)
+    .eq("internship_universities.university_id", universityId)
     .eq("status", "published")
     .order("is_featured", { ascending: false })
     .order("created_at", { ascending: false });
@@ -22,36 +23,67 @@ export async function listPublishedInternships(): Promise<Internship[]> {
   return (data ?? []) as Internship[];
 }
 
-export async function getInternship(id: string): Promise<Internship | null> {
-  const { data, error } = await supabase
+export async function getInternship(id: string, universityId?: string): Promise<Internship | null> {
+  let query = supabase
     .from("internships")
-    .select(internshipColumns)
-    .eq("id", id)
-    .maybeSingle();
+    .select(universityId ? `${internshipColumns}, internship_universities!inner(university_id)` : internshipColumns)
+    .eq("id", id);
+  if (universityId) query = query.eq("internship_universities.university_id", universityId);
+  const { data, error } = await query.maybeSingle();
   if (error) throw error;
   return data as Internship | null;
 }
 
 export async function listAdminInternships(): Promise<Internship[]> {
-  const { data, error } = await supabase
-    .from("internships")
-    .select(internshipColumns)
-    .order("created_at", { ascending: false });
+  const [itemsResult, targetsResult] = await Promise.all([
+    supabase.from("internships").select(internshipColumns).order("created_at", { ascending: false }),
+    supabase.from("internship_universities").select("internship_id, university_id"),
+  ]);
+  const { data, error } = itemsResult;
   if (error) throw error;
-  return (data ?? []) as Internship[];
+  if (targetsResult.error) throw targetsResult.error;
+  return ((data ?? []) as Internship[]).map((item) => ({
+    ...item,
+    university_ids: (targetsResult.data ?? [])
+      .filter((target) => target.internship_id === item.id)
+      .map((target) => target.university_id),
+  }));
 }
 
-export async function createInternship(input: InternshipInput): Promise<Internship> {
+async function setInternshipUniversities(id: string, universityIds: string[]) {
+  const { error: deleteError } = await supabase
+    .from("internship_universities")
+    .delete()
+    .eq("internship_id", id);
+  if (deleteError) throw deleteError;
+  if (universityIds.length === 0) return;
+  const { error } = await supabase.from("internship_universities").insert(
+    universityIds.map((university_id) => ({ internship_id: id, university_id })),
+  );
+  if (error) throw error;
+}
+
+export async function getInternshipTargetUniversityIds(id: string): Promise<string[]> {
+  const { data, error } = await supabase
+    .from("internship_universities")
+    .select("university_id")
+    .eq("internship_id", id);
+  if (error) throw error;
+  return (data ?? []).map((item) => item.university_id);
+}
+
+export async function createInternship(input: InternshipInput, universityIds: string[]): Promise<Internship> {
   const { data, error } = await supabase
     .from("internships")
     .insert(input)
     .select(internshipColumns)
     .single();
   if (error) throw error;
+  await setInternshipUniversities((data as Internship).id, universityIds);
   return data as Internship;
 }
 
-export async function updateInternship(id: string, input: InternshipInput): Promise<Internship> {
+export async function updateInternship(id: string, input: InternshipInput, universityIds: string[]): Promise<Internship> {
   const { data, error } = await supabase
     .from("internships")
     .update(input)
@@ -59,6 +91,7 @@ export async function updateInternship(id: string, input: InternshipInput): Prom
     .select(internshipColumns)
     .single();
   if (error) throw error;
+  await setInternshipUniversities(id, universityIds);
   return data as Internship;
 }
 
@@ -80,7 +113,7 @@ export async function createApplication(input: ApplicationInput): Promise<void> 
 export async function listMyApplications(userId: string): Promise<Application[]> {
   const { data, error } = await supabase
     .from("applications")
-    .select("id, internship_id, user_id, applicant_name, email, faculty, graduation_year, motivation, skills, portfolio_url, additional_notes, status, created_at, updated_at, internship:internships(id, title, company_name)")
+    .select("id, internship_id, user_id, university_id, applicant_name, email, faculty, graduation_year, motivation, skills, portfolio_url, additional_notes, status, created_at, updated_at, internship:internships(id, title, company_name)")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   if (error) throw error;

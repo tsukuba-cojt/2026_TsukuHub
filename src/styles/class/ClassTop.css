@@ -63,6 +63,10 @@
   text-align: center;
 }
 
+.classTopFeatureCard.isComingSoon {
+  opacity: .72;
+}
+
 .classTopFeatureIcon {
   display: flex;
   align-items: center;
@@ -122,6 +126,7 @@
 }
 
 .classTopFeatureBtn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -136,6 +141,23 @@
   font-weight: 700;
   text-decoration: none;
   transition: background 0.15s ease;
+}
+
+.classTopFeatureBtn.isComingSoon {
+  color: #65758a !important;
+  background: #eef2f7;
+}
+
+.classTopFeatureBtn.isComingSoon .comingSoonTip {
+  right: 50%;
+  bottom: calc(100% + 9px);
+  transform: translateX(50%);
+}
+
+.classTopFeatureBtn.isComingSoon:hover .comingSoonTip,
+.classTopFeatureBtn.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
 }
 
 .classTopFeatureBtn:hover {

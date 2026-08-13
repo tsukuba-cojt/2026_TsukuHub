@@ -125,6 +125,15 @@
   box-shadow: 0 14px 30px rgba(109, 136, 180, 0.2);
 }
 
+.careerCategoryCard.isComingSoon {
+  opacity: .72;
+}
+
+.careerCategoryCard.isComingSoon:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
 .careerCategoryCard.is-green {
   --card-accent: #23b87b;
   --card-accent-soft: #e6f8f1;
@@ -207,6 +216,7 @@
 }
 
 .careerCategoryButton {
+  position: relative;
   display: flex;
   min-height: 48px;
   align-items: center;
@@ -219,6 +229,23 @@
   background: var(--card-accent);
   font-size: 14px;
   font-weight: 700;
+}
+
+.careerCategoryButton.isComingSoon {
+  color: #65758a;
+  background: #e8edf4;
+}
+
+.careerCategoryButton.isComingSoon .comingSoonTip {
+  right: 50%;
+  bottom: calc(100% + 9px);
+  transform: translateX(50%);
+}
+
+.careerCategoryButton.isComingSoon:hover .comingSoonTip,
+.careerCategoryButton.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
 }
 
 .careerCategoryButton svg,

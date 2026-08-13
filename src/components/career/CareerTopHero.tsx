@@ -1,6 +1,8 @@
 import { BriefcaseBusiness } from "lucide-react";
+import { useUniversity } from "../university/universityContextValue";
 
 export default function CareerTopHero() {
+  const { university } = useUniversity();
   return (
     <section className="careerHero">
       <div className="careerHeroCopy">
@@ -11,7 +13,7 @@ export default function CareerTopHero() {
         <p>
           就活の基礎から長期インターン、卒業生の体験記まで。
           <br />
-          筑波大生のキャリア選択をサポートする機能をまとめました。
+          {university?.short_name}生のキャリア選択をサポートする機能をまとめました。
         </p>
       </div>
       <div

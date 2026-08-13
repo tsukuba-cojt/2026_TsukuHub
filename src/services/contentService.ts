@@ -11,38 +11,53 @@ import type {
   ReviewReportStatus,
 } from "../types/content";
 
-const articleColumns = "id, category, title, description, content, published_at, read_minutes, status, created_at, updated_at";
-const alumniColumns = "id, graduation_year, faculty, destination, job_role, title, summary, tags, started_at, target_industries, challenge, actions, advice, current_work, status, created_at, updated_at";
-const announcementColumns = "id, category, title, content, published_at, status, created_at, updated_at";
-const reportColumns = "id, review_id, course_code, review_snapshot, reporter_id, reason, status, admin_notes, created_at, updated_at";
+const articleColumns = "id, category, title, description, content, published_at, read_minutes, status, source_type, external_url, created_at, updated_at";
+const alumniColumns = "id, university_id, graduation_year, faculty, destination, job_role, title, summary, tags, started_at, target_industries, challenge, actions, advice, current_work, status, created_at, updated_at";
+const announcementColumns = "id, university_id, category, title, content, published_at, status, created_at, updated_at";
+const reportColumns = "id, university_id, review_id, course_code, review_snapshot, reporter_id, reason, status, admin_notes, created_at, updated_at";
 
-export async function listPublishedCareerArticles(): Promise<CareerArticleRecord[]> {
-  const { data, error } = await supabase.from("career_articles").select(articleColumns).eq("status", "published").order("published_at", { ascending: false });
+export async function listPublishedCareerArticles(universityId: string): Promise<CareerArticleRecord[]> {
+  const { data, error } = await supabase.from("career_articles").select(`${articleColumns}, career_article_universities!inner(university_id)`).eq("career_article_universities.university_id", universityId).eq("status", "published").order("published_at", { ascending: false });
   if (error) throw error;
   return (data ?? []) as CareerArticleRecord[];
 }
 
-export async function getPublishedCareerArticle(id: string): Promise<CareerArticleRecord | null> {
-  const { data, error } = await supabase.from("career_articles").select(articleColumns).eq("id", id).eq("status", "published").maybeSingle();
+export async function getPublishedCareerArticle(id: string, universityId: string): Promise<CareerArticleRecord | null> {
+  const { data, error } = await supabase.from("career_articles").select(`${articleColumns}, career_article_universities!inner(university_id)`).eq("career_article_universities.university_id", universityId).eq("id", id).eq("status", "published").maybeSingle();
   if (error) throw error;
   return data as CareerArticleRecord | null;
 }
 
 export async function listAdminCareerArticles(): Promise<CareerArticleRecord[]> {
-  const { data, error } = await supabase.from("career_articles").select(articleColumns).order("created_at", { ascending: false });
+  const [items, targets] = await Promise.all([
+    supabase.from("career_articles").select(articleColumns).order("created_at", { ascending: false }),
+    supabase.from("career_article_universities").select("career_article_id, university_id"),
+  ]);
+  const { data, error } = items;
   if (error) throw error;
-  return (data ?? []) as CareerArticleRecord[];
+  if (targets.error) throw targets.error;
+  return ((data ?? []) as CareerArticleRecord[]).map((item) => ({ ...item, university_ids: (targets.data ?? []).filter((target) => target.career_article_id === item.id).map((target) => target.university_id) }));
 }
 
-export async function createCareerArticle(input: CareerArticleInput): Promise<CareerArticleRecord> {
+async function setCareerArticleUniversities(id: string, universityIds: string[]) {
+  const { error: deleteError } = await supabase.from("career_article_universities").delete().eq("career_article_id", id);
+  if (deleteError) throw deleteError;
+  if (!universityIds.length) return;
+  const { error } = await supabase.from("career_article_universities").insert(universityIds.map((university_id) => ({ career_article_id: id, university_id })));
+  if (error) throw error;
+}
+
+export async function createCareerArticle(input: CareerArticleInput, universityIds: string[]): Promise<CareerArticleRecord> {
   const { data, error } = await supabase.from("career_articles").insert(input).select(articleColumns).single();
   if (error) throw error;
+  await setCareerArticleUniversities((data as CareerArticleRecord).id, universityIds);
   return data as CareerArticleRecord;
 }
 
-export async function updateCareerArticle(id: string, input: CareerArticleInput): Promise<CareerArticleRecord> {
+export async function updateCareerArticle(id: string, input: CareerArticleInput, universityIds: string[]): Promise<CareerArticleRecord> {
   const { data, error } = await supabase.from("career_articles").update(input).eq("id", id).select(articleColumns).single();
   if (error) throw error;
+  await setCareerArticleUniversities(id, universityIds);
   return data as CareerArticleRecord;
 }
 
@@ -51,14 +66,14 @@ export async function deleteCareerArticle(id: string): Promise<void> {
   if (error) throw error;
 }
 
-export async function listPublishedAlumniStories(): Promise<AlumniStoryRecord[]> {
-  const { data, error } = await supabase.from("alumni_stories").select(alumniColumns).eq("status", "published").order("graduation_year", { ascending: false });
+export async function listPublishedAlumniStories(universityId: string): Promise<AlumniStoryRecord[]> {
+  const { data, error } = await supabase.from("alumni_stories").select(alumniColumns).eq("university_id", universityId).eq("status", "published").order("graduation_year", { ascending: false });
   if (error) throw error;
   return (data ?? []) as AlumniStoryRecord[];
 }
 
-export async function getPublishedAlumniStory(id: string): Promise<AlumniStoryRecord | null> {
-  const { data, error } = await supabase.from("alumni_stories").select(alumniColumns).eq("id", id).eq("status", "published").maybeSingle();
+export async function getPublishedAlumniStory(id: string, universityId: string): Promise<AlumniStoryRecord | null> {
+  const { data, error } = await supabase.from("alumni_stories").select(alumniColumns).eq("university_id", universityId).eq("id", id).eq("status", "published").maybeSingle();
   if (error) throw error;
   return data as AlumniStoryRecord | null;
 }
@@ -86,8 +101,8 @@ export async function deleteAlumniStory(id: string): Promise<void> {
   if (error) throw error;
 }
 
-export async function listPublishedClassAnnouncements(): Promise<ClassAnnouncementRecord[]> {
-  const { data, error } = await supabase.from("class_announcements").select(announcementColumns).eq("status", "published").order("published_at", { ascending: false });
+export async function listPublishedClassAnnouncements(universityId: string): Promise<ClassAnnouncementRecord[]> {
+  const { data, error } = await supabase.from("class_announcements").select(announcementColumns).eq("university_id", universityId).eq("status", "published").order("published_at", { ascending: false });
   if (error) throw error;
   return (data ?? []) as ClassAnnouncementRecord[];
 }
@@ -116,6 +131,7 @@ export async function deleteClassAnnouncement(id: string): Promise<void> {
 }
 
 export async function createReviewReport(input: {
+  university_id: string;
   review_id: string;
   course_code: string;
   review_snapshot: string;

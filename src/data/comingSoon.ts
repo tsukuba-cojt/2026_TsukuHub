@@ -13,7 +13,7 @@
  */
 
 /** ポップアップおよび title 属性に出す文言 */
-export const COMING_SOON_NOTICE = "すみません！まだ準備中です";
+export const COMING_SOON_NOTICE = "準備中です";
 
 /** 未実装のためリンクを無効化するパス */
 const COMING_SOON_PATHS: ReadonlySet<string> = new Set([
@@ -26,6 +26,32 @@ const COMING_SOON_PATHS: ReadonlySet<string> = new Set([
 /** 指定パスが「準備中」（＝導線を無効化する対象）かどうか */
 export function isComingSoon(path: string): boolean {
   return COMING_SOON_PATHS.has(path);
+}
+
+type FeatureEnabledCheck = (feature: import("../types/university").UniversityFeatureKey) => boolean;
+
+const UNIVERSITY_PATH_FEATURES: Readonly<Record<string, readonly import("../types/university").UniversityFeatureKey[]>> = {
+  "/news": ["news"],
+  "/topics": ["news"],
+  "/career": ["career_articles", "internships", "alumni_stories"],
+  "/career/basics": ["career_articles"],
+  "/career/internships": ["internships"],
+  "/career/alumni": ["alumni_stories"],
+  "/class/top": ["courses", "class_reviews", "graduation_checker", "timetable"],
+  "/class": ["courses"],
+  "/graduation-checker": ["graduation_checker"],
+  "/timetable": ["timetable"],
+};
+
+/** 固定の未実装項目、または大学側で全対象機能が準備中なら true。 */
+export function isUniversityComingSoon(
+  path: string,
+  isFeatureEnabled: FeatureEnabledCheck,
+): boolean {
+  const pathname = normalizeInternalPath(path);
+  if (isComingSoon(pathname)) return true;
+  const features = UNIVERSITY_PATH_FEATURES[pathname];
+  return Boolean(features && !features.some(isFeatureEnabled));
 }
 
 const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([

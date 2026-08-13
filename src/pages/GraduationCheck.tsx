@@ -32,6 +32,7 @@ import type {
   SupportedMajor,
 } from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
+import { useUniversity } from "../components/university/universityContextValue";
 
 // 学類・専攻・入学年度の選択肢は
 // features/graduationCheck/data/supportedDepartments.ts に集約。
@@ -49,6 +50,7 @@ const supportedSummary = supportedDepartments
 // 卒業要件チェック アップロードページ（/graduation-checker）
 // CSVのパース・要件判定はクライアント内で完結する（features/graduationCheck）。
 function GraduationCheck() {
+  const { university, path } = useUniversity();
   const navigate = useNavigate();
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -161,18 +163,19 @@ function GraduationCheck() {
       admissionYear: Number(admissionYear),
       sharePublic: agreedStats,
       ownerId: user?.id,
+      universityId: university?.id ?? "",
     });
 
     let timetableSaveStatus: "saved" | "guest" | "failed" = user ? "saved" : "guest";
     if (user) {
       try {
-        await saveTimetableHistories(timetableHistories, user.id);
+      await saveTimetableHistories(timetableHistories, user.id, university?.id ?? "");
       } catch {
         timetableSaveStatus = "failed";
       }
     }
 
-    navigate("/graduation-checker/result", {
+    navigate(path("/graduation-checker/result"), {
       state: {
         fileName: file.name,
         department: departmentLabel,
@@ -193,11 +196,11 @@ function GraduationCheck() {
       <Globalnav />
       <main className="gradCheckPageLayout">
         <p className="gradCheckBreadcrumb">
-          <Link to="/" className="gradCheckBreadcrumbLink">
+          <Link to={path()} className="gradCheckBreadcrumbLink">
             ホーム
           </Link>{" "}
           &gt;{" "}
-          <Link to="/class/top" className="gradCheckBreadcrumbLink">
+          <Link to={path("/class/top")} className="gradCheckBreadcrumbLink">
             授業・履修
           </Link>{" "}
           &gt; 卒業要件チェック

@@ -1,8 +1,13 @@
 import "../../styles/home/RankingSection.css";
 import { ExternalLink, SquareArrowOutUpRight } from "lucide-react";
-import { externalServices } from "../../data/externalServices";
+import { externalServicesByUniversity } from "../../data/externalServices";
+import { useUniversity } from "../university/universityContextValue";
 
 function RankingSection() {
+  const { university } = useUniversity();
+  const services = university?.slug === "tsukuba"
+    ? externalServicesByUniversity.tsukuba
+    : [];
   return (
     <section className="panel externalServicesPanel">
       <div className="panelTitle">
@@ -11,7 +16,8 @@ function RankingSection() {
       </div>
 
       <div className="externalServiceList">
-        {externalServices.map((service) => {
+        {services.length === 0 && <p>まだ登録されていません。</p>}
+        {services.map((service) => {
           const ServiceIcon = service.icon;
           return (
             <a

@@ -13,7 +13,9 @@ import {
 } from "lucide-react";
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../auth/authContextValue";
-import { COMING_SOON_NOTICE, isComingSoon } from "../../data/comingSoon";
+import { useUniversity } from "../university/universityContextValue";
+import { clearActiveUniversitySlug } from "../../lib/tenantSession";
+import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
@@ -35,6 +37,7 @@ export default function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
+  const { university, path, isFeatureEnabled } = useUniversity();
 
   // メニュー外クリックで閉じる
   useEffect(() => {
@@ -77,8 +80,9 @@ export default function Header() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    clearActiveUniversitySlug();
     setMenuOpen(false);
-    navigate("/");
+    navigate(path());
   };
 
   return (
@@ -111,7 +115,7 @@ export default function Header() {
       */}
       <div className="header-container">
         <div className="header-left">
-          <Link to="/" className="logo-link">
+          <Link to={path()} className="logo-link">
             {/* Sparkle blue — アイコン左下 */}
             <img
               src={sparkleBlueIcon}
@@ -135,7 +139,7 @@ export default function Header() {
                   aria-hidden="true"
                 />
               </span>
-              <span className="tagline">筑波大生のためのキャンパス情報ポータル</span>
+              <span className="tagline">{university?.tagline ?? "大学生のためのキャンパス情報ポータル"}</span>
             </div>
           </Link>
         </div>
@@ -235,7 +239,7 @@ export default function Header() {
                 {menuOpen && (
                   <div className="mypage-dropdown" role="menu">
                     <Link
-                      to="/mypage"
+                      to={path("/mypage")}
                       className="dropdown-item"
                       role="menuitem"
                       onClick={() => setMenuOpen(false)}
@@ -243,7 +247,7 @@ export default function Header() {
                       ユーザー情報
                     </Link>
                     <Link
-                      to="/mypage/applications"
+                      to={path("/mypage/applications")}
                       className="dropdown-item"
                       role="menuitem"
                       onClick={() => setMenuOpen(false)}
@@ -274,10 +278,10 @@ export default function Header() {
             </div>
           ) : (
             <div className="auth-buttons">
-              <Link to="/login" className="btn btn-login">
+              <Link to={path("/login")} className="btn btn-login">
                 ログイン
               </Link>
-              <Link to="/signup" className="btn btn-register">
+              <Link to={path("/signup")} className="btn btn-register">
                 新規登録
               </Link>
             </div>
@@ -298,7 +302,7 @@ export default function Header() {
               <div className="mobile-nav-panel">
                 {mobileNavItems.map((item) => {
                   const ItemIcon = item.icon;
-                  const comingSoon = isComingSoon(item.path);
+                  const comingSoon = isUniversityComingSoon(item.path, isFeatureEnabled);
                   return comingSoon ? (
                     <button
                       type="button"
@@ -315,7 +319,7 @@ export default function Header() {
                   ) : (
                     <Link
                       className="mobile-nav-panel-item"
-                      to={item.path}
+                      to={path(item.path)}
                       key={item.label}
                       onClick={() => setMobileMenuOpen(false)}
                     >

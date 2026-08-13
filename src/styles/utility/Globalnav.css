@@ -254,6 +254,7 @@
 }
 
 .navDropdownCard {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -266,6 +267,31 @@
 
 .navDropdownCard:hover {
   background: #f6f9fe;
+}
+
+.navDropdownCard.isComingSoon {
+  color: #7c8798;
+  opacity: .68;
+}
+
+.navDropdownCard.isComingSoon:hover {
+  background: transparent;
+}
+
+.navDropdownCard.isComingSoon .comingSoonTip {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navDropdownCard.isComingSoon:hover .comingSoonTip,
+.navDropdownCard.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navDropdownCard.isComingSoon:hover .navDropdownCardLink {
+  text-decoration: none;
 }
 
 .navDropdownIconCircle {

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../auth/authContextValue";
 import { createApplication, getProfileDefaults, hasApplied } from "../../services/careerService";
 import ApplicationFormFields from "./ApplicationFormFields";
+import { useUniversity } from "../university/universityContextValue";
 import {
   emptyApplicationForm,
   normalizeHttpUrl,
@@ -15,6 +16,7 @@ type Props = { internshipId: string; onSuccess: () => void };
 
 export default function ApplicationForm({ internshipId, onSuccess }: Props) {
   const { user } = useAuth();
+  const { university, path } = useUniversity();
   const [form, setForm] = useState(emptyApplicationForm);
   const [checking, setChecking] = useState(Boolean(user));
   const [alreadyApplied, setAlreadyApplied] = useState(false);
@@ -45,8 +47,8 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
         <h2>応募にはログインが必要です</h2>
         <p>ログイン後、この求人に戻って応募できます。</p>
         <Link
-          to="/login"
-          state={{ from: `/career/internships/${internshipId}` }}
+          to={path("/login")}
+          state={{ from: path(`/career/internships/${internshipId}`) }}
         >
           ログインして応募する
         </Link>
@@ -60,7 +62,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
     return (
       <div className="applicationSuccess">
         <h2>この求人には応募済みです</h2>
-        <Link to="/mypage/applications">応募状況を確認する</Link>
+        <Link to={path("/mypage/applications")}>応募状況を確認する</Link>
       </div>
     );
   }
@@ -80,6 +82,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
       await createApplication({
         internship_id: internshipId,
         user_id: user.id,
+        university_id: university?.id ?? "",
         applicant_name: form.applicant_name.trim(),
         email: form.email.trim(),
         faculty: form.faculty.trim(),

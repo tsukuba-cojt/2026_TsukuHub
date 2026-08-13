@@ -1,15 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
+import { useUniversity } from "../university/universityContextValue";
+import { supabase } from "../../lib/supabase";
+import { setActiveUniversitySlug } from "../../lib/tenantSession";
 
 export default function Confirm() {
   const navigate = useNavigate();
-  
+  const { university, path } = useUniversity();
 
   useEffect(() => {
     const confirm = async () => {
@@ -25,12 +22,13 @@ export default function Confirm() {
       });
 
       if (!error) {
-        navigate("/");
+        if (university) setActiveUniversitySlug(university.slug);
+        navigate(path());
       }
     };
 
     confirm();
-  }, [navigate]);
+  }, [navigate, path, university]);
 
   return <p>Confirming...</p>;
 }
