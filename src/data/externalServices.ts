@@ -9,9 +9,9 @@ export const externalServices = [
     colorClass: "isBlue",
   },
   {
-    name: "統一認証システム",
+    name: "manaba",
     description: "筑波大学の各種システムにログインするための認証画面へ。",
-    href: "https://idp.account.tsukuba.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s2",
+    href: "https://www.ecloud.tsukuba.ac.jp/manaba",
     icon: KeyRound,
     colorClass: "isPurple",
   },

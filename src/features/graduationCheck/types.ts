@@ -66,6 +66,14 @@ export type SelectRequirementTuple = [
   isExcludeRequirement: boolean,
   message: string,
   group: number,
+  options?: {
+    /** 科目番号だけで表せない選択科目を科目名の完全一致で追加する */
+    includeCourseNames?: string[];
+    /** プレフィックスには該当するが、この選択要件からは除外する科目名 */
+    excludeCourseNames?: string[];
+    /** プレフィックスには該当するが、この選択要件からは除外する科目番号プレフィックス */
+    excludeCodes?: string[];
+  },
 ];
 
 /** 選択科目グループ: [グループ番号, 最低単位, 最高単位, グループ表示名] */
@@ -89,6 +97,8 @@ export type GradRequirement = {
     select: SelectRequirementTuple[];
     selectMinimumUnit: number;
     groups: GroupTuple[];
+    /** true のとき、選択小区分ごとの最低単位も区分進捗に反映する */
+    enforceSelectMinimums?: boolean;
   };
 };
 
@@ -97,6 +107,67 @@ export type RequirementId =
   | "mast-21"
   | "mast-22"
   | "mast-25"
+  | "coins-ss-22"
+  | "coins-ss-26"
+  | "coins-is-22"
+  | "coins-is-26"
+  | "coins-im-22"
+  | "coins-im-26"
+  | "esys-ies-22"
+  | "esys-eme-22"
+  | "math-22"
+  | "physics-22"
+  | "physics-25"
+  | "chem-22"
+  | "chem-23"
+  | "chem-25"
+  | "applied-physics-22"
+  | "applied-physics-24"
+  | "applied-electron-22"
+  | "applied-electron-24"
+  | "applied-materials-22"
+  | "applied-materials-24"
+  | "applied-molecule-22"
+  | "applied-molecule-24"
+  | "biology-22"
+  | "bioresources-22"
+  | "bioresources-24"
+  | "bioresources-interdisciplinary-22"
+  | "bioresources-interdisciplinary-24"
+  | "earth-environment-22"
+  | "earth-environment-24"
+  | "earth-environment-26"
+  | "earth-evolution-22"
+  | "earth-evolution-24"
+  | "earth-interdisciplinary-22"
+  | "earth-interdisciplinary-24"
+  | "policy-economics-22"
+  | "policy-engineering-22"
+  | "policy-urban-22"
+  | "humanities-philosophy-22"
+  | "humanities-history-22"
+  | "humanities-archaeology-22"
+  | "humanities-linguistics-22"
+  | "comparative-culture-22"
+  | "japanese-culture-22"
+  | "social-sociology-22"
+  | "social-law-22"
+  | "social-politics-22"
+  | "social-economics-22"
+  | "international-relations-22"
+  | "international-development-22"
+  | "education-22"
+  | "psychology-22"
+  | "disability-22"
+  | "medicine-22"
+  | "new-medicine-22"
+  | "nursing-22"
+  | "public-health-nursing-22"
+  | "medical-science-22"
+  | "international-medical-science-22"
+  | "physical-education-22"
+  | "art-studies-22"
+  | "japanese-art-22"
   | "klis-ksc-21"
   | "klis-ksc-22"
   | "klis-kis-21"

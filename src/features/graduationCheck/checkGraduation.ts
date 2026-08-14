@@ -19,6 +19,7 @@ import { categoryLabels, groupLabelToCategory } from "./categoryMapping";
 import { checkCompulsory, countCompulsoryUnits } from "./checkCompulsory";
 import { checkSelect } from "./checkSelect";
 import { gradRequirementData } from "./data/gradRequirementData";
+import { supportedDepartments } from "./data/supportedDepartments";
 import { calcARatePercent, calcGpa, GPA_MAX } from "./gpa";
 import type {
   CategoryResult,
@@ -69,19 +70,17 @@ export const resolveRequirementIds = (
 ): RequirementId[] => {
   const normalize = (name: string) => name.replaceAll("・", "");
   const year = Number(admissionYear);
-  const suffix =
-    year === 2021
-      ? "21"
-      : year >= 2022 && year <= 2024
-        ? "22"
-        : year === 2025
-          ? "25"
-          : null;
-  if (suffix === null) return [];
-  return (Object.keys(gradRequirementData) as RequirementId[]).filter(
-    (id) =>
-      normalize(gradRequirementData[id].header.department) ===
-        normalize(department) && id.endsWith(`-${suffix}`)
+  if (!Number.isFinite(year)) return [];
+
+  const supported = supportedDepartments.find(
+    (candidate) => normalize(candidate.label) === normalize(department)
+  );
+  return (
+    supported?.majors.flatMap((major) =>
+      major.requirements
+        .filter((requirement) => requirement.admissionYears.includes(year))
+        .map((requirement) => requirement.requirementId)
+    ) ?? []
   );
 };
 
@@ -108,16 +107,42 @@ export const checkGraduation = (
 
   // 3. グループ集計（確定 / 見込みの2系統。グループ上限でキャップ）
   const groupUnits = groups.map(([groupNo, minimum, maximum, label]) => {
-    const groupCourses = selectResults
-      .filter((result) => result.group === groupNo)
-      .flatMap((result) => result.courses);
+    const groupResults = selectResults.filter(
+      (result) => result.group === groupNo
+    );
+    const countGroupUnits = (includeTaking: boolean) => {
+      const resultUnits = groupResults.map((result) => ({
+        minimum: result.minimum,
+        units: Math.min(
+          sumUnits(result.courses, includeTaking),
+          result.maximum
+        ),
+      }));
+      const total = resultUnits.reduce(
+        (sum, result) => sum + result.units,
+        0
+      );
+      if (!requirement.courses.enforceSelectMinimums) {
+        return Math.min(total, maximum);
+      }
+
+      const minimumShortage = resultUnits.reduce(
+        (sum, result) => sum + Math.max(result.minimum - result.units, 0),
+        0
+      );
+      const progressMaximum =
+        minimumShortage > 0
+          ? Math.max(minimum - minimumShortage, 0)
+          : maximum;
+      return Math.min(total, progressMaximum);
+    };
     return {
       groupNo,
       minimum,
       maximum,
       label,
-      earned: Math.min(sumUnits(groupCourses, false), maximum),
-      prospective: Math.min(sumUnits(groupCourses, true), maximum),
+      earned: countGroupUnits(false),
+      prospective: countGroupUnits(true),
     };
   });
 

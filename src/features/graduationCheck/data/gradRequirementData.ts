@@ -19,6 +19,16 @@
  */
 
 import type { GradRequirementTable } from "../types";
+import { appliedScienceRequirements } from "./requirements/appliedScience";
+import { chemistryRequirements } from "./requirements/chemistry";
+import { coinsRequirements } from "./requirements/coins";
+import { esysRequirements } from "./requirements/esys";
+import { humanHealthArtsRequirements } from "./requirements/humanHealthArts";
+import { humanitiesSocialRequirements } from "./requirements/humanitiesSocial";
+import { lifeEnvironmentalRequirements } from "./requirements/lifeEnvironmental";
+import { mathRequirements } from "./requirements/math";
+import { physicsRequirements } from "./requirements/physics";
+import { policyPlanningRequirements } from "./requirements/policyPlanning";
 
 export const gradRequirementData: GradRequirementTable = {
   "mast-21": {
@@ -1413,5 +1423,15 @@ export const gradRequirementData: GradRequirementTable = {
         ]
       ]
     }
-  }
+  },
+  ...coinsRequirements,
+  ...esysRequirements,
+  ...mathRequirements,
+  ...physicsRequirements,
+  ...chemistryRequirements,
+  ...appliedScienceRequirements,
+  ...lifeEnvironmentalRequirements,
+  ...policyPlanningRequirements,
+  ...humanitiesSocialRequirements,
+  ...humanHealthArtsRequirements,
 };

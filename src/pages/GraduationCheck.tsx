@@ -52,6 +52,7 @@ function GraduationCheck() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const processingRef = useRef(false);
 
   const [departmentKey, setDepartmentKey] = useState("");
   const [majorKey, setMajorKey] = useState("");
@@ -140,52 +141,61 @@ function GraduationCheck() {
   // 行単位のパースエラーがあっても中断せず、読めた科目だけで判定して結果を出す。
   // エラーは結果ページへ渡し、警告として表示させる（1件も読めなかった場合のみ中断）。
   const handleStart = async (agreedStats: boolean) => {
-    if (!file || requirementId === null) return;
+    if (!file || requirementId === null || processingRef.current) return;
+    processingRef.current = true;
     setIsProcessing(true);
-    const { courses, errors } = parseGradesCsv(await file.text());
-    setIsConsentOpen(false);
-    if (courses.length === 0) {
-      setIsProcessing(false);
-      setCsvError(
-        "CSVから成績データを読み取れませんでした。TWINSからダウンロードした成績CSVかご確認ください。"
-      );
-      return;
-    }
-    const report = checkGraduation(courses, requirementId);
-    const departmentLabel = department?.label ?? "";
-    const majorLabel = major?.label ?? departmentLabel;
-    const timetableHistories = await buildTimetableHistoriesFromGraduationReport({
-      report,
-      department: departmentLabel,
-      major: majorLabel,
-      admissionYear: Number(admissionYear),
-      sharePublic: agreedStats,
-      ownerId: user?.id,
-    });
-
-    let timetableSaveStatus: "saved" | "guest" | "failed" = user ? "saved" : "guest";
-    if (user) {
-      try {
-        await saveTimetableHistories(timetableHistories, user.id);
-      } catch {
-        timetableSaveStatus = "failed";
+    try {
+      const { courses, errors } = parseGradesCsv(await file.text());
+      setIsConsentOpen(false);
+      if (courses.length === 0) {
+        setCsvError(
+          "CSVから成績データを読み取れませんでした。TWINSからダウンロードした成績CSVかご確認ください。"
+        );
+        return;
       }
-    }
-
-    navigate("/graduation-checker/result", {
-      state: {
-        fileName: file.name,
+      const report = checkGraduation(courses, requirementId);
+      const departmentLabel = department?.label ?? "";
+      const majorLabel = major?.label ?? departmentLabel;
+      const timetableHistories = await buildTimetableHistoriesFromGraduationReport({
+        report,
         department: departmentLabel,
         major: majorLabel,
-        admissionYear,
-        agreedStats,
-        csvErrors: errors,
-        report,
-        timetableHistories,
-        timetableSaveStatus,
-      },
-    });
-    setIsProcessing(false);
+        admissionYear: Number(admissionYear),
+        sharePublic: agreedStats,
+        ownerId: user?.id,
+      });
+
+      let timetableSaveStatus: "saved" | "guest" | "failed" = user
+        ? "saved"
+        : "guest";
+      if (user) {
+        try {
+          await saveTimetableHistories(timetableHistories, user.id);
+        } catch {
+          timetableSaveStatus = "failed";
+        }
+      }
+
+      navigate("/graduation-checker/result", {
+        state: {
+          fileName: file.name,
+          department: departmentLabel,
+          major: majorLabel,
+          admissionYear,
+          agreedStats,
+          csvErrors: errors,
+          report,
+          timetableHistories,
+          timetableSaveStatus,
+        },
+      });
+    } catch {
+      setIsConsentOpen(false);
+      setCsvError("成績データの解析に失敗しました。もう一度お試しください。");
+    } finally {
+      setIsProcessing(false);
+      processingRef.current = false;
+    }
   };
 
   return (
@@ -416,6 +426,7 @@ function GraduationCheck() {
       {isConsentOpen && (
         <GraduationCheckConsentModal
           fileName={file?.name ?? "成績データ.csv"}
+          isProcessing={isProcessing}
           onClose={() => setIsConsentOpen(false)}
           onChangeFile={() => {
             // ポップアップを閉じてファイルを選び直す

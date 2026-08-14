@@ -247,27 +247,41 @@ export const saveTimetableHistories = async (
   histories: TimetableHistory[],
   ownerId: string
 ) => {
-  const insertedIds: string[] = [];
+  const savedIds: string[] = [];
   for (const history of histories) {
     const { data, error } = await supabase
       .from("timetable_histories")
-      .insert({
-        owner_id: ownerId,
-        display_name: history.displayName,
-        department: history.department,
-        major: history.major,
-        admission_year: history.admissionYear,
-        academic_year: history.academicYear,
-        student_year_label: history.studentYearLabel,
-        track_label: history.trackLabel,
-        earned_units: history.earnedUnits,
-        share_public: history.sharePublic,
-      })
+      .upsert(
+        {
+          owner_id: ownerId,
+          display_name: history.displayName,
+          department: history.department,
+          major: history.major,
+          admission_year: history.admissionYear,
+          academic_year: history.academicYear,
+          student_year_label: history.studentYearLabel,
+          track_label: history.trackLabel,
+          earned_units: history.earnedUnits,
+          share_public: history.sharePublic,
+        },
+        {
+          onConflict:
+            "owner_id,department,major,admission_year,academic_year",
+        }
+      )
       .select("id")
       .single();
     if (error) throw error;
     const historyId = (data as { id: string }).id;
-    insertedIds.push(historyId);
+    savedIds.push(historyId);
+
+    // 同じ本人履歴を再チェックした場合は、古い科目行を残さず最新結果へ置換する。
+    const { error: deleteError } = await supabase
+      .from("timetable_history_courses")
+      .delete()
+      .eq("history_id", historyId);
+    if (deleteError) throw deleteError;
+
     const rows = history.courses.flatMap((course) => courseToRows(historyId, course));
     if (rows.length > 0) {
       const { error: courseError } = await supabase
@@ -276,7 +290,7 @@ export const saveTimetableHistories = async (
       if (courseError) throw courseError;
     }
   }
-  return insertedIds;
+  return savedIds;
 };
 
 const fromRows = (row: TimetableHistoryRow): TimetableHistory => {
