@@ -4,11 +4,27 @@ import { useNavigate, Link } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import SignupStepper from "../components/auth/SignupStepper";
 import { MailIcon, LockIcon } from "../components/auth/AuthIcons";
+import agreementSource from "../components/doc/agreement.html?raw";
+import privacyPolicySource from "../components/doc/priverice.html?raw";
+import { buildPrivacyPolicyDocument } from "../components/doc/privacyPolicyDocument";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 );
+
+type LegalDocumentType = "agreement" | "privacy";
+
+const legalDocuments = {
+  agreement: {
+    title: "利用規約",
+    source: agreementSource,
+  },
+  privacy: {
+    title: "プライバシーポリシー",
+    source: privacyPolicySource,
+  },
+} as const;
 
 function EyeIcon() {
   return (
@@ -49,6 +65,7 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [activeLegalDocument, setActiveLegalDocument] = useState<LegalDocumentType | null>(null);
 
   // Step 2
   const [name, setName] = useState("");
@@ -71,6 +88,17 @@ export default function Signup() {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  useEffect(() => {
+    if (!activeLegalDocument) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveLegalDocument(null);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeLegalDocument]);
 
   const handleStep1Next = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -218,16 +246,32 @@ export default function Signup() {
                 </div>
               </label>
 
-              <label className="terms-check">
+              <div className="terms-check">
                 <input
+                  id="signup-legal-agreement"
                   type="checkbox"
                   checked={agreedToTerms}
                   onChange={(e) => setAgreedToTerms(e.target.checked)}
                 />
                 <span>
-                  <a href="#">利用規約</a> および <a href="#">プライバシーポリシー</a> に同意します
+                  <button
+                    type="button"
+                    className="terms-link"
+                    onClick={() => setActiveLegalDocument("agreement")}
+                  >
+                    利用規約
+                  </button>{" "}
+                  および{" "}
+                  <button
+                    type="button"
+                    className="terms-link"
+                    onClick={() => setActiveLegalDocument("privacy")}
+                  >
+                    プライバシーポリシー
+                  </button>{" "}
+                  に同意します
                 </span>
-              </label>
+              </div>
 
               {authError && <p className="auth-error">{authError}</p>}
 
@@ -393,6 +437,50 @@ export default function Signup() {
           <ChevronLeftIcon /> トップページに戻る
         </Link>
       </main>
+
+      {activeLegalDocument && (() => {
+        const document = legalDocuments[activeLegalDocument];
+        return (
+        <div
+          className="privacy-policy-overlay"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setActiveLegalDocument(null);
+          }}
+        >
+          <section
+            className="privacy-policy-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="legal-document-title"
+          >
+            <div className="privacy-policy-header">
+              <h2 id="legal-document-title">{document.title}</h2>
+              <button
+                type="button"
+                className="privacy-policy-close"
+                onClick={() => setActiveLegalDocument(null)}
+                aria-label={`${document.title}を閉じる`}
+              >
+                ×
+              </button>
+            </div>
+            {document.source.trim() ? (
+              <iframe
+                className="privacy-policy-frame"
+                srcDoc={buildPrivacyPolicyDocument(document.source)}
+                title={`TsukuHub ${document.title}`}
+                sandbox=""
+              />
+            ) : (
+              <p className="privacy-policy-empty">
+                {document.title}は現在準備中です。
+              </p>
+            )}
+          </section>
+        </div>
+        );
+      })()}
     </div>
   );
 }
