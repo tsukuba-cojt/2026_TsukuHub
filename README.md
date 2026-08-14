@@ -1,5 +1,28 @@
 # TsukuHub
 
+## マルチ大学URL
+
+- `/`: サービス説明・大学選択
+- `/tsukuba`: 筑波大学版
+- `/osaka`: 大阪大学版
+- `/admin`: 全大学共通管理画面
+
+従来の `/career`、`/class`、`/login` など大学名のないURLは `/` に転送されます。DB移行とAuth Hookの設定は [`supabase/README.md`](supabase/README.md) を参照してください。
+
+## Supabase・就活機能のセットアップ
+
+Supabase SQL EditorまたはSupabase CLIで、[`supabase/README.md`](supabase/README.md) の順に全migrationを適用してください。求人の確認用データは `supabase/seed.sql` にあります。migrationは次を作成・設定します。
+
+- `internships`、`applications`テーブル
+- `profiles.role`（`student` / `global_admin`）と大学所属
+- 大学設定、機能フラグ、大学別・複数大学向けコンテンツ
+- 一般公開求人、本人の応募、管理者操作を分離するRLS
+- 学生に`admin_notes`の列権限を与えず、管理者だけが利用できる応募管理関数
+- 公開バケット`company-logos`と、管理者だけが変更できるStorageポリシー
+
+フロントエンドへ`service_role`キーを設定しないでください。`.env.local`には従来どおり
+`VITE_SUPABASE_URL`と`VITE_SUPABASE_PUBLISHABLE_KEY`だけを設定します。
+
 ## 1. プロダクト名
 
 TsukuHub
@@ -76,5 +99,3 @@ MVP作成を目標に、基本機能の実装を行う
 2. MVP検証
 
 より詳細な機能の開発を行いつつ、フィードバックから機能の改良を行う
-
-

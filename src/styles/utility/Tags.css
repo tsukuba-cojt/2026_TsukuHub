@@ -1,0 +1,23 @@
+/* =========================================
+   Tags.css — カテゴリタグの共通定義
+   形状は .tag、色は .tagXxx（tokens.css の
+   --color-label-* を参照）。新しい画面でタグを
+   使うときはこのファイルを import して
+   class="tag tagXxx" を付けるだけでよい。
+========================================= */
+
+/* タグの共通形状 */
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+  color: #ffffff;
+}
+
+.tagJob   { background: var(--color-label-job); }   /* 就活・キャリア */
+.tagClass { background: var(--color-label-class); } /* 授業・履修 */
+.tagClub  { background: var(--color-label-club); }  /* サークル・課外活動 */
+.tagLife  { background: var(--color-label-life); }  /* 生活・便利情報 */
+.tagEvent { background: var(--color-label-event); } /* イベント */

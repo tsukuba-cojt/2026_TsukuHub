@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="108"
+   height="128"
+   viewBox="0 0 108 128"
+   fill="none"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="Bell (1).svg"
+   inkscape:version="1.4.3 (0d15f750, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.9262879"
+     inkscape:cx="51.91332"
+     inkscape:cy="89.810044"
+     inkscape:window-width="1095"
+     inkscape:window-height="645"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M68.5734 114.861C68.1297 115.903 67.5848 116.844 66.882 117.68C65.2112 119.667 61.813 122 53.6163 122C45.4494 122 42.2621 119.646 40.7325 117.72C40.0322 116.838 39.505 115.847 39.0831 114.74L68.5734 114.861Z"
+     stroke="#081C42"
+     stroke-width="12"
+     id="path1" />
+  <path
+     d="m 61.085,20.1387 c 15.2045,3.4409 26.2275,17.203 26.2275,32.8506 v 12.5488 c 0,8.7035 1.0811,14.2695 3.5664,18.8144 1.2051,2.2039 2.6195,3.9407 3.9365,5.4561 1.394,1.6039 2.541,2.8166 3.917,4.5537 1.7016,2.1476 2.1456,3.5758 2.2486,5.1953 L 6.0127,99.5264 C 6.00372,97.852 6.38493,96.4369 8.03613,94.0928 13.8548,85.8326 19.9257,78.7102 19.9258,65.5381 V 52.9893 c 0,-15.6477 11.0215,-29.4096 26.2265,-32.8506 l 7.4659,-1.6905 z M 53.6182,6 c 2.1326,1.9e-4 3.875,1.74436 3.875,3.87305 0,0.53305 -0.1211,1.08515 -0.4287,1.68845 -2.904047,1.682211 -3.98582,1.196696 -6.8926,-0.0029 C 49.8658,10.9591 49.7451,10.4087 49.7451,9.87305 49.7451,7.74306 51.4881,6 53.6182,6 Z"
+     stroke="#081c42"
+     stroke-width="12"
+     id="path2"
+     sodipodi:nodetypes="csscccccccsccccsccsc" />
+</svg>

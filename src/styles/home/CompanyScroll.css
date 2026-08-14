@@ -1,0 +1,91 @@
+/* CompanyScroll — Figma node 1245:896 (135px tall marquee) */
+.companyScroll {
+  overflow: hidden;
+  width: 100%;
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 35px;
+  background: var(--color-bg-gradient);
+}
+
+.companyScrollTrack {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 40px;
+  animation: companyMarquee 18s linear infinite;
+}
+
+.companyScrollItem {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-family: var(--font-family-logo);
+  font-weight: 800;
+  font-size: 96px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* セパレーター：ロゴイラスト（白半透明の質感はSVG側の指定を尊重） */
+.companyScrollDivider {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: auto;
+  height: 96px; /* ロゴテキスト（font-size: 96px）に高さを揃える */
+}
+
+@keyframes companyMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Logo placeholder strip below text */
+.companyLogoStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 27px;
+  padding: 16px 56px;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .companyScroll {
+    height: 112px;
+    margin-top: 28px;
+  }
+
+  .companyScrollTrack {
+    gap: 32px;
+  }
+
+  .companyScrollItem {
+    font-size: clamp(60px, 9vw, 82px);
+    line-height: 1;
+  }
+
+  .companyScrollDivider {
+    height: clamp(60px, 9vw, 82px);
+  }
+}
+
+@media (max-width: 600px) {
+  .companyScroll {
+    height: 86px;
+    margin-top: 26px;
+  }
+
+  .companyScrollTrack {
+    gap: 24px;
+  }
+
+  .companyScrollItem {
+    font-size: clamp(42px, 14vw, 60px);
+    line-height: 1;
+  }
+
+  .companyScrollDivider {
+    height: clamp(42px, 14vw, 60px);
+  }
+}

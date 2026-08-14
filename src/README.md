@@ -1,0 +1,36 @@
+###リポジトリ構成
+
+src  
+ ├─app.tsx            #ここで`pages/`のページを呼び出しブラウザに反映させます
+ ├─assets/            #画像等.使用しているcomponent毎にフォルダが分かれています  
+ │  └─folders/        
+ ├─component/         #各ページで使用されている部品のtsxファイル.表示ページ毎にフォルダが分かれています
+ │  └─folders/        #ページを跨いで使用するものをutilityフォルダに入れています
+ ├─data/              #データベースとつなげる前にテストするための場所です
+ ├─pages/             #componentを使用しページを表示するtsxファイルを入れています  
+ └─styles/            #各ページで使用されている部品のcssファイル.表示ページ毎にフォルダが分かれています
+    └─folders/        #ページを跨いで使用するものをutilityフォルダに入れています
+
+
+### .env.localの設定
+`2026-Tsukuhub/`直下に`.env.local`を作成
+
+```
+VITE_SUPABASE_URL=NEED_TO_REPLACE
+VITE_SUPABASE_PUBLISHABLE_KEY=NEED_TO_REPLACE
+```
+
+これら二つのパラメータはsupabaseのdashboardから確認可能。
+
+
+### 起動方法
+`2026-Tsukuhub/` ディレクトリにおいてターミナルを開き、次を実行
+```
+npm install
+
+npm run dev
+```
+`http://localhost:5173` にアクセスすると、ローカルで作成したWebアプリを開ける。
+
+
+ターミナルで`q + Enter`を入力して終了。

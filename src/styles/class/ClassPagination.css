@@ -1,0 +1,29 @@
+.classPagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 0 34px;
+}
+
+.classPagination button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #cbd8eb;
+  border-radius: 2px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.classPagination button.isActive {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.classPagination span {
+  color: #93a3bd;
+  font-size: 12px;
+}

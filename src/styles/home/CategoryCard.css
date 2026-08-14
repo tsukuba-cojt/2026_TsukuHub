@@ -1,0 +1,194 @@
+/* Category cards — Figma node 1289:800  */
+
+.categorySection {
+  padding: 0 24px;
+  background: var(--color-bg-gradient);
+}
+
+/* カードを囲むコンテナの調整 */
+.categorySectionInner {
+  max-width: 1250px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Each card: 180x240, radius 19px */
+/* カード単体のサイズ調整 */
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+  height: 240px;
+  padding: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-card-cat);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  /* flex-shrink: 0; は削除するか、wrapを設定したためそのままでもOKです */
+}
+
+.categoryCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 6px 24px rgba(148, 172, 209, 0.4);
+}
+
+/* ── 未実装ページのカード（.isComingSoon） ─────────────
+   対象パスは src/data/comingSoon.ts、ポップアップの見た目は ComingSoon.css。
+   押せないことが伝わるよう、ホバー時の浮き上がり演出は出さない。 */
+
+/* ホバーしても浮き上がらせない */
+.categoryCard.isComingSoon:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+/* .categoryCard は overflow: hidden のため、ポップアップはカード内側の中央に出す。
+   幅が 180px しかないので折り返しを許可する。
+   left/right を両方指定して幅を確定させる（left: 50% だけだと
+   絶対配置の shrink-to-fit 幅がカード半分に制限され、極端に折り返してしまう）。 */
+.categoryCard.isComingSoon .comingSoonTip {
+  top: 50%;
+  left: 12px;
+  right: 12px;
+  transform: translateY(-50%);
+  padding: 8px 10px;
+  white-space: normal;
+  text-align: center;
+}
+
+.categoryCard.isComingSoon:hover .comingSoonTip,
+.categoryCard.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Icon area: upper section ~35px from top */
+.categoryIcon {
+  width: 64px;
+  height: 60px;
+  object-fit: contain;
+  margin-top: 30px;
+  flex-shrink: 0;
+}
+
+/* Category title: y=131 from card top */
+.categoryCard h3 {
+  margin: 0;
+  margin-top: auto;
+  padding-top: 30px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  /* gradient text applied via inline style class per card */
+}
+
+/* Description: y=162 */
+.categoryCard p {
+  margin: 0;
+  padding: 0 14px;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 17px;
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* Separator line at bottom */
+.categoryCard::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 0;
+  margin: auto auto 27px;
+  border-bottom: 1.7px solid var(--color-text-primary);
+  opacity: 0.15;
+}
+
+/* Gradient text per category */
+.catTextJob    { background: var(--color-category-job);    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextClass  { background: var(--color-category-class);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextClub   { background: var(--color-category-club);   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextLife   { background: var(--color-category-life);   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextEvent  { background: var(--color-category-event);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.catTextGlobal { background: var(--color-category-global); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+@media (max-width: 1250px) {
+  .categorySection {
+    padding: 0 24px;
+  }
+
+  .categorySectionInner {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1100px) {
+  .categorySectionInner {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .categoryCard {
+    width: calc((100% - 50px) / 6);
+    height: 220px;
+  }
+
+  .categoryIcon {
+    width: 54px;
+    height: 50px;
+    margin-top: 26px;
+  }
+
+  .categoryCard h3 {
+    font-size: 13px;
+    padding-top: 20px;
+    white-space: nowrap;
+  }
+
+  .categoryCard p {
+    padding-inline: 10px;
+    font-size: 10px;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 640px) {
+  .categorySection {
+    padding: 0 16px;
+  }
+
+  .categorySectionInner {
+    gap: 12px;
+  }
+
+  .categoryCard {
+    width: calc(50% - 6px);
+    height: 200px;
+  }
+
+  .categoryIcon {
+    width: 52px;
+    height: 48px;
+    margin-top: 24px;
+  }
+
+  .categoryCard h3 {
+    font-size: 13px;
+    padding-top: 16px;
+  }
+
+  .categoryCard p {
+    font-size: 10px;
+  }
+}

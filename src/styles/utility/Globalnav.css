@@ -1,0 +1,528 @@
+/* ① ヘッダーの外枠（背景） */
+.globalHeader {
+  width: 100%;             /* 常に画面の横幅いっぱいに広げる */
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 16.2px 1px rgba(148, 172, 209, 0.25);
+  box-sizing: border-box;
+  position: fixed;
+  top: 96px;                  /* ヘッダーの高さ分だけ下にずらす */
+  left: 0;
+  right: 0;
+  z-index: 500;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.globalHeaderSpacer {
+  height: 51px;
+  flex-shrink: 0;
+}
+
+/* ホームの一番上にいる間だけ背景を透明にする */
+.globalHeader.isTransparent {
+  background: transparent;
+  box-shadow: none;
+}
+
+
+
+/* ② 中のナビゲーション（ボタンの並び） */
+.headerNav {
+  width: 100%;             /* ★ max-width を入れず、常に100%にする */
+  padding: 0 24px;         /* 左右に少しだけクッション用の余白を作る */
+  
+  display: flex;
+  justify-content: space-between; /* ボタンを端から端まで均等に綺麗に並べる */
+  align-items: center;
+}
+
+/* 各ボタン（リンク）のスタイル */
+.navLinkItem {
+  flex: 1;                 /* すべてのボタンの横幅を均等にする */
+  min-width: 0;
+  
+  display: flex;
+  /* ★ 縦並び(column)から、横並び(row)に変更します */
+  flex-direction: row;     
+  
+  /* ★ 上下左右の真ん中に要素を集める */
+  justify-content: center; 
+  align-items: center;     
+  
+  gap: 8px;                /* ★ アイコンと文字の間の隙間（お好みで調整） */
+  padding: 16px 4px;       /* 上下の押しやすさの余白 */
+  
+  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+/* アイコンのサイズ微調整 */
+.navIcon {
+  width: 18px;             /* アイコンの大きさを文字に合わせる */
+  height: 18px;
+  stroke: var(--color-text-primary);
+
+  /* ★ アイコンが文字より少し上に浮き気味に見える場合、
+     1〜2px下に下げる微調整（フォントの種類によって調整してください） */
+  margin-top: 1px;
+}
+
+.navLinkItem.active .navIcon,
+.navLinkItem:hover .navIcon {
+  /* SVG の stroke に CSS gradient は使えないため、
+     --color-main-gradient と同じ色停止の <linearGradient> を参照する */
+  stroke: url(#navIconGradient);
+}
+
+/* アクティブ時・ホバー時はラベルをグラデーション文字にする */
+.navLinkItem.active .navLabel,
+.navLinkItem:hover .navLabel {
+  background: var(--color-main-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ★ 現在地（Active）およびホバー時に下に出る青い線の設定 */
+.navLinkItem::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* 一番下に配置 */
+  left: 0;
+  width: 100%;
+  height: 3px; /* 線の太さ */
+  background: var(--color-main-gradient); /* 下線もメイングラデーション */
+  transform: scaleX(0); /* 通常時は線を非表示(幅0)に */
+  transition: transform 0.2s ease;
+}
+
+/* ★ React Routerが自動付与する .active クラスがついた時、またはホバー時に線を表示 */
+.navLinkItem.active::after,
+.navLinkItem:hover::after {
+  transform: scaleX(1); /* 線をニュッと表示させる */
+}
+
+/* ── 未実装ページの項目（.isComingSoon） ─────────────
+   対象パスは src/data/comingSoon.ts、ポップアップの見た目は ComingSoon.css。
+   押せないことが伝わるよう、ホバー時のグラデーション文字・下線は出さない。 */
+
+/* ポップアップは項目の下・中央に出す（.navLinkItem は position: relative 済み） */
+.navLinkItem.isComingSoon .comingSoonTip {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navLinkItem.isComingSoon:hover .comingSoonTip,
+.navLinkItem.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ホバーしてもラベルはグラデーションにしない */
+.navLinkItem.isComingSoon:hover .navLabel {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--color-text-primary);
+}
+
+/* ホバーしてもアイコンはグラデーションにしない */
+.navLinkItem.isComingSoon:hover .navIcon {
+  stroke: var(--color-text-primary);
+}
+
+/* ホバーしても下線は出さない */
+.navLinkItem.isComingSoon:hover::after {
+  transform: scaleX(0);
+}
+
+/* ── 「授業・履修」のドロップダウン ─────────────
+   注：Figma の node-id 未提供＋MCP レート制限中のため、
+   数値は添付デザイン画像からの目測。 */
+
+.navDropdownWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+.navDropdownWrap .navLinkItem {
+  flex: 1;
+}
+
+/* 2番目の「就活・キャリア」は中央基準だとメニュー左端が画面外へ出るため、
+   メニュー幅は維持したまま、ナビ項目1つ分だけ右へ配置を補正する */
+.navDropdownWrap.isCareerDropdown .navDropdown {
+  left: -100%;
+  transform: none;
+}
+
+.navDropdownWrap.isCareerDropdown .navDropdownTail {
+  left: 42%;
+}
+
+/* フル画面版：3カラムのメガメニュー */
+.navDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  gap: 24px;
+  width: min(720px, calc(100vw - 48px));
+  padding: 28px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(148, 172, 209, 0.35);
+}
+
+/* タブとの隙間でホバーが途切れないようにする透明ブリッジ */
+.navDropdown::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+/* タブ側を指す吹き出しのしっぽ */
+.navDropdownTail {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #fff;
+  border-radius: 3px;
+}
+
+/* 左の見出しブロック */
+.navDropdownIntro {
+  width: 170px;
+  flex-shrink: 0;
+}
+
+.navDropdownTitle {
+  margin: 0 0 8px;
+  color: var(--color-text-primary);
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.navDropdownDesc {
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.navDropdownLogo {
+  display: flex;
+  width: 120px;
+  height: 96px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--color-text-primary);
+}
+
+.navDropdownLogo img {
+  width: 28px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.navDropdownLogo span {
+  font-family: var(--font-family-logo);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0 4px rgba(27, 73, 104, 0.1);
+  -webkit-text-stroke: 0.25px var(--color-text-primary);
+}
+
+/* 右の3カラム */
+.navDropdownColumns {
+  flex: 1;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #e8eef7;
+  border-radius: 10px;
+}
+
+.navDropdownColumns li {
+  flex: 1;
+  display: flex;
+}
+
+/* カラム間の縦区切り線 */
+.navDropdownColumns li + li {
+  border-left: 1px solid #e8eef7;
+}
+
+.navDropdownCard {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 16px 18px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.navDropdownCard:hover {
+  background: #f6f9fe;
+}
+
+.navDropdownCard.isComingSoon {
+  color: #7c8798;
+  opacity: .68;
+}
+
+.navDropdownCard.isComingSoon:hover {
+  background: transparent;
+}
+
+.navDropdownCard.isComingSoon .comingSoonTip {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navDropdownCard.isComingSoon:hover .comingSoonTip,
+.navDropdownCard.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navDropdownCard.isComingSoon:hover .navDropdownCardLink {
+  text-decoration: none;
+}
+
+.navDropdownIconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.navDropdownIconCircle svg {
+  width: 28px;
+  height: 28px;
+}
+
+.navDropdownIconCircle.isBlue {
+  background: #dfe9fd;
+  color: #3b76f0;
+}
+
+.navDropdownIconCircle.isGreen {
+  background: #d9f4ea; /* #3FC89B（--color-label-club）の薄いティント */
+  color: var(--color-label-club);
+}
+
+.navDropdownIconCircle.isYellow {
+  background: #ffefcc; /* #FEB304（--color-label-life）の薄いティント */
+  color: var(--color-label-life);
+}
+
+.navDropdownIconCircle.isPurple {
+  background: #eee9ff;
+  color: #7557e8;
+}
+
+.navDropdownCardLabel {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.navDropdownCardLabel.isBlue {
+  color: var(--color-primary);
+}
+
+.navDropdownCardLabel.isGreen {
+  color: var(--color-label-club);
+}
+
+.navDropdownCardLabel.isYellow {
+  color: var(--color-label-life);
+}
+
+.navDropdownCardLabel.isPurple {
+  color: #7557e8;
+}
+
+.navDropdownCardDivider {
+  width: 100%;
+  height: 1px;
+  margin-top: auto;
+  background: #e8eef7;
+}
+
+.navDropdownCardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.navDropdownCard:hover .navDropdownCardLink {
+  text-decoration: underline;
+}
+
+.navDropdownCardLink svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 行末シェブロンはモバイル版のみ表示 */
+.navDropdownRowChevron {
+  display: none;
+}
+
+/* 画面幅が 1024px 以下になったら適用するルール */
+@media (max-width: 1024px) {
+  /* モバイル版：見出しブロックなしのコンパクト縦リスト */
+  .navDropdown {
+    width: 280px;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px;
+  }
+
+  .navDropdownWrap.isCareerDropdown .navDropdown {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navDropdownWrap.isCareerDropdown .navDropdownTail {
+    left: 50%;
+  }
+
+  .navDropdownIntro {
+    display: none;
+  }
+
+  .navDropdownColumns {
+    flex-direction: column;
+    border: none;
+    border-radius: 0;
+  }
+
+  .navDropdownColumns li + li {
+    border-left: none;
+  }
+
+  .navDropdownCard {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+
+  .navDropdownIconCircle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navDropdownIconCircle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .navDropdownCardLabel.isBlue,
+  .navDropdownCardLabel.isGreen,
+  .navDropdownCardLabel.isYellow,
+  .navDropdownCardLabel.isPurple {
+    color: var(--color-text-primary);
+    font-size: 13px;
+  }
+
+  .navDropdownCardDivider,
+  .navDropdownCardLink {
+    display: none;
+  }
+
+  .navDropdownRowChevron {
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+  }
+}
+
+/* 画面幅が 1024px 以下になったら適用するルール */
+@media (max-width: 1024px) {
+  .navLinkItem {
+    font-size: 9px; /* 文字を少し小さくして1行に収める */
+    gap: 2px;
+  }
+  .navIconImg {
+    width: 16px;     /* アイコンも一回り小さく */
+    height: 16px;
+  }
+}
+
+/* スマホサイズ（640px以下）になったら、はみ出た分を横スクロールさせる場合 */
+@media (max-width: 640px) {
+  .globalHeader {
+    top: 64px;
+  }
+
+  .globalHeaderSpacer {
+    display: none;
+    height: 0;
+  }
+
+  .headerNav {
+    box-sizing: border-box;
+    justify-content: flex-start; /* 左詰めに変更 */
+    overflow-x: auto;            /* ★ 横スクロールを許可 */
+    white-space: nowrap;         /* ボタン内の文字の改行を防ぐ */
+    padding: 0 8px;
+    scrollbar-width: none;
+  }
+
+  .headerNav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .headerNav > .navLinkItem,
+  .navDropdownWrap {
+    flex: 0 0 auto;
+    min-width: 92px;
+  }
+
+  .navLinkItem {
+    flex: 0 0 auto;
+    min-width: 92px;
+    min-height: 44px;
+    padding: 11px 6px;
+  }
+
+  .navDropdownWrap .navLinkItem {
+    flex: 1 0 auto;
+  }
+}
