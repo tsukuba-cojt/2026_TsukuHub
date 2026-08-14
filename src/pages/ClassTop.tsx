@@ -6,7 +6,6 @@ import ClassTopBookmarks, {
   type BookmarkedCourse,
 } from "../components/class/ClassTopBookmarks";
 import ClassTopNews from "../components/class/ClassTopNews";
-import ClassTopLinks from "../components/class/ClassTopLinks";
 import "../styles/class/Class.css";
 import "../styles/class/ClassTop.css";
 
@@ -77,8 +76,6 @@ function ClassTop() {
           <ClassTopBookmarks bookmarks={dummyBookmarks} />
           <ClassTopNews />
         </div>
-
-        <ClassTopLinks />
       </main>
       <Footer />
     </div>
