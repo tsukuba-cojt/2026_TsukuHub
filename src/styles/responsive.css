@@ -757,8 +757,7 @@
   }
 
   .classBadges,
-  .classDetailBadges,
-  .classTopBookmarkMeta {
+  .classDetailBadges {
     flex-wrap: wrap;
   }
 
@@ -766,16 +765,6 @@
     display: flex;
     justify-content: space-between;
     min-width: 0;
-  }
-
-  .classTopBookmarkRow {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .classTopBookmarkSide {
-    width: 100%;
-    justify-content: space-between;
   }
 
   .classDetailTabs {

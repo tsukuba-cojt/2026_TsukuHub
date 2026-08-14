@@ -38,6 +38,9 @@ function LatestNewsSection({ newsItems }: { newsItems: NewsItemRecord[] }) {
       </div>
 
       <div className="latestList">
+        {filtered.length === 0 && (
+          <p className="latestEmpty">まだ掲載されている新着情報はありません。</p>
+        )}
         {filtered.map((news) => {
           const presentation = newsPresentation(news.category);
           const NewsIcon = presentation.icon;

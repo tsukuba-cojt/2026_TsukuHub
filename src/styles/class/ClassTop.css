@@ -160,10 +160,10 @@
   height: 16px;
 }
 
-/* ── 2カラム（ブックマーク一覧／お知らせ） ── */
+/* ── お知らせ ── */
 .classTopColumns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   align-items: start;
   margin-bottom: 48px;
@@ -207,125 +207,6 @@
 .classTopMoreLink svg {
   width: 14px;
   height: 14px;
-}
-
-/* ブックマーク一覧 */
-.classTopBookmarkList {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.classTopBookmarkRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 1px solid #e8eef7;
-  border-radius: 10px;
-  background: #fff;
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-
-.classTopBookmarkRow:hover {
-  background: #f6f9fe;
-}
-
-.classTopBookmarkMain {
-  min-width: 0;
-}
-
-.classTopBookmarkTitleRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 6px;
-}
-
-.classTopCategoryBadge {
-  flex-shrink: 0;
-  padding: 2px 8px;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-/* 区分バッジの色分け（モック。区分マスタ確定後に整理する） */
-.classTopCategoryBadge.isBlue { background: var(--color-primary); }
-.classTopCategoryBadge.isPurple { background: var(--color-label-job); }
-.classTopCategoryBadge.isGreen { background: var(--color-label-club); }
-.classTopCategoryBadge.isTeal { background: #19bfca; }
-.classTopCategoryBadge.isYellow { background: var(--color-label-life); }
-
-.classTopBookmarkTitle {
-  color: var(--color-text-primary);
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.classTopBookmarkMeta {
-  display: flex;
-  gap: 14px;
-  margin: 0;
-  color: var(--color-text-secondary);
-  font-size: 12px;
-}
-
-.classTopBookmarkSide {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.classTopBookmarkRating {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--color-text-primary);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.classTopStar {
-  color: #ffb800; /* RatingStars と同じ星色 */
-}
-
-.classTopBookmarkRating small {
-  color: var(--color-text-muted);
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.classTopBookmarkIcon {
-  width: 16px;
-  height: 16px;
-  color: #9ab1d8;
-}
-
-.classTopRowChevron {
-  width: 16px;
-  height: 16px;
-  color: var(--color-text-muted);
-  flex-shrink: 0;
-}
-
-/* ブックマーク0件のとき */
-.classTopEmpty {
-  margin: 24px 0;
-  color: var(--color-text-muted);
-  font-size: 13px;
-  line-height: 1.8;
-  text-align: center;
 }
 
 /* お知らせ */

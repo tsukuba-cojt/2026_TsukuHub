@@ -53,6 +53,14 @@
   overflow-y: auto; /* 万が一中身が溢れた場合は枠内でスクロールさせる安全策 */
 }
 
+.topicEmpty {
+  margin: auto;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
 /* 個別の記事アイテム */
 .topicItem {
   display: flex;
