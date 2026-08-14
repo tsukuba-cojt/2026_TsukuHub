@@ -145,7 +145,9 @@ function Globalnav() {
               >
                 <NavLink
                   to={path(item.path)}
-                  className="navLinkItem"
+                  className={({ isActive }) =>
+                    `navLinkItem${isActive && item.path !== "/career" ? " active" : ""}`
+                  }
                   aria-haspopup="menu"
                   aria-expanded={openMenu === item.path}
                   onClick={() => setOpenMenu(null)}

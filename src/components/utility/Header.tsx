@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Bell,
   BookOpen,
   BriefcaseBusiness,
   Globe,
   House,
   Menu,
+  ShieldCheck,
   UsersRound,
   Utensils,
   X,
@@ -189,18 +189,16 @@ export default function Header() {
 
           {user ? (
             <div className="user-area">
-              {/* 通知ボタン */}
-              <button
-                type="button"
-                className="notification-button"
-                aria-label="通知"
-                onClick={() => {
-                  /* 通知の動作は今後実装 */
-                }}
-              >
-                <Bell className="notification-icon" aria-hidden="true" />
-                <span className="notification-dot" />
-              </button>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="admin-page-button"
+                  aria-label="管理者画面へ移動"
+                >
+                  <ShieldCheck className="admin-page-icon" aria-hidden="true" />
+                  <span className="admin-page-label">管理者画面</span>
+                </Link>
+              )}
 
               {/* マイページ プルダウン */}
               <div className="mypage-menu" ref={menuRef}>
@@ -254,16 +252,6 @@ export default function Header() {
                     >
                       応募状況
                     </Link>
-                    {isAdmin && (
-                      <Link
-                        to="/admin"
-                        className="dropdown-item"
-                        role="menuitem"
-                        onClick={() => setMenuOpen(false)}
-                      >
-                        管理者画面
-                      </Link>
-                    )}
                     <button
                       type="button"
                       className="dropdown-item dropdown-logout"
