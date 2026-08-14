@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Bookmark, ChevronRight } from "lucide-react";
 import "../../styles/class/ClassTop.css";
+import { useUniversity } from "../university/universityContextValue";
 
 // ブックマークした講義の表示用データ。
 // ブックマーク機構は未実装のため、当面は親から渡すダミー配列で表示する。
@@ -21,12 +22,13 @@ type ClassTopBookmarksProps = {
 };
 
 function ClassTopBookmarks({ bookmarks }: ClassTopBookmarksProps) {
+  const { path } = useUniversity();
   return (
     <section className="classTopPanel">
       <div className="classTopPanelHeading">
         <h2>ブックマーク一覧</h2>
         {/* もっと見る先は未実装のため仮リンク（404） */}
-        <Link to="/bookmarks" className="classTopMoreLink">
+        <Link to={path("/bookmarks")} className="classTopMoreLink">
           もっと見る
           <ChevronRight aria-hidden="true" />
         </Link>
@@ -42,7 +44,7 @@ function ClassTopBookmarks({ bookmarks }: ClassTopBookmarksProps) {
         <ul className="classTopBookmarkList">
           {bookmarks.map((course) => (
             <li key={course.code}>
-              <Link to={`/class/${course.code}`} className="classTopBookmarkRow">
+              <Link to={path(`/class/${course.code}`)} className="classTopBookmarkRow">
                 <div className="classTopBookmarkMain">
                   <p className="classTopBookmarkTitleRow">
                     <span className={`classTopCategoryBadge ${course.categoryClass}`}>

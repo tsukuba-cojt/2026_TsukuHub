@@ -6,11 +6,13 @@ import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
 import { listPublishedInternships } from "../services/careerService";
 import type { Internship } from "../types/career";
+import { useUniversity } from "../components/university/universityContextValue";
 import "../styles/career/CareerPlatform.css";
 
 const allFilter = "すべて";
 
 export default function CareerInternships() {
+  const { university } = useUniversity();
   const [items, setItems] = useState<Internship[]>([]);
   const [filter, setFilter] = useState(allFilter);
   const [loading, setLoading] = useState(true);
@@ -20,7 +22,8 @@ export default function CareerInternships() {
   const load = () => {
     setLoading(true);
     setError("");
-    void listPublishedInternships()
+    if (!university) return;
+    void listPublishedInternships(university.id)
       .then(setItems)
       .catch(() =>
         setError(
@@ -31,7 +34,8 @@ export default function CareerInternships() {
   };
 
   useEffect(() => {
-    void listPublishedInternships()
+    if (!university) return;
+    void listPublishedInternships(university.id)
       .then(setItems)
       .catch(() =>
         setError(
@@ -39,7 +43,7 @@ export default function CareerInternships() {
         ),
       )
       .finally(() => setLoading(false));
-  }, []);
+  }, [university]);
 
   const visible = useMemo(
     () =>
@@ -61,7 +65,7 @@ export default function CareerInternships() {
           eyebrow="LONG-TERM INTERNSHIPS"
           title="長期インターン情報"
         >
-          筑波大生におすすめの求人を掲載しています。現在 <strong>{items.length}件</strong>{" "}
+          {university?.short_name}生におすすめの求人を掲載しています。現在 <strong>{items.length}件</strong>{" "}
           募集中です。
         </CareerPageHeader>
         <InternshipFilters activeFilter={filter} onChange={setFilter} />

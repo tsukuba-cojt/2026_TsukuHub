@@ -6,22 +6,25 @@ import { AuthContext } from "./authContextValue";
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [role, setRole] = useState<"student" | "admin">("student");
+  const [role, setRole] = useState<"student" | "global_admin">("student");
+  const [universityId, setUniversityId] = useState<string | null>(null);
 
   useEffect(() => {
     const syncUser = async (nextUser: User | null) => {
       setUser(nextUser);
       if (!nextUser) {
         setRole("student");
+        setUniversityId(null);
         setLoading(false);
         return;
       }
       const { data } = await supabase
         .from("profiles")
-        .select("role")
+        .select("role, university_id")
         .eq("id", nextUser.id)
         .maybeSingle();
-      setRole(data?.role === "admin" ? "admin" : "student");
+      setRole(data?.role === "global_admin" ? "global_admin" : "student");
+      setUniversityId(data?.university_id ?? null);
       setLoading(false);
     };
 
@@ -33,7 +36,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, role, isAdmin: role === "admin" }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        role,
+        isAdmin: role === "global_admin",
+        universityId,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

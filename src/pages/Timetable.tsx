@@ -29,6 +29,7 @@ import {
   timetableModuleOrder,
 } from "../types/timetable";
 import "../styles/class/Timetable.css";
+import { useUniversity } from "../components/university/universityContextValue";
 
 const initialFilters: TimetableFilters = {
   department: "",
@@ -114,6 +115,7 @@ function TimetableEmptyState({ onRelax }: { onRelax: () => void }) {
 }
 
 function Timetable() {
+  const { university, path } = useUniversity();
   const [histories, setHistories] = useState<TimetableHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -123,7 +125,8 @@ function Timetable() {
 
   useEffect(() => {
     let cancelled = false;
-    fetchPublicTimetableHistories()
+    if (!university) return;
+    fetchPublicTimetableHistories(university.id)
       .then((items) => {
         if (!cancelled) {
           setError(null);
@@ -142,7 +145,7 @@ function Timetable() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [university]);
 
   const filtered = useMemo(
     () => filterTimetableHistories(histories, filters),
@@ -179,8 +182,8 @@ function Timetable() {
       <Globalnav />
       <main className="timetablePageLayout">
         <p className="timetableBreadcrumb">
-          <Link to="/">ホーム</Link> &gt;{" "}
-          <Link to="/class/top">授業・履修</Link> &gt;{" "}
+          <Link to={path()}>ホーム</Link> &gt;{" "}
+          <Link to={path("/class/top")}>授業・履修</Link> &gt;{" "}
           {selected ? "時間割詳細" : "みんなの時間割"}
         </p>
 
@@ -193,7 +196,7 @@ function Timetable() {
             </h1>
             <p>みんなの時間割を参考に、あなたの履修計画を立てよう</p>
           </div>
-          <Link to="/graduation-checker" className="timetableShareBtn">
+          <Link to={path("/graduation-checker")} className="timetableShareBtn">
             <FileUp aria-hidden="true" />
             自分の時間割を共有する
           </Link>

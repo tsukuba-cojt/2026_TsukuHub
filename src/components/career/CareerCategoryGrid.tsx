@@ -5,6 +5,9 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useUniversity } from "../university/universityContextValue";
+import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
+import "../../styles/utility/ComingSoon.css";
 
 const categories = [
   {
@@ -31,25 +34,32 @@ const categories = [
 ];
 
 export default function CareerCategoryGrid() {
+  const { university, path, isFeatureEnabled } = useUniversity();
   return (
     <section className="careerCategories" aria-label="キャリア・インターンのメニュー">
       <div className="careerCategoryGrid">
-        {categories.map(({ icon: Icon, ...item }) => (
+        {categories.map(({ icon: Icon, ...item }) => {
+          const comingSoon = isUniversityComingSoon(item.to, isFeatureEnabled);
+          return (
           <article
-            className={`careerCategoryCard ${item.className}`}
+            className={`careerCategoryCard ${item.className}${comingSoon ? " isComingSoon" : ""}`}
             key={item.to}
           >
             <span className="careerCategoryIcon">
               <Icon aria-hidden="true" />
             </span>
             <h3>{item.title}</h3>
-            <p className="careerCategoryDescription">{item.description}</p>
-            <Link className="careerCategoryButton" to={item.to}>
+            <p className="careerCategoryDescription">{item.description.replace("筑波大生", `${university?.short_name}生`).replace("筑波大学", university?.name ?? "大学")}</p>
+            {comingSoon ? <span className="careerCategoryButton isComingSoon" role="link" aria-disabled="true" tabIndex={0}>
+              準備中
+              <span className="comingSoonTip" role="tooltip">{COMING_SOON_NOTICE}</span>
+            </span> : <Link className="careerCategoryButton" to={path(item.to)}>
               詳しく見る
               <ArrowRight aria-hidden="true" />
-            </Link>
+            </Link>}
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

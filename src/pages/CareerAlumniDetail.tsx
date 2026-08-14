@@ -4,29 +4,26 @@ import { Link, useParams } from "react-router-dom";
 import AlumniStoryDetail from "../components/career/AlumniStoryDetail";
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
-import { fallbackAlumniStories } from "../data/careerFallbacks";
 import { getPublishedAlumniStory } from "../services/contentService";
+import { useUniversity } from "../components/university/universityContextValue";
 import type { AlumniStoryRecord } from "../types/content";
 import "../styles/career/CareerPlatform.css";
 
 export default function CareerAlumniDetail() {
   const { id } = useParams();
-  const [story, setStory] = useState<AlumniStoryRecord | null>(
-    () => fallbackAlumniStories.find((item) => item.id === id) ?? null,
-  );
-  const [loading, setLoading] = useState(!story);
+  const { university, path } = useUniversity();
+  const [story, setStory] = useState<AlumniStoryRecord | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-    void getPublishedAlumniStory(id)
+    if (!id || !university) return;
+    void getPublishedAlumniStory(id, university.id)
       .then((item) => {
         if (item) setStory(item);
       })
-      .catch(() => {
-        // Supabase取得失敗時はフォールバックを維持する
-      })
+      .catch(() => setStory(null))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, university]);
 
   if (loading) {
     return (
@@ -44,7 +41,7 @@ export default function CareerAlumniDetail() {
         <Globalnav />
         <main className="careerState">
           <h1>体験記が見つかりません</h1>
-          <Link to="/career/alumni">一覧へ戻る</Link>
+          <Link to={path("/career/alumni")}>一覧へ戻る</Link>
         </main>
         <Footer />
       </div>
@@ -55,7 +52,7 @@ export default function CareerAlumniDetail() {
     <div className="careerPlatform">
       <Globalnav />
       <main className="careerShell careerStoryDetail">
-        <Link className="careerBack" to="/career/alumni">
+        <Link className="careerBack" to={path("/career/alumni")}>
           <ArrowLeft aria-hidden="true" />体験記一覧へ
         </Link>
         <AlumniStoryDetail story={story} />

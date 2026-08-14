@@ -1,17 +1,14 @@
 import "../styles/Auth.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
 import SignupStepper from "../components/auth/SignupStepper";
 import { MailIcon, LockIcon } from "../components/auth/AuthIcons";
 import agreementSource from "../components/doc/agreement.html?raw";
 import privacyPolicySource from "../components/doc/priverice.html?raw";
 import { buildPrivacyPolicyDocument } from "../components/doc/privacyPolicyDocument";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
+import { useUniversity } from "../components/university/universityContextValue";
+import { universityAcademicOptions } from "../data/universityAcademicOptions";
+import { supabase } from "../lib/supabase";
 
 type LegalDocumentType = "agreement" | "privacy";
 
@@ -54,6 +51,7 @@ function ChevronLeftIcon() {
 }
 
 export default function Signup() {
+  const { university, loading: universityLoading, path } = useUniversity();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -75,19 +73,23 @@ export default function Signup() {
 
   const [authError, setAuthError] = useState<string | null>(null);
 
+  if (universityLoading) return <main className="careerState">読み込んでいます...</main>;
+  if (!university) return <main className="careerState">大学が見つかりません。</main>;
+  const academicOptions = universityAcademicOptions[university.slug] ?? [];
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) navigate("/");
+      if (session?.user) navigate(path());
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) navigate("/");
+      if (session?.user) navigate(path());
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, path]);
 
   useEffect(() => {
     if (!activeLegalDocument) return;
@@ -104,8 +106,10 @@ export default function Signup() {
     e.preventDefault();
     setAuthError(null);
 
-    if (!email.endsWith("@u.tsukuba.ac.jp")) {
-      setAuthError("筑波大学のメールアドレス（@u.tsukuba.ac.jp）を入力してください。");
+    const allowedDomains = university.emailDomains.map((item) => item.domain.toLowerCase());
+    const lowerEmail = email.toLowerCase();
+    if (allowedDomains.length > 0 && !allowedDomains.some((domain) => lowerEmail.endsWith(`@${domain}`))) {
+      setAuthError(`${university.name}の許可されたメールアドレスを入力してください。`);
       return;
     }
     if (password.length < 8) {
@@ -150,13 +154,17 @@ export default function Signup() {
       email,
       password,
       options: {
-        emailRedirectTo: window.location.origin,
-        data: { name, grade, major, category },
+        emailRedirectTo: `${window.location.origin}${path("/auth/confirm")}`,
+        data: { name, grade, major, category, university_slug: university.slug },
       },
     });
 
     if (error) {
-      setAuthError(error.message);
+      const messages: Record<string, string> = {
+        university_signup_disabled: "この大学の新規登録は現在停止中です。",
+        email_domain_not_allowed: `${university.name}の許可されたメールアドレスを入力してください。`,
+      };
+      setAuthError(messages[error.message] ?? error.message);
     } else {
       setStep(3);
     }
@@ -171,7 +179,7 @@ export default function Signup() {
         <h1 className="login-title">{step === 3 ? "ようこそ！" : "新規登録"}</h1>
         {step !== 3 && (
           <p className="login-subtitle">
-            筑波大学のあらゆる情報がここに。<br />
+            {university.name}のあらゆる情報がここに。<br />
             無料でアカウント登録
           </p>
         )}
@@ -188,14 +196,18 @@ export default function Signup() {
                   <span className="input-icon"><MailIcon /></span>
                   <input
                     type="email"
-                    placeholder="s2xxxxxx@u.tsukuba.ac.jp"
+                    placeholder={
+                      university.emailDomains[0]
+                        ? `student@${university.emailDomains[0].domain}`
+                        : "許可されたメールアドレス"
+                    }
                     value={email}
                     required
                     onChange={(e) => setEmail(e.target.value)}
                     className="input-with-icon"
                   />
                 </div>
-                <span className="helper-text">筑波大学メールアドレスが必要です</span>
+                <span className="helper-text">{university.name}のメールアドレスが必要です</span>
               </label>
 
               <label>
@@ -282,7 +294,7 @@ export default function Signup() {
               <div className="login-divider"><span>または</span></div>
 
               <p className="switch-text">
-                すでにアカウントをお持ちの方は <a href="/login">ログインはこちら</a>
+                すでにアカウントをお持ちの方は <Link to={path("/login")}>ログインはこちら</Link>
               </p>
             </form>
           )}
@@ -336,54 +348,18 @@ export default function Signup() {
               </label>
 
               <label>
-                <span className="label-text">
-                  {category === "undergraduate" ? "学類" : category ? "学術院" : "学類／プログラム"}
-                  <span className="required-mark">*</span>
-                </span>
+                <span className="label-text">所属<span className="required-mark">*</span></span>
                 <select
                   value={major}
                   required
                   onChange={(e) => setMajor(e.target.value)}
                 >
-                  <option value="">－－選択する－－</option>
-                  {category === "undergraduate" && (
-                    <>
-                      <option value="人文学類">人文学類</option>
-                      <option value="比較文化学類">比較文化学類</option>
-                      <option value="日本語・日本文化学類">日本語・日本文化学類</option>
-                      <option value="社会学類">社会学類</option>
-                      <option value="国際総合学類">国際総合学類</option>
-                      <option value="教育学類">教育学類</option>
-                      <option value="心理学類">心理学類</option>
-                      <option value="障害科学類">障害科学類</option>
-                      <option value="生物学類">生物学類</option>
-                      <option value="生物資源学類">生物資源学類</option>
-                      <option value="地球学類">地球学類</option>
-                      <option value="数学類">数学類</option>
-                      <option value="物理学類">物理学類</option>
-                      <option value="化学類">化学類</option>
-                      <option value="応用理工学類">応用理工学類</option>
-                      <option value="工学システム学類">工学システム学類</option>
-                      <option value="社会工学類">社会工学類</option>
-                      <option value="総合理工学類プログラム">総合理工学類プログラム</option>
-                      <option value="情報科学類">情報科学類</option>
-                      <option value="情報メディア創成学類">情報メディア創成学類</option>
-                      <option value="知識情報・図書館学類">知識情報・図書館学類</option>
-                      <option value="医学類">医学類</option>
-                      <option value="看護学類">看護学類</option>
-                      <option value="医療科学類">医療科学類</option>
-                      <option value="体育専門学群">体育専門学群</option>
-                      <option value="芸術専門学群">芸術専門学群</option>
-                    </>
-                  )}
-                  {(category === "master" || category === "doctor") && (
-                    <>
-                      <option value="人文社会ビジネス科学学術院">人文社会ビジネス科学学術院</option>
-                      <option value="理工情報生命学術院">理工情報生命学術院</option>
-                      <option value="人間総合科学学術院">人間総合科学学術院</option>
-                      <option value="グローバル教育院">グローバル教育院</option>
-                    </>
-                  )}
+                  <option value="">選択する</option>
+                  {academicOptions.map((option) => (
+                    <option value={option.value} key={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </label>
 
@@ -404,7 +380,7 @@ export default function Signup() {
               <div className="login-divider"><span>または</span></div>
 
               <p className="switch-text">
-                すでにアカウントをお持ちの方は <a href="/login">ログインはこちら</a>
+                すでにアカウントをお持ちの方は <Link to={path("/login")}>ログインはこちら</Link>
               </p>
             </form>
           )}
@@ -425,7 +401,7 @@ export default function Signup() {
               </p>
               <button
                 className="primary-button login-gradient-button"
-                onClick={() => navigate("/")}
+                onClick={() => navigate(path())}
               >
                 TsukuHubを使用する
               </button>
@@ -433,8 +409,8 @@ export default function Signup() {
           )}
         </section>
 
-        <Link to="/" className="back-link">
-          <ChevronLeftIcon /> トップページに戻る
+        <Link to={path()} className="back-link">
+          <ChevronLeftIcon /> {university.short_name}ページに戻る
         </Link>
       </main>
 

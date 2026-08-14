@@ -152,6 +152,7 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
   admissionYear,
   sharePublic,
   ownerId,
+  universityId,
 }: {
   report: GraduationCheckReport;
   department: string;
@@ -159,6 +160,7 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
   admissionYear: number;
   sharePublic: boolean;
   ownerId?: string;
+  universityId: string;
 }): Promise<TimetableHistory[]> => {
   const allCourses = [
     ...report.details.compulsoryResults.flatMap((item) => item.courses),
@@ -172,6 +174,7 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
     const { data, error } = await supabase
       .from("courses")
       .select("course_number, course_name, credits, target_year, semester, schedule, instructor")
+      .eq("university_id", universityId)
       .in("course_number", uniqueCodes);
     if (!error) {
       (data as CourseMetaRow[] | null)?.forEach((row) => {
@@ -245,7 +248,8 @@ const courseToRows = (historyId: string, course: TimetableCourse) => {
 
 export const saveTimetableHistories = async (
   histories: TimetableHistory[],
-  ownerId: string
+  ownerId: string,
+  universityId: string,
 ) => {
   const savedIds: string[] = [];
   for (const history of histories) {
@@ -254,6 +258,7 @@ export const saveTimetableHistories = async (
       .upsert(
         {
           owner_id: ownerId,
+          university_id: universityId,
           display_name: history.displayName,
           department: history.department,
           major: history.major,
@@ -392,9 +397,9 @@ const fromPublicRows = (rows: PublicTimetableHistoryRow[]): TimetableHistory[] =
   return [...histories.values()].map(fromRows);
 };
 
-export const fetchPublicTimetableHistories = async (): Promise<TimetableHistory[]> => {
+export const fetchPublicTimetableHistories = async (universityId: string): Promise<TimetableHistory[]> => {
   const { data, error } = await supabase
-    .rpc("list_public_timetable_histories", { max_count: 48 });
+    .rpc("list_public_timetable_histories", { target_university_id: universityId, max_count: 48 });
   if (error) throw error;
   return fromPublicRows((data as PublicTimetableHistoryRow[] | null) ?? []);
 };

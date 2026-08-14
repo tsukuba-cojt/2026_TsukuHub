@@ -91,17 +91,18 @@ const reviewTags = (row: ClassReviewRow) =>
     .filter((value): value is string => Boolean(value && value.trim()))
     .slice(0, 4);
 
-export const fetchClassReviews = async (courseCode: string): Promise<Review[]> => {
+export const fetchClassReviews = async (courseCode: string, universityId: string): Promise<Review[]> => {
   const { data, error } = await supabase
     .from("public_class_reviews")
     .select("*")
+    .eq("university_id", universityId)
     .eq("course_code", courseCode)
     .order("created_at", { ascending: false });
   if (error) throw error;
   return ((data as ClassReviewRow[] | null) ?? []).map((row) => ({
     id: row.id,
     rating: row.rating,
-    grade: "筑波大生",
+    grade: "在学生",
     department: row.anonymous ? "匿名" : "投稿者",
     comment: row.comment || "コメントなし",
     date: dateLabel(row.created_at),
@@ -110,9 +111,10 @@ export const fetchClassReviews = async (courseCode: string): Promise<Review[]> =
   }));
 };
 
-export const createClassReview = async (input: ClassReviewInput) => {
+export const createClassReview = async (input: ClassReviewInput, universityId: string) => {
   const { error } = await supabase.from("class_reviews").insert({
     course_code: input.courseCode,
+    university_id: universityId,
     rating: input.rating,
     lecture_format: input.lectureFormat || null,
     test_format: input.testFormat || null,
@@ -148,17 +150,20 @@ const distribution = (row: CourseLearningStatsRow): GradeDistribution[] => {
 
 export const fetchCourseInsightStats = async (
   courseCode: string,
-  reviews: Review[]
+  reviews: Review[],
+  universityId: string,
 ): Promise<CourseInsightStats> => {
   const { data } = await supabase
     .from("course_learning_stats")
     .select("*")
+    .eq("university_id", universityId)
     .eq("course_code", courseCode)
     .maybeSingle();
   const stats = data as CourseLearningStatsRow | null;
   const reviewRows = await supabase
     .from("public_class_reviews")
     .select("difficulty, workload")
+    .eq("university_id", universityId)
     .eq("course_code", courseCode);
 
   const difficultyValues =

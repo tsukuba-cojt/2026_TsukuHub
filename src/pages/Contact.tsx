@@ -12,6 +12,7 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import searchIllust from "../assets/NotFound/SearchIllust.svg";
 import "../styles/contact/Contact.css";
+import { useUniversity } from "../components/university/universityContextValue";
 
 // お問合せ種別（順序も仕様どおり）
 const inquiryTypes = [
@@ -22,8 +23,6 @@ const inquiryTypes = [
 ];
 
 // 区分（ラジオボタン・横並び）
-const affiliations = ["筑波大生", "筑波大学教員・職員", "その他"];
-
 const MESSAGE_MAX = 2000;
 
 type FormErrors = Partial<
@@ -31,6 +30,8 @@ type FormErrors = Partial<
 >;
 
 function Contact() {
+  const { university, path } = useUniversity();
+  const affiliations = [`${university?.short_name}生`, `${university?.name}教員・職員`, "その他"];
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [affiliation, setAffiliation] = useState("");
@@ -84,7 +85,7 @@ function Contact() {
       <Globalnav />
       <main className="contactPageLayout">
         <p className="contactBreadcrumb">
-          <Link to="/" className="contactBreadcrumbLink">
+          <Link to={path()} className="contactBreadcrumbLink">
             ホーム
           </Link>{" "}
           &gt; お問い合わせ
@@ -113,7 +114,7 @@ function Contact() {
                   id="contact-name"
                   type="text"
                   className="contactInput"
-                  placeholder="例）筑波 太郎"
+                  placeholder="例）大学 太郎"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -266,7 +267,7 @@ function Contact() {
                 よくあるお問い合わせ
               </p>
               <p className="contactSidebarItemBody">
-                <Link to="/faq" className="contactFaqTextLink">
+                <Link to={path("/faq")} className="contactFaqTextLink">
                   FAQページ
                 </Link>
                 もあわせてご確認ください
@@ -284,7 +285,7 @@ function Contact() {
               </ul>
             </div>
 
-            <Link to="/faq" className="contactFaqBtn">
+            <Link to={path("/faq")} className="contactFaqBtn">
               よくある質問（FAQ）へ
             </Link>
           </aside>

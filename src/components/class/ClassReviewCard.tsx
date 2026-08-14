@@ -5,6 +5,7 @@ import FeatureTag from "./FeatureTag";
 import type { Review } from "./mockReviews";
 import { useAuth } from "../auth/authContextValue";
 import { createReviewReport } from "../../services/contentService";
+import { useUniversity } from "../university/universityContextValue";
 import "../../styles/class/ClassReviewCard.css";
 
 type ClassReviewCardProps = {
@@ -17,6 +18,7 @@ const CLAMP_THRESHOLD = 100;
 
 function ClassReviewCard({ review, courseCode }: ClassReviewCardProps) {
   const { user } = useAuth();
+  const { university } = useUniversity();
   const [expanded, setExpanded] = useState(false);
   // 参考になったの加算は見た目のみ（永続化は後日実装）
   const [helpful, setHelpful] = useState(review.helpfulCount);
@@ -56,6 +58,7 @@ function ClassReviewCard({ review, courseCode }: ClassReviewCardProps) {
     setReporting(true);
     try {
       await createReviewReport({
+        university_id: university?.id ?? "",
         review_id: review.id,
         course_code: courseCode,
         review_snapshot: review.comment,

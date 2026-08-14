@@ -19,6 +19,7 @@ export const fallbackCareerArticles: CareerArticleRecord[] = careerArticles.map(
 export const fallbackAlumniStories: AlumniStoryRecord[] = alumniStories.map(
   (story) => ({
     id: story.id,
+    university_id: "00000000-0000-4000-8000-000000000001",
     graduation_year: story.graduationYear,
     faculty: story.faculty,
     destination: story.destination,

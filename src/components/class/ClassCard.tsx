@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Bookmark, Calendar, Clock, UserRound } from "lucide-react";
 import RatingStars from "./RatingStars";
 import "../../styles/class/ClassCard.css";
+import { useUniversity } from "../university/universityContextValue";
 
 export type ClassCourse = {
   id: string;
@@ -20,8 +21,9 @@ type ClassCardProps = {
 };
 
 function ClassCard({ course }: ClassCardProps) {
+  const { path } = useUniversity();
   return (
-    <Link to={`/class/${course.code}`} className="classCardLink">
+    <Link to={path(`/class/${course.code}`)} className="classCardLink">
       <article className="classCard">
       <div className="classCardMain">
         <div className="classCardMeta">

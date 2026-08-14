@@ -5,10 +5,13 @@ import { useAuth } from "../../components/auth/authContextValue";
 import {
   createInternship,
   getInternship,
+  getInternshipTargetUniversityIds,
   removeCompanyLogo,
   updateInternship,
   uploadCompanyLogo,
 } from "../../services/careerService";
+import { listUniversities } from "../../services/universityService";
+import type { University } from "../../types/university";
 import type { InternshipInput, InternshipStatus } from "../../types/career";
 
 const emptyForm: InternshipInput = {
@@ -32,15 +35,25 @@ export default function AdminInternshipForm() {
   const [uploading, setUploading] = useState(false);
   const [removingLogo, setRemovingLogo] = useState(false);
   const [error, setError] = useState("");
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [targetUniversityIds, setTargetUniversityIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    void listUniversities().then((items) => {
+      setUniversities(items);
+      if (!id) setTargetUniversityIds(items.filter((item) => item.slug === "tsukuba").map((item) => item.id));
+    }).catch(() => setError("大学一覧を取得できませんでした。"));
+  }, [id]);
 
   useEffect(() => {
     if (!id) return;
-    void getInternship(id).then((item) => {
+    void Promise.all([getInternship(id), getInternshipTargetUniversityIds(id)]).then(([item, targets]) => {
       if (!item) throw new Error();
       const { id: itemId, created_at: createdAt, updated_at: updatedAt, created_by: createdBy, ...input } = item;
       void itemId; void createdAt; void updatedAt; void createdBy;
       setForm({ ...input, deadline: toLocalDateTime(input.deadline) });
       setTags(input.tags.join(", "));
+      setTargetUniversityIds(targets);
     }).catch(() => setError("求人を取得できませんでした。"))
       .finally(() => setLoading(false));
   }, [id]);
@@ -74,11 +87,11 @@ export default function AdminInternshipForm() {
     const required = [form.company_name, form.title, form.summary, form.company_description, form.job_category,
       form.location, form.work_style, form.work_conditions, form.compensation, form.description,
       form.requirements, form.selection_process, form.deadline];
-    if (required.some((value) => !value.trim())) { setError("必須項目を入力してください。"); return; }
+    if (required.some((value) => !value.trim()) || targetUniversityIds.length === 0) { setError("必須項目と掲載対象大学を入力してください。"); return; }
     setSubmitting(true);
     try {
       const input = { ...form, deadline: new Date(form.deadline).toISOString(), tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean) };
-      if (id) await updateInternship(id, input); else await createInternship(input);
+      if (id) await updateInternship(id, input, targetUniversityIds); else await createInternship(input, targetUniversityIds);
       navigate("/admin/internships", { state: { message: id ? "求人を更新しました。" : "求人を登録しました。" } });
     } catch { setError("求人を保存できませんでした。入力内容を確認してください。"); }
     finally { setSubmitting(false); }
@@ -114,6 +127,7 @@ export default function AdminInternshipForm() {
         <label>選考フロー <span>*</span><textarea rows={3} value={form.selection_process} onChange={(event) => update("selection_process", event.target.value)} /></label>
       </div>
       <div className="formSection"><h2>公開設定</h2><div className="formGrid">
+        <fieldset className="adminUniversityTargets"><legend>掲載対象大学 <span>*</span></legend>{universities.map((university) => <label className="checkboxLabel" key={university.id}><input type="checkbox" checked={targetUniversityIds.includes(university.id)} onChange={(event) => setTargetUniversityIds((current) => event.target.checked ? [...current, university.id] : current.filter((id) => id !== university.id))} />{university.name}</label>)}</fieldset>
         <label>特徴タグ（カンマ区切り）<input value={tags} onChange={(event) => setTags(event.target.value)} placeholder="未経験歓迎, 週2日から" /></label>
         <label>募集締切 <span>*</span><input type="datetime-local" value={form.deadline} onChange={(event) => update("deadline", event.target.value)} /></label>
         <label>公開状態<select value={form.status} onChange={(event) => update("status", event.target.value as InternshipStatus)}><option value="draft">下書き</option><option value="published">公開中</option><option value="closed">募集終了</option></select></label>

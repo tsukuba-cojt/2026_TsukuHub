@@ -13,7 +13,9 @@ import {
 } from "lucide-react";
 import { classMenuItems } from "./classMenuItems";
 import { careerMenuItems } from "./careerMenuItems";
-import { COMING_SOON_NOTICE, isComingSoon } from "../../data/comingSoon";
+import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
+import { useUniversity } from "../university/universityContextValue";
+import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
@@ -29,14 +31,12 @@ const dropdownMenus = {
     title: "キャリア・インターン",
     description:
       "就活の基礎から長期インターン、卒業生の体験記まで。筑波大生のキャリア選択をサポートします。",
-    imageLabel: "キャリア・インターンのイメージ画像（準備中）",
     items: careerMenuItems,
   },
   "/class/top": {
     title: "講義・履修",
     description:
       "授業の検索や履修計画、卒業要件の確認まで。筑波大生の学びをサポートする機能がそろっています。",
-    imageLabel: "講義・履修のイメージ画像（準備中）",
     items: classMenuItems,
   },
 } as const;
@@ -45,6 +45,7 @@ type DropdownPath = keyof typeof dropdownMenus;
 
 function Globalnav() {
   const { pathname } = useLocation();
+  const { university, path, isFeatureEnabled } = useUniversity();
   const [isScrolled, setIsScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<DropdownPath | null>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -78,7 +79,7 @@ function Globalnav() {
   }, [openMenu]);
 
   // ホーム（トップページ）の一番上にいる間だけ背景を透明にする
-  const isTransparent = pathname === "/" && !isScrolled;
+  const isTransparent = pathname === path() && !isScrolled;
 
   return (
     <>
@@ -112,12 +113,27 @@ function Globalnav() {
         </svg>
         <nav className="headerNav" ref={navRef}>
           {navItems.map((item) => {
+            const comingSoon = isUniversityComingSoon(item.path, isFeatureEnabled);
             const dropdown =
               item.path in dropdownMenus
                 ? dropdownMenus[item.path as DropdownPath]
                 : null;
 
-            return dropdown ? (
+            return comingSoon ? (
+              <span
+                key={item.label}
+                className="navLinkItem isComingSoon"
+                role="link"
+                aria-disabled="true"
+                tabIndex={0}
+              >
+                <item.icon className="navIcon" aria-hidden="true" />
+                <span className="navLabel">{item.label}</span>
+                <span className="comingSoonTip" role="tooltip">
+                  {COMING_SOON_NOTICE}
+                </span>
+              </span>
+            ) : dropdown ? (
               <div
                 className={`navDropdownWrap${
                   item.path === "/career" ? " isCareerDropdown" : ""
@@ -127,8 +143,10 @@ function Globalnav() {
                 onMouseLeave={() => setOpenMenu(null)}
               >
                 <NavLink
-                  to={item.path}
-                  className="navLinkItem"
+                  to={path(item.path)}
+                  className={({ isActive }) =>
+                    `navLinkItem${isActive && item.path !== "/career" ? " active" : ""}`
+                  }
                   aria-haspopup="menu"
                   aria-expanded={openMenu === item.path}
                   onClick={() => setOpenMenu(null)}
@@ -143,23 +161,17 @@ function Globalnav() {
                     <div className="navDropdownIntro">
                       <p className="navDropdownTitle">{dropdown.title}</p>
                       <p className="navDropdownDesc">
-                        {dropdown.description}
+                        {dropdown.description.replace("筑波大", university?.short_name ?? "大学")}
                       </p>
-                      <div
-                        className="navDropdownImage"
-                        role="img"
-                        aria-label={dropdown.imageLabel}
-                      />
+                      <div className="navDropdownLogo" role="img" aria-label="TsukuHub">
+                        <img src={logoBlue} alt="" aria-hidden="true" />
+                        <span>TsukuHub</span>
+                      </div>
                     </div>
                     <ul className="navDropdownColumns">
-                      {dropdown.items.map((menu) => (
-                        <li key={menu.label}>
-                          <Link
-                            to={menu.path}
-                            className="navDropdownCard"
-                            role="menuitem"
-                            onClick={() => setOpenMenu(null)}
-                          >
+                      {dropdown.items.map((menu) => {
+                        const menuComingSoon = isUniversityComingSoon(menu.path, isFeatureEnabled);
+                        const cardContent = <>
                             <span
                               className={`navDropdownIconCircle ${menu.colorClass}`}
                             >
@@ -182,34 +194,18 @@ function Globalnav() {
                               className="navDropdownRowChevron"
                               aria-hidden="true"
                             />
-                          </Link>
-                        </li>
-                      ))}
+                            {menuComingSoon && <span className="comingSoonTip" role="tooltip">{COMING_SOON_NOTICE}</span>}
+                          </>;
+                        return <li key={menu.label}>
+                          {menuComingSoon ? <span className="navDropdownCard isComingSoon" role="menuitem" aria-disabled="true" tabIndex={0}>{cardContent}</span> : <Link to={path(menu.path)} className="navDropdownCard" role="menuitem" onClick={() => setOpenMenu(null)}>{cardContent}</Link>}
+                        </li>;
+                      })}
                     </ul>
                   </div>
                 )}
               </div>
-            ) : isComingSoon(item.path) ? (
-              /* 未実装ページ（src/data/comingSoon.ts で管理）は遷移させず、
-                 ホバー・フォーカス時に「準備中」ポップアップを出す。
-                 NavLink ではなく span にすることで、中クリックや
-                 「新しいタブで開く」からも遷移できないようにしている。 */
-              <span
-                key={item.label}
-                className="navLinkItem isComingSoon"
-                role="link"
-                aria-disabled="true"
-                tabIndex={0}
-                title={COMING_SOON_NOTICE}
-              >
-                <item.icon className="navIcon" aria-hidden="true" />
-                <span className="navLabel">{item.label}</span>
-                <span className="comingSoonTip" aria-hidden="true">
-                  {COMING_SOON_NOTICE}
-                </span>
-              </span>
             ) : (
-              <NavLink to={item.path} key={item.label} className="navLinkItem">
+              <NavLink to={path(item.path)} end={item.path === "/"} key={item.label} className="navLinkItem">
                 <item.icon className="navIcon" aria-hidden="true" />
                 <span className="navLabel">{item.label}</span>
               </NavLink>

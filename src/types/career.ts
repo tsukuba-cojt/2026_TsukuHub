@@ -32,6 +32,7 @@ export type Internship = {
   created_by: string | null;
   created_at: string;
   updated_at: string;
+  university_ids?: string[];
 };
 
 export type InternshipInput = Omit<
@@ -42,6 +43,7 @@ export type InternshipInput = Omit<
 export type ApplicationInput = {
   internship_id: string;
   user_id: string;
+  university_id: string;
   applicant_name: string;
   email: string;
   faculty: string;

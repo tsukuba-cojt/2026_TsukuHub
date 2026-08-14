@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useOptionalUniversity } from "../university/universityContextValue";
 import "../../styles/auth/Unauthorized.css";
 
 // Figma: 401 Unauthorized #2657:1516 → 鍵アイコン 120×133px
@@ -42,6 +43,8 @@ function KeyIcon() {
 // Figma: 401 Unauthorized #2351:1159
 // 未ログインで保護ページを開いたときに、ページ本体の上へ重ねるオーバーレイ
 export default function Unauthorized() {
+  const universityContext = useOptionalUniversity();
+  const path = universityContext?.path ?? ((pathname = "") => pathname || "/");
   return (
     <div className="unauthorized-overlay" role="dialog" aria-modal="true">
       <div className="unauthorized-content">
@@ -52,14 +55,14 @@ export default function Unauthorized() {
           が必要です
         </h2>
         <div className="unauthorized-actions">
-          <Link to="/login" className="unauthorized-btn unauthorized-btn-login">
+          <Link to={path("/login")} className="unauthorized-btn unauthorized-btn-login">
             ログイン
           </Link>
-          <Link to="/signup" className="unauthorized-btn unauthorized-btn-register">
+          <Link to={path("/signup")} className="unauthorized-btn unauthorized-btn-register">
             新規登録
           </Link>
         </div>
-        <Link to="/" className="unauthorized-btn-return">
+        <Link to={path()} className="unauthorized-btn-return">
           <span className="unauthorized-btn-return-label">← トップページへ戻る</span>
         </Link>
       </div>

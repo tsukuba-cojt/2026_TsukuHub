@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { COMING_SOON_NOTICE, shouldBlockInternalNavigation } from "../../data/comingSoon";
+import { useNavigate } from "react-router-dom";
+import { COMING_SOON_NOTICE, isKnownAppPath, shouldBlockInternalNavigation } from "../../data/comingSoon";
+import { useUniversity } from "../university/universityContextValue";
 import Toast from "./Toast";
+import { isPlatformPath, resolveTenantPath } from "../../lib/tenantNavigation";
 
 function InternalLinkGuard() {
   const [noticeKey, setNoticeKey] = useState(0);
+  const navigate = useNavigate();
+  const { path, university } = useUniversity();
 
   useEffect(() => {
     const handleInternalLinkClick = (event: MouseEvent) => {
@@ -18,8 +23,21 @@ function InternalLinkGuard() {
 
       const url = new URL(anchor.href, window.location.href);
       if (url.origin !== window.location.origin) return;
+      if (isPlatformPath(url.pathname)) return;
 
-      if (!shouldBlockInternalNavigation(url.pathname)) return;
+      const { isTenantPath, relativePath: pathname } = resolveTenantPath(
+        url.pathname,
+        university?.slug ?? "",
+      );
+
+      if (isTenantPath && !shouldBlockInternalNavigation(pathname)) return;
+      if (!isTenantPath && isKnownAppPath(pathname)) {
+        event.preventDefault();
+        event.stopPropagation();
+        navigate(`${path(pathname)}${url.search}${url.hash}`);
+        return;
+      }
+      if (!shouldBlockInternalNavigation(pathname)) return;
 
       event.preventDefault();
       event.stopPropagation();
@@ -28,7 +46,7 @@ function InternalLinkGuard() {
 
     document.addEventListener("click", handleInternalLinkClick, true);
     return () => document.removeEventListener("click", handleInternalLinkClick, true);
-  }, []);
+  }, [navigate, path, university?.slug]);
 
   return noticeKey > 0 ? (
     <Toast
