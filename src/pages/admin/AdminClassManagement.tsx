@@ -18,10 +18,13 @@ import {
   type ReviewReport,
   type ReviewReportStatus,
 } from "../../types/content";
+import { listUniversities } from "../../services/universityService";
+import type { University } from "../../types/university";
 
 type Tab = "announcements" | "reports";
 
 const emptyAnnouncement: ClassAnnouncementInput = {
+  university_id: "",
   category: "お知らせ",
   title: "",
   content: "",
@@ -35,6 +38,7 @@ export default function AdminClassManagement() {
   const [reports, setReports] = useState<ReviewReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [universities, setUniversities] = useState<University[]>([]);
 
   const reload = async () => {
     setError("");
@@ -43,8 +47,8 @@ export default function AdminClassManagement() {
   };
 
   useEffect(() => {
-    void Promise.all([listAdminClassAnnouncements(), listAdminReviewReports()])
-      .then(([nextAnnouncements, nextReports]) => { setAnnouncements(nextAnnouncements); setReports(nextReports); })
+    void Promise.all([listAdminClassAnnouncements(), listAdminReviewReports(), listUniversities()])
+      .then(([nextAnnouncements, nextReports, nextUniversities]) => { setAnnouncements(nextAnnouncements); setReports(nextReports); setUniversities(nextUniversities); })
       .catch(() => setError("履修管理データを取得できませんでした。DBマイグレーションを確認してください。"))
       .finally(() => setLoading(false));
   }, []);
@@ -57,12 +61,12 @@ export default function AdminClassManagement() {
     </div>
     {error && <p className="formError" role="alert">{error}</p>}
     {loading ? <div className="careerState">読み込んでいます...</div> : tab === "announcements"
-      ? <AnnouncementManager items={announcements} onReload={reload} />
-      : <ReportManager items={reports} onReload={reload} />}
+      ? <AnnouncementManager items={announcements} universities={universities} onReload={reload} />
+      : <ReportManager items={reports} universities={universities} onReload={reload} />}
   </AdminLayout>;
 }
 
-function AnnouncementManager({ items, onReload }: { items: ClassAnnouncementRecord[]; onReload: () => Promise<void> }) {
+function AnnouncementManager({ items, universities, onReload }: { items: ClassAnnouncementRecord[]; universities: University[]; onReload: () => Promise<void> }) {
   const [form, setForm] = useState<ClassAnnouncementInput>(emptyAnnouncement);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -72,7 +76,7 @@ function AnnouncementManager({ items, onReload }: { items: ClassAnnouncementReco
   const reset = () => { setEditingId(null); setForm(emptyAnnouncement); };
   const edit = (item: ClassAnnouncementRecord) => {
     setEditingId(item.id);
-    setForm({ category: item.category, title: item.title, content: item.content, published_at: item.published_at, status: item.status });
+    setForm({ university_id: item.university_id, category: item.category, title: item.title, content: item.content, published_at: item.published_at, status: item.status });
     setMessage(""); setError("");
   };
   const submit = async (event: React.FormEvent) => {
@@ -97,6 +101,7 @@ function AnnouncementManager({ items, onReload }: { items: ClassAnnouncementReco
     <form className="careerForm adminCompactForm" onSubmit={submit}>
       <div className="adminPanelHeader"><h2>{editingId ? "お知らせを編集" : "お知らせを新規登録"}</h2>{editingId && <button className="adminTextButton" type="button" onClick={reset}>編集をキャンセル</button>}</div>
       <div className="formGrid">
+        <label>大学 <span>*</span><select required value={form.university_id} onChange={(event) => update("university_id", event.target.value)}><option value="">選択する</option>{universities.map((university) => <option value={university.id} key={university.id}>{university.name}</option>)}</select></label>
         <label>カテゴリー <span>*</span><input required value={form.category} onChange={(event) => update("category", event.target.value)} /></label>
         <label>掲載日 <span>*</span><input required type="date" value={form.published_at} onChange={(event) => update("published_at", event.target.value)} /></label>
         <label>公開状態<select value={form.status} onChange={(event) => update("status", event.target.value as PublishStatus)}><option value="draft">下書き</option><option value="published">公開中</option></select></label>
@@ -115,11 +120,12 @@ function AnnouncementManager({ items, onReload }: { items: ClassAnnouncementReco
   </div>;
 }
 
-function ReportManager({ items, onReload }: { items: ReviewReport[]; onReload: () => Promise<void> }) {
+function ReportManager({ items, universities, onReload }: { items: ReviewReport[]; universities: University[]; onReload: () => Promise<void> }) {
   const [filter, setFilter] = useState<"all" | ReviewReportStatus>("all");
+  const [universityFilter, setUniversityFilter] = useState("all");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const visible = useMemo(() => items.filter((item) => filter === "all" || item.status === filter), [filter, items]);
+  const visible = useMemo(() => items.filter((item) => (filter === "all" || item.status === filter) && (universityFilter === "all" || item.university_id === universityFilter)), [filter, items, universityFilter]);
   const filters: ["all" | ReviewReportStatus, string][] = [["all", "すべて"], ...Object.entries(reviewReportStatusLabels) as [ReviewReportStatus, string][]];
   const save = async (id: string, status: ReviewReportStatus, notes: string) => {
     setError(""); setMessage("");
@@ -127,6 +133,7 @@ function ReportManager({ items, onReload }: { items: ReviewReport[]; onReload: (
     catch { setError("通報の対応状況を保存できませんでした。"); }
   };
   return <div>
+    <div className="adminFilters"><select aria-label="大学で絞り込む" value={universityFilter} onChange={(event) => setUniversityFilter(event.target.value)}><option value="all">すべての大学</option>{universities.map((university) => <option value={university.id} key={university.id}>{university.name}</option>)}</select></div>
     <section className="adminStats adminReportStats">{Object.entries(reviewReportStatusLabels).map(([status, label]) => <article key={status}><span>{label}</span><strong>{items.filter((item) => item.status === status).length}</strong><small>件</small></article>)}</section>
     <div className="adminFilters adminReportFilters">{filters.map(([value, label]) => <button className={filter === value ? "isActive" : ""} onClick={() => setFilter(value)} key={value}>{label}<span>{value === "all" ? items.length : items.filter((item) => item.status === value).length}</span></button>)}</div>
     {error && <p className="formError" role="alert">{error}</p>}{message && <p className="formSuccess" role="status">{message}</p>}

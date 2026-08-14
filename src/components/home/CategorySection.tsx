@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import "../../styles/home/CategoryCard.css";
 import "../../styles/utility/ComingSoon.css";
-import { COMING_SOON_NOTICE, isComingSoon } from "../../data/comingSoon";
+import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import bagIcon from "../../assets/home/CategoryCard/Bag.svg";
 import bookIcon from "../../assets/home/CategoryCard/Book.svg";
 import peopleIcon from "../../assets/home/CategoryCard/People.svg";
 import eatIcon from "../../assets/home/CategoryCard/Eat.svg";
 import calendarIcon from "../../assets/home/CategoryCard/Calendar.svg";
 import networkIcon from "../../assets/home/CategoryCard/Network.svg";
+import { useUniversity } from "../university/universityContextValue";
 
 const categories = [
   {
@@ -55,6 +56,7 @@ const categories = [
 ];
 
 function CategorySection() {
+  const { path, isFeatureEnabled } = useUniversity();
   return (
     <div className="categorySection">
       <div className="categorySectionInner">
@@ -71,22 +73,21 @@ function CategorySection() {
              ホバー・フォーカス時に「準備中」ポップアップを出す。
              Link ではなく span にすることで、中クリックや
              「新しいタブで開く」からも遷移できないようにしている。 */
-          return isComingSoon(cat.path) ? (
+          return isUniversityComingSoon(cat.path, isFeatureEnabled) ? (
             <span
               key={cat.title}
               className="categoryCard isComingSoon"
               role="link"
               aria-disabled="true"
               tabIndex={0}
-              title={COMING_SOON_NOTICE}
             >
               {cardInner}
-              <span className="comingSoonTip" aria-hidden="true">
+              <span className="comingSoonTip" role="tooltip">
                 {COMING_SOON_NOTICE}
               </span>
             </span>
           ) : (
-            <Link to={cat.path} className="categoryCard" key={cat.title}>
+            <Link to={path(cat.path)} className="categoryCard" key={cat.title}>
               {cardInner}
             </Link>
           );

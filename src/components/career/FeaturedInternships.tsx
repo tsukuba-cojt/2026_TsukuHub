@@ -1,12 +1,14 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Internship } from "../../types/career";
+import { useUniversity } from "../university/universityContextValue";
 
 type FeaturedInternshipsProps = {
   items: Internship[];
 };
 
 export default function FeaturedInternships({ items }: FeaturedInternshipsProps) {
+  const { path } = useUniversity();
   return (
     <section className="careerHomeSection">
       <div className="careerSectionHeading">
@@ -18,7 +20,7 @@ export default function FeaturedInternships({ items }: FeaturedInternshipsProps)
           {items.map((item) => (
             <Link
               className="careerMiniCard"
-              to={`/career/internships/${item.id}`}
+              to={path(`/career/internships/${item.id}`)}
               key={item.id}
             >
               <span>{item.job_category}</span>

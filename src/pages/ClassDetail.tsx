@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../lib/supabase";
+import { useUniversity } from "../components/university/universityContextValue";
 import {
   Bookmark,
   Calendar,
@@ -30,11 +31,6 @@ import {
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
-
 // coursesテーブルの行の型（Class.tsx と同じ形。共通化は後日検討）
 type CourseRow = {
   id: number;
@@ -59,6 +55,7 @@ const sortTabs: { key: SortKey; label: string }[] = [
 ];
 
 function ClassDetail() {
+  const { university, path } = useUniversity();
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
   const location = useLocation();
@@ -96,6 +93,7 @@ function ClassDetail() {
         .select(
           "id, course_number, course_name, method, credits, target_year, semester, schedule, instructor, overview, remarks"
         )
+        .eq("university_id", university?.id ?? "")
         .eq("course_number", courseCode)
         .maybeSingle();
 
@@ -109,19 +107,19 @@ function ClassDetail() {
       setLoading(false);
     };
 
-    fetchCourse();
-  }, [courseCode]);
+    if (university) void fetchCourse();
+  }, [courseCode, university]);
 
   useEffect(() => {
-    if (!courseCode) return;
+    if (!courseCode || !university) return;
     let cancelled = false;
-    fetchClassReviews(courseCode)
+    fetchClassReviews(courseCode, university.id)
       .then((items) => {
         if (!cancelled) {
           setReviewError(null);
           setReviews(items);
         }
-        return fetchCourseInsightStats(courseCode, items);
+        return fetchCourseInsightStats(courseCode, items, university.id);
       })
       .then((nextInsights) => {
         if (!cancelled) setInsights(nextInsights);
@@ -136,7 +134,7 @@ function ClassDetail() {
     return () => {
       cancelled = true;
     };
-  }, [courseCode]);
+  }, [courseCode, university]);
 
   // 並び替え済みの口コミ
   const sortedReviews = useMemo(() => {
@@ -166,7 +164,7 @@ function ClassDetail() {
   }, [reviews]);
 
   const handlePostReview = () => {
-    navigate(`/class/${courseCode}/review`);
+    navigate(path(`/class/${courseCode}/review`));
   };
 
   // 授業方法（数字コード→日本語ラベル）と講義形式（備考から判定）のバッジ
@@ -218,7 +216,7 @@ function ClassDetail() {
             <p className="classStatus">
               該当する講義が見つかりませんでした（講義番号：{courseCode}）。
             </p>
-            <Link to="/class" className="classDetailBackLink">
+            <Link to={path("/class")} className="classDetailBackLink">
               講義検索へ戻る
             </Link>
           </div>
@@ -397,7 +395,7 @@ function ClassDetail() {
                     <ul className="sidebarRelated">
                       {mockRelatedCourses.map((related) => (
                         <li key={related.code}>
-                          <Link to={`/class/${related.code}`}>
+                          <Link to={path(`/class/${related.code}`)}>
                             {related.title}
                           </Link>
                           <span>{related.code}</span>

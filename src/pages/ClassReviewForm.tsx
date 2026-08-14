@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../lib/supabase";
+import { useUniversity } from "../components/university/universityContextValue";
 import {
   BookMarked,
   ChartColumnBig,
@@ -26,11 +27,6 @@ import commentIcon from "../assets/class/Comment.svg";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 import "../styles/class/ClassReviewForm.css";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
 
 // coursesテーブルの行の型（ClassDetail.tsx と同じ形。共通化は後日検討）
 type CourseRow = {
@@ -86,6 +82,7 @@ type ReviewDraft = {
 };
 
 function ClassReviewForm() {
+  const { university, path } = useUniversity();
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
 
@@ -120,6 +117,7 @@ function ClassReviewForm() {
         .select(
           "id, course_number, course_name, method, credits, target_year, semester, schedule, instructor, overview, remarks"
         )
+        .eq("university_id", university?.id ?? "")
         .eq("course_number", courseCode)
         .maybeSingle();
 
@@ -133,8 +131,8 @@ function ClassReviewForm() {
       setLoading(false);
     };
 
-    fetchCourse();
-  }, [courseCode]);
+    if (university) void fetchCourse();
+  }, [courseCode, university]);
 
   const commentTooLong = comment.length > COMMENT_MAX;
 
@@ -170,8 +168,8 @@ function ClassReviewForm() {
       await createClassReview({
         courseCode: courseCode ?? "",
         ...currentValues(),
-      });
-      navigate(`/class/${courseCode}`, {
+      }, university?.id ?? "");
+      navigate(path(`/class/${courseCode}`), {
         state: { toast: "口コミの投稿に成功しました！" },
       });
     } catch {
@@ -234,7 +232,7 @@ function ClassReviewForm() {
             <p className="classStatus">
               該当する講義が見つかりませんでした（講義番号：{courseCode}）。
             </p>
-            <Link to="/class" className="classDetailBackLink">
+            <Link to={path("/class")} className="classDetailBackLink">
               講義検索へ戻る
             </Link>
           </div>

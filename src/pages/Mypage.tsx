@@ -1,12 +1,7 @@
 // Mypage.tsx
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../lib/supabase";
 import "../styles/utility/Mypage.css";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
 
 type Profile = {
   id: string;

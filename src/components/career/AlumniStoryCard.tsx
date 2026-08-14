@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import type { AlumniStoryRecord } from "../../types/content";
+import { useUniversity } from "../university/universityContextValue";
 
 type AlumniStoryCardProps = {
   story: AlumniStoryRecord;
 };
 
 export default function AlumniStoryCard({ story }: AlumniStoryCardProps) {
+  const { path } = useUniversity();
   return (
     <article className="alumniCard">
       <div>
@@ -22,7 +24,7 @@ export default function AlumniStoryCard({ story }: AlumniStoryCardProps) {
           <li key={tag}>{tag}</li>
         ))}
       </ul>
-      <Link to={`/career/alumni/${story.id}`}>詳しく読む</Link>
+      <Link to={path(`/career/alumni/${story.id}`)}>詳しく読む</Link>
     </article>
   );
 }

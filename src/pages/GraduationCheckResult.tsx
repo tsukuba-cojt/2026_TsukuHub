@@ -35,6 +35,7 @@ import type { TimetableHistory, TimetableModuleKey } from "../types/timetable";
 import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
+import { useUniversity } from "../components/university/universityContextValue";
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
@@ -171,6 +172,7 @@ function RequirementRow({
 // 遷移時の history state をマウント時にメモリへ退避して即座に消去するため、
 // リロードやブラウザバックで再訪しても結果は残らない（永続化しない仕様）。
 function GraduationCheckResult() {
+  const { path } = useUniversity();
   const location = useLocation();
   const navigate = useNavigate();
   const [result] = useState<GraduationCheckResultState>(
@@ -190,9 +192,9 @@ function GraduationCheckResult() {
 
   useEffect(() => {
     if (location.state !== null) {
-      navigate("/graduation-checker/result", { replace: true, state: null });
+      navigate(path("/graduation-checker/result"), { replace: true, state: null });
     }
-  }, [location.state, navigate]);
+  }, [location.state, navigate, path]);
 
   // サマリーカード・要件項目リスト・詳細画面とも同一の判定結果（report）を参照する
   const report = result?.report ?? null;
@@ -224,11 +226,11 @@ function GraduationCheckResult() {
       <Globalnav />
       <main className="gradCheckPageLayout">
         <p className="gradCheckBreadcrumb">
-          <Link to="/" className="gradCheckBreadcrumbLink">
+          <Link to={path()} className="gradCheckBreadcrumbLink">
             ホーム
           </Link>{" "}
           &gt;{" "}
-          <Link to="/class/top" className="gradCheckBreadcrumbLink">
+          <Link to={path("/class/top")} className="gradCheckBreadcrumbLink">
             授業・履修
           </Link>{" "}
           &gt; 卒業要件チェック
@@ -308,7 +310,7 @@ function GraduationCheckResult() {
                 </span>
                 <h2 className="gradCheckStepTitle">卒業要件チェック結果</h2>
               </div>
-              <Link to="/graduation-checker" className="gradResultReuploadBtn">
+              <Link to={path("/graduation-checker")} className="gradResultReuploadBtn">
                 <RefreshCw aria-hidden="true" />
                 CSV を再アップロード
               </Link>
@@ -444,10 +446,10 @@ function GraduationCheckResult() {
             {/* フッターアクション */}
             <div>
               <div className="gradResultActions">
-                <Link to="/class/top" className="gradResultBackOutlineBtn">
+                <Link to={path("/class/top")} className="gradResultBackOutlineBtn">
                   履修トップページへ戻る
                 </Link>
-                <Link to="/" className="gradResultBackPrimaryBtn">
+                <Link to={path()} className="gradResultBackPrimaryBtn">
                   トップページへ戻る
                 </Link>
               </div>
@@ -464,7 +466,7 @@ function GraduationCheckResult() {
               <br />
               もう一度CSVをアップロードしてチェックを実行してください。
             </p>
-            <Link to="/graduation-checker" className="gradCheckResultBackLink">
+            <Link to={path("/graduation-checker")} className="gradCheckResultBackLink">
               アップロードページへ戻る
             </Link>
           </div>

@@ -3,21 +3,19 @@ import AlumniStoryCard from "../components/career/AlumniStoryCard";
 import CareerPageHeader from "../components/career/CareerPageHeader";
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
-import { fallbackAlumniStories } from "../data/careerFallbacks";
 import { listPublishedAlumniStories } from "../services/contentService";
+import { useUniversity } from "../components/university/universityContextValue";
 import type { AlumniStoryRecord } from "../types/content";
 import "../styles/career/CareerPlatform.css";
 
 export default function CareerAlumni() {
-  const [stories, setStories] = useState<AlumniStoryRecord[]>(
-    fallbackAlumniStories,
-  );
+  const { university } = useUniversity();
+  const [stories, setStories] = useState<AlumniStoryRecord[]>([]);
 
   useEffect(() => {
-    void listPublishedAlumniStories().then(setStories).catch(() => {
-      // Supabase取得失敗時は既存サンプルを表示する
-    });
-  }, []);
+    if (!university) return;
+    void listPublishedAlumniStories(university.id).then(setStories).catch(() => setStories([]));
+  }, [university]);
 
   return (
     <div className="careerPlatform">
@@ -29,11 +27,11 @@ export default function CareerAlumni() {
         >
           進路に正解は一つではありません。卒業生の体験記から、考え方や行動のヒントを探せます。
         </CareerPageHeader>
-        <div className="alumniGrid">
+        {stories.length === 0 ? <div className="careerState"><h2>まだ掲載がありません</h2><p>{university?.name}の卒業生体験記を準備中です。</p></div> : <div className="alumniGrid">
           {stories.map((story) => (
             <AlumniStoryCard story={story} key={story.id} />
           ))}
-        </div>
+        </div>}
       </main>
       <Footer />
     </div>

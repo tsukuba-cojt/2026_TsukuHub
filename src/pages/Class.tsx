@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../lib/supabase";
+import { useUniversity } from "../components/university/universityContextValue";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import ClassSearchPanel from "../components/class/ClassSearchPanel.tsx";
@@ -7,11 +8,6 @@ import ClassSortBar from "../components/class/ClassSortBar";
 import ClassCard, { type ClassCourse } from "../components/class/ClassCard";
 import ClassPagination from "../components/class/ClassPagination";
 import "../styles/class/Class.css";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
 
 // coursesテーブルの行の型（DBスキーマに対応）
 type CourseRow = {
@@ -40,6 +36,7 @@ type FiltersState = {
 };
 
 function Class() {
+  const { university } = useUniversity();
   const [courses, setCourses] = useState<ClassCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,6 +75,7 @@ function Class() {
         .select(
           "id, course_number, course_name, method, credits, target_year, semester, schedule, instructor, overview, remarks"
         )
+        .eq("university_id", university?.id ?? "")
         .order("id", { ascending: true });
 
       if (fetchError) {
@@ -90,8 +88,8 @@ function Class() {
       setLoading(false);
     };
 
-    fetchCourses();
-  }, []);
+    if (university) void fetchCourses();
+  }, [university]);
 
   // フィルタを適用した配列をメモ化
   const filteredCourses = useMemo(() => {

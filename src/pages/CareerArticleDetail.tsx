@@ -4,29 +4,26 @@ import { Link, useParams } from "react-router-dom";
 import CareerArticleDetailContent from "../components/career/CareerArticleDetailContent";
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
-import { fallbackCareerArticles } from "../data/careerFallbacks";
 import { getPublishedCareerArticle } from "../services/contentService";
+import { useUniversity } from "../components/university/universityContextValue";
 import type { CareerArticleRecord } from "../types/content";
 import "../styles/career/CareerPlatform.css";
 
 export default function CareerArticleDetail() {
   const { id } = useParams();
-  const [article, setArticle] = useState<CareerArticleRecord | null>(
-    () => fallbackCareerArticles.find((item) => item.id === id) ?? null,
-  );
-  const [loading, setLoading] = useState(!article);
+  const { university, path } = useUniversity();
+  const [article, setArticle] = useState<CareerArticleRecord | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-    void getPublishedCareerArticle(id)
+    if (!id || !university) return;
+    void getPublishedCareerArticle(id, university.id)
       .then((item) => {
         if (item) setArticle(item);
       })
-      .catch(() => {
-        // Supabase取得失敗時は既存サンプルを維持する
-      })
+      .catch(() => setArticle(null))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, university]);
 
   if (loading) {
     return (
@@ -44,7 +41,7 @@ export default function CareerArticleDetail() {
         <Globalnav />
         <main className="careerState">
           <h1>記事が見つかりません</h1>
-          <Link to="/career">就活ページへ戻る</Link>
+          <Link to={path("/career")}>就活ページへ戻る</Link>
         </main>
         <Footer />
       </div>
@@ -55,7 +52,7 @@ export default function CareerArticleDetail() {
     <div className="careerPlatform">
       <Globalnav />
       <main className="careerShell careerStoryDetail careerArticleDetail">
-        <Link className="careerBack" to="/career">
+        <Link className="careerBack" to={path("/career")}>
           <ArrowLeft aria-hidden="true" />就活ページへ戻る
         </Link>
         <CareerArticleDetailContent article={article} />

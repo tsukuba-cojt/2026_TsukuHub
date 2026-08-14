@@ -11,12 +11,16 @@ export type CareerArticleRecord = {
   status: PublishStatus;
   created_at: string;
   updated_at: string;
+  source_type?: "internal" | "external";
+  external_url?: string | null;
+  university_ids?: string[];
 };
 
 export type CareerArticleInput = Omit<CareerArticleRecord, "id" | "created_at" | "updated_at">;
 
 export type AlumniStoryRecord = {
   id: string;
+  university_id: string;
   graduation_year: number;
   faculty: string;
   destination: string;
@@ -39,6 +43,7 @@ export type AlumniStoryInput = Omit<AlumniStoryRecord, "id" | "created_at" | "up
 
 export type ClassAnnouncementRecord = {
   id: string;
+  university_id: string;
   category: string;
   title: string;
   content: string;
@@ -54,6 +59,7 @@ export type ReviewReportStatus = "pending" | "reviewing" | "resolved" | "dismiss
 
 export type ReviewReport = {
   id: string;
+  university_id: string;
   review_id: string;
   course_code: string;
   review_snapshot: string;

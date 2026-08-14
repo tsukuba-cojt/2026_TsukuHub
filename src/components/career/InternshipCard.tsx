@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Internship } from "../../types/career";
+import { useUniversity } from "../university/universityContextValue";
 
 type InternshipCardProps = {
   internship: Internship;
@@ -26,6 +27,7 @@ export default function InternshipCard({
   internship,
   currentTime,
 }: InternshipCardProps) {
+  const { path } = useUniversity();
   return (
     <article className="internshipCard">
       <div className="companyLogo">
@@ -79,7 +81,7 @@ export default function InternshipCard({
           <span>
             <CalendarDays aria-hidden="true" />締切 {deadlineText(internship.deadline)}
           </span>
-          <Link to={`/career/internships/${internship.id}`}>
+          <Link to={path(`/career/internships/${internship.id}`)}>
             詳細を見る
             <ChevronRight aria-hidden="true" />
           </Link>

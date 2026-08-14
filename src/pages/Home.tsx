@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { createClient, type User } from "@supabase/supabase-js";
 import Globalnav from "../components/utility/Globalnav";
 import Hero from "../components/home/Hero";
 import CategorySection from "../components/home/CategorySection";
@@ -11,35 +10,37 @@ import CtaSection from "../components/home/CtaSection";
 import CompanyScroll from "../components/home/CompanyScroll";
 import Footer from "../components/utility/Footer";
 import "../styles/home/Home.css";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
+import { useAuth } from "../components/auth/authContextValue";
+import { useUniversity } from "../components/university/universityContextValue";
+import { listPublishedNews } from "../services/newsService";
+import type { NewsItemRecord } from "../types/news";
 
 function Home() {
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useAuth();
+  const { university } = useUniversity();
+  const [news, setNews] = useState<NewsItemRecord[]>([]);
+  const [topics, setTopics] = useState<NewsItemRecord[]>([]);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+    if (!university) return;
+    void Promise.all([
+      listPublishedNews(university.id, "news"),
+      listPublishedNews(university.id, "topic"),
+    ]).then(([nextNews, nextTopics]) => {
+      setNews(nextNews);
+      setTopics(nextTopics);
+    }).catch(() => {
+      setNews([]);
+      setTopics([]);
     });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  }, [university]);
 
   return (
     <div className="homepage">
       <Globalnav />
       <Hero />
       <CategorySection />
-      <NewsBar />
+      <NewsBar title={news[0]?.title} />
 
       <main 
         className="homepageLayout" 
@@ -51,8 +52,8 @@ function Home() {
           gap: '24px'               /* ④ コンポーネント間の隙間（お好みの数値に） */
         }}
       >
-        <TopicSection />
-        <LatestNewsSection />
+        <TopicSection topics={topics} />
+        <LatestNewsSection newsItems={news} />
         <RankingSection />
       </main>
 

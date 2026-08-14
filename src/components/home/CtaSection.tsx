@@ -1,12 +1,14 @@
 import { type User } from "@supabase/supabase-js";
 import { Link } from "react-router-dom";
 import "../../styles/home/CtaSection.css";
+import { useUniversity } from "../university/universityContextValue";
 
 type Props = {
   user: User | null;
 };
 
 function CtaSection({ user }: Props) {
+  const { university, path } = useUniversity();
   if (user) return null;
 
   return (
@@ -23,13 +25,13 @@ function CtaSection({ user }: Props) {
           <p className="ctaBody">
             気になる情報を保存したり、自分にあった情報を見つけて、
             <br />
-            充実した筑波大ライフを送ろう！
+            充実した{university?.short_name}ライフを送ろう！
           </p>
           <div className="ctaButtons">
-            <Link to="/signup" className="registerButton">
+            <Link to={path("/signup")} className="registerButton">
               新規登録（無料）
             </Link>
-            <Link to="/login" className="loginButton">
+            <Link to={path("/login")} className="loginButton">
               <span>ログイン</span>
             </Link>
           </div>
