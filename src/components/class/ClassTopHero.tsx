@@ -18,12 +18,6 @@ function ClassTopHero() {
           {university?.short_name}生の学びをサポートする機能をまとめました。
         </p>
       </div>
-      {/* ダミーのプレースホルダー画像（本実装時にイラストへ差し替える） */}
-      <div
-        className="classTopHeroImage"
-        role="img"
-        aria-label="講義・履修のイメージイラスト（準備中）"
-      />
     </section>
   );
 }

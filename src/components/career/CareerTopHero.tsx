@@ -16,11 +16,6 @@ export default function CareerTopHero() {
           {university?.short_name}生のキャリア選択をサポートする機能をまとめました。
         </p>
       </div>
-      <div
-        className="careerHeroImage"
-        role="img"
-        aria-label="キャリア・インターンのイメージ画像（準備中）"
-      />
     </section>
   );
 }

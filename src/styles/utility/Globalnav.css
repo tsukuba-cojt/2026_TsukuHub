@@ -225,11 +225,30 @@
   line-height: 1.7;
 }
 
-/* ダミーのプレースホルダー画像（本実装時に差し替える） */
-.navDropdownImage {
+.navDropdownLogo {
+  display: flex;
   width: 120px;
   height: 96px;
-  background: #d9d9d9;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--color-text-primary);
+}
+
+.navDropdownLogo img {
+  width: 28px;
+  height: 54px;
+  object-fit: contain;
+}
+
+.navDropdownLogo span {
+  font-family: var(--font-family-logo);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0 4px rgba(27, 73, 104, 0.1);
+  -webkit-text-stroke: 0.25px var(--color-text-primary);
 }
 
 /* 右の3カラム */

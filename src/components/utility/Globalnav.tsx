@@ -15,6 +15,7 @@ import { classMenuItems } from "./classMenuItems";
 import { careerMenuItems } from "./careerMenuItems";
 import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import { useUniversity } from "../university/universityContextValue";
+import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
@@ -30,14 +31,12 @@ const dropdownMenus = {
     title: "キャリア・インターン",
     description:
       "就活の基礎から長期インターン、卒業生の体験記まで。筑波大生のキャリア選択をサポートします。",
-    imageLabel: "キャリア・インターンのイメージ画像（準備中）",
     items: careerMenuItems,
   },
   "/class/top": {
     title: "講義・履修",
     description:
       "授業の検索や履修計画、卒業要件の確認まで。筑波大生の学びをサポートする機能がそろっています。",
-    imageLabel: "講義・履修のイメージ画像（準備中）",
     items: classMenuItems,
   },
 } as const;
@@ -162,11 +161,10 @@ function Globalnav() {
                       <p className="navDropdownDesc">
                         {dropdown.description.replace("筑波大", university?.short_name ?? "大学")}
                       </p>
-                      <div
-                        className="navDropdownImage"
-                        role="img"
-                        aria-label={dropdown.imageLabel}
-                      />
+                      <div className="navDropdownLogo" role="img" aria-label="TsukuHub">
+                        <img src={logoBlue} alt="" aria-hidden="true" />
+                        <span>TsukuHub</span>
+                      </div>
                     </div>
                     <ul className="navDropdownColumns">
                       {dropdown.items.map((menu) => {

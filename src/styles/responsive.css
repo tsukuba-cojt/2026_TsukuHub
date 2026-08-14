@@ -113,11 +113,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .careerHeroImage,
-  .classTopHeroImage {
-    display: none;
-  }
-
   .careerArticlesHeader,
   .careerFirstGuide,
   .classTopHero,
