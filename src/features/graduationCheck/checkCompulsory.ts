@@ -75,6 +75,23 @@ export const checkCompulsory = (
   for (const entry of requirement.courses.compulsory) {
     const { name, alternatives } = parseAlternative(entry);
 
+    // "微積分系::2//['微積分1', '微積分2', '微分積分A']" 形式:
+    // 指定した科目名群から、合計で必要単位以上を修得すれば充足する。
+    if (name.includes("::") && alternatives !== null) {
+      const [label, unitText] = name.split("::");
+      const minimumUnit = Number.parseInt(unitText, 10);
+      const matched = alternatives.flatMap((courseName) => takeByName(courseName));
+      compulsoryResults.push({
+        name: label,
+        isCourseGroup: true,
+        passed: sumUnits(matched, true) >= minimumUnit,
+        minimumUnit,
+        courses: matched,
+        alternative: alternatives.join(", "),
+      });
+      continue;
+    }
+
     // タグ記法（例: "情報::4"）— 科目番号タグに該当する科目群で指定単位以上
     if (name.includes("::")) {
       const [tag, unitText] = name.split("::");

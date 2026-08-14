@@ -58,18 +58,30 @@ export const checkSelect = (
     isExcludeRequirement,
     message,
     group,
+    options,
   ] of requirement.courses.select) {
     const { included, excepted } = expandCodes(codes);
 
     const matchesRequirement = (course: Course): boolean => {
-      const inCodes =
+      const matchesPrefix =
         beginWithMatch(course.id, included) &&
         !beginWithMatch(course.id, excepted);
-      // 除外要件では「対象プレフィックスに該当しない科目」（except は該当扱いに戻す）
+      const matchesName =
+        options?.includeCourseNames?.includes(course.name) ?? false;
+      const isExceptedName =
+        options?.excludeCourseNames?.includes(course.name) ?? false;
+      const isExceptedCode = beginWithMatch(
+        course.id,
+        options?.excludeCodes ?? []
+      );
+      const isExcepted = isExceptedName || isExceptedCode;
+      const matchesConfiguredRule = matchesPrefix || matchesName;
+
+      // 除外要件では「設定したプレフィックス・科目名に該当しない科目」がマッチする。
+      // except と excludeCourseNames は、否定条件では再び対象へ戻す例外として扱う。
       return isExcludeRequirement
-        ? !beginWithMatch(course.id, included) ||
-            beginWithMatch(course.id, excepted)
-        : inCodes;
+        ? !matchesConfiguredRule || isExcepted
+        : matchesConfiguredRule && !isExcepted;
     };
 
     const matched = courseList.filter(

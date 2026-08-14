@@ -5,6 +5,7 @@ import "../../styles/class/GraduationCheck.css";
 type Props = {
   /** アップロード済みファイル名（未取得時は呼び出し側でダミーを渡す） */
   fileName: string;
+  isProcessing: boolean;
   onClose: () => void;
   /** 「データを変更」：モーダルを閉じてファイルを選び直す */
   onChangeFile: () => void;
@@ -15,7 +16,7 @@ type Props = {
 };
 
 const policyItems = [
-  "ログイン中は、復元した時間割を本人履歴として保存します",
+  "ログイン中は、復元した時間割を本人履歴として保存します（同じ年度は最新結果に更新）",
   "CSVの元ファイルは解析後すぐに破棄されます",
   "氏名・学籍番号・メールアドレスは保存しません",
 ];
@@ -24,6 +25,7 @@ const policyItems = [
 // チェックボックスは開くたびに初期状態OFF（本コンポーネントの再マウントで担保）
 function GraduationCheckConsentModal({
   fileName,
+  isProcessing,
   onClose,
   onChangeFile,
   onOpenGuide,
@@ -142,10 +144,10 @@ function GraduationCheckConsentModal({
           <button
             type="button"
             className="gradCheckStartBtn"
-            disabled={!agreedRequired}
+            disabled={!agreedRequired || isProcessing}
             onClick={() => onStart(agreedStats)}
           >
-            チェックを開始する
+            {isProcessing ? "解析しています..." : "チェックを開始する"}
           </button>
         </div>
       </div>
