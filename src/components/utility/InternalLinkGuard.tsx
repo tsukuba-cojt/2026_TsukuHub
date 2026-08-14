@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { COMING_SOON_NOTICE, isKnownAppPath, shouldBlockInternalNavigation } from "../../data/comingSoon";
 import { useUniversity } from "../university/universityContextValue";
 import Toast from "./Toast";
-import { resolveTenantPath } from "../../lib/tenantNavigation";
+import { isPlatformPath, resolveTenantPath } from "../../lib/tenantNavigation";
 
 function InternalLinkGuard() {
   const [noticeKey, setNoticeKey] = useState(0);
@@ -23,6 +23,7 @@ function InternalLinkGuard() {
 
       const url = new URL(anchor.href, window.location.href);
       if (url.origin !== window.location.origin) return;
+      if (isPlatformPath(url.pathname)) return;
 
       const { isTenantPath, relativePath: pathname } = resolveTenantPath(
         url.pathname,

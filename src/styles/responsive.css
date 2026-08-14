@@ -265,12 +265,12 @@
   }
 
   .mypage-button,
-  .notification-button {
+  .admin-page-button {
     height: 42px;
   }
 
-  .notification-button {
-    width: 42px;
+  .admin-page-button {
+    padding-inline: 12px;
   }
 
   .globalHeader {
@@ -444,7 +444,7 @@
 
   .tagline,
   .logo-sparkle-yellow,
-  .notification-button,
+  .admin-page-label,
   .mypage-label {
     display: none;
   }
@@ -464,6 +464,12 @@
   .mypage-button {
     height: 38px;
     padding-inline: 8px;
+  }
+
+  .admin-page-button {
+    width: 38px;
+    height: 38px;
+    padding: 0;
   }
 
   .mypage-dropdown {
