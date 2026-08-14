@@ -45,6 +45,10 @@ export const courseCodeTypes: Record<string, CourseCodeType> = {
     codes: ["31"],
     except: ["3190012", "3190022"],
   },
+  初修外国語: {
+    codes: ["3"],
+    except: ["31"],
+  },
   情報: {
     codes: ["6"],
     except: [],

@@ -25,6 +25,10 @@ import {
   levelClass,
   levelFromPercent,
 } from "../components/class/graduationProgressLevel";
+import {
+  listDepartmentAdmissionYears,
+  supportedDepartments,
+} from "../features/graduationCheck";
 import type {
   CategoryKey,
   CategoryResult,
@@ -36,6 +40,13 @@ import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable"
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 import { useUniversity } from "../components/university/universityContextValue";
+
+const supportedSummary = supportedDepartments
+  .map((department) => {
+    const years = listDepartmentAdmissionYears(department);
+    return `${department.label}の${years[0]}〜${years[years.length - 1]}年度入学`;
+  })
+  .join("、");
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
@@ -373,7 +384,7 @@ function GraduationCheckResult() {
               </ul>
               <div className="gradResultNotes">
                 <p>
-                  現在は2021〜2024年度入学の情報学群メディア創成学類、知識情報図書館学類の卒業要件のみに対応しています
+                  現在は{supportedSummary}の卒業要件に対応しています
                 </p>
                 <p>
                   卒業要件は、
