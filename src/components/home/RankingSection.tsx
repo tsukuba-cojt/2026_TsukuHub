@@ -5,8 +5,8 @@ import { useUniversity } from "../university/universityContextValue";
 
 function RankingSection() {
   const { university } = useUniversity();
-  const services = university?.slug === "tsukuba"
-    ? externalServicesByUniversity.tsukuba
+  const services = university?.slug
+    ? externalServicesByUniversity[university.slug as keyof typeof externalServicesByUniversity] ?? []
     : [];
   return (
     <section className="panel externalServicesPanel">

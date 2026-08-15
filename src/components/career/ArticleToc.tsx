@@ -14,7 +14,7 @@ export default function ArticleToc({ headings }: ArticleTocProps) {
       <div className="articleTocHead">
         <h2>目次</h2>
         <button type="button" onClick={() => setOpen((current) => !current)}>
-          {open ? "閉じる" : "開く"}
+          {open ? "目次を閉じる" : "目次を開く"}
         </button>
       </div>
       {open && (

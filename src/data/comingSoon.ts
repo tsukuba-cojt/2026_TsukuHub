@@ -86,6 +86,8 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
 const KNOWN_DYNAMIC_PATHS: readonly RegExp[] = [
   /^\/class\/[^/]+$/,
   /^\/class\/[^/]+\/review$/,
+  /^\/class\/guides\/[^/]+$/,
+  /^\/class\/guide\/[^/]+$/,
   /^\/career\/articles\/[^/]+$/,
   /^\/career\/internships\/[^/]+$/,
   /^\/career\/alumni\/[^/]+$/,

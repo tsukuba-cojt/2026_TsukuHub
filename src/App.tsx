@@ -15,6 +15,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Class from "./pages/Class";
 import ClassTop from "./pages/ClassTop";
+import ClassGuideList from "./pages/ClassGuideList";
+import ClassGuideDetail from "./pages/ClassGuideDetail";
 import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
 import GraduationCheck from "./pages/GraduationCheck";
@@ -142,6 +144,8 @@ function App() {
               <Route element={<FeatureGate feature="courses" />}>
                 <Route path="class" element={<Class />} />
                 <Route path="class/top" element={<ClassTop />} />
+                <Route path="class/guides/:categorySlug" element={<ClassGuideList />} />
+                <Route path="class/guide/:id" element={<ClassGuideDetail />} />
                 <Route path="class/:courseCode" element={<ClassDetail />} />
               </Route>
               <Route element={<FeatureGate feature="class_reviews" />}>

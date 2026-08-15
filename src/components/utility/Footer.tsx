@@ -12,9 +12,9 @@ import snsLineIcon from "../../assets/utility/header_footer/icon-sns-line.svg";
 
 function Footer() {
   const { university, path } = useUniversity();
-  const externalServices = university?.slug === "tsukuba"
-    ? externalServicesByUniversity.tsukuba
-    : externalServicesByUniversity.osaka;
+  const externalServices = university?.slug
+    ? externalServicesByUniversity[university.slug as keyof typeof externalServicesByUniversity] ?? []
+    : [];
   return (
     <footer className="footer">
       <div className="footerInner">

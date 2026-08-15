@@ -113,6 +113,25 @@ select internships.id, '00000000-0000-4000-8000-000000000001'::uuid
 from public.internships
 on conflict do nothing;
 
+insert into public.internship_universities (internship_id, university_id)
+select internships.id, '00000000-0000-4000-8000-000000000002'::uuid
+from public.internships
+where internships.title like 'ダミー｜%'
+on conflict do nothing;
+
+insert into public.alumni_stories (
+  university_id, graduation_year, faculty, destination, job_role, title, summary, tags, started_at,
+  target_industries, challenge, actions, advice, current_work, cover_image_url, status
+)
+select
+  '00000000-0000-4000-8000-000000000002'::uuid,
+  graduation_year, faculty, destination, job_role, title, summary, tags, started_at,
+  target_industries, challenge, actions, advice, current_work, cover_image_url, status
+from public.alumni_stories source
+where source.university_id = '00000000-0000-4000-8000-000000000001'::uuid
+  and source.title like 'ダミー｜%'
+on conflict do nothing;
+
 with seeded(kind, category, title, description, published_at) as (
   values
     ('topic', '就活・キャリア', 'ダミー｜【6/9（月）】夏インターンの探し方と選考対策ガイド', '就活Hubのサンプルトピックです。', date '2026-08-10'),
@@ -135,6 +154,12 @@ where not exists (
 
 insert into public.news_item_universities (news_item_id, university_id)
 select items.id, '00000000-0000-4000-8000-000000000001'::uuid
+from public.news_items items
+where items.title like 'ダミー｜%'
+on conflict do nothing;
+
+insert into public.news_item_universities (news_item_id, university_id)
+select items.id, '00000000-0000-4000-8000-000000000002'::uuid
 from public.news_items items
 where items.title like 'ダミー｜%'
 on conflict do nothing;
