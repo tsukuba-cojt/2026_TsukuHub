@@ -173,7 +173,11 @@ function GraduationCheck() {
         : "guest";
       if (user) {
         try {
-          await saveTimetableHistories(timetableHistories, user.id, university?.id ?? "");
+          await saveTimetableHistories(
+            timetableHistories,
+            user.id,
+            university?.id ?? ""
+          );
         } catch {
           timetableSaveStatus = "failed";
         }

@@ -76,6 +76,14 @@
   overflow-y: auto;
 }
 
+.latestEmpty {
+  margin: auto;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
 /* 個別のニュースアイテム */
 .latestItem {
   display: flex;

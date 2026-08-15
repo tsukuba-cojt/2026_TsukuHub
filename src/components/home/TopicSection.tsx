@@ -17,6 +17,9 @@ function TopicSection({ topics }: { topics: NewsItemRecord[] }) {
       </div>
 
       <div className="topicList">
+        {topics.length === 0 && (
+          <p className="topicEmpty">まだ掲載されているトピックはありません。</p>
+        )}
         {topics.map((topic) => {
           const presentation = newsPresentation(topic.category);
           const TopicIcon = presentation.icon;
