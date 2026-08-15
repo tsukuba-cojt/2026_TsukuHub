@@ -21,8 +21,8 @@ import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
 import Notfound404 from "./pages/404";
-import Mypage from "./pages/Mypage";
 import Contact from "./pages/Contact";
+import LegalDocument from "./pages/LegalDocument";
 import NewsList from "./pages/NewsList";
 import TopicList from "./pages/TopicList";
 import Career from "./pages/Career";
@@ -70,6 +70,8 @@ const legacyRoots = [
   "timetable",
   "mypage",
   "contact",
+  "terms",
+  "privacy",
   "news",
   "topics",
   "career",
@@ -110,12 +112,14 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
               <Route path="auth/confirm" element={<Confirm />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="terms" element={<LegalDocument type="agreement" />} />
+              <Route path="privacy" element={<LegalDocument type="privacy" />} />
             </Route>
 
             <Route element={<RequireUniversityAccess />}>
-              <Route path="mypage" element={<Mypage />} />
+              <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
-              <Route path="contact" element={<Contact />} />
               <Route path="career" element={<Career />} />
 
               <Route element={<FeatureGate feature="news" />}>

@@ -90,10 +90,11 @@
 }
 
 .timetablePanel {
-  padding: 40px 46px 56px;
+  padding: 40px clamp(16px, 3vw, 46px) 56px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 20px 40px rgba(23, 78, 152, 0.08);
+  overflow: hidden;
 }
 
 .timetableFilterGrid {
@@ -429,7 +430,7 @@
 }
 
 .timetableDetailPanel {
-  padding: 34px 48px 28px;
+  padding: 34px clamp(16px, 3vw, 48px) 28px;
 }
 
 .timetableBackBtn {
@@ -494,9 +495,13 @@
 
 .timetableDetailLayout {
   display: grid;
-  grid-template-columns: minmax(520px, 1fr) 598px;
-  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+  gap: 28px 32px;
   align-items: start;
+}
+
+.timetableDetailLayout > * {
+  min-width: 0;
 }
 
 .timetableFullGridWrap {
@@ -546,6 +551,8 @@
   border: 1px solid #a9bddb;
   border-radius: 6px;
   background: rgba(248, 252, 255, 0.86);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .timetableAttributeCard h3 {
@@ -556,8 +563,8 @@
 
 .timetableAttributeCard dl {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px 26px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 12px;
   margin: 0;
 }
 
@@ -584,14 +591,17 @@
   margin: 0;
   font-size: 13px;
   font-weight: 900;
+  overflow-wrap: anywhere;
+  line-height: 1.45;
 }
 
 .timetableBaseBtn {
-  width: 282px;
+  width: min(282px, 100%);
   margin-top: 40px;
   margin-left: auto;
   color: #fff;
   background: #1376ff;
+  box-sizing: border-box;
 }
 
 .timetableSpecialPanel {

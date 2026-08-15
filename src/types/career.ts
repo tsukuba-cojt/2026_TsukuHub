@@ -11,6 +11,7 @@ export type Internship = {
   id: string;
   company_name: string;
   company_logo_url: string | null;
+  cover_image_url: string | null;
   title: string;
   summary: string;
   company_description: string;

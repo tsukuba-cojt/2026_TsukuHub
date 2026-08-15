@@ -6,7 +6,6 @@ import bagIcon from "../../assets/home/CategoryCard/Bag.svg";
 import bookIcon from "../../assets/home/CategoryCard/Book.svg";
 import peopleIcon from "../../assets/home/CategoryCard/People.svg";
 import eatIcon from "../../assets/home/CategoryCard/Eat.svg";
-import calendarIcon from "../../assets/home/CategoryCard/Calendar.svg";
 import networkIcon from "../../assets/home/CategoryCard/Network.svg";
 import { useUniversity } from "../university/universityContextValue";
 
@@ -38,13 +37,6 @@ const categories = [
     text: "学食・住まい・交通など\nキャンパスライフに役立つ情報",
     path: "/lifestyle",
     textClass: "catTextLife",
-  },
-  {
-    imageSrc: calendarIcon,
-    title: "イベント・お知らせ",
-    text: "学内イベントや学校からの\n最新情報をチェック",
-    path: "/events",
-    textClass: "catTextEvent",
   },
   {
     imageSrc: networkIcon,

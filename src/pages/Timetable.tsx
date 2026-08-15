@@ -28,6 +28,7 @@ import {
   timetableModuleLabels,
   timetableModuleOrder,
 } from "../types/timetable";
+import { timetableFilterOptions } from "../features/timetable/filterOptions";
 import "../styles/class/Timetable.css";
 import { useUniversity } from "../components/university/universityContextValue";
 
@@ -49,9 +50,6 @@ const firstVisibleModule = (
     ) ?? "springA"
   );
 };
-
-const uniqueOptions = (values: string[]) =>
-  [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, "ja"));
 
 function TimetableSelect({
   id,
@@ -153,12 +151,16 @@ function Timetable() {
   );
 
   const options = useMemo(
-    () => ({
-      departments: uniqueOptions(histories.map((history) => history.department)),
-      studentYears: uniqueOptions(histories.map((history) => history.studentYearLabel)),
-      majors: uniqueOptions(histories.map((history) => history.major)),
-    }),
-    [histories]
+    () =>
+      timetableFilterOptions({
+        department: filters.department,
+        extraDepartments: histories.map((history) => history.department),
+        extraYears: histories.map((history) => history.studentYearLabel),
+        extraMajors: histories
+          .filter((history) => !filters.department || history.department === filters.department)
+          .map((history) => history.major),
+      }),
+    [filters.department, histories]
   );
 
   const updateFilters = (next: Partial<TimetableFilters>) => {
@@ -210,7 +212,12 @@ function Timetable() {
                 label="学類を選択"
                 required
                 value={filters.department}
-                onChange={(value) => updateFilters({ department: value })}
+                onChange={(value) =>
+                  updateFilters({
+                    department: value,
+                    major: "",
+                  })
+                }
               >
                 <option value="">-- 選択する --</option>
                 {options.departments.map((department) => (

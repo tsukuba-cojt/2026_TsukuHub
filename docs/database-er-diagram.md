@@ -1,9 +1,10 @@
 # TsukuHub database ER diagram
 
-Snapshot of the running local Supabase `public` schema on 2026-08-14.
-The schema contains 19 base tables and 2 read-only views. `auth.users` is shown
+Snapshot of the running local Supabase `public` schema on 2026-08-15.
+The schema contains 18 base tables and 2 read-only views. `auth.users` is shown
 as an external Supabase Auth table. To keep the diagrams readable, only keys
-and important domain columns are included.
+and important domain columns are included. Course catalog metadata is not a
+database table; it is served from static JSON (`public/data/courses/{slug}.json`).
 
 ## University, accounts, and classes
 
@@ -18,7 +19,6 @@ erDiagram
     universities o|..o{ profiles : groups
     universities ||--o{ universityEmailDomains : permits
     universities ||--o{ universityFeatures : configures
-    universities ||--o{ courses : offers
     universities ||--o{ classAnnouncements : publishes
     universities ||--o{ classReviews : receives
     universities ||--o{ reviewReports : scopes
@@ -61,16 +61,6 @@ erDiagram
         text feature_key PK
         text status
         datetime updated_at
-    }
-    courses {
-        bigint id PK
-        uuid university_id FK
-        text course_number UK
-        text course_code "Nullable"
-        text course_name
-        text credits
-        text semester
-        text schedule
     }
     classAnnouncements["class_announcements"] {
         uuid id PK
@@ -266,8 +256,8 @@ erDiagram
 
 ## Constraints that are easy to miss
 
-- `class_reviews(course_code, user_id)` is unique, but `course_code` is not a
-  foreign key to `courses`.
+- `class_reviews(course_code, user_id)` is unique. `course_code` is a catalog
+  key from static JSON, not a database foreign key.
 - `review_reports(review_id, reporter_id)` is unique, but `review_id` is stored
   as text and is not a foreign key to `class_reviews`.
 - `applications(internship_id, user_id)` is unique.

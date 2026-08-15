@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   BookOpen,
   BriefcaseBusiness,
@@ -14,8 +14,12 @@ import {
 import { supabase } from "../../lib/supabase";
 import { useAuth } from "../auth/authContextValue";
 import { useUniversity } from "../university/universityContextValue";
-import { clearActiveUniversitySlug } from "../../lib/tenantSession";
+import { setActiveUniversitySlug, clearActiveUniversitySlug } from "../../lib/tenantSession";
+import { resolveTenantPath } from "../../lib/tenantNavigation";
+import { listUniversities } from "../../services/universityService";
+import type { University } from "../../types/university";
 import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
+import UserInfoModal from "./UserInfoModal";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
@@ -32,12 +36,15 @@ const mobileNavItems = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, isAdmin } = useAuth();
   const { university, path, isFeatureEnabled } = useUniversity();
+  const [universities, setUniversities] = useState<University[]>([]);
 
   // メニュー外クリックで閉じる
   useEffect(() => {
@@ -72,6 +79,24 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileMenuOpen]);
 
+  useEffect(() => {
+    if (!isAdmin) {
+      setUniversities([]);
+      return;
+    }
+    let cancelled = false;
+    void listUniversities()
+      .then((items) => {
+        if (!cancelled) setUniversities(items.filter((item) => item.status === "active"));
+      })
+      .catch(() => {
+        if (!cancelled) setUniversities([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isAdmin]);
+
   // 検索は未実装。Enter キーでの送信も含め、何も起こらないようにする
   // （検索ボックス非表示に伴い一時コメントアウト）
   // const handleSearchSubmit = (e: React.FormEvent) => {
@@ -85,7 +110,16 @@ export default function Header() {
     navigate(path());
   };
 
+  const switchUniversity = (slug: string) => {
+    if (!slug || slug === university?.slug) return;
+    setActiveUniversitySlug(slug);
+    const { relativePath } = resolveTenantPath(location.pathname, university?.slug ?? "");
+    const suffix = relativePath === "/" ? "" : relativePath;
+    navigate(`/${slug}${suffix}`);
+  };
+
   return (
+    <>
     <header className="main-header">
       {/* 検索ボックス非表示に伴いコメントアウト（参照元は .search-icon-image のみ）。
           --color-primary-gradient と同じ色停止（#1578FD → #075FDF, 90deg）を
@@ -189,6 +223,22 @@ export default function Header() {
 
           {user ? (
             <div className="user-area">
+              {isAdmin && universities.length > 1 && (
+                <label className="adminUniversitySwitch">
+                  <span className="adminUniversitySwitchLabel">表示大学</span>
+                  <select
+                    aria-label="表示する大学"
+                    value={university?.slug ?? ""}
+                    onChange={(event) => switchUniversity(event.target.value)}
+                  >
+                    {universities.map((item) => (
+                      <option value={item.slug} key={item.id}>
+                        {item.short_name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
               {isAdmin && (
                 <Link
                   to="/admin"
@@ -236,14 +286,17 @@ export default function Header() {
 
                 {menuOpen && (
                   <div className="mypage-dropdown" role="menu">
-                    <Link
-                      to={path("/mypage")}
+                    <button
+                      type="button"
                       className="dropdown-item"
                       role="menuitem"
-                      onClick={() => setMenuOpen(false)}
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setProfileOpen(true);
+                      }}
                     >
                       ユーザー情報
-                    </Link>
+                    </button>
                     <Link
                       to={path("/mypage/applications")}
                       className="dropdown-item"
@@ -322,5 +375,9 @@ export default function Header() {
         </div>
       </div>
     </header>
+    {profileOpen && (
+      <UserInfoModal onClose={() => setProfileOpen(false)} />
+    )}
+    </>
   );
 }

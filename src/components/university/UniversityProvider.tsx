@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../auth/authContextValue";
+import { setActiveUniversitySlug } from "../../lib/tenantSession";
 import { getUniversityBySlug } from "../../services/universityService";
 import type {
   UniversityFeatureKey,
@@ -9,6 +11,7 @@ import { UniversityContext } from "./universityContextValue";
 
 export default function UniversityProvider({ children }: { children: React.ReactNode }) {
   const { universitySlug = "" } = useParams();
+  const { isAdmin } = useAuth();
   const [result, setResult] = useState<{
     slug: string;
     university: UniversityWithSettings | null;
@@ -33,6 +36,10 @@ export default function UniversityProvider({ children }: { children: React.React
     };
   }, [universitySlug]);
 
+  useEffect(() => {
+    if (isAdmin && university) setActiveUniversitySlug(university.slug);
+  }, [isAdmin, university]);
+
   const path = useCallback(
     (pathname = "") => {
       const suffix = pathname === "/" ? "" : pathname.startsWith("/") ? pathname : `/${pathname}`;
@@ -48,9 +55,9 @@ export default function UniversityProvider({ children }: { children: React.React
       error,
       path,
       isFeatureEnabled: (feature: UniversityFeatureKey) =>
-        university?.features[feature] === "enabled",
+        Boolean(isAdmin || university?.features[feature] === "enabled"),
     }),
-    [error, loading, path, university],
+    [error, isAdmin, loading, path, university],
   );
 
   return <UniversityContext.Provider value={value}>{children}</UniversityContext.Provider>;

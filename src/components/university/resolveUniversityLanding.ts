@@ -5,13 +5,21 @@ export function resolveUniversityLanding({
   isAuthenticated,
   isActiveUniversity,
   canAccessUniversity,
+  isAdmin = false,
 }: {
   universityStatus: "active" | "suspended";
   isAuthenticated: boolean;
   isActiveUniversity: boolean;
   canAccessUniversity: boolean;
+  isAdmin?: boolean;
 }): UniversityLandingDestination {
   if (universityStatus === "suspended") return "suspended";
-  if (isAuthenticated && isActiveUniversity && canAccessUniversity) return "home";
+  if (
+    isAuthenticated &&
+    canAccessUniversity &&
+    (isActiveUniversity || isAdmin)
+  ) {
+    return "home";
+  }
   return "login";
 }

@@ -1,29 +1,41 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import { listPublishedClassAnnouncements } from "../../services/contentService";
-import type { ClassAnnouncementRecord } from "../../types/content";
 import { useUniversity } from "../university/universityContextValue";
 import "../../styles/class/ClassTop.css";
 
-const badgeClass = (category: string) => {
-  if (category.includes("履修")) return "isGreen";
-  if (category.includes("システム")) return "isPurple";
-  return "isBlue";
-};
+const newsItems = [
+  {
+    date: "2026/05/12",
+    category: "お知らせ",
+    categoryClass: "isBlue",
+    title: "ダミー｜【重要】夏学期の履修登録期間について",
+  },
+  {
+    date: "2026/05/11",
+    category: "履修ガイド",
+    categoryClass: "isGreen",
+    title: "ダミー｜2026年度 履修の手引きを公開しました",
+  },
+  {
+    date: "2026/05/09",
+    category: "システム",
+    categoryClass: "isPurple",
+    title: "ダミー｜システムメンテナンスのお知らせ（5/15)",
+  },
+  {
+    date: "2026/05/08",
+    category: "お知らせ",
+    categoryClass: "isBlue",
+    title: "ダミー｜授業評価アンケートのご協力のお願い",
+  },
+];
 
 function ClassTopNews() {
-  const { university, path } = useUniversity();
-  const [newsItems, setNewsItems] = useState<ClassAnnouncementRecord[]>([]);
-  useEffect(() => {
-    if (!university) return;
-    void listPublishedClassAnnouncements(university.id).then((items) => setNewsItems(items.slice(0, 4))).catch(() => setNewsItems([]));
-  }, [university]);
+  const { path } = useUniversity();
   return (
     <section className="classTopPanel">
       <div className="classTopPanelHeading">
-        <h2>お知らせ</h2>
-        {/* もっと見る先は未実装のため仮リンク（404） */}
+        <h2>お知らせ（ダミー）</h2>
         <Link to={path("/news")} className="classTopMoreLink">
           もっと見る
           <ChevronRight aria-hidden="true" />
@@ -32,10 +44,10 @@ function ClassTopNews() {
 
       <ul className="classTopNewsList">
         {newsItems.map((item) => (
-          <li className="classTopNewsItem" key={item.id} title={item.content}>
+          <li className="classTopNewsItem" key={item.title}>
             <p className="classTopNewsMeta">
-              <time dateTime={item.published_at}>{item.published_at.replaceAll("-", "/")}</time>
-              <span className={`classTopNewsBadge ${badgeClass(item.category)}`}>
+              <time>{item.date}</time>
+              <span className={`classTopNewsBadge ${item.categoryClass}`}>
                 {item.category}
               </span>
             </p>

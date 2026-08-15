@@ -36,137 +36,16 @@
 
 /* ── 3つの機能カード ────────────────────── */
 .classTopFeatures {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
   margin-bottom: 28px;
 }
 
-.classTopFeatureCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  padding: 32px 28px 28px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: var(--shadow-card);
-  text-align: center;
-}
-
-.classTopFeatureCard.isComingSoon {
-  opacity: .72;
-}
-
-.classTopFeatureIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-}
-
-.classTopFeatureIcon svg {
-  width: 38px;
-  height: 38px;
-}
-
-/* カラーバリエーション（ドロップダウンと同じ配色） */
-.classTopFeatureCard.isBlue .classTopFeatureIcon {
-  background: #dfe9fd;
-  color: #3b76f0;
-}
-
-.classTopFeatureCard.isBlue .classTopFeatureTitle,
-.classTopFeatureCard.isBlue .classTopFeatureBtn {
-  color: var(--color-primary);
-}
-
-.classTopFeatureCard.isGreen .classTopFeatureIcon {
-  background: #d9f4ea; /* #3FC89B（--color-label-club）の薄いティント */
-  color: var(--color-label-club);
-}
-
-.classTopFeatureCard.isGreen .classTopFeatureTitle,
-.classTopFeatureCard.isGreen .classTopFeatureBtn {
-  color: var(--color-label-club);
-}
-
-.classTopFeatureCard.isYellow .classTopFeatureIcon {
-  background: #ffefcc; /* #FEB304（--color-label-life）の薄いティント */
-  color: var(--color-label-life);
-}
-
-.classTopFeatureCard.isYellow .classTopFeatureTitle,
-.classTopFeatureCard.isYellow .classTopFeatureBtn {
-  color: var(--color-label-life);
-}
-
-.classTopFeatureTitle {
-  margin: 0;
-  font-size: 19px;
-  font-weight: 900;
-}
-
-.classTopFeatureDesc {
-  margin: 0;
-  color: var(--color-text-primary);
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.classTopFeatureBtn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  margin-top: auto;
-  padding: 12px 16px;
-  border: 1px solid #e3eaf5;
-  border-radius: 10px;
-  background: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-
-.classTopFeatureBtn.isComingSoon {
-  color: #65758a !important;
-  background: #eef2f7;
-}
-
-.classTopFeatureBtn.isComingSoon .comingSoonTip {
-  right: 50%;
-  bottom: calc(100% + 9px);
-  transform: translateX(50%);
-}
-
-.classTopFeatureBtn.isComingSoon:hover .comingSoonTip,
-.classTopFeatureBtn.isComingSoon:focus-visible .comingSoonTip {
-  opacity: 1;
-  visibility: visible;
-}
-
-.classTopFeatureBtn:hover {
-  background: #f6f9fe;
-}
-
-.classTopFeatureBtn svg {
-  width: 16px;
-  height: 16px;
-}
-
-/* ── お知らせ ── */
+/* ── 2カラム（ブックマーク一覧／お知らせ） ── */
 .classTopColumns {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
   align-items: start;
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 
 .classTopPanel {
@@ -207,6 +86,123 @@
 .classTopMoreLink svg {
   width: 14px;
   height: 14px;
+}
+
+/* ブックマーク一覧 */
+.classTopBookmarkList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.classTopBookmarkRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e8eef7;
+  border-radius: 10px;
+  background: #fff;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.classTopBookmarkRow:hover {
+  background: #f6f9fe;
+}
+
+.classTopBookmarkMain {
+  min-width: 0;
+}
+
+.classTopBookmarkTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+}
+
+.classTopCategoryBadge {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.classTopCategoryBadge.isBlue { background: var(--color-primary); }
+.classTopCategoryBadge.isPurple { background: var(--color-label-job); }
+.classTopCategoryBadge.isGreen { background: var(--color-label-club); }
+.classTopCategoryBadge.isTeal { background: #19bfca; }
+.classTopCategoryBadge.isYellow { background: var(--color-label-life); }
+
+.classTopBookmarkTitle {
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.classTopBookmarkMeta {
+  display: flex;
+  gap: 14px;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.classTopBookmarkSide {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.classTopBookmarkRating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.classTopStar {
+  color: #ffb800;
+}
+
+.classTopBookmarkRating small {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.classTopBookmarkIcon {
+  width: 16px;
+  height: 16px;
+  color: #9ab1d8;
+}
+
+.classTopRowChevron {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.classTopEmpty {
+  margin: 24px 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
 }
 
 /* お知らせ */
@@ -256,14 +252,74 @@
   font-weight: 700;
 }
 
+/* ── 履修に役立つリンク集 ─────────────────── */
+.classTopLinks {
+  margin-bottom: 48px;
+}
+
+.classTopLinksHeading {
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.classTopLinksGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.classTopLinkCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.classTopLinkCard:hover {
+  background: #f6f9fe;
+}
+
+.classTopLinkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.classTopLinkIcon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.classTopLinkIcon.isBlue { background: #dfe9fd; color: #3b76f0; }
+.classTopLinkIcon.isGreen { background: #d9f4ea; color: var(--color-label-club); }
+.classTopLinkIcon.isYellow { background: #ffefcc; color: var(--color-label-life); }
+.classTopLinkIcon.isPurple { background: #e5defc; color: var(--color-label-job); }
+
+.classTopLinkLabel {
+  flex: 1;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 /* ── レスポンシブ ─────────────────────────── */
 @media (max-width: 1100px) {
-  .classTopFeatures {
-    grid-template-columns: 1fr;
-  }
-
   .classTopColumns {
     grid-template-columns: 1fr;
   }
 
+  .classTopLinksGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

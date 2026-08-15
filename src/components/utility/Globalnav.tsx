@@ -1,8 +1,9 @@
 import "../../styles/utility/Globalnav.css";
 import "../../styles/utility/ComingSoon.css";
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
+  ArrowLeft,
   House,
   BriefcaseBusiness,
   BookOpen,
@@ -15,6 +16,12 @@ import { classMenuItems } from "./classMenuItems";
 import { careerMenuItems } from "./careerMenuItems";
 import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import { useUniversity } from "../university/universityContextValue";
+import { resolveTenantPath } from "../../lib/tenantNavigation";
+import {
+  canNavigateBackInApp,
+  fallbackNavBasePath,
+  isNavBasePath,
+} from "../../lib/pageBack";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 
 const navItems = [
@@ -45,6 +52,7 @@ type DropdownPath = keyof typeof dropdownMenus;
 
 function Globalnav() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { university, path, isFeatureEnabled } = useUniversity();
   const [isScrolled, setIsScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<DropdownPath | null>(null);
@@ -80,6 +88,18 @@ function Globalnav() {
 
   // ホーム（トップページ）の一番上にいる間だけ背景を透明にする
   const isTransparent = pathname === path() && !isScrolled;
+  const relativePath = university
+    ? resolveTenantPath(pathname, university.slug).relativePath
+    : "/";
+  const showBack = Boolean(university) && !isNavBasePath(relativePath);
+
+  const handleBack = () => {
+    if (canNavigateBackInApp()) {
+      navigate(-1);
+      return;
+    }
+    navigate(path(fallbackNavBasePath(relativePath)));
+  };
 
   return (
     <>
@@ -214,6 +234,18 @@ function Globalnav() {
         </nav>
       </header>
       <div className="globalHeaderSpacer" aria-hidden="true" />
+      {showBack && (
+        <div className="pageBackBar">
+          <button
+            type="button"
+            className="pageBackButton"
+            aria-label="前のページに戻る"
+            onClick={handleBack}
+          >
+            <ArrowLeft aria-hidden="true" />
+          </button>
+        </div>
+      )}
     </>
   );
 }

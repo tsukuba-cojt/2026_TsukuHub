@@ -12,7 +12,7 @@ import type {
 } from "../types/content";
 
 const articleColumns = "id, category, title, description, content, published_at, read_minutes, status, source_type, external_url, created_at, updated_at";
-const alumniColumns = "id, university_id, graduation_year, faculty, destination, job_role, title, summary, tags, started_at, target_industries, challenge, actions, advice, current_work, status, created_at, updated_at";
+const alumniColumns = "id, university_id, graduation_year, faculty, destination, job_role, title, summary, tags, started_at, target_industries, challenge, actions, advice, current_work, cover_image_url, status, created_at, updated_at";
 const announcementColumns = "id, university_id, category, title, content, published_at, status, created_at, updated_at";
 const reportColumns = "id, university_id, review_id, course_code, review_snapshot, reporter_id, reason, status, admin_notes, created_at, updated_at";
 
@@ -156,4 +156,15 @@ export async function updateReviewReport(id: string, status: ReviewReportStatus,
 export async function updateContentStatus(table: "career_articles" | "alumni_stories" | "class_announcements", id: string, status: PublishStatus): Promise<void> {
   const { error } = await supabase.from(table).update({ status }).eq("id", id);
   if (error) throw error;
+}
+
+export async function uploadArticleImage(file: File, userId: string): Promise<string> {
+  const extension = file.name.split(".").pop()?.toLowerCase() || "png";
+  const path = `${userId}/${crypto.randomUUID()}.${extension}`;
+  const { error } = await supabase.storage.from("article-images").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
+  if (error) throw error;
+  return supabase.storage.from("article-images").getPublicUrl(path).data.publicUrl;
 }

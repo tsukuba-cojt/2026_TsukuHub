@@ -2,6 +2,7 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../components/auth/authContextValue";
 import { useUniversity } from "../components/university/universityContextValue";
 import { getActiveUniversitySlug } from "../lib/tenantSession";
+import { canAccessUniversitySite } from "../lib/universityAccess";
 import Home from "./Home";
 import { resolveUniversityLanding } from "../components/university/resolveUniversityLanding";
 import "../styles/university/UniversityPortal.css";
@@ -16,12 +17,17 @@ export default function UniversityLanding() {
   if (!university) return <main className="careerState"><h1>大学が見つかりません</h1><Link to="/">大学を選び直す</Link></main>;
 
   const active = getActiveUniversitySlug() === university.slug;
-  const canAccess = isAdmin || universityId === university.id;
+  const canAccess = canAccessUniversitySite({
+    isAdmin,
+    profileUniversityId: universityId,
+    universityId: university.id,
+  });
   const destination = resolveUniversityLanding({
     universityStatus: university.status,
     isAuthenticated: Boolean(user),
     isActiveUniversity: active,
     canAccessUniversity: canAccess,
+    isAdmin,
   });
   if (destination === "home") return <Home />;
 

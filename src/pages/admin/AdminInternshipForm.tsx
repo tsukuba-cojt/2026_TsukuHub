@@ -15,7 +15,7 @@ import type { University } from "../../types/university";
 import type { InternshipInput, InternshipStatus } from "../../types/career";
 
 const emptyForm: InternshipInput = {
-  company_name: "", company_logo_url: null, title: "", summary: "", company_description: "",
+  company_name: "", company_logo_url: null, cover_image_url: null, title: "", summary: "", company_description: "",
   job_category: "エンジニア", location: "", work_style: "ハイブリッド", is_remote: false,
   work_conditions: "", compensation: "", description: "", requirements: "", preferred_skills: "",
   acquirable_skills: "", selection_process: "", tags: [], deadline: "", status: "draft", is_featured: false,

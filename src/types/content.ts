@@ -34,6 +34,7 @@ export type AlumniStoryRecord = {
   actions: string;
   advice: string;
   current_work: string;
+  cover_image_url: string | null;
   status: PublishStatus;
   created_at: string;
   updated_at: string;

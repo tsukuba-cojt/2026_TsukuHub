@@ -33,6 +33,7 @@ export const fallbackAlumniStories: AlumniStoryRecord[] = alumniStories.map(
     actions: story.actions,
     advice: story.advice,
     current_work: story.currentWork,
+    cover_image_url: null,
     status: "published",
     created_at: String(story.graduationYear),
     updated_at: String(story.graduationYear),

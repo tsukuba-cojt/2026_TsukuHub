@@ -119,7 +119,6 @@
 .catTextClass  { background: var(--color-category-class);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .catTextClub   { background: var(--color-category-club);   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .catTextLife   { background: var(--color-category-life);   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.catTextEvent  { background: var(--color-category-event);  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .catTextGlobal { background: var(--color-category-global); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
 @media (max-width: 1250px) {
@@ -140,7 +139,7 @@
   }
 
   .categoryCard {
-    width: calc((100% - 50px) / 6);
+    width: calc((100% - 40px) / 5);
     height: 220px;
   }
 

@@ -1,19 +1,41 @@
-/* Mypage — Header.css と同系のトーンで仮作成 */
-.mypage-wrapper {
+.mypageModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 48px 24px;
+  background: rgba(8, 28, 66, 0.45);
+  padding: 24px;
   box-sizing: border-box;
 }
 
-.mypage-card {
-  width: 100%;
-  max-width: 560px;
-  background: rgba(255, 255, 255, 0.8);
+.mypageModalPanel {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #ffffff;
   border-radius: 16px;
   box-shadow: 0px 0px 16.2px 1px rgba(148, 172, 209, 0.25);
   padding: 32px 36px;
   box-sizing: border-box;
+}
+
+.mypageModalClose {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  padding: 4px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.mypageModalClose svg {
+  width: 20px;
+  height: 20px;
 }
 
 .mypage-title {
@@ -22,6 +44,7 @@
   font-size: 24px;
   color: var(--color-text-primary);
   margin: 0 0 24px;
+  padding-right: 28px;
   text-shadow: 0px 0px 5.5px rgba(27, 73, 104, 0.1);
 }
 
@@ -36,7 +59,6 @@
   color: #e0362c;
 }
 
-/* テーブル */
 .mypage-table {
   width: 100%;
   border-collapse: separate;
@@ -61,7 +83,6 @@
   border-bottom: none;
 }
 
-/* 見出し列 */
 .mypage-table th {
   width: 34%;
   font-weight: 600;
@@ -75,7 +96,7 @@
 }
 
 @media (max-width: 768px) {
-  .mypage-card {
+  .mypageModalPanel {
     padding: 24px 20px;
   }
 

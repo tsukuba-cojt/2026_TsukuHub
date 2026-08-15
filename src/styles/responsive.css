@@ -97,16 +97,17 @@
     min-height: 0;
   }
 
-  .careerCategoryGrid,
   .careerMiniGrid,
   .careerTopicGrid,
-  .careerNoteGrid,
   .alumniGrid,
   .careerArticleList,
-  .classTopFeatures,
   .classTopColumns,
   .gradResultSummaryGrid {
     grid-template-columns: 1fr;
+  }
+
+  .classTopLinksGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .careerArticlesHeader,
@@ -346,14 +347,8 @@
     padding-top: 48px;
   }
 
-  .careerCategoryGrid,
-  .careerMiniGrid,
-  .classTopFeatures {
+  .careerMiniGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .careerCategoryCard {
-    min-height: 0;
   }
 
   .adminStats,
@@ -588,7 +583,7 @@
   .externalServicesPanel,
   .topicPanel,
   .careerTopicCard,
-  .careerCategoryCard,
+  .hubFeatureCard,
   .careerArticleCard,
   .careerMiniCard,
   .alumniCard,
@@ -699,6 +694,7 @@
 
   .adminStats,
   .adminReportStats,
+  .classTopLinksGrid,
   .gradResultSummaryGrid {
     grid-template-columns: 1fr;
   }
@@ -810,12 +806,14 @@
   }
 
   .contactModalOverlay,
-  .gradCheckModalOverlay {
+  .gradCheckModalOverlay,
+  .mypageModalOverlay {
     padding: 15px;
   }
 
   .contactModalPanel,
-  .gradCheckModalPanel {
+  .gradCheckModalPanel,
+  .mypageModalPanel {
     padding: 24px 18px;
     max-height: 82vh;
   }
@@ -928,14 +926,6 @@
 
   .stepper-label {
     max-width: 68px;
-  }
-
-  .mypage-wrapper {
-    padding: 32px 15px;
-  }
-
-  .mypage-card {
-    padding: 24px 20px;
   }
 
   .mypage-table,

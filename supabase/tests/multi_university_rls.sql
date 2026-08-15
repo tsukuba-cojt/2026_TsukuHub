@@ -55,9 +55,6 @@ values
 
 do $$
 begin
-  if has_table_privilege('anon', 'public.courses', 'select') then
-    raise exception 'Anonymous role can select courses';
-  end if;
   if not has_table_privilege('anon', 'public.universities', 'select') then
     raise exception 'Anonymous role cannot select university portal settings';
   end if;
@@ -81,9 +78,6 @@ begin
   )) <> 1 then
     raise exception 'Tsukuba news isolation failed';
   end if;
-  if exists (select 1 from public.courses where university_id = '00000000-0000-4000-8000-000000000002') then
-    raise exception 'Tsukuba user can read Osaka courses';
-  end if;
 end;
 $$;
 
@@ -96,9 +90,6 @@ begin
     '20000000-0000-4000-8000-000000000002'
   )) <> 1 then
     raise exception 'Osaka news isolation failed';
-  end if;
-  if exists (select 1 from public.courses where university_id = '00000000-0000-4000-8000-000000000001') then
-    raise exception 'Osaka user can read Tsukuba courses';
   end if;
 end;
 $$;

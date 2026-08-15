@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { supabase } from "../lib/supabase";
 import { useUniversity } from "../components/university/universityContextValue";
 import {
   Bookmark,
@@ -28,23 +27,10 @@ import {
   fetchCourseInsightStats,
   type CourseInsightStats,
 } from "../services/classReviewService";
+import { getCatalogCourse } from "../services/courseCatalog";
+import type { CatalogCourse } from "../types/courseCatalog";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
-
-// coursesテーブルの行の型（Class.tsx と同じ形。共通化は後日検討）
-type CourseRow = {
-  id: number;
-  course_number: string;
-  course_name: string;
-  method: string;
-  credits: string;
-  target_year: string;
-  semester: string;
-  schedule: string;
-  instructor: string;
-  overview: string;
-  remarks: string;
-};
 
 type SortKey = "new" | "rating" | "helpful";
 
@@ -72,7 +58,7 @@ function ClassDetail() {
     }
   }, [location, navigate]);
 
-  const [course, setCourse] = useState<CourseRow | null>(null);
+  const [course, setCourse] = useState<CatalogCourse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"reviews" | "syllabus">("reviews");
@@ -85,29 +71,21 @@ function ClassDetail() {
 
   useEffect(() => {
     const fetchCourse = async () => {
+      if (!university) return;
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from("courses")
-        .select(
-          "id, course_number, course_name, method, credits, target_year, semester, schedule, instructor, overview, remarks"
-        )
-        .eq("university_id", university?.id ?? "")
-        .eq("course_number", courseCode)
-        .maybeSingle();
-
-      if (fetchError) {
+      try {
+        const nextCourse = await getCatalogCourse(university.slug, courseCode);
+        setCourse(nextCourse);
+      } catch {
         setError("講義情報の取得に失敗しました。");
+      } finally {
         setLoading(false);
-        return;
       }
-
-      setCourse(data as CourseRow | null);
-      setLoading(false);
     };
 
-    if (university) void fetchCourse();
+    void fetchCourse();
   }, [courseCode, university]);
 
   useEffect(() => {
@@ -172,7 +150,7 @@ function ClassDetail() {
   const classFormats = course ? getClassFormats(course.remarks) : [];
 
   const syllabusUrl = useMemo(() => {
-    const record = course as (CourseRow & Record<string, unknown>) | null;
+    const record = course as (CatalogCourse & Record<string, unknown>) | null;
     const candidates = [
       record?.["syllabus_url"],
       record?.["syllabusUrl"],

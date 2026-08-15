@@ -9,7 +9,7 @@ import type {
   InternshipStatus,
 } from "../types/career";
 
-const internshipColumns = "id, company_name, company_logo_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
+const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
 
 export async function listPublishedInternships(universityId: string): Promise<Internship[]> {
   const { data, error } = await supabase

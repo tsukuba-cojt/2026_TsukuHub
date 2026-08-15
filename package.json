@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "sync:courses": "node src/script/sync-kdb-json.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.0",

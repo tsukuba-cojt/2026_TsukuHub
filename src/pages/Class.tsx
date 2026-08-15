@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react";
-import { supabase } from "../lib/supabase";
 import { useUniversity } from "../components/university/universityContextValue";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
@@ -7,22 +6,9 @@ import ClassSearchPanel from "../components/class/ClassSearchPanel.tsx";
 import ClassSortBar from "../components/class/ClassSortBar";
 import ClassCard, { type ClassCourse } from "../components/class/ClassCard";
 import ClassPagination from "../components/class/ClassPagination";
+import { listCatalogCourses } from "../services/courseCatalog";
+import type { CatalogCourse } from "../types/courseCatalog";
 import "../styles/class/Class.css";
-
-// coursesテーブルの行の型（DBスキーマに対応）
-type CourseRow = {
-  id: number;
-  course_number: string;
-  course_name: string;
-  method: string;
-  credits: string;
-  target_year: string;
-  semester: string;
-  schedule: string;
-  instructor: string;
-  overview?: string;
-  remarks?: string;
-};
 
 type FiltersState = {
   text: string;
@@ -53,8 +39,8 @@ function Class() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
-  const toClassCourse = (r: CourseRow): ClassCourse => ({
-    id: String(r.id),
+  const toClassCourse = (r: CatalogCourse): ClassCourse => ({
+    id: r.course_number,
     code: r.course_number,
     title: r.course_name,
     teacher: r.instructor || r.method || "",
@@ -67,28 +53,20 @@ function Class() {
 
   useEffect(() => {
     const fetchCourses = async () => {
+      if (!university) return;
       setLoading(true);
       setError(null);
-
-      const { data, error: fetchError } = await supabase
-        .from("courses")
-        .select(
-          "id, course_number, course_name, method, credits, target_year, semester, schedule, instructor, overview, remarks"
-        )
-        .eq("university_id", university?.id ?? "")
-        .order("id", { ascending: true });
-
-      if (fetchError) {
+      try {
+        const rows = await listCatalogCourses(university.slug);
+        setCourses(rows.map(toClassCourse));
+      } catch {
         setError("履修一覧の取得に失敗しました。");
+      } finally {
         setLoading(false);
-        return;
       }
-
-      setCourses((data as CourseRow[]).map(toClassCourse));
-      setLoading(false);
     };
 
-    if (university) void fetchCourses();
+    void fetchCourses();
   }, [university]);
 
   // フィルタを適用した配列をメモ化

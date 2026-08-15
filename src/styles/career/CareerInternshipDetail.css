@@ -1,64 +1,60 @@
-.internDetailPage { min-height: 100vh; background: var(--color-bg-gradient); }
-.internDetailContainer { width: min(1020px, calc(100% - 48px)); margin: 0 auto; padding: 27px 0 80px; }
-.internDetailBack { display: inline-flex; align-items: center; gap: 7px; color: #5f7086; font-size: 11px; font-weight: 700; }
-.internDetailBack svg { width: 15px; }
-.internDetailHero { margin-top: 20px; overflow: hidden; border: 1px solid rgba(148,172,209,.2); border-radius: 20px; background: #fff; box-shadow: var(--shadow-card); }
-.internDetailCover { display: flex; min-height: 170px; align-items: center; gap: 22px; padding: 35px 45px; color: #fff; background: linear-gradient(120deg, #092654, #087c79); }
-.internDetailCover > span { display: grid; width: 90px; height: 90px; place-items: center; border-radius: 16px; font-size: 22px; font-weight: 900; box-shadow: 0 10px 25px rgba(0,0,0,.14); }
-.internDetailCover div { display: grid; gap: 8px; }
-.internDetailCover small { color: #79e1c5; font-size: 9px; font-weight: 900; letter-spacing: .14em; }
-.internDetailCover strong { font-size: 18px; }
-.internDetailHeroBody { padding: 28px 38px 32px; }
-.internDetailBadges { display: flex; flex-wrap: wrap; gap: 6px; }
-.internDetailBadges span { padding: 5px 8px; border-radius: 5px; color: #5b6b80; background: #f0f3f7; font-size: 8px; font-weight: 800; }
-.internDetailBadges .status.is-open { color: #087755; background: #e5f8f1; }
-.internDetailBadges .status.is-few { color: #c66a16; background: #fff1de; }
-.internDetailHero h1 { margin: 13px 0 10px; font-size: clamp(25px, 4vw, 34px); line-height: 1.45; letter-spacing: -.03em; }
-.internDetailCompany { display: flex; align-items: center; gap: 7px; margin: 0; color: #68778a; font-size: 11px; }
-.internDetailCompany svg { width: 15px; }
-.internDetailLayout { display: grid; grid-template-columns: minmax(0,1fr) 270px; align-items: start; gap: 25px; margin-top: 25px; }
-.internDetailMain { display: grid; gap: 18px; }
-.internDetailInfo, .internDetailSection { padding: 28px 31px; border: 1px solid rgba(148,172,209,.18); border-radius: 15px; background: #fff; box-shadow: 0 5px 18px rgba(60,86,120,.055); }
-.internDetailInfo h2, .internDetailSection h2 { margin: 0 0 20px; font-size: 18px; }
-.internDetailInfo dl { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid #e9eef3; }
-.internDetailInfo dl div { padding: 15px 8px; border-bottom: 1px solid #e9eef3; }
-.internDetailInfo dt { display: flex; align-items: center; gap: 6px; color: #798698; font-size: 9px; }
-.internDetailInfo dt svg { width: 14px; color: #159b70; }
-.internDetailInfo dd { margin: 6px 0 0; color: #263b56; font-size: 11px; font-weight: 700; line-height: 1.6; }
-.internDetailRecommend { display: flex; gap: 13px; padding: 22px 25px; border: 1px solid #ccecdf; border-radius: 13px; background: #eaf9f4; }
-.internDetailRecommend > svg { width: 23px; flex: 0 0 auto; color: #159b70; }
-.internDetailRecommend span { color: #087755; font-size: 10px; font-weight: 900; }
-.internDetailRecommend p { margin: 6px 0 0; color: #3c6259; font-size: 12px; line-height: 1.75; }
-.internDetailSection > p { margin: 0; color: #586a80; font-size: 12px; line-height: 1.9; }
-.internDetailSection ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-.internDetailSection ul li { display: flex; gap: 8px; color: #52647a; font-size: 11px; line-height: 1.6; }
-.internDetailSection ul svg { width: 16px; flex: 0 0 auto; color: #159b70; }
-.internDetailSection ol { display: flex; margin: 0; padding: 0; list-style: none; }
-.internDetailSection ol li { position: relative; display: grid; flex: 1; justify-items: center; gap: 8px; text-align: center; }
-.internDetailSection ol li:not(:last-child)::after { position: absolute; top: 14px; left: 65%; width: 70%; height: 1px; background: #d8e2e9; content: ""; }
-.internDetailSection ol span { position: relative; z-index: 1; display: grid; width: 28px; height: 28px; place-items: center; border-radius: 50%; color: #fff; background: #159b70; font-size: 9px; }
-.internDetailSection ol strong { color: #52647a; font-size: 9px; }
-.internDetailActions { position: sticky; top: 150px; padding: 23px; border: 1px solid rgba(148,172,209,.2); border-radius: 15px; background: #fff; box-shadow: var(--shadow-card); }
-.internDetailActions > p { margin: 0 0 16px; font-size: 12px; font-weight: 800; text-align: center; }
-.internDetailActions button { display: flex; width: 100%; align-items: center; justify-content: center; gap: 7px; padding: 12px; border-radius: 8px; font-size: 10px; font-weight: 800; cursor: pointer; }
-.internDetailActions button svg { width: 15px; }
-.internApply { border: 0; color: #fff; background: #159b70; }
-.internTalk { margin-top: 9px; border: 1px solid #159b70; color: #087755; background: #fff; }
-.internShare { margin-top: 9px; border: 0; color: #68778a; background: #f2f5f8; }
-.internDetailActions small { display: block; margin-top: 13px; color: #8995a4; font-size: 8px; line-height: 1.6; text-align: center; }
-.internDetailMissing { min-height: 55vh; padding: 80px 20px; text-align: center; }
+.internPostPage { max-width: 1120px; }
+.internPost { display: grid; gap: 20px; }
+.internPostLayout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 28px; margin-top: 18px; }
+.internPostSidebar { display: grid; gap: 16px; position: sticky; top: 160px; }
+.internPostCard { overflow: hidden; border-radius: 8px; background: #fff; box-shadow: var(--shadow-card); }
+.internPostKicker { display: inline-flex; margin: 18px 24px 0; padding: 4px 10px; border-left: 3px solid var(--color-primary); color: var(--color-primary-dark); font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+.internPostCover { min-height: 220px; margin: 14px 24px 0; overflow: hidden; border-radius: 8px; background: var(--color-main-gradient); }
+.internPostCover img { display: block; width: 100%; height: 220px; object-fit: cover; }
+.internPostCover:not(.hasImage) { display: grid; align-content: end; padding: 22px 24px; color: #fff; }
+.internPostCover:not(.hasImage) span { font-size: 12px; font-weight: 800; opacity: .88; }
+.internPostCover:not(.hasImage) strong { font-size: 22px; }
+.internPostHead { padding: 20px 24px 8px; }
+.internPostCompany { display: flex; align-items: center; gap: 12px; }
+.internPostLogo { display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center; overflow: hidden; border: 1px solid #e4ebf3; border-radius: 8px; background: #fff; color: var(--color-primary-dark); font-weight: 800; }
+.internPostLogo img { width: 100%; height: 100%; object-fit: contain; }
+.internPostCompany strong { display: block; font-size: 15px; }
+.internPostCompany time,
+.internPostCompany span { color: var(--color-text-secondary); font-size: 12px; }
+.internPostStatus { margin-left: auto; padding: 4px 8px; border-radius: 6px; color: #087755; background: #e6f8f1; font-size: 11px; font-weight: 800; }
+.internPostStatus.isClosed { color: #a55a11; background: #fff0db; }
+.internPostHead h1 { margin: 16px 0 12px; font-size: 24px; font-weight: 800; line-height: 1.55; }
+.internPostTags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; }
+.internPostTags li { padding: 4px 10px; border: 1px solid var(--color-primary); border-radius: 999px; color: var(--color-primary-dark); font-size: 12px; font-weight: 800; background: #fff; }
+.internPostLead { margin: 0 0 12px; color: var(--color-text-primary); line-height: 1.8; }
+.internPostGuide { color: var(--color-primary-dark); font-size: 13px; font-weight: 800; }
+.internPostFacts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 8px 24px 8px; border: 1px solid #e4ebf3; border-radius: 8px; overflow: hidden; }
+.internPostFacts div { padding: 14px 16px; border-right: 1px solid #e4ebf3; border-bottom: 1px solid #e4ebf3; background: #f8fbff; }
+.internPostFacts div:nth-child(3n) { border-right: 0; }
+.internPostFacts dt { margin: 0 0 6px; color: var(--color-text-secondary); font-size: 11px; font-weight: 800; }
+.internPostFacts dd { margin: 0; font-size: 14px; font-weight: 800; line-height: 1.5; white-space: pre-wrap; }
+.internPostBlock { padding: 8px 24px 24px; }
+.internPostBlock h2 { scroll-margin-top: 140px; margin: 20px 0 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(148, 172, 209, .45); color: var(--color-text-primary); font-size: 18px; font-weight: 800; }
+.internPostBlock p { margin: 0 0 14px; line-height: 1.9; }
+.internPostBlock ul { margin: 0 0 8px; padding-left: 1.2em; }
+.internPostBlock li { margin: 0 0 8px; line-height: 1.75; }
+.internPostSteps { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.internPostSteps li { display: grid; gap: 8px; padding: 14px 12px; border-radius: 8px; background: #f5f8fc; }
+.internPostSteps span { width: max-content; padding: 2px 8px; border-radius: 4px; color: #fff; background: var(--color-primary-dark); font-size: 11px; font-weight: 800; }
+.internPostSteps strong { font-size: 13px; line-height: 1.5; }
+.internPostSideCard { display: grid; gap: 14px; padding: 20px; border-radius: 8px; background: #fff; box-shadow: var(--shadow-card); }
+.internPostSideCard > p { margin: 0; font-size: 13px; font-weight: 800; line-height: 1.6; }
+.internPostSideCard .careerPrimaryButton { width: 100%; }
+.internPostSideLink { color: var(--color-primary-dark); font-size: 13px; font-weight: 800; text-align: center; }
+#overview, #flow, #work, #company, #apply, #application { scroll-margin-top: 140px; }
 
-@media (max-width: 780px) {
-  .internDetailLayout { grid-template-columns: 1fr; }
-  .internDetailActions { position: static; }
+@media (max-width: 900px) {
+  .internPostLayout { grid-template-columns: 1fr; }
+  .internPostSidebar { position: static; }
+  .internPostFacts { grid-template-columns: 1fr 1fr; }
+  .internPostFacts div:nth-child(3n) { border-right: 1px solid #e4ebf3; }
+  .internPostFacts div:nth-child(2n) { border-right: 0; }
 }
-@media (max-width: 560px) {
-  .internDetailContainer { width: calc(100% - 30px); }
-  .internDetailCover { min-height: 140px; padding: 27px 22px; }
-  .internDetailCover > span { width: 67px; height: 67px; }
-  .internDetailHeroBody, .internDetailInfo, .internDetailSection { padding: 23px 20px; }
-  .internDetailInfo dl { grid-template-columns: 1fr; }
-  .internDetailSection ol { display: grid; gap: 12px; }
-  .internDetailSection ol li { grid-template-columns: 28px 1fr; align-items: center; justify-items: start; text-align: left; }
-  .internDetailSection ol li::after { display: none; }
+
+@media (max-width: 700px) {
+  .internPostCover, .internPostKicker, .internPostFacts { margin-inline: 16px; }
+  .internPostHead, .internPostBlock { padding-inline: 16px; }
+  .internPostFacts { grid-template-columns: 1fr; }
+  .internPostFacts div { border-right: 0; }
+  .internPostCover img { height: 180px; }
 }

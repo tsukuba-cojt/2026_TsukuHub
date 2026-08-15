@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AdminLayout from "../../components/admin/AdminLayout";
+import { useAuth } from "../../components/auth/authContextValue";
 import {
   createAlumniStory,
   createCareerArticle,
@@ -10,7 +11,9 @@ import {
   updateAlumniStory,
   updateCareerArticle,
   updateContentStatus,
+  uploadArticleImage,
 } from "../../services/contentService";
+import { insertAtCursor } from "../../lib/articleMarkdown";
 import {
   publishStatusLabels,
   type AlumniStoryInput,
@@ -32,6 +35,8 @@ const emptyArticle: CareerArticleInput = {
   published_at: new Date().toISOString().slice(0, 10),
   read_minutes: 5,
   status: "draft",
+  source_type: "internal",
+  external_url: null,
 };
 
 const emptyAlumni: AlumniStoryInput = {
@@ -49,6 +54,7 @@ const emptyAlumni: AlumniStoryInput = {
   actions: "",
   advice: "",
   current_work: "",
+  cover_image_url: null,
   status: "draft",
 };
 
@@ -90,9 +96,12 @@ export default function AdminCareerContent() {
 }
 
 function ArticleManager({ items, universities, onReload }: { items: CareerArticleRecord[]; universities: University[]; onReload: () => Promise<void> }) {
+  const { user } = useAuth();
+  const contentRef = useRef<HTMLTextAreaElement>(null);
   const [form, setForm] = useState<CareerArticleInput>(emptyArticle);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [targetUniversityIds, setTargetUniversityIds] = useState<string[]>(
@@ -103,7 +112,17 @@ function ArticleManager({ items, universities, onReload }: { items: CareerArticl
   const edit = (item: CareerArticleRecord) => {
     setEditingId(item.id);
     setTargetUniversityIds(item.university_ids ?? []);
-    setForm({ category: item.category, title: item.title, description: item.description, content: item.content, published_at: item.published_at, read_minutes: item.read_minutes, status: item.status });
+    setForm({
+      category: item.category,
+      title: item.title,
+      description: item.description,
+      content: item.content,
+      published_at: item.published_at,
+      read_minutes: item.read_minutes,
+      status: item.status,
+      source_type: item.source_type ?? "internal",
+      external_url: item.external_url ?? null,
+    });
     setMessage(""); setError("");
   };
 
@@ -112,7 +131,13 @@ function ArticleManager({ items, universities, onReload }: { items: CareerArticl
     event.preventDefault(); setSaving(true); setError(""); setMessage("");
     try {
       if (!targetUniversityIds.length) throw new Error("target_required");
-      if (editingId) await updateCareerArticle(editingId, form, targetUniversityIds); else await createCareerArticle(form, targetUniversityIds);
+      const hasContent = Boolean(form.content.trim());
+      const input: CareerArticleInput = {
+        ...form,
+        source_type: hasContent ? "internal" : form.external_url ? "external" : "internal",
+        external_url: form.external_url?.trim() || null,
+      };
+      if (editingId) await updateCareerArticle(editingId, input, targetUniversityIds); else await createCareerArticle(input, targetUniversityIds);
       await onReload(); reset(); setMessage(editingId ? "記事を更新しました。" : "記事を登録しました。");
     } catch { setError("記事を保存できませんでした。"); }
     finally { setSaving(false); }
@@ -129,6 +154,32 @@ function ArticleManager({ items, universities, onReload }: { items: CareerArticl
     catch { setError("記事を削除できませんでした。"); }
   };
 
+  const insertImage = async (file: File) => {
+    if (!user) return;
+    if (!file.type.startsWith("image/") || file.size > 2 * 1024 * 1024) {
+      setError("2MB以下の画像ファイルを選択してください。");
+      return;
+    }
+    setUploading(true); setError("");
+    try {
+      const url = await uploadArticleImage(file, user.id);
+      const textarea = contentRef.current;
+      const start = textarea?.selectionStart ?? form.content.length;
+      const end = textarea?.selectionEnd ?? start;
+      const alt = file.name.replace(/\.[^.]+$/, "");
+      const inserted = insertAtCursor(form.content, start, end, `![${alt}](${url})`);
+      update("content", inserted.value);
+      requestAnimationFrame(() => {
+        textarea?.focus();
+        textarea?.setSelectionRange(inserted.caret, inserted.caret);
+      });
+    } catch {
+      setError("画像をアップロードできませんでした。");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return <div className="adminContentManager">
     <form className="careerForm adminCompactForm" onSubmit={submit}>
       <div className="adminPanelHeader"><h2>{editingId ? "記事を編集" : "記事を新規登録"}</h2>{editingId && <button className="adminTextButton" type="button" onClick={reset}>編集をキャンセル</button>}</div>
@@ -140,7 +191,32 @@ function ArticleManager({ items, universities, onReload }: { items: CareerArticl
       </div>
       <label>タイトル <span>*</span><input required maxLength={160} value={form.title} onChange={(event) => update("title", event.target.value)} /></label>
       <label>一覧の説明 <span>*</span><textarea required rows={3} maxLength={500} value={form.description} onChange={(event) => update("description", event.target.value)} /></label>
-      <label>本文<textarea rows={5} value={form.content} onChange={(event) => update("content", event.target.value)} /></label>
+      <div className="adminArticleBody">
+        <div className="adminArticleBodyHead">
+          <span>本文</span>
+          <label className="adminImageInsert">
+            <input
+              type="file"
+              accept="image/*"
+              disabled={uploading}
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                event.target.value = "";
+                if (file) void insertImage(file);
+              }}
+            />
+            {uploading ? "アップロード中..." : "画像を挿入"}
+          </label>
+        </div>
+        <p className="formHint">見出しは ## と ### 、画像は ![説明](URL) です。画像ボタンはカーソル位置に挿入します。</p>
+        <textarea
+          ref={contentRef}
+          rows={18}
+          value={form.content}
+          onChange={(event) => update("content", event.target.value)}
+        />
+      </div>
+      <label>外部URL（任意）<input value={form.external_url ?? ""} onChange={(event) => update("external_url", event.target.value || null)} placeholder="本文がある内部記事では空にしてください" /></label>
       <fieldset className="adminUniversityTargets"><legend>掲載対象大学 <span>*</span></legend>{universities.map((university) => <label className="checkboxLabel" key={university.id}><input type="checkbox" checked={targetUniversityIds.includes(university.id)} onChange={(event) => setTargetUniversityIds((current) => event.target.checked ? [...current, university.id] : current.filter((id) => id !== university.id))} />{university.name}</label>)}</fieldset>
       {error && <p className="formError" role="alert">{error}</p>}{message && <p className="formSuccess" role="status">{message}</p>}
       <div className="formActions"><button className="careerPrimaryButton" disabled={saving}>{saving ? "保存中..." : editingId ? "変更を保存" : "記事を登録"}</button></div>

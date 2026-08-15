@@ -1,6 +1,8 @@
 .careerPlatform { min-height: 100vh; color: var(--color-text-primary); background: var(--color-bg-gradient); }
 .careerShell { width: min(1120px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0 88px; }
 .careerBreadcrumb, .careerBack { display: flex; align-items: center; gap: 6px; color: var(--color-text-secondary); font-size: 12px; font-weight: 700; }
+.careerBreadcrumb { flex-wrap: wrap; }
+.careerBreadcrumb span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .careerBreadcrumb svg, .careerBack svg { width: 15px; }
 .careerBreadcrumb a, .careerBack { color: var(--color-primary-dark); }
 .careerPageHeader { max-width: 760px; padding: 58px 0 38px; }
@@ -19,9 +21,13 @@
 
 .careerHomeSection { padding-top: 72px; }
 .careerMiniGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 25px; }
-.careerMiniCard { display: flex; min-height: 220px; flex-direction: column; padding: 24px; border: 1px solid rgba(148,172,209,.2); border-radius: 15px; background: #fff; box-shadow: var(--shadow-card); }
-.careerMiniCard > span { color: var(--color-primary-dark); font-size: 11px; font-weight: 800; }
-.careerMiniCard h3 { margin: 12px 0 8px; font-size: 18px; line-height: 1.5; }
+.careerMiniCard { display: flex; min-height: 220px; flex-direction: column; overflow: hidden; border: 1px solid rgba(148,172,209,.2); border-radius: 15px; background: #fff; box-shadow: var(--shadow-card); }
+.careerMiniCover { position: relative; display: grid; align-content: end; min-height: 120px; padding: 14px 16px; color: #fff; background: var(--color-main-gradient); overflow: hidden; }
+.careerMiniCover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.careerMiniCover.hasImage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 36, 72, .08) 30%, rgba(16, 36, 72, .72)); }
+.careerMiniCover span { position: relative; z-index: 1; font-size: 11px; font-weight: 800; }
+.careerMiniCardBody { display: flex; flex: 1; flex-direction: column; padding: 18px 20px 20px; }
+.careerMiniCard h3 { margin: 0 0 8px; font-size: 18px; line-height: 1.5; }
 .careerMiniCard p { margin: 0; color: var(--color-text-secondary); font-size: 13px; line-height: 1.7; }
 .careerMiniCard strong { display: flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 18px; color: var(--color-primary-dark); font-size: 12px; }
 .careerMiniCard svg, .careerFirstGuide svg { width: 15px; }
@@ -32,17 +38,166 @@
 .careerFirstGuide a { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; padding: 12px 17px; border-radius: var(--radius-btn); color: var(--color-primary-dark); background: #fff; font-weight: 800; }
 
 .careerTopicGrid, .alumniGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.careerNoteGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 494px)); align-items: start; gap: 20px; }
+.careerNoteSlider { position: relative; }
+.careerNoteGrid { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 4px; padding: 4px 4px 12px; scrollbar-width: thin; }
+.careerNoteSlide { flex: 0 0 min(494px, 82vw); scroll-snap-align: start; }
 .careerNoteGrid .note-embed { width: 100% !important; max-width: 100% !important; margin: 0 !important; }
+.careerNoteNav { position: absolute; top: 50%; z-index: 2; display: grid; width: 40px; height: 40px; place-items: center; border: 0; border-radius: 999px; color: var(--color-primary-dark); background: #fff; box-shadow: var(--shadow-card); cursor: pointer; transform: translateY(-50%); }
+.careerNoteNav svg { width: 20px; height: 20px; }
+.careerNoteNav.isPrev { left: -8px; }
+.careerNoteNav.isNext { right: -8px; }
 .careerTopicCard, .alumniCard { padding: 26px; border: 1px solid rgba(148,172,209,.2); border-radius: 15px; background: #fff; box-shadow: var(--shadow-card); }
 .careerTopicCard > span { color: #9aa8b9; font-size: 11px; font-weight: 900; }
 .careerTopicCard > svg { display: block; width: 25px; margin-top: 20px; color: var(--color-primary-dark); }
 .careerTopicCard h2, .alumniCard h2 { margin: 12px 0 8px; font-size: 19px; }
 .careerTopicCard p, .alumniCard p { color: var(--color-text-secondary); font-size: 13px; line-height: 1.75; }
-.alumniCard > div, .alumniCard ul, .tagRow { display: flex; flex-wrap: wrap; gap: 7px; }
-.alumniCard > div span, .alumniCard li, .tagRow span { padding: 5px 8px; border-radius: 6px; color: #5f4bd0; background: #efecff; font-size: 10px; font-weight: 800; }
-.alumniCard ul { margin: 20px 0; padding: 0; list-style: none; }
-.alumniCard a { color: var(--color-primary-dark); font-weight: 800; }
+.alumniCard { padding: 0; overflow: hidden; }
+.alumniCardLink { display: grid; color: inherit; text-decoration: none; }
+.alumniCardCover { display: grid; align-content: end; gap: 4px; min-height: 150px; padding: 18px 20px; color: #fff; background: var(--color-main-gradient); position: relative; overflow: hidden; }
+.alumniCardCoverImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.alumniCardCover.hasImage::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(16, 36, 72, .12) 35%, rgba(16, 36, 72, .78)); }
+.alumniCardCover > :not(.alumniCardCoverImage) { position: relative; z-index: 1; }
+.alumniCardCover span { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .88; }
+.alumniCardCover strong { font-size: 18px; line-height: 1.35; }
+.alumniCardCover small { font-size: 12px; opacity: .86; }
+.alumniCardBody { padding: 22px 24px 24px; }
+.alumniCard > div, .alumniCard ul, .alumniCardBody > div, .tagRow { display: flex; flex-wrap: wrap; gap: 7px; }
+.alumniCard > div span, .alumniCard li, .alumniCardBody > div span, .tagRow span { padding: 5px 8px; border-radius: 6px; color: #5f4bd0; background: #efecff; font-size: 10px; font-weight: 800; }
+.alumniCard ul { margin: 16px 0 12px; padding: 0; list-style: none; }
+.alumniCard a, .alumniCard em { color: var(--color-primary-dark); font-weight: 800; font-style: normal; }
+.alumniPreviewMore { display: flex; justify-content: center; margin: 28px 0 0; }
+.alumniPreviewMore .careerPrimaryButton { gap: 8px; min-width: 240px; }
+.alumniPreviewMore .careerPrimaryButton svg { width: 16px; height: 16px; }
+
+.alumniSearchLayout,
+.listingSearchLayout { display: grid; grid-template-columns: 280px minmax(0, 1fr); align-items: start; gap: 40px; }
+.alumniSearchPanel,
+.listingSearchPanel { display: grid; gap: 28px; position: sticky; top: 160px; padding: 22px 20px; border-radius: 8px; background: #fff; box-shadow: var(--shadow-card); }
+.alumniKeywordSearch h2, .alumniCategorySearch h2,
+.listingKeywordSearch h2, .listingCategorySearch h2 { margin: 0 0 12px; font-size: 14px; }
+.alumniKeywordRow,
+.listingKeywordRow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.alumniKeywordRow input,
+.listingKeywordRow input { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid #dce4ec; border-radius: 8px; background: #fff; color: var(--color-text-primary); font: inherit; }
+.alumniKeywordRow .careerPrimaryButton,
+.listingKeywordRow .careerPrimaryButton { gap: 6px; padding-inline: 14px; }
+.alumniKeywordRow .careerPrimaryButton svg,
+.listingKeywordRow .careerPrimaryButton svg { width: 16px; height: 16px; }
+.alumniCategoryHead,
+.listingCategoryHead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.alumniCategoryHead button,
+.listingCategoryHead button { border: 0; background: none; color: var(--color-primary-dark); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.alumniCategoryGroup,
+.listingCategoryGroup { margin-top: 16px; }
+.alumniCategoryGroup > p,
+.listingCategoryGroup > p { margin: 0 0 8px; padding: 7px 10px; border-radius: 6px; background: #eef3fa; font-size: 12px; font-weight: 800; }
+.alumniCategoryGroup ul,
+.listingCategoryGroup ul { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.alumniCategoryGroup button,
+.listingCategoryGroup button { width: 100%; padding: 7px 10px; border: 0; border-radius: 6px; background: none; color: var(--color-primary-dark); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+.alumniCategoryGroup button:hover, .alumniCategoryGroup button.isActive,
+.listingCategoryGroup button:hover, .listingCategoryGroup button.isActive { background: #eaf2ff; }
+.alumniResultBar,
+.listingResultBar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 18px; }
+.alumniResultBar p,
+.listingResultBar p { margin: 0; color: var(--color-text-secondary); font-size: 13px; font-weight: 700; }
+.alumniResultBar > span,
+.listingResultBar > span { color: var(--color-primary-dark); font-size: 12px; font-weight: 800; }
+.alumniSortTabs,
+.listingSortTabs { display: flex; margin-left: auto; overflow: hidden; border: 1px solid #dce4ec; border-radius: 8px; background: #fff; }
+.alumniSortTabs button,
+.listingSortTabs button { min-height: 36px; padding: 0 14px; border: 0; background: none; color: var(--color-text-secondary); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.alumniSortTabs button.isActive,
+.listingSortTabs button.isActive { color: #fff; background: var(--color-primary-dark); }
+.alumniPagination,
+.listingPagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 28px; }
+.alumniPagination button,
+.listingPagination button { min-height: 38px; padding: 0 14px; border: 1px solid #dce4ec; border-radius: 8px; background: #fff; color: var(--color-primary-dark); font: inherit; font-weight: 800; cursor: pointer; }
+.alumniPagination button:disabled,
+.listingPagination button:disabled { opacity: .45; cursor: not-allowed; }
+
+.alumniStoryPage { max-width: 1120px; }
+.alumniArticleLayout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-items: start; gap: 40px; margin-top: 18px; }
+.alumniArticle { padding: 40px; border-radius: 8px; background: #fff; box-shadow: var(--shadow-card); }
+.alumniCover { display: grid; align-content: end; gap: 8px; min-height: 320px; margin-bottom: 24px; padding: 28px 32px; border-radius: 8px; color: #fff; background: var(--color-main-gradient); position: relative; overflow: hidden; }
+.alumniCoverImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.alumniCover.hasImage::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(16, 36, 72, .18) 30%, rgba(16, 36, 72, .78)); }
+.alumniCover > :not(.alumniCoverImage):not(.alumniCoverLogo) { position: relative; z-index: 1; }
+.alumniCoverLogo { position: absolute; top: 24px; right: 24px; z-index: 1; width: 72px; height: 72px; object-fit: contain; padding: 8px; border-radius: 8px; background: #fff; }
+.alumniCoverEyebrow { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
+.alumniCoverRole { margin: 0; font-size: 26px; font-weight: 800; line-height: 1.35; }
+.alumniCoverOrg, .alumniCoverMeta { margin: 0; font-size: 14px; opacity: .88; }
+.alumniArticleTitle { margin: 0 0 20px; font-size: 24px; font-weight: 800; line-height: 1.6; }
+.alumniArticleInfo { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; padding-bottom: 24px; border-bottom: 1px dotted rgba(148, 172, 209, .7); }
+.alumniCategoryLabel { padding: 4px 8px; border: 1px solid var(--color-primary); border-radius: 8px; color: var(--color-primary-dark); font-size: 13px; }
+.alumniArticleMeta { display: grid; gap: 4px 10px; margin: 0; color: var(--color-text-secondary); font-size: 13px; }
+.alumniArticleMeta div { display: grid; grid-template-columns: auto auto; gap: 8px; }
+.alumniArticleMeta dt { font-weight: 400; }
+.alumniArticleMeta dd { margin: 0; }
+.alumniArticleBody { padding-top: 8px; }
+.alumniLead, .alumniQuestion, .alumniAnswer { margin: 28px 0; line-height: 1.8; }
+.alumniLead { color: var(--color-text-primary); }
+.alumniQuestion { color: var(--color-text-primary); }
+.alumniAnswer { color: var(--color-text-primary); white-space: pre-wrap; }
+.alumniSidebar { display: grid; gap: 20px; position: sticky; top: 160px; }
+.alumniSidebarCta { display: grid; gap: 12px; padding: 22px 20px; border: 1px dotted rgba(21, 120, 253, .35); border-radius: 8px; background: rgba(21, 120, 253, .08); }
+.alumniSidebarCta p { margin: 0; font-weight: 800; line-height: 1.6; }
+.alumniSidebarCta .careerPrimaryButton { width: 100%; }
+.alumniSidebarSubLink { color: var(--color-primary-dark); font-size: 13px; font-weight: 800; text-align: center; }
+.alumniRelated { padding: 20px; border-radius: 8px; background: #fff; box-shadow: var(--shadow-card); }
+.alumniRelated h2 { margin: 0 0 14px; font-size: 15px; }
+.alumniRelated ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.alumniRelated a { display: grid; gap: 4px; color: inherit; text-decoration: none; }
+.alumniRelated span { color: var(--color-primary-dark); font-size: 11px; font-weight: 800; }
+.alumniRelated strong { font-size: 13px; line-height: 1.55; }
+
+.articleMarkdown { color: var(--color-text-primary); line-height: 1.9; }
+.articleMarkdown h2, .articleMarkdown h3 { scroll-margin-top: 140px; margin: 32px 0 12px; font-weight: 800; }
+.articleMarkdown h2 { font-size: 22px; }
+.articleMarkdown h3 { font-size: 18px; }
+.articleMarkdown p { margin: 0 0 16px; }
+.articleMarkdown ul, .articleMarkdown ol { margin: 0 0 16px; padding-left: 1.4em; }
+.articleMarkdown li { margin: 0 0 8px; }
+.articleMarkdown a { color: var(--color-primary-dark); font-weight: 800; }
+.articleMarkdownFigure { margin: 24px 0; }
+.articleMarkdownFigure img, .articleMarkdown img { display: block; width: 100%; border-radius: 8px; }
+.articleMarkdownFigure figcaption { margin-top: 8px; color: var(--color-text-secondary); font-size: 13px; text-align: center; }
+.articleMarkdown blockquote { margin: 24px 0; padding: 16px 18px; border-left: 3px solid var(--color-primary); background: #f4f8ff; }
+
+.articleToc { padding: 20px; border-radius: 8px; background: #fff; box-shadow: var(--shadow-card); }
+.articleTocHead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.articleTocHead h2 { margin: 0; font-size: 15px; }
+.articleTocHead button { border: 0; background: none; color: var(--color-primary-dark); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.articleToc ol { display: grid; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+.articleToc a { color: var(--color-text-primary); font-size: 13px; line-height: 1.55; text-decoration: none; }
+.articleToc .isSub { padding-left: 12px; }
+.articleToc .isSub a { color: var(--color-text-secondary); font-size: 12px; }
+
+.internshipArticleBody h2,
+.internshipArticleBody h3 { scroll-margin-top: 140px; margin: 32px 0 12px; font-weight: 800; }
+.internshipArticleBody h2 { font-size: 22px; }
+.internshipArticleBody h3 { font-size: 18px; }
+.internshipArticleBody p { margin: 0 0 16px; color: var(--color-text-primary); line-height: 1.9; }
+.internshipArticleBody a { color: var(--color-primary-dark); font-weight: 800; }
+.internshipGuideLink { display: inline-block; margin: 0 0 8px; text-underline-offset: 4px; }
+.internshipArticleBody ul { margin: 0 0 16px; padding-left: 1.4em; }
+.internshipArticleBody li { margin: 0 0 8px; line-height: 1.8; }
+.internshipArticleBody .careerPrimaryButton { margin-top: 8px; }
+#application { scroll-margin-top: 140px; }
+.internshipSpecTable { width: 100%; margin: 8px 0 24px; border-collapse: collapse; }
+.internshipSpecTable th, .internshipSpecTable td { padding: 14px 16px; border-bottom: 1px dotted rgba(148, 172, 209, .7); text-align: left; vertical-align: top; font-size: 14px; line-height: 1.7; }
+.internshipSpecTable td { white-space: pre-wrap; }
+.internshipSpecTable th { width: 8.5em; color: var(--color-text-secondary); font-weight: 800; background: #f5f8fc; }
+
+.adminArticleBody { display: grid; gap: 8px; }
+.adminArticleBodyHead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.adminArticleBodyHead > span { color: #334861; font-size: 12px; font-weight: 800; }
+.adminImageInsert { display: inline-flex; min-height: 36px; align-items: center; padding: 0 12px; border: 1px solid #dce4ec; border-radius: 8px; background: #fff; color: var(--color-primary-dark); font-size: 12px; font-weight: 800; cursor: pointer; }
+.adminImageInsert input { display: none; }
+.adminArticleBody textarea { min-height: 320px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+.formHint { margin: 0; color: var(--color-text-secondary); font-size: 12px; font-weight: 500; }
+.careerNoteSlide .alumniCard { height: 100%; }
+
 .careerStoryDetail { max-width: 820px; }
 .careerStoryDetail > header { margin: 32px 0 22px; padding: 38px; border-radius: 18px; color: #fff; background: var(--color-main-gradient); }
 .careerStoryDetail header h1 { margin: 10px 0; font-size: clamp(28px, 5vw, 42px); }
@@ -194,6 +349,12 @@
 
 @media (max-width: 900px) {
   .careerMiniGrid { grid-template-columns: 1fr; }
+  .alumniSearchLayout,
+  .listingSearchLayout { grid-template-columns: 1fr; }
+  .alumniSearchPanel,
+  .listingSearchPanel { position: static; }
+  .alumniSortTabs,
+  .listingSortTabs { margin-left: 0; }
   .adminShell { grid-template-columns: 1fr; }
   .adminSidebar { position: static; }
   .adminSidebar nav { grid-template-columns: repeat(3, 1fr); }
@@ -205,7 +366,12 @@
 @media (max-width: 700px) {
   .careerShell, .adminShell { width: calc(100% - 30px); padding-bottom: 58px; }
   .careerPageHeader { padding-top: 40px; }
-  .careerTopicGrid, .careerNoteGrid, .alumniGrid, .formGrid, .adminDashboardGrid { grid-template-columns: 1fr; }
+  .careerTopicGrid, .alumniGrid, .formGrid, .adminDashboardGrid { grid-template-columns: 1fr; }
+  .alumniArticleLayout { grid-template-columns: 1fr; }
+  .alumniSidebar { position: static; }
+  .alumniArticle { padding: 24px 20px; }
+  .alumniCover { min-height: 220px; padding: 22px; }
+  .alumniCoverLogo { top: 16px; right: 16px; width: 56px; height: 56px; }
   .careerFirstGuide { align-items: flex-start; flex-direction: column; padding: 27px 23px; }
   .internshipCard { grid-template-columns: 60px minmax(0, 1fr); gap: 14px; padding: 18px; }
   .companyLogo { width: 60px; height: 60px; }

@@ -1,9 +1,7 @@
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
-import {
-  clearActiveUniversitySlug,
-  getActiveUniversitySlug,
-} from "../../lib/tenantSession";
+import { canAccessUniversitySite } from "../../lib/universityAccess";
+import { clearActiveUniversitySlug } from "../../lib/tenantSession";
 import { useUniversity } from "../university/universityContextValue";
 import { useAuth } from "./authContextValue";
 
@@ -22,9 +20,12 @@ export default function RequireUniversityAccess() {
     return <Navigate to={path("/login")} replace state={{ from: location.pathname }} />;
   }
 
-  const activeSlug = getActiveUniversitySlug();
-  const profileCanAccess = isAdmin || universityId === university.id;
-  if (activeSlug === university.slug && profileCanAccess) return <Outlet />;
+  const profileCanAccess = canAccessUniversitySite({
+    isAdmin,
+    profileUniversityId: universityId,
+    universityId: university.id,
+  });
+  if (profileCanAccess) return <Outlet />;
 
   const loginAgain = async () => {
     await supabase.auth.signOut();

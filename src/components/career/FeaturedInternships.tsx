@@ -16,22 +16,37 @@ export default function FeaturedInternships({ items }: FeaturedInternshipsProps)
         <h2>おすすめの長期インターン</h2>
       </div>
       {items.length > 0 ? (
-        <div className="careerMiniGrid">
-          {items.map((item) => (
-            <Link
-              className="careerMiniCard"
-              to={path(`/career/internships/${item.id}`)}
-              key={item.id}
-            >
-              <span>{item.job_category}</span>
-              <h3>{item.title}</h3>
-              <p>{item.company_name}</p>
-              <strong>
-                詳細を見る <ArrowRight aria-hidden="true" />
-              </strong>
+        <>
+          <div className="careerMiniGrid">
+            {items.map((item) => (
+              <Link
+                className="careerMiniCard"
+                to={path(`/career/internships/${item.id}`)}
+                key={item.id}
+              >
+                <div className={`careerMiniCover${item.cover_image_url ? " hasImage" : ""}`}>
+                  {item.cover_image_url ? (
+                    <img src={item.cover_image_url} alt="" />
+                  ) : null}
+                  <span>{item.job_category}</span>
+                </div>
+                <div className="careerMiniCardBody">
+                  <h3>{item.title}</h3>
+                  <p>{item.company_name}</p>
+                  <strong>
+                    詳細を見る <ArrowRight aria-hidden="true" />
+                  </strong>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <p className="alumniPreviewMore">
+            <Link className="careerPrimaryButton" to={path("/career/internships")}>
+              インターン一覧を見る
+              <ArrowRight aria-hidden="true" />
             </Link>
-          ))}
-        </div>
+          </p>
+        </>
       ) : (
         <div className="careerInlineState">
           公開中のおすすめ求人は、現在準備中です。

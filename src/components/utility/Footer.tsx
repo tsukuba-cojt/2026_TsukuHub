@@ -74,7 +74,7 @@ function Footer() {
           <h3>サポート</h3>
           <ul className="footerLinks">
             <li><Link to={path("/faq")}>よくある質問</Link></li>
-            <li><Link to={path("/contact")}>お問合せ</Link></li>
+            <li><Link to={path("/contact")}>お問い合わせ</Link></li>
             <li><Link to={path("/terms")}>利用規約</Link></li>
             <li><Link to={path("/privacy")}>プライバシーポリシー</Link></li>
           </ul>
@@ -88,7 +88,12 @@ function Footer() {
             <a href="#" aria-label="X（旧Twitter）">
               <img src={snsXIcon} alt="X" />
             </a>
-            <a href="#" aria-label="Instagram">
+            <a
+              href="https://www.instagram.com/tsukuhub/"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img src={snsInstagramIcon} alt="Instagram" />
             </a>
             <a href="#" aria-label="LINE">

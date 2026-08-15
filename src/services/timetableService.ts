@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { getCatalogCoursesByCodes } from "./courseCatalog";
 import {
   collectCategoryCourses,
   type Course,
@@ -171,16 +172,10 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
   const metaByCode = new Map<string, CourseMetaRow>();
 
   if (uniqueCodes.length > 0) {
-    const { data, error } = await supabase
-      .from("courses")
-      .select("course_number, course_name, credits, target_year, semester, schedule, instructor")
-      .eq("university_id", universityId)
-      .in("course_number", uniqueCodes);
-    if (!error) {
-      (data as CourseMetaRow[] | null)?.forEach((row) => {
-        metaByCode.set(row.course_number, row);
-      });
-    }
+    const catalog = await getCatalogCoursesByCodes(universityId, uniqueCodes);
+    catalog.forEach((row, courseNumber) => {
+      metaByCode.set(courseNumber, row);
+    });
   }
 
   const categoryByCode = categoryFromReport(report);

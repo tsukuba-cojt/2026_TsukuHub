@@ -1,10 +1,11 @@
 import "../styles/Auth.css";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { MailIcon, LockIcon } from "../components/auth/AuthIcons";
 import { useUniversity } from "../components/university/universityContextValue";
 import { supabase } from "../lib/supabase";
+import { canAccessUniversitySite } from "../lib/universityAccess";
 import {
   clearActiveUniversitySlug,
   getActiveUniversitySlug,
@@ -16,17 +17,31 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const { university, loading: universityLoading, path } = useUniversity();
-  const { user } = useAuth();
+  const { user, isAdmin, universityId, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authError, setAuthError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  if (universityLoading) return <main className="careerState">読み込んでいます...</main>;
+  if (universityLoading || authLoading) return <main className="careerState">読み込んでいます...</main>;
   if (!university) return <main className="careerState"><h1>大学が見つかりません</h1></main>;
 
   const activeUniversitySlug = getActiveUniversitySlug();
+  const allowed = canAccessUniversitySite({
+    isAdmin,
+    profileUniversityId: universityId,
+    universityId: university.id,
+  });
+  const returnCandidate = (location.state as { from?: string } | null)?.from;
+  const returnTo = returnCandidate?.startsWith(`/${university.slug}/`)
+    ? returnCandidate
+    : path();
+
+  if (user && allowed) {
+    return <Navigate to={returnTo} replace />;
+  }
+
   if (user && activeUniversitySlug && activeUniversitySlug !== university.slug) {
     const switchUniversity = async () => {
       setLoading(true);
@@ -46,11 +61,6 @@ export default function Login() {
     );
   }
 
-  const returnCandidate = (location.state as { from?: string } | null)?.from;
-  const returnTo = returnCandidate?.startsWith(`/${university.slug}/`)
-    ? returnCandidate
-    : path();
-
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setAuthError(null);
@@ -68,8 +78,12 @@ export default function Login() {
       .select("university_id, role")
       .eq("id", result.data.user.id)
       .maybeSingle();
-    const allowed = profile?.role === "global_admin" || profile?.university_id === university.id;
-    if (!allowed) {
+    const allowedAfterLogin = canAccessUniversitySite({
+      isAdmin: profile?.role === "global_admin",
+      profileUniversityId: profile?.university_id,
+      universityId: university.id,
+    });
+    if (!allowedAfterLogin) {
       await supabase.auth.signOut();
       setAuthError(`このアカウントは${university.name}に所属していません。`);
       setLoading(false);

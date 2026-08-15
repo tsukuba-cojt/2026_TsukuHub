@@ -29,6 +29,16 @@ describe("resolveUniversityLanding", () => {
     })).toBe("login");
   });
 
+  it("全体管理者は別大学のセッションでも大学ホームを表示する", () => {
+    expect(resolveUniversityLanding({
+      universityStatus: "active",
+      isAuthenticated: true,
+      isActiveUniversity: false,
+      canAccessUniversity: true,
+      isAdmin: true,
+    })).toBe("home");
+  });
+
   it("停止中の大学はログインへ進めない", () => {
     expect(resolveUniversityLanding({
       universityStatus: "suspended",

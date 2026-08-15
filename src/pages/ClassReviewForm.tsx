@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { supabase } from "../lib/supabase";
 import { useUniversity } from "../components/university/universityContextValue";
 import {
   BookMarked,
@@ -19,6 +18,8 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import RatingStarsInput from "../components/class/RatingStarsInput";
 import { createClassReview } from "../services/classReviewService";
+import { getCatalogCourse } from "../services/courseCatalog";
+import type { CatalogCourse } from "../types/courseCatalog";
 import {
   getClassFormats,
   getMethodLabel,
@@ -27,21 +28,6 @@ import commentIcon from "../assets/class/Comment.svg";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 import "../styles/class/ClassReviewForm.css";
-
-// coursesテーブルの行の型（ClassDetail.tsx と同じ形。共通化は後日検討）
-type CourseRow = {
-  id: number;
-  course_number: string;
-  course_name: string;
-  method: string;
-  credits: string;
-  target_year: string;
-  semester: string;
-  schedule: string;
-  instructor: string;
-  overview: string;
-  remarks: string;
-};
 
 // 任意項目の選択肢（口コミDBのマスタ設計が決まるまではフロントの定数として固定）
 const lectureFormatOptions = [
@@ -86,7 +72,7 @@ function ClassReviewForm() {
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
 
-  const [course, setCourse] = useState<CourseRow | null>(null);
+  const [course, setCourse] = useState<CatalogCourse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -109,29 +95,21 @@ function ClassReviewForm() {
 
   useEffect(() => {
     const fetchCourse = async () => {
+      if (!university) return;
       setLoading(true);
       setError(null);
 
-      const { data, error: fetchError } = await supabase
-        .from("courses")
-        .select(
-          "id, course_number, course_name, method, credits, target_year, semester, schedule, instructor, overview, remarks"
-        )
-        .eq("university_id", university?.id ?? "")
-        .eq("course_number", courseCode)
-        .maybeSingle();
-
-      if (fetchError) {
+      try {
+        const nextCourse = await getCatalogCourse(university.slug, courseCode);
+        setCourse(nextCourse);
+      } catch {
         setError("講義情報の取得に失敗しました。");
+      } finally {
         setLoading(false);
-        return;
       }
-
-      setCourse(data as CourseRow | null);
-      setLoading(false);
     };
 
-    if (university) void fetchCourse();
+    void fetchCourse();
   }, [courseCode, university]);
 
   const commentTooLong = comment.length > COMMENT_MAX;

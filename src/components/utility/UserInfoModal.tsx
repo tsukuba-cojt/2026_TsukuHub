@@ -1,7 +1,7 @@
-// Mypage.tsx
-import { useState, useEffect } from "react";
-import { supabase } from "../lib/supabase";
-import "../styles/utility/Mypage.css";
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
+import { supabase } from "../../lib/supabase";
+import "../../styles/utility/Mypage.css";
 
 type Profile = {
   id: string;
@@ -11,7 +11,6 @@ type Profile = {
   category: string;
 };
 
-// category の内部値 → 表示名
 const categoryLabel = (category: string): string => {
   switch (category) {
     case "undergraduate":
@@ -23,10 +22,27 @@ const categoryLabel = (category: string): string => {
   }
 };
 
-export default function Mypage() {
+type UserInfoModalProps = {
+  onClose: () => void;
+};
+
+export default function UserInfoModal({ onClose }: UserInfoModalProps) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [onClose]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -60,13 +76,30 @@ export default function Mypage() {
       setLoading(false);
     };
 
-    fetchProfile();
+    void fetchProfile();
   }, []);
 
   return (
-    <div className="mypage-wrapper">
-      <div className="mypage-card">
-        <h1 className="mypage-title">ユーザー情報</h1>
+    <div className="mypageModalOverlay" onClick={onClose}>
+      <div
+        className="mypageModalPanel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="user-info-title"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="mypageModalClose"
+          aria-label="閉じる"
+          onClick={onClose}
+        >
+          <X aria-hidden="true" />
+        </button>
+
+        <h2 className="mypage-title" id="user-info-title">
+          ユーザー情報
+        </h2>
 
         {loading && <p className="mypage-status">読み込み中...</p>}
 

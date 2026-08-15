@@ -17,6 +17,36 @@
   flex-shrink: 0;
 }
 
+.pageBackBar {
+  width: 100%;
+  padding: 4px 24px 8px;
+  box-sizing: border-box;
+}
+
+.pageBackButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px 0px 10px 3px rgba(21, 120, 253, 0.1);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.pageBackButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pageBackButton:hover {
+  background: #f0f5fc;
+}
+
 /* ホームの一番上にいる間だけ背景を透明にする */
 .globalHeader.isTransparent {
   background: transparent;
@@ -512,6 +542,10 @@
   .globalHeaderSpacer {
     display: none;
     height: 0;
+  }
+
+  .pageBackBar {
+    padding: 8px 12px 4px;
   }
 
   .headerNav {

@@ -19,7 +19,6 @@ export const COMING_SOON_NOTICE = "準備中です";
 const COMING_SOON_PATHS: ReadonlySet<string> = new Set([
   "/circles", // サークル・課外活動（グロナビ・カテゴリカード）
   "/lifestyle", // 生活・便利情報（グロナビ・カテゴリカード）
-  "/events", // イベント・お知らせ（カテゴリカードのみ）
   "/global", // 留学・国際交流（グロナビ・カテゴリカード）
 ]);
 
@@ -67,6 +66,8 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
   "/mypage",
   "/mypage/applications",
   "/contact",
+  "/terms",
+  "/privacy",
   "/news",
   "/topics",
   "/career",
