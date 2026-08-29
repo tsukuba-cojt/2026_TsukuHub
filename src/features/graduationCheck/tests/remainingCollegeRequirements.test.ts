@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
-import { checkGraduation } from "../checkGraduation";
-import { findDepartment, resolveRequirementId } from "../data/supportedDepartments";
-import type { RequirementId } from "../types";
+import { checkGraduation } from "../tsukuba";
+import { findDepartment, resolveRequirementId } from "../tsukuba/data/supportedDepartments";
+import type { RequirementId } from "../core/types";
 
 type RequirementCase = [RequirementId, number[], number];
 

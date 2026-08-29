@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -25,10 +25,7 @@ import {
   levelClass,
   levelFromPercent,
 } from "../components/class/graduationProgressLevel";
-import {
-  listDepartmentAdmissionYears,
-  supportedDepartments,
-} from "../features/graduationCheck";
+import { getGraduationCheckProvider } from "../features/graduationCheck/provider";
 import type {
   CategoryKey,
   CategoryResult,
@@ -40,13 +37,6 @@ import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable"
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 import { useUniversity } from "../components/university/universityContextValue";
-
-const supportedSummary = supportedDepartments
-  .map((department) => {
-    const years = listDepartmentAdmissionYears(department);
-    return `${department.label}の${years[0]}〜${years[years.length - 1]}年度入学`;
-  })
-  .join("、");
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
@@ -183,7 +173,21 @@ function RequirementRow({
 // 遷移時の history state をマウント時にメモリへ退避して即座に消去するため、
 // リロードやブラウザバックで再訪しても結果は残らない（永続化しない仕様）。
 function GraduationCheckResult() {
-  const { path } = useUniversity();
+  const { university, path } = useUniversity();
+  const provider = useMemo(
+    () => getGraduationCheckProvider(university?.slug),
+    [university?.slug]
+  );
+  const supportedSummary = useMemo(
+    () =>
+      provider.supportedDepartments
+        .map((department) => {
+          const years = provider.listDepartmentAdmissionYears(department);
+          return `${department.label}の${years[0]}〜${years[years.length - 1]}年度入学`;
+        })
+        .join("、"),
+    [provider]
+  );
   const location = useLocation();
   const navigate = useNavigate();
   const [result] = useState<GraduationCheckResultState>(
@@ -255,7 +259,7 @@ function GraduationCheckResult() {
             <span className="gradCheckBetaBadge">β版</span>
           </h1>
           <p className="gradCheckLead">
-            TWINSの成績csvをアップロードすると、卒業要件の充足状況を確認できます
+            {provider.description}
           </p>
         </div>
 
@@ -390,7 +394,7 @@ function GraduationCheckResult() {
                   卒業要件は、
                   <a
                     className="gradResultNotesLink"
-                    href="https://www.tsukuba.ac.jp/education/ug-courses-directory/index.html"
+                    href={provider.regulationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -108,31 +108,73 @@ function Class() {
         if (!c.code.toLowerCase().includes(code)) return false;
       }
 
-      // module: 範囲指定で判定
-      const term = (c.term || "");
-      const allowedModules = getAllowedTermModules(filters.moduleRangeStart, filters.moduleRangeEnd);
+      // module: 範囲指定で判定（筑波: 春A〜秋C / 大阪: 春～夏・秋～冬 等）
+      const term = c.term || "";
+      const allowedModules = getAllowedTermModules(
+        filters.moduleRangeStart,
+        filters.moduleRangeEnd
+      );
       const termModules = getTermModules(term);
+      const isYearRound =
+        term.includes("通年") ||
+        term.includes("春～夏") ||
+        term.includes("秋～冬") ||
+        term.includes("春-夏") ||
+        term.includes("秋-冬");
 
-      if (term.includes("通年")) {
-        // 通年科目は、モジュール範囲が 1〜6 全選択のときのみ表示する
-        if (filters.moduleRangeStart !== 1 || filters.moduleRangeEnd !== 6) {
-          return false;
+      if (isYearRound || term === "春" || term === "夏" || term === "秋" || term === "冬") {
+        // 学期単位の科目は、モジュール範囲が全選択のときのみ表示する
+        // （大阪の春～夏/秋～冬も筑波の通年と同様に扱う）
+        if (
+          term.includes("通年") ||
+          term.includes("春～夏") ||
+          term.includes("秋～冬") ||
+          term.includes("春-夏") ||
+          term.includes("秋-冬")
+        ) {
+          if (filters.moduleRangeStart !== 1 || filters.moduleRangeEnd !== 6) {
+            // 大阪の春～夏は春モジュール側、秋～冬は秋モジュール側に寄せる
+            const wantsSpring =
+              filters.moduleRangeStart <= 3 && filters.moduleRangeEnd >= 1;
+            const wantsAutumn =
+              filters.moduleRangeStart <= 6 && filters.moduleRangeEnd >= 4;
+            if (term.includes("春～夏") || term.includes("春-夏") || term === "春" || term === "夏") {
+              if (!wantsSpring) return false;
+            } else if (
+              term.includes("秋～冬") ||
+              term.includes("秋-冬") ||
+              term === "秋" ||
+              term === "冬"
+            ) {
+              if (!wantsAutumn) return false;
+            } else if (term.includes("通年")) {
+              return false;
+            }
+          }
         }
       } else if (term.includes("集中講義")) {
         // 集中講義は範囲指定にかかわらず残す
       } else {
         if (termModules.length === 0) {
-          return false;
-        }
+          // 筑波形式のモジュール表記が無い科目（大阪など）はモジュール条件をスキップ
+        } else {
+          // 範囲内のモジュールが1つも含まれていない場合は除外
+          if (
+            !termModules.some((moduleLabel) =>
+              allowedModules.includes(moduleLabel)
+            )
+          ) {
+            return false;
+          }
 
-        // 範囲内のモジュールが1つも含まれていない場合は除外
-        if (!termModules.some((moduleLabel) => allowedModules.includes(moduleLabel))) {
-          return false;
-        }
-
-        // 範囲外のモジュールが含まれていれば除外
-        if (termModules.some((moduleLabel) => !allowedModules.includes(moduleLabel))) {
-          return false;
+          // 範囲外のモジュールが含まれていれば除外
+          if (
+            termModules.some(
+              (moduleLabel) => !allowedModules.includes(moduleLabel)
+            )
+          ) {
+            return false;
+          }
         }
       }
 
@@ -140,8 +182,14 @@ function Class() {
       // - 通年かつモジュールが全選択(1..6) の場合は schedule フィルターを無視する
       // - filters.classType !== 'normal' の場合は DB の schedule に種別キーワードが含まれるかで判定
       // - normal の場合は曜日/時限で判定（split モード：scheduleDay/schedulePeriod、combined モード：schedule）
-      const schedRaw = (c.period || "");
-      if (term.includes("通年") && filters.moduleRangeStart === 1 && filters.moduleRangeEnd === 6) {
+      const schedRaw = c.period || "";
+      // 筑波の通年のみ、モジュール全選択時は曜日・時限フィルタをスキップする。
+      // 大阪の春～夏/秋～冬は大半の科目が該当するため、ここでスキップすると曜日絞り込みが効かなくなる。
+      if (
+        term.includes("通年") &&
+        filters.moduleRangeStart === 1 &&
+        filters.moduleRangeEnd === 6
+      ) {
         // 通年かつモジュール全選択：schedule 条件を適用しない
       } else if (filters.classType && filters.classType !== "normal") {
         const classTypeMap: { [key: string]: string[] } = {

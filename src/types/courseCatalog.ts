@@ -9,6 +9,8 @@ export type CatalogCourse = {
   instructor: string;
   overview: string;
   remarks: string;
+  /** 外部シラバス URL（大阪: KOAN 外部シラバス等） */
+  syllabus_url?: string;
 };
 
 export type CourseCatalogFile = {

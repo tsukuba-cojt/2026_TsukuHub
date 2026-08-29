@@ -29,6 +29,7 @@ import {
   timetableModuleOrder,
 } from "../types/timetable";
 import { timetableFilterOptions } from "../features/timetable/filterOptions";
+import { getGraduationCheckProvider } from "../features/graduationCheck/provider";
 import "../styles/class/Timetable.css";
 import { useUniversity } from "../components/university/universityContextValue";
 
@@ -114,6 +115,11 @@ function TimetableEmptyState({ onRelax }: { onRelax: () => void }) {
 
 function Timetable() {
   const { university, path } = useUniversity();
+  const provider = useMemo(
+    () => getGraduationCheckProvider(university?.slug),
+    [university?.slug]
+  );
+  const departmentLabel = provider.departmentSelectLabel;
   const [histories, setHistories] = useState<TimetableHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -153,6 +159,7 @@ function Timetable() {
   const options = useMemo(
     () =>
       timetableFilterOptions({
+        universitySlug: university?.slug,
         department: filters.department,
         extraDepartments: histories.map((history) => history.department),
         extraYears: histories.map((history) => history.studentYearLabel),
@@ -160,7 +167,7 @@ function Timetable() {
           .filter((history) => !filters.department || history.department === filters.department)
           .map((history) => history.major),
       }),
-    [filters.department, histories]
+    [filters.department, histories, university?.slug]
   );
 
   const updateFilters = (next: Partial<TimetableFilters>) => {
@@ -209,7 +216,7 @@ function Timetable() {
             <div className="timetableFilterGrid">
               <TimetableSelect
                 id="timetable-department"
-                label="学類を選択"
+                label={`${departmentLabel}を選択`}
                 required
                 value={filters.department}
                 onChange={(value) =>

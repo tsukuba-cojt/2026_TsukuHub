@@ -4,7 +4,7 @@ import {
   findMajor,
   listAdmissionYearOptions,
   resolveRequirementId,
-} from "../data/supportedDepartments";
+} from "../tsukuba/data/supportedDepartments";
 
 describe("supportedDepartments admission year options", () => {
   test("複数年度を同じ要件データで扱う場合も年度ごとに選べる", () => {

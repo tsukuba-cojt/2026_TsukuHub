@@ -14,7 +14,30 @@ describe("timetable schedule parser", () => {
     expect(parseTimetableModules("春ABC")).toEqual(["springA", "springB", "springC"]);
     expect(parseTimetableModules("秋AB")).toEqual(["fallA", "fallB"]);
     expect(parseTimetableModules("秋ABC")).toEqual(["fallA", "fallB", "fallC"]);
-    expect(parseTimetableModules("春学期")).toEqual(["springA", "springB", "springC"]);
+    expect(parseTimetableModules("春学期")).toEqual(["springA"]);
+    expect(parseTimetableModules("夏学期")).toEqual(["springB"]);
+    expect(parseTimetableModules("秋学期")).toEqual(["fallA"]);
+    expect(parseTimetableModules("冬学期")).toEqual(["fallB"]);
+    expect(parseTimetableModules("春学期前半")).toEqual([
+      "springA",
+      "springB",
+      "springC",
+    ]);
+    expect(parseTimetableModules("春～夏")).toEqual([
+      "springA",
+      "springB",
+      "springC",
+    ]);
+    expect(parseTimetableModules("秋～冬")).toEqual(["fallA", "fallB", "fallC"]);
+    expect(parseTimetableModules("春-夏")).toEqual([
+      "springA",
+      "springB",
+      "springC",
+    ]);
+    expect(parseTimetableModules("春")).toEqual(["springA"]);
+    expect(parseTimetableModules("夏")).toEqual(["springB"]);
+    expect(parseTimetableModules("秋")).toEqual(["fallA"]);
+    expect(parseTimetableModules("冬")).toEqual(["fallB"]);
     expect(parseTimetableModules("集中講義")).toEqual(["other"]);
   });
 

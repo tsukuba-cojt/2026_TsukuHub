@@ -12,45 +12,56 @@ import Footer from "../components/utility/Footer";
 import GraduationCheckConsentModal from "../components/class/GraduationCheckConsentModal";
 import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsvGuideModal";
 import { useAuth } from "../components/auth/authContextValue";
-import {
-  checkGraduation,
-  findDepartment,
-  findMajor,
-  listAdmissionYearOptions,
-  listDepartmentAdmissionYears,
-  listMajorAdmissionYears,
-  parseGradesCsv,
-  resolveRequirementId,
-  supportedDepartments,
+import { getGraduationCheckProvider } from "../features/graduationCheck/provider";
+import { enrichCoursesWithCatalog } from "../features/graduationCheck/osaka";
+import { listCatalogCourses } from "../services/courseCatalog";
+import type {
+  SupportedDepartment,
+  SupportedMajor,
 } from "../features/graduationCheck";
 import {
   buildTimetableHistoriesFromGraduationReport,
   saveTimetableHistories,
 } from "../services/timetableService";
-import type {
-  SupportedDepartment,
-  SupportedMajor,
-} from "../features/graduationCheck";
 import "../styles/class/GraduationCheck.css";
 import { useUniversity } from "../components/university/universityContextValue";
-
-// 学類・専攻・入学年度の選択肢は
-// features/graduationCheck/data/supportedDepartments.ts に集約。
-// 卒業要件データが用意できている学類・専攻・年度のみを載せているため、
-// 新規登録ページ（Signup.tsx）の全学類リストとは別物として持つ。
-
-// 対応外を選んだときの案内文（対応学類・年度もデータ定義から生成する）
-const supportedSummary = supportedDepartments
-  .map((department) => {
-    const years = listDepartmentAdmissionYears(department);
-    return `${department.label}の${years[0]}〜${years[years.length - 1]}年度入学`;
-  })
-  .join("、");
 
 // 卒業要件チェック アップロードページ（/graduation-checker）
 // CSVのパース・要件判定はクライアント内で完結する（features/graduationCheck）。
 function GraduationCheck() {
   const { university, path } = useUniversity();
+  const provider = useMemo(
+    () => getGraduationCheckProvider(university?.slug),
+    [university?.slug]
+  );
+  const {
+    supportedDepartments,
+    findDepartment,
+    findMajor,
+    listAdmissionYearOptions,
+    listDepartmentAdmissionYears,
+    listMajorAdmissionYears,
+    resolveRequirementId,
+    parseGradesCsv,
+    checkGraduation,
+    readCsvFile,
+    csvErrorHint,
+    description,
+    departmentSelectLabel,
+    majorSelectLabel,
+    csvSourceName,
+  } = provider;
+
+  const supportedSummary = useMemo(
+    () =>
+      supportedDepartments
+        .map((department) => {
+          const years = listDepartmentAdmissionYears(department);
+          return `${department.label}の${years[0]}〜${years[years.length - 1]}年度入学`;
+        })
+        .join("、"),
+    [supportedDepartments, listDepartmentAdmissionYears]
+  );
   const navigate = useNavigate();
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -147,12 +158,18 @@ function GraduationCheck() {
     processingRef.current = true;
     setIsProcessing(true);
     try {
-      const { courses, errors } = parseGradesCsv(await file.text());
+      const csvText = readCsvFile
+        ? await readCsvFile(file)
+        : await file.text();
+      let parsed = parseGradesCsv(csvText);
+      if (university?.slug === "osaka") {
+        const catalog = await listCatalogCourses("osaka");
+        parsed = enrichCoursesWithCatalog(catalog, parsed);
+      }
+      const { courses, errors } = parsed;
       setIsConsentOpen(false);
       if (courses.length === 0) {
-        setCsvError(
-          "CSVから成績データを読み取れませんでした。TWINSからダウンロードした成績CSVかご確認ください。"
-        );
+        setCsvError(csvErrorHint);
         return;
       }
       const report = checkGraduation(courses, requirementId);
@@ -166,6 +183,7 @@ function GraduationCheck() {
         sharePublic: agreedStats,
         ownerId: user?.id,
         universityId: university?.id ?? "",
+        universitySlug: university?.slug ?? "tsukuba",
       });
 
       let timetableSaveStatus: "saved" | "guest" | "failed" = user
@@ -227,9 +245,7 @@ function GraduationCheck() {
             卒業要件チェック
             <span className="gradCheckBetaBadge">β版</span>
           </h1>
-          <p className="gradCheckLead">
-            TWINSの成績csvをアップロードすると、卒業要件の充足状況を確認できます
-          </p>
+          <p className="gradCheckLead">{description}</p>
         </div>
 
         <div className="gradCheckCard">
@@ -239,7 +255,9 @@ function GraduationCheck() {
               <span className="gradCheckStepNumber" aria-hidden="true">
                 1
               </span>
-              <h2 className="gradCheckStepTitle">学類・専攻と入学年度を選択</h2>
+              <h2 className="gradCheckStepTitle">
+                {departmentSelectLabel}・{majorSelectLabel}と入学年度を選択
+              </h2>
             </div>
 
             <div className="gradCheckFieldList">
@@ -248,7 +266,7 @@ function GraduationCheck() {
                   className="gradCheckFieldLabel"
                   htmlFor="grad-check-department"
                 >
-                  学類
+                  {departmentSelectLabel}
                 </label>
                 <div className="gradCheckSelectWrap">
                   <select
@@ -273,7 +291,7 @@ function GraduationCheck() {
               {/* 学類が未選択のうちは選べない（学類を選ぶと連動して選択肢が入る） */}
               <div className="gradCheckField">
                 <label className="gradCheckFieldLabel" htmlFor="grad-check-major">
-                  専攻
+                  {majorSelectLabel}
                 </label>
                 <div className="gradCheckSelectWrap">
                   <select
@@ -325,7 +343,7 @@ function GraduationCheck() {
 
             {isUnsupported && (
               <p className="gradCheckFieldError">
-                選択した学類・専攻・入学年度の卒業要件データには現在対応していません（対応:
+                選択した{departmentSelectLabel}・{majorSelectLabel}・入学年度の卒業要件データには現在対応していません（対応:
                 {supportedSummary}）
               </p>
             )}
@@ -447,7 +465,11 @@ function GraduationCheck() {
 
       {/* C：CSV取得・アップロード方法の説明ポップアップ */}
       {isGuideOpen && (
-        <GraduationCheckCsvGuideModal onClose={() => setIsGuideOpen(false)} />
+        <GraduationCheckCsvGuideModal
+          onClose={() => setIsGuideOpen(false)}
+          csvSourceName={csvSourceName}
+          universitySlug={university?.slug}
+        />
       )}
     </div>
   );

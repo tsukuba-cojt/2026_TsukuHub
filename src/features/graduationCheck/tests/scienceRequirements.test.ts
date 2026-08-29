@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { checkGraduation } from "../checkGraduation";
-import type { RequirementId } from "../types";
+import { checkGraduation } from "../tsukuba";
+import type { RequirementId } from "../core/types";
 import { course } from "./helpers";
 
 describe("化学類の卒業要件", () => {

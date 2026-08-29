@@ -1,26 +1,19 @@
 /**
  * 卒業要件チェック 判定エンジン（ロジック層）
  *
- * 成績CSVを入力して判定結果オブジェクトを返す純粋関数群。
- * 判定はすべてクライアント内で完結し、成績をサーバーへ送信しない。
- *
- * 使い方:
- *   const { courses, errors } = parseGradesCsv(csvText);
- *   const ids = resolveRequirementIds("情報メディア創成学類", 2023); // → ["mast-22"]
- *   const report = checkGraduation(courses, ids[0]);
- *
- * 判定ロジックは Mimori256/Graduation-Checker
- * (https://github.com/Mimori256/Graduation-Checker, MPL-2.0) を踏襲している。
- * 詳細は同ディレクトリの README.md を参照。
+ * 大学別 Provider 経由で機能を提供する。
+ * 後方互換のため筑波版の export も維持する。
  */
 
-export { parseGradesCsv } from "./parseCsv";
+export { getGraduationCheckProvider, getSupportedDepartments } from "./provider";
+export type { GraduationCheckProvider } from "./provider";
+
+// 筑波版（後方互換）
 export {
+  parseGradesCsv,
   checkGraduation,
   listSupportedRequirements,
   resolveRequirementIds,
-} from "./checkGraduation";
-export {
   findDepartment,
   findMajor,
   listAdmissionYearOptions,
@@ -28,17 +21,20 @@ export {
   listMajorAdmissionYears,
   resolveRequirementId,
   supportedDepartments,
-} from "./data/supportedDepartments";
+  collectCategoryCourses,
+  categoryLabels,
+  categoryOrder,
+} from "./tsukuba";
+
 export type {
   AdmissionYearOption,
   RequirementEntry,
   SupportedDepartment,
   SupportedMajor,
-} from "./data/supportedDepartments";
-export { collectCategoryCourses } from "./categoryCourses";
-export type { CategoryCourses } from "./categoryCourses";
-export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
-export { categoryLabels, categoryOrder } from "./categoryMapping";
+} from "./tsukuba/data/supportedDepartments";
+
+export { calcGpa, calcARatePercent, GPA_MAX } from "./core/gpa";
+
 export type {
   CategoryKey,
   CategoryResult,
@@ -52,4 +48,6 @@ export type {
   RequirementId,
   SelectResult,
   UnitProgress,
-} from "./types";
+} from "./core/types";
+
+export type { CategoryCourses } from "./core/categoryCourses";
