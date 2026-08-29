@@ -1,4 +1,3 @@
-import React from "react";
 import "../../styles/Auth.css";
 
 interface StepperProps {
@@ -15,25 +14,20 @@ export default function SignupStepper({ currentStep }: StepperProps) {
   return (
     <div className="stepper">
       {STEPS.map((step, i) => (
-        <React.Fragment key={step.num}>
-          <div className="stepper-step">
-            <div
-              className={`stepper-circle${currentStep === step.num ? " stepper-circle--active" : currentStep > step.num ? " stepper-circle--done" : ""}`}
-            >
-              {step.num}
-            </div>
-            <span
-              className={`stepper-label${currentStep === step.num ? " stepper-label--active" : ""}`}
-            >
-              {step.label}
-            </span>
+        <div className="stepper-step" key={step.num}>
+          {/* 前のステップとの接続線。進行状態によらず常に同じ見た目で描画する */}
+          {i > 0 && <span className="stepper-line" aria-hidden="true" />}
+          <div
+            className={`stepper-circle${currentStep === step.num ? " stepper-circle--active" : currentStep > step.num ? " stepper-circle--done" : ""}`}
+          >
+            {step.num}
           </div>
-          {i < STEPS.length - 1 && (
-            <div
-              className={`stepper-line${currentStep > step.num ? " stepper-line--done" : ""}`}
-            />
-          )}
-        </React.Fragment>
+          <span
+            className={`stepper-label${currentStep === step.num ? " stepper-label--active" : ""}`}
+          >
+            {step.label}
+          </span>
+        </div>
       ))}
     </div>
   );
