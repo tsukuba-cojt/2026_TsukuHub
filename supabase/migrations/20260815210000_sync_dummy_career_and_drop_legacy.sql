@@ -5,19 +5,24 @@ drop view if exists public.reviews_with_counts;
 
 do $$
 begin
-  if to_regclass('public.review_helpfuls') is not null
-     and (select count(*) from public.review_helpfuls) = 0 then
-    drop table public.review_helpfuls cascade;
+  -- Nested IF: PL/pgSQL does not short-circuit AND, so a missing table
+  -- would error on the count(*) subquery if combined in one condition.
+  if to_regclass('public.review_helpfuls') is not null then
+    if (select count(*) from public.review_helpfuls) = 0 then
+      drop table public.review_helpfuls cascade;
+    end if;
   end if;
 
-  if to_regclass('public.reviews') is not null
-     and (select count(*) from public.reviews) = 0 then
-    drop table public.reviews cascade;
+  if to_regclass('public.reviews') is not null then
+    if (select count(*) from public.reviews) = 0 then
+      drop table public.reviews cascade;
+    end if;
   end if;
 
-  if to_regclass('public.student_records') is not null
-     and (select count(*) from public.student_records) = 0 then
-    drop table public.student_records cascade;
+  if to_regclass('public.student_records') is not null then
+    if (select count(*) from public.student_records) = 0 then
+      drop table public.student_records cascade;
+    end if;
   end if;
 end $$;
 

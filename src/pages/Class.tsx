@@ -8,6 +8,10 @@ import ClassCard, { type ClassCourse } from "../components/class/ClassCard";
 import ClassPagination from "../components/class/ClassPagination";
 import { listCatalogCourses } from "../services/courseCatalog";
 import type { CatalogCourse } from "../types/courseCatalog";
+import {
+  getTermUi,
+  osakaTermMatchesModuleRange,
+} from "../features/timetable/termUi";
 import "../styles/class/Class.css";
 
 type FiltersState = {
@@ -23,6 +27,7 @@ type FiltersState = {
 
 function Class() {
   const { university } = useUniversity();
+  const termUi = getTermUi(university?.slug);
   const [courses, setCourses] = useState<ClassCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +35,7 @@ function Class() {
     text: "",
     code: "",
     moduleRangeStart: 1,
-    moduleRangeEnd: 6,
+    moduleRangeEnd: termUi.classModuleMax,
     classType: "normal",
     schedule: "all",
     scheduleDay: "all",
@@ -38,6 +43,17 @@ function Class() {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
+
+  // 大学切替時に開講期レンジを合わせてリセット
+  useEffect(() => {
+    const nextUi = getTermUi(university?.slug);
+    setFilters((prev) => ({
+      ...prev,
+      moduleRangeStart: 1,
+      moduleRangeEnd: nextUi.classModuleMax,
+    }));
+    setCurrentPage(1);
+  }, [university?.slug]);
 
   const toClassCourse = (r: CatalogCourse): ClassCourse => ({
     id: r.course_number,
@@ -69,96 +85,62 @@ function Class() {
     void fetchCourses();
   }, [university]);
 
-  // フィルタを適用した配列をメモ化
   const filteredCourses = useMemo(() => {
     const text = filters.text.trim().toLowerCase();
     const code = filters.code.trim().toLowerCase();
+    const isOsaka = university?.slug === "osaka";
+    const moduleMax = termUi.classModuleMax;
 
-    // モジュールと数値のマッピング
     const moduleMap: { [key: string]: number } = {
-      "春A": 1,
-      "春B": 2,
-      "春C": 3,
-      "秋A": 4,
-      "秋B": 5,
-      "秋C": 6,
+      春A: 1,
+      春B: 2,
+      春C: 3,
+      秋A: 4,
+      秋B: 5,
+      秋C: 6,
     };
-
     const moduleLabels = Object.keys(moduleMap);
-
-    const getAllowedTermModules = (start: number, end: number) => {
-      return Object.entries(moduleMap)
+    const getAllowedTermModules = (start: number, end: number) =>
+      Object.entries(moduleMap)
         .filter(([, num]) => num >= start && num <= end)
         .map(([label]) => label);
-    };
-
-    const getTermModules = (term: string) => {
-      return moduleLabels.filter((label) => term.includes(label));
-    };
+    const getTermModules = (term: string) =>
+      moduleLabels.filter((label) => term.includes(label));
 
     return courses.filter((c) => {
-      // text: タイトル・教員名を検索
       if (text) {
         const hay = `${c.title} ${c.teacher}`.toLowerCase();
         if (!hay.includes(text)) return false;
       }
+      if (code && !c.code.toLowerCase().includes(code)) return false;
 
-      // code: コード部分を部分一致
-      if (code) {
-        if (!c.code.toLowerCase().includes(code)) return false;
-      }
-
-      // module: 範囲指定で判定（筑波: 春A〜秋C / 大阪: 春～夏・秋～冬 等）
       const term = c.term || "";
-      const allowedModules = getAllowedTermModules(
-        filters.moduleRangeStart,
-        filters.moduleRangeEnd
-      );
-      const termModules = getTermModules(term);
-      const isYearRound =
-        term.includes("通年") ||
-        term.includes("春～夏") ||
-        term.includes("秋～冬") ||
-        term.includes("春-夏") ||
-        term.includes("秋-冬");
-
-      if (isYearRound || term === "春" || term === "夏" || term === "秋" || term === "冬") {
-        // 学期単位の科目は、モジュール範囲が全選択のときのみ表示する
-        // （大阪の春～夏/秋～冬も筑波の通年と同様に扱う）
+      if (isOsaka) {
         if (
-          term.includes("通年") ||
-          term.includes("春～夏") ||
-          term.includes("秋～冬") ||
-          term.includes("春-夏") ||
-          term.includes("秋-冬")
+          !osakaTermMatchesModuleRange(
+            term,
+            filters.moduleRangeStart,
+            filters.moduleRangeEnd
+          )
         ) {
-          if (filters.moduleRangeStart !== 1 || filters.moduleRangeEnd !== 6) {
-            // 大阪の春～夏は春モジュール側、秋～冬は秋モジュール側に寄せる
-            const wantsSpring =
-              filters.moduleRangeStart <= 3 && filters.moduleRangeEnd >= 1;
-            const wantsAutumn =
-              filters.moduleRangeStart <= 6 && filters.moduleRangeEnd >= 4;
-            if (term.includes("春～夏") || term.includes("春-夏") || term === "春" || term === "夏") {
-              if (!wantsSpring) return false;
-            } else if (
-              term.includes("秋～冬") ||
-              term.includes("秋-冬") ||
-              term === "秋" ||
-              term === "冬"
-            ) {
-              if (!wantsAutumn) return false;
-            } else if (term.includes("通年")) {
-              return false;
-            }
-          }
+          return false;
         }
-      } else if (term.includes("集中講義")) {
-        // 集中講義は範囲指定にかかわらず残す
       } else {
-        if (termModules.length === 0) {
-          // 筑波形式のモジュール表記が無い科目（大阪など）はモジュール条件をスキップ
-        } else {
-          // 範囲内のモジュールが1つも含まれていない場合は除外
+        const allowedModules = getAllowedTermModules(
+          filters.moduleRangeStart,
+          filters.moduleRangeEnd
+        );
+        const termModules = getTermModules(term);
+        if (term.includes("通年")) {
+          if (
+            filters.moduleRangeStart !== 1 ||
+            filters.moduleRangeEnd !== moduleMax
+          ) {
+            return false;
+          }
+        } else if (term.includes("集中講義") || term.includes("集中")) {
+          // keep
+        } else if (termModules.length > 0) {
           if (
             !termModules.some((moduleLabel) =>
               allowedModules.includes(moduleLabel)
@@ -166,8 +148,6 @@ function Class() {
           ) {
             return false;
           }
-
-          // 範囲外のモジュールが含まれていれば除外
           if (
             termModules.some(
               (moduleLabel) => !allowedModules.includes(moduleLabel)
@@ -178,31 +158,25 @@ function Class() {
         }
       }
 
-      // schedule 判定:
-      // - 通年かつモジュールが全選択(1..6) の場合は schedule フィルターを無視する
-      // - filters.classType !== 'normal' の場合は DB の schedule に種別キーワードが含まれるかで判定
-      // - normal の場合は曜日/時限で判定（split モード：scheduleDay/schedulePeriod、combined モード：schedule）
       const schedRaw = c.period || "";
-      // 筑波の通年のみ、モジュール全選択時は曜日・時限フィルタをスキップする。
-      // 大阪の春～夏/秋～冬は大半の科目が該当するため、ここでスキップすると曜日絞り込みが効かなくなる。
-      if (
-        term.includes("通年") &&
+      const fullModuleRange =
         filters.moduleRangeStart === 1 &&
-        filters.moduleRangeEnd === 6
-      ) {
-        // 通年かつモジュール全選択：schedule 条件を適用しない
+        filters.moduleRangeEnd === moduleMax;
+      if (term.includes("通年") && fullModuleRange && !isOsaka) {
+        // Tsukuba year-round + full modules: ignore day/period
       } else if (filters.classType && filters.classType !== "normal") {
         const classTypeMap: { [key: string]: string[] } = {
           intensive: ["集中", "集中講義"],
           consultation: ["応談", "応相談", "応談可"],
-          anytime: ["随時"],
-          nt: ["NT", "ＮＴ"],
+          anytime: ["随時", "オンデマンド"],
+          nt: ["NT", "ＮＴ", "他"],
         };
         const keywords = classTypeMap[filters.classType] || [];
         const lowerSched = schedRaw.toLowerCase();
-        if (!keywords.some((k) => lowerSched.includes(k.toLowerCase()))) return false;
+        if (!keywords.some((k) => lowerSched.includes(k.toLowerCase()))) {
+          return false;
+        }
       } else {
-        // normal の場合
         const DAY_JP: { [key: string]: string } = {
           mon: "月",
           tue: "火",
@@ -212,22 +186,25 @@ function Class() {
         };
 
         if (filters.schedule && filters.schedule !== "all") {
-          // combined モード（例: "mon-2" を "mon 2" に変換して検索）
           const schedSearch = filters.schedule.replace("-", " ");
-          if (!schedRaw.toLowerCase().includes(schedSearch.toLowerCase())) return false;
+          if (!schedRaw.toLowerCase().includes(schedSearch.toLowerCase())) {
+            return false;
+          }
         } else if (filters.scheduleDay && filters.scheduleDay !== "all") {
           const day = DAY_JP[filters.scheduleDay] || filters.scheduleDay;
           const searchValue =
             filters.schedulePeriod && filters.schedulePeriod !== "all"
               ? `${day}${filters.schedulePeriod}`
               : `${day}`;
-          if (!schedRaw.toLowerCase().includes(searchValue.toLowerCase())) return false;
+          if (!schedRaw.toLowerCase().includes(searchValue.toLowerCase())) {
+            return false;
+          }
         }
       }
 
       return true;
     });
-  }, [courses, filters]);
+  }, [courses, filters, university?.slug, termUi.classModuleMax]);
 
   const totalPages = Math.max(1, Math.ceil(filteredCourses.length / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
@@ -241,6 +218,7 @@ function Class() {
       <Globalnav />
       <main className="classPageLayout">
         <ClassSearchPanel
+          universitySlug={university?.slug}
           filters={filters}
           onChange={(next: Partial<FiltersState>) => {
             setFilters((prev) => ({ ...prev, ...next }));

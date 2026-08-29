@@ -38,6 +38,7 @@ for each row execute function public.set_updated_at();
 alter table public.class_guide_articles enable row level security;
 alter table public.class_guide_article_universities enable row level security;
 
+drop policy if exists "university users read targeted class guides" on public.class_guide_articles;
 create policy "university users read targeted class guides" on public.class_guide_articles
 for select to authenticated using (
   public.is_global_admin()
@@ -51,12 +52,15 @@ for select to authenticated using (
   )
 );
 
+drop policy if exists "global admins manage class guides" on public.class_guide_articles;
 create policy "global admins manage class guides" on public.class_guide_articles
 for all to authenticated using (public.is_global_admin()) with check (public.is_global_admin());
 
+drop policy if exists "read accessible class guide targets" on public.class_guide_article_universities;
 create policy "read accessible class guide targets" on public.class_guide_article_universities
 for select to authenticated using (public.can_access_university(university_id));
 
+drop policy if exists "global admins manage class guide targets" on public.class_guide_article_universities;
 create policy "global admins manage class guide targets" on public.class_guide_article_universities
 for all to authenticated using (public.is_global_admin()) with check (public.is_global_admin());
 

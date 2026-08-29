@@ -56,17 +56,20 @@ export const parseTimetableModules = (semester: string): TimetableModuleKey[] =>
   if (/^夏学期$/.test(normalized) || /^夏$/.test(normalized)) return ["springB"];
   if (/^秋学期$/.test(normalized) || /^秋$/.test(normalized)) return ["fallA"];
   if (/^冬学期$/.test(normalized) || /^冬$/.test(normalized)) return ["fallB"];
-  // 大阪大学: 春～夏 / 秋～冬（全角・半角の波線・ハイフンを許容）
+  // 大阪大学: 春～夏 / 秋～冬 → 春+夏 / 秋+冬（C枠は使わない）
   if (/春[～〜\-－–—]夏/.test(normalized)) {
-    return ["springA", "springB", "springC"];
+    return ["springA", "springB"];
   }
   if (/秋[～〜\-－–—]冬/.test(normalized)) {
-    return ["fallA", "fallB", "fallC"];
+    return ["fallA", "fallB"];
   }
-  if (/通年|春学期|春学期前半|春学期後半/.test(normalized)) {
+  if (/通年/.test(normalized)) {
     return ["springA", "springB", "springC"];
   }
-  if (/秋学期|秋学期前半|秋学期後半/.test(normalized)) {
+  if (/春学期前半|春学期後半/.test(normalized)) {
+    return ["springA", "springB", "springC"];
+  }
+  if (/秋学期前半|秋学期後半/.test(normalized)) {
     return ["fallA", "fallB", "fallC"];
   }
   return ["other"];

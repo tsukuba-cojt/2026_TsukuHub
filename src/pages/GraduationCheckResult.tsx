@@ -33,7 +33,7 @@ import type {
   GraduationCheckReport,
 } from "../features/graduationCheck";
 import type { TimetableHistory, TimetableModuleKey } from "../types/timetable";
-import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable";
+import { getTermUi } from "../features/timetable/termUi";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 import { useUniversity } from "../components/university/universityContextValue";
@@ -174,6 +174,7 @@ function RequirementRow({
 // リロードやブラウザバックで再訪しても結果は残らない（永続化しない仕様）。
 function GraduationCheckResult() {
   const { university, path } = useUniversity();
+  const termUi = getTermUi(university?.slug);
   const provider = useMemo(
     () => getGraduationCheckProvider(university?.slug),
     [university?.slug]
@@ -199,7 +200,9 @@ function GraduationCheckResult() {
   const [view, setView] = useState<"summary" | "detail" | "timetable">("summary");
   const [focusCategory, setFocusCategory] = useState<CategoryKey | null>(null);
   const [selectedTimetable, setSelectedTimetable] = useState<TimetableHistory | null>(null);
-  const [activeTimetableModule, setActiveTimetableModule] = useState<TimetableModuleKey>("springA");
+  const [activeTimetableModule, setActiveTimetableModule] = useState<TimetableModuleKey>(
+    termUi.defaultTimetableModule
+  );
   // CSVに読めない行があった場合の警告（閉じるまで表示し続ける）
   const [isCsvWarningOpen, setIsCsvWarningOpen] = useState(
     () => (result?.csvErrors?.length ?? 0) > 0
@@ -227,9 +230,9 @@ function GraduationCheckResult() {
 
   const openTimetable = (history: TimetableHistory) => {
     const module =
-      timetableModuleOrder.find((item) =>
+      termUi.timetableOrder.find((item) =>
         history.courses.some((course) => course.modules.includes(item))
-      ) ?? "springA";
+      ) ?? termUi.defaultTimetableModule;
     setSelectedTimetable(history);
     setActiveTimetableModule(module);
     setView("timetable");
@@ -289,7 +292,7 @@ function GraduationCheckResult() {
               </div>
             </div>
             <div className="timetableModuleTabs" role="tablist">
-              {timetableModuleOrder.map((module) => (
+              {termUi.timetableOrder.map((module) => (
                 <button
                   type="button"
                   role="tab"
@@ -298,7 +301,7 @@ function GraduationCheckResult() {
                   onClick={() => setActiveTimetableModule(module)}
                   key={module}
                 >
-                  {timetableModuleLabels[module]}
+                  {termUi.timetableLabels[module]}
                 </button>
               ))}
             </div>
@@ -423,9 +426,9 @@ function GraduationCheckResult() {
                 <div className="timetableResultsScroller">
                   {result?.timetableHistories?.map((history) => {
                     const module =
-                      timetableModuleOrder.find((item) =>
+                      termUi.timetableOrder.find((item) =>
                         history.courses.some((course) => course.modules.includes(item))
-                      ) ?? "springA";
+                      ) ?? termUi.defaultTimetableModule;
                     return (
                       <TimetableHistoryCard
                         history={history}

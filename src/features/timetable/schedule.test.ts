@@ -23,17 +23,11 @@ describe("timetable schedule parser", () => {
       "springB",
       "springC",
     ]);
-    expect(parseTimetableModules("春～夏")).toEqual([
-      "springA",
-      "springB",
-      "springC",
-    ]);
-    expect(parseTimetableModules("秋～冬")).toEqual(["fallA", "fallB", "fallC"]);
-    expect(parseTimetableModules("春-夏")).toEqual([
-      "springA",
-      "springB",
-      "springC",
-    ]);
+    expect(parseTimetableModules("春～夏")).toEqual(["springA", "springB"]);
+    expect(parseTimetableModules("秋～冬")).toEqual(["fallA", "fallB"]);
+    expect(parseTimetableModules("春-夏")).toEqual(["springA", "springB"]);
+    expect(parseTimetableModules("春～夏学期")).toEqual(["springA", "springB"]);
+    expect(parseTimetableModules("秋～冬学期")).toEqual(["fallA", "fallB"]);
     expect(parseTimetableModules("春")).toEqual(["springA"]);
     expect(parseTimetableModules("夏")).toEqual(["springB"]);
     expect(parseTimetableModules("秋")).toEqual(["fallA"]);
