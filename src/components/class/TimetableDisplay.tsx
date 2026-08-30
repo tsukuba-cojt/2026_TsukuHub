@@ -240,7 +240,7 @@ export function TimetableAttributeCard({ history }: { history: TimetableHistory 
           <dd>{history.major || history.trackLabel}</dd>
         </div>
         <div>
-          <dt>通期取得単位数</dt>
+          <dt>取得単位数</dt>
           <dd>{history.earnedUnits}単位</dd>
         </div>
         <div>

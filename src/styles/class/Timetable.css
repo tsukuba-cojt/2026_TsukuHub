@@ -98,14 +98,15 @@
 }
 
 .timetableFilterGrid {
-  display: grid;
-  grid-template-columns: 182px 182px 182px 182px auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: end;
   gap: 36px;
   margin-bottom: 32px;
 }
 
 .timetableFilterField {
+  flex: 0 0 182px;
   display: grid;
   gap: 8px;
   color: rgba(7, 28, 66, 0.62);
@@ -157,7 +158,9 @@
 }
 
 .timetableResetBtn {
+  justify-self: start;
   height: 38px;
+  white-space: nowrap;
   border: 0;
   color: #1376ff;
   background: transparent;
@@ -306,7 +309,7 @@
   grid-auto-flow: column;
   gap: 20px;
   overflow-x: auto;
-  padding: 0 4px 16px;
+  padding: 16px 4px;
   scroll-snap-type: x proximity;
 }
 
@@ -570,6 +573,9 @@
 
 .timetableAttributeCard div {
   display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  align-content: start;
   gap: 7px;
 }
 
@@ -600,7 +606,8 @@
   margin-top: 40px;
   margin-left: auto;
   color: #fff;
-  background: #1376ff;
+  border-color: transparent;
+  background: var(--color-primary-gradient);
   box-sizing: border-box;
 }
 
@@ -696,6 +703,7 @@
   }
 
   .timetableFilterGrid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px;
   }
