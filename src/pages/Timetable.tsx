@@ -335,7 +335,7 @@ function Timetable() {
                 <button
                   type="button"
                   className="timetableBaseBtn"
-                  onClick={() => window.alert("すいません、時間割作成機能はまだ準備中です。")}
+                  onClick={() => window.alert("すみません、時間割作成機能はまだ準備中です。")}
                 >
                   <FileUp aria-hidden="true" />
                   この時間割をベースにする

@@ -371,7 +371,7 @@
 }
 
 .timetableMiniGrid {
-  height: 202px;
+  min-height: 202px;
 }
 
 .timetableMiniCorner,
@@ -511,7 +511,7 @@
 .timetableFullGrid {
   min-width: 462px;
   grid-template-columns: 50px repeat(5, 1fr);
-  height: 306px;
+  min-height: 306px;
 }
 
 .timetableFullCell {
