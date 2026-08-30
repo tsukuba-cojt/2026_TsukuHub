@@ -4,12 +4,120 @@
   margin-bottom: 48px;
 }
 
-.classGuideHomeSection {
-  padding-top: 0;
+/* トップページの履修ガイドセクション（白パネル + 3カード） */
+.classGuidePanel {
+  padding: 26px 28px 30px;
+  border: 1px solid rgba(148, 172, 209, 0.2);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
 }
 
-.classGuideHomeSection + .classGuideHomeSection {
-  margin-top: 72px;
+.classGuidePanel + .classGuidePanel {
+  margin-top: 24px;
+}
+
+.classGuidePanelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.classGuidePanelTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.classGuidePanelTitle svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+}
+
+.classGuidePanelMore {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.classGuidePanelMore:hover {
+  text-decoration: underline;
+}
+
+.classGuidePanelMore svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* パネル内のカード（careerMiniCard を流用しつつ見た目だけ調整） */
+.classGuidePanel .careerMiniGrid {
+  margin-top: 0;
+  gap: 16px;
+}
+
+.classGuidePanel .careerMiniCard {
+  min-height: 0;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.classGuidePanel .careerMiniCard:hover {
+  border-color: rgba(148, 172, 209, 0.45);
+}
+
+.classGuidePanel .careerMiniCover {
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  padding: 12px 14px;
+}
+
+.classGuidePanel .careerMiniCover span {
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(16, 36, 72, 0.62);
+  font-size: 10px;
+  justify-self: start;
+}
+
+.classGuidePanel .careerMiniCardBody {
+  padding: 16px 18px 18px;
+}
+
+.classGuidePanel .careerMiniCard h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.classGuidePanel .careerMiniCard p {
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.classGuidePanel .careerMiniCard strong {
+  padding-top: 20px;
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.classGuidePanel .careerMiniCard svg {
+  width: 14px;
+  height: 14px;
 }
 
 .classGuideEmpty {
