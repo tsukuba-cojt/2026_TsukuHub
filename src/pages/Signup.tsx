@@ -7,7 +7,7 @@ import agreementSource from "../components/doc/agreement.html?raw";
 import privacyPolicySource from "../components/doc/priverice.html?raw";
 import { buildPrivacyPolicyDocument } from "../components/doc/privacyPolicyDocument";
 import { useUniversity } from "../components/university/universityContextValue";
-import { universityAcademicOptions } from "../data/universityAcademicOptions";
+import { universityAcademicOptions, type AcademicCategory } from "../data/universityAcademicOptions";
 import { supabase } from "../lib/supabase";
 
 type LegalDocumentType = "agreement" | "privacy";
@@ -68,14 +68,11 @@ export default function Signup() {
   // Step 2
   const [name, setName] = useState("");
   const [grade, setGrade] = useState("");
+  const [school, setSchool] = useState("");
   const [major, setMajor] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<AcademicCategory | "">("");
 
   const [authError, setAuthError] = useState<string | null>(null);
-
-  if (universityLoading) return <main className="careerState">読み込んでいます...</main>;
-  if (!university) return <main className="careerState">大学が見つかりません。</main>;
-  const academicOptions = universityAcademicOptions[university.slug] ?? [];
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -101,6 +98,17 @@ export default function Signup() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeLegalDocument]);
+
+  if (universityLoading) return <main className="careerState">読み込んでいます...</main>;
+  if (!university) return <main className="careerState">大学が見つかりません。</main>;
+
+  // 課程（学群生／修士／博士）ごとに上位区分と下位区分の選択肢が変わる
+  const academicLevel = category ? universityAcademicOptions[university.slug]?.[category] : undefined;
+  const groupOptions = academicLevel?.options ?? [];
+  const childOptions = groupOptions.find((option) => option.value === school)?.children ?? [];
+  // 下位区分を持たない大学（学部のみ）では上位セレクトだけを出す
+  const showChildSelect = Boolean(academicLevel?.childLabel);
+  const resolvedMajor = showChildSelect ? major : school;
 
   const handleStep1Next = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -143,8 +151,12 @@ export default function Signup() {
       setAuthError("学年を選択してください。");
       return;
     }
-    if (!major) {
-      setAuthError(category === "undergraduate" ? "学類を選択してください。" : "学術院を選択してください。");
+    if (!school) {
+      setAuthError(`${academicLevel?.groupLabel ?? "所属"}を選択してください。`);
+      return;
+    }
+    if (showChildSelect && !major) {
+      setAuthError(`${academicLevel?.childLabel}を選択してください。`);
       return;
     }
 
@@ -155,7 +167,7 @@ export default function Signup() {
       password,
       options: {
         emailRedirectTo: `${window.location.origin}${path("/auth/confirm")}`,
-        data: { name, grade, major, category, university_slug: university.slug },
+        data: { name, grade, school, major: resolvedMajor, category, university_slug: university.slug },
       },
     });
 
@@ -319,7 +331,8 @@ export default function Signup() {
                   value={category}
                   required
                   onChange={(e) => {
-                    setCategory(e.target.value);
+                    setCategory(e.target.value as AcademicCategory | "");
+                    setSchool("");
                     setMajor("");
                   }}
                 >
@@ -348,20 +361,55 @@ export default function Signup() {
               </label>
 
               <label>
-                <span className="label-text">所属<span className="required-mark">*</span></span>
+                <span className="label-text">
+                  {academicLevel?.groupLabel ?? "所属"}<span className="required-mark">*</span>
+                </span>
                 <select
-                  value={major}
+                  value={school}
                   required
-                  onChange={(e) => setMajor(e.target.value)}
+                  disabled={!academicLevel}
+                  onChange={(e) => {
+                    setSchool(e.target.value);
+                    setMajor("");
+                  }}
                 >
-                  <option value="">選択する</option>
-                  {academicOptions.map((option) => (
+                  <option value="">－－選択する－－</option>
+                  {groupOptions.map((option) => (
                     <option value={option.value} key={option.value}>
                       {option.label}
                     </option>
                   ))}
                 </select>
+                {!academicLevel && (
+                  <span className="helper-text">先に大学／大学院を選択してください</span>
+                )}
               </label>
+
+              {showChildSelect && (
+                <label>
+                  <span className="label-text">
+                    {academicLevel?.childLabel}<span className="required-mark">*</span>
+                  </span>
+                  <select
+                    value={major}
+                    required
+                    disabled={!school}
+                    onChange={(e) => setMajor(e.target.value)}
+                  >
+                    <option value="">－－選択する－－</option>
+                    {childOptions.map((option) => (
+                      <option value={option.value} key={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  {!school && (
+                    <span className="helper-text">
+                      先に{academicLevel?.groupLabel}を選択してください
+                    </span>
+                  )}
+                </label>
+              )}
 
               {authError && <p className="auth-error">{authError}</p>}
 
