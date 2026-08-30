@@ -3,22 +3,18 @@ export type AcademicOption = {
   label: string;
 };
 
-/** 上位区分（学群・学術院・学部）1件と、その下位区分（学類・研究群／専攻） */
+
 export type AcademicGroupOption = AcademicOption & {
-  /** 下位区分。学類区分を持たない学群は自分自身を1件だけ持つ */
   children: AcademicOption[];
 };
 
-/** 1つの課程で使う選択肢と、セレクトに表示するラベル */
+
 export type AcademicLevel = {
-  /** 上位セレクトのラベル（例: 学群 / 学術院 / 学部） */
   groupLabel: string;
-  /** 下位セレクトのラベル（例: 学類 / 研究群・専攻）。未指定なら下位セレクトを出さない */
   childLabel?: string;
   options: AcademicGroupOption[];
 };
 
-/** 新規登録の「大学／大学院」で選ぶ課程 */
 export type AcademicCategory = "undergraduate" | "master" | "doctor";
 
 export type UniversityAcademicStructure = Partial<Record<AcademicCategory, AcademicLevel>>;
@@ -29,10 +25,6 @@ const toGroup = (label: string, children: string[]): AcademicGroupOption => ({
   children: children.map((child) => ({ value: child, label: child })),
 });
 
-/**
- * 筑波大学 学士課程（学群 → 学類）
- * 体育専門学群・芸術専門学群・総合学域群は学類区分がないため、下位は自分自身のみ。
- */
 const tsukubaUndergraduate: AcademicLevel = {
   groupLabel: "学群",
   childLabel: "学類",
@@ -57,7 +49,6 @@ const tsukubaUndergraduate: AcademicLevel = {
   ],
 };
 
-/** 筑波大学 大学院（学術院 → 研究群・専攻）。修士・博士で共通 */
 const tsukubaGraduate: AcademicLevel = {
   groupLabel: "学術院",
   childLabel: "研究群・専攻",
@@ -84,7 +75,6 @@ const tsukubaGraduate: AcademicLevel = {
   ],
 };
 
-/** 大阪大学 学部。下位区分は持たないため従来どおり1段・ラベルも「所属」のまま */
 const osakaUndergraduate: AcademicLevel = {
   groupLabel: "所属",
   options: [

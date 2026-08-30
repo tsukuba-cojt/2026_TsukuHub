@@ -15,7 +15,6 @@ export default function SignupStepper({ currentStep }: StepperProps) {
     <div className="stepper">
       {STEPS.map((step, i) => (
         <div className="stepper-step" key={step.num}>
-          {/* 前のステップとの接続線。進行状態によらず常に同じ見た目で描画する */}
           {i > 0 && <span className="stepper-line" aria-hidden="true" />}
           <div
             className={`stepper-circle${currentStep === step.num ? " stepper-circle--active" : currentStep > step.num ? " stepper-circle--done" : ""}`}
