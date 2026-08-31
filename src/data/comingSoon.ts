@@ -40,6 +40,7 @@ const UNIVERSITY_PATH_FEATURES: Readonly<Record<string, readonly import("../type
   "/class": ["courses"],
   "/graduation-checker": ["graduation_checker"],
   "/timetable": ["timetable"],
+  "/timetable/share": ["timetable"],
 };
 
 /** 固定の未実装項目、または大学側で全対象機能が準備中なら true。 */
@@ -63,6 +64,7 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
   "/graduation-checker",
   "/graduation-checker/result",
   "/timetable",
+  "/timetable/share",
   "/mypage",
   "/mypage/applications",
   "/contact",

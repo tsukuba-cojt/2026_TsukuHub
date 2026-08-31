@@ -1,0 +1,706 @@
+/* 時間割登録ウィザード（/timetable/share）
+   注：この画面の Figma node-id が未提供のため、tokens.css に定義済みの値
+   （--color-main-gradient / --shadow-card / --radius-card など）を優先して使い、
+   それ以外（グレー系の細かい色・余白）はデザイン画像からの目測。
+   node-id が判明したら Figma から取得した値へ差し替えること。 */
+
+/* ── ウィザード全体を包む白カード ─────────────────── */
+.ttShareWizard {
+  position: relative;
+  margin-top: 8px;
+  border-radius: var(--radius-card);
+  padding: 34px 40px 40px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.ttShareTitle {
+  margin: 0 0 28px;
+  color: var(--color-text-primary);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+/* ── ステップインジケーター ─────────────────── */
+.ttShareStepper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.ttShareStep {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.ttShareStepCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #d9e0ea;
+  color: #fff;
+  font-family: var(--font-family-logo);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 現在のステップだけメイングラデーションで塗る */
+.ttShareStepCircle.isActive {
+  background: var(--color-main-gradient);
+}
+
+.ttShareStepLabel {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* アクティブなステップ名はグラデーション終端の紫に合わせる */
+.ttShareStepLabel.isActive {
+  color: #5e2cfc;
+  font-weight: 700;
+}
+
+.ttShareStepLine {
+  flex: 1;
+  min-width: 20px;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+/* ── 2カラム（左：メインカード／右：非公開・編集について） ─────── */
+.ttShareLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* 左のメインカード（ステップ1・2で共通） */
+.ttShareCard {
+  border: 1px solid #e6ecf5;
+  border-radius: 10px;
+  padding: 26px 30px 30px;
+  background: #fff;
+}
+
+.ttShareCardTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 22px;
+  color: var(--color-text-primary);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ttShareCardTitle svg {
+  width: 19px;
+  height: 19px;
+  color: var(--color-primary);
+}
+
+/* ── ステップ1：ガイドライン ─────────────────── */
+.ttShareGuidelineList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.ttShareGuidelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ttShareGuidelineCheck {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  color: var(--color-primary);
+  stroke-width: 3;
+}
+
+/* 「詳細なガイドラインを見る」（モーダルを開くリンク風ボタン） */
+.ttShareGuidelineLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ttShareGuidelineLink:hover {
+  text-decoration: underline;
+}
+
+.ttShareGuidelineLink svg {
+  width: 13px;
+  height: 13px;
+}
+
+.ttShareCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ttShareCheckbox input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* ── ステップ2：トグル ─────────────────── */
+.ttShareToggleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+
+/* 下位項目（入学年度・専攻）は一段下げる */
+.ttShareToggleRow.isNested {
+  margin-left: 34px;
+}
+
+.ttShareToggleRow.isDisabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* ネイティブの checkbox は隠し、見た目はトラック＋ノブで作る */
+.ttShareToggleInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ttShareToggleTrack {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: #d9e0ea;
+  transition: background 0.2s ease;
+}
+
+.ttShareToggleTrack::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.ttShareToggleInput:checked + .ttShareToggleTrack {
+  background: var(--color-primary);
+}
+
+.ttShareToggleInput:checked + .ttShareToggleTrack::after {
+  transform: translateX(18px);
+}
+
+/* キーボードフォーカスが見えるようにする */
+.ttShareToggleInput:focus-visible + .ttShareToggleTrack {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.ttShareToggleLabel {
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* 上位トグルの補足説明 */
+.ttShareToggleNote {
+  margin: -6px 0 16px 52px;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* ── ステップ2：モジュールチップ・備考 ─────────────── */
+.ttShareField {
+  margin-top: 20px;
+}
+
+.ttShareField.isDisabled {
+  opacity: 0.45;
+}
+
+.ttShareFieldLabel {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ttShareProfileFields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.ttShareProfileFields .ttShareField {
+  margin-top: 0;
+}
+
+.ttShareProfileFields .gradCheckSelectWrap {
+  width: 100%;
+}
+
+.ttShareChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ttShareChip {
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  padding: 5px 12px;
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ttShareChip:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+/* 選択中のモジュール（デフォルトは全選択） */
+.ttShareChip.isSelected {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.ttShareChip:disabled {
+  cursor: not-allowed;
+}
+
+.ttShareTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.ttShareTextarea::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.ttShareTextarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+/* ── 右カラム：非公開・編集について ─────────────── */
+.ttSharePrivacyCard {
+  border-radius: 10px;
+  padding: 24px 26px 26px;
+  background: #f2f7ff;
+}
+
+.ttSharePrivacyTitle {
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ttSharePrivacyText {
+  margin: 0 0 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* 「マイページへ」ボタン（白地・枠線） */
+.ttShareGhostBtn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #d9e0ea;
+  border-radius: var(--radius-btn);
+  padding: 12px 16px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.ttShareGhostBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── ステップ3：アップロード（左）＋プレビュー（右） ────────── */
+.ttShareUploadLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 30px;
+  align-items: start;
+}
+
+.ttShareUploadTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  color: var(--color-text-primary);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* 卒業要件チェッカーより縦を詰める（このページ用のサイズ調整） */
+.ttShareDropzone {
+  padding: 36px 24px 30px;
+}
+
+.ttSharePreviewTitle {
+  margin: 0 0 12px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ttSharePreviewBox {
+  border-radius: 10px;
+  padding: 14px 16px 16px;
+  background: #f2f7ff;
+}
+
+.ttSharePreviewBox .timetableModuleTabs {
+  flex-wrap: nowrap;
+  gap: 1px;
+  margin: 0 0 12px;
+}
+
+.ttSharePreviewBox .timetableModuleTabs button {
+  min-width: 0;
+  padding: 4px 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.ttSharePreviewBox .timetableFullGridWrap {
+  overflow-x: hidden;
+}
+
+.ttSharePreviewBox .timetableFullGrid {
+  min-width: 0;
+  min-height: 0;
+  grid-template-columns: 20px repeat(5, minmax(0, 1fr));
+}
+
+.ttSharePreviewBox .timetableFullDay,
+.ttSharePreviewBox .timetableFullPeriod {
+  font-size: 9px;
+}
+
+.ttSharePreviewBox .timetableFullCell {
+  min-height: 40px;
+  padding: 2px;
+}
+
+.ttSharePreviewBox .timetableCourseBlock {
+  min-height: 36px;
+  padding: 3px 4px;
+}
+
+.ttSharePreviewBox .timetableCourseBlock strong {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 9px;
+}
+
+.ttSharePreviewBox .timetableCourseBlock small {
+  display: none;
+}
+
+.ttSharePreviewBox .timetableSpecialPanel {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.ttSharePreviewBox .timetableSpecialRow strong {
+  font-size: 11px;
+}
+
+.ttSharePreviewBox .timetableSpecialChip {
+  font-size: 10px;
+}
+
+.ttSharePreviewEmpty {
+  margin: 0;
+  padding: 34px 8px;
+  border: 1px dashed #c8d8f0;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.ttShareAttrBox {
+  margin-top: 14px;
+  padding: 14px 16px 16px;
+  border: 1px solid #a9bddb;
+  border-radius: 6px;
+  background: rgba(248, 252, 255, 0.86);
+}
+
+.ttShareAttrTitle {
+  margin: 0 0 12px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ttShareAttrList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
+
+.ttShareAttrItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ttShareAttrLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ttShareAttrLabel svg {
+  width: 14px;
+  height: 14px;
+}
+
+.ttShareAttrValue {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ttShareAttrPrivate {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+/* ── ステップ4：完了 ─────────────────── */
+.ttShareComplete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 30px;
+  text-align: center;
+}
+
+.ttShareCompleteIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #4bb98a;
+  color: #fff;
+}
+
+.ttShareCompleteIcon svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 3;
+}
+
+.ttShareCompleteTitle {
+  margin: 24px 0 0;
+  color: var(--color-text-primary);
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.ttShareCompleteText {
+  max-width: 420px;
+  margin: 14px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.ttShareCompleteActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* ── 下部のアクション行 ─────────────────── */
+.ttShareActions {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+/* 塗りボタン（グラデーション） */
+.ttSharePrimaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 14px 28px;
+  background: var(--color-main-gradient);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.ttSharePrimaryBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.ttSharePrimaryBtn:disabled {
+  background: #c7d2e0;
+  cursor: not-allowed;
+}
+
+/* アウトラインボタン */
+.ttShareOutlineBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9e0ea;
+  border-radius: var(--radius-btn);
+  padding: 14px 28px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.ttShareOutlineBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* 完了画面のボタンは縦並びなので幅を揃える */
+.ttShareCompleteActions .ttSharePrimaryBtn,
+.ttShareCompleteActions .ttShareOutlineBtn {
+  min-width: 214px;
+}
+
+/* ── レスポンシブ ─────────────────── */
+@media (max-width: 1000px) {
+  .ttShareLayout,
+  .ttShareUploadLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* ステップインジケーターは横スクロールで逃がす */
+  .ttShareStepper {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ttShareWizard {
+    padding: 24px 18px 28px;
+  }
+
+  .ttShareCard {
+    padding: 20px 18px 22px;
+  }
+
+  .ttShareActions {
+    grid-template-columns: 1fr;
+  }
+
+  .ttShareToggleNote {
+    margin-left: 0;
+  }
+
+  .ttShareProfileFields {
+    grid-template-columns: 1fr;
+  }
+}

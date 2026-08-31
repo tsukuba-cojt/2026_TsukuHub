@@ -198,7 +198,7 @@ function Timetable() {
             </h1>
             <p>みんなの時間割を参考に、あなたの履修計画を立てよう</p>
           </div>
-          <Link to={path("/graduation-checker")} className="timetableShareBtn">
+          <Link to={path("/timetable/share")} className="timetableShareBtn">
             <Upload aria-hidden="true" />
             自分の時間割を共有する
           </Link>
