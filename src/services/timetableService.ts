@@ -1,10 +1,7 @@
 import { supabase } from "../lib/supabase";
 import { getCatalogCoursesByCodes } from "./courseCatalog";
-import {
-  collectCategoryCourses,
-  type Course,
-  type GraduationCheckReport,
-} from "../features/graduationCheck";
+import type { Course, GraduationCheckReport } from "../features/graduationCheck";
+import { getGraduationCheckProvider } from "../features/graduationCheck/provider";
 import {
   detectSpecialSchedule,
   parseTimetableModules,
@@ -102,12 +99,22 @@ const makeId = () =>
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-const categoryFromReport = (report: GraduationCheckReport) => {
-  const categories = collectCategoryCourses(report);
+const courseLookupKey = (course: Course) =>
+  course.catalogCourseNumber ?? course.id;
+
+const categoryFromReport = (
+  report: GraduationCheckReport,
+  universitySlug: string
+) => {
+  const categories =
+    getGraduationCheckProvider(universitySlug).collectCategoryCourses(report);
   const map = new Map<string, TimetableCourseCategory>();
   for (const [category, courses] of Object.entries(categories)) {
     courses.forEach((course) => {
-      if (!map.has(course.id)) map.set(course.id, category as TimetableCourseCategory);
+      const key = courseLookupKey(course);
+      if (key && !map.has(key)) {
+        map.set(key, category as TimetableCourseCategory);
+      }
     });
   }
   return map;
@@ -129,9 +136,10 @@ const toTimetableCourse = (
   const slots = parseTimetableSlots(schedule);
   const specialType = detectSpecialSchedule(schedule);
 
+  const courseCode = courseLookupKey(course);
   return {
-    id: `${course.year}-${course.id}-${makeId()}`,
-    courseCode: course.id,
+    id: `${course.year}-${courseCode}-${makeId()}`,
+    courseCode,
     courseName: meta?.course_name?.trim() || course.name,
     credits: numberOrZero(meta?.credits ?? course.unit),
     grade: course.grade,
@@ -154,6 +162,7 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
   sharePublic,
   ownerId,
   universityId,
+  universitySlug = "tsukuba",
 }: {
   report: GraduationCheckReport;
   department: string;
@@ -162,13 +171,16 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
   sharePublic: boolean;
   ownerId?: string;
   universityId: string;
+  universitySlug?: string;
 }): Promise<TimetableHistory[]> => {
   const allCourses = [
     ...report.details.compulsoryResults.flatMap((item) => item.courses),
     ...report.details.selectResults.flatMap((item) => item.courses),
     ...report.details.uncountedCourses,
   ];
-  const uniqueCodes = [...new Set(allCourses.map((course) => course.id).filter(Boolean))];
+  const uniqueCodes = [
+    ...new Set(allCourses.map(courseLookupKey).filter(Boolean)),
+  ];
   const metaByCode = new Map<string, CourseMetaRow>();
 
   if (uniqueCodes.length > 0) {
@@ -178,13 +190,14 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
     });
   }
 
-  const categoryByCode = categoryFromReport(report);
+  const categoryByCode = categoryFromReport(report, universitySlug);
   const grouped = new Map<number, TimetableCourse[]>();
   for (const course of allCourses) {
+    const lookupKey = courseLookupKey(course);
     const timetableCourse = toTimetableCourse(
       course,
-      metaByCode.get(course.id),
-      categoryByCode.get(course.id) ?? "unknown"
+      metaByCode.get(lookupKey),
+      categoryByCode.get(lookupKey) ?? "unknown"
     );
     if (!grouped.has(course.year)) grouped.set(course.year, []);
     grouped.get(course.year)?.push(timetableCourse);

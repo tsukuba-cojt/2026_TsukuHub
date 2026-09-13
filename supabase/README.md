@@ -19,7 +19,7 @@ Supabase Dashboard の SQL Editor で、`migrations` 内のSQLをファイル名
 ## 初期大学設定
 
 - 筑波大学: `/tsukuba`、`u.tsukuba.ac.jp`、一般登録可、全機能公開
-- 大阪大学: `/osaka`、`ecs.osaka-u.ac.jp`、一般登録停止、授業系4機能は準備中
+- 大阪大学: `/osaka`、`ecs.osaka-u.ac.jp`、一般登録停止（許可メール除く）、授業系4機能は `20260829120000_enable_osaka_class_features.sql` 適用で有効化
 - 全体管理者許可メール:
   - `u867137d@ecs.osaka-u.ac.jp`
   - `s2412438@u.tsukuba.ac.jp`

@@ -6,14 +6,18 @@ import type {
   TimetableModuleKey,
   TimetableSpecialType,
 } from "../../types/timetable";
-import {
-  timetableModuleLabels,
-  timetableSpecialLabels,
-} from "../../types/timetable";
+import { timetableSpecialLabels } from "../../types/timetable";
+import { getTermUi } from "../../features/timetable/termUi";
+import { useUniversity } from "../university/universityContextValue";
 import "../../styles/class/Timetable.css";
 
 const days = ["月", "火", "水", "木", "金"] as const;
 const periods = [1, 2, 3, 4, 5, 6];
+
+const useModuleLabels = () => {
+  const { university } = useUniversity();
+  return getTermUi(university?.slug).timetableLabels;
+};
 
 const categoryTone = (course: TimetableCourse) => {
   if (course.category === "compulsory") return "isRequired";
@@ -47,10 +51,11 @@ function TimetableMiniGrid({
   history: TimetableHistory;
   moduleKey: TimetableModuleKey;
 }) {
+  const labels = useModuleLabels();
   const courses = moduleCourses(history, moduleKey);
 
   return (
-    <div className="timetableMiniGrid" aria-label={`${history.displayName} ${timetableModuleLabels[moduleKey]}`}>
+    <div className="timetableMiniGrid" aria-label={`${history.displayName} ${labels[moduleKey]}`}>
       <div className="timetableMiniCorner" />
       {days.map((day) => (
         <span className="timetableMiniDay" key={day}>

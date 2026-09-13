@@ -11,6 +11,7 @@ import {
   uploadCompanyLogo,
 } from "../../services/careerService";
 import { listUniversities } from "../../services/universityService";
+import { defaultAdminTargetUniversityIds } from "../../lib/adminUniversityTargets";
 import type { University } from "../../types/university";
 import type { InternshipInput, InternshipStatus } from "../../types/career";
 
@@ -41,7 +42,7 @@ export default function AdminInternshipForm() {
   useEffect(() => {
     void listUniversities().then((items) => {
       setUniversities(items);
-      if (!id) setTargetUniversityIds(items.filter((item) => item.slug === "tsukuba").map((item) => item.id));
+      if (!id) setTargetUniversityIds(defaultAdminTargetUniversityIds(items));
     }).catch(() => setError("大学一覧を取得できませんでした。"));
   }, [id]);
 

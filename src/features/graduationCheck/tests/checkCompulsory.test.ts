@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { checkCompulsory, countCompulsoryUnits } from "../checkCompulsory";
-import type { GradRequirement } from "../types";
+import { checkCompulsory, countCompulsoryUnits } from "../tsukuba";
+import type { GradRequirement } from "../core/types";
 import { course } from "./helpers";
 
 /** 3記法を1つずつ含む最小の要件データ */

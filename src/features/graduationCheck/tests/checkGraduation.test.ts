@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { checkGraduation, resolveRequirementIds } from "../checkGraduation";
+import { checkGraduation, resolveRequirementIds } from "../tsukuba";
 import { course } from "./helpers";
 
 describe("resolveRequirementIds", () => {

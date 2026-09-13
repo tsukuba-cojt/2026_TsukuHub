@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AdminLayout from "../../components/admin/AdminLayout";
 import { createNews, deleteNews, listAdminNews, updateNews } from "../../services/newsService";
 import { listUniversities } from "../../services/universityService";
+import { defaultAdminTargetUniversityIds } from "../../lib/adminUniversityTargets";
 import type { NewsItemInput, NewsItemRecord } from "../../types/news";
 import type { University } from "../../types/university";
 
@@ -27,20 +28,20 @@ export default function AdminNews() {
     const [nextItems, nextUniversities] = await Promise.all([listAdminNews(), listUniversities()]);
     setItems(nextItems);
     setUniversities(nextUniversities);
-    setTargetIds((current) => current.length ? current : nextUniversities.filter((item) => item.slug === "tsukuba").map((item) => item.id));
+    setTargetIds((current) => current.length ? current : defaultAdminTargetUniversityIds(nextUniversities));
   };
   useEffect(() => {
     void Promise.all([listAdminNews(), listUniversities()])
       .then(([nextItems, nextUniversities]) => {
         setItems(nextItems);
         setUniversities(nextUniversities);
-        setTargetIds(nextUniversities.filter((item) => item.slug === "tsukuba").map((item) => item.id));
+        setTargetIds(defaultAdminTargetUniversityIds(nextUniversities));
       })
       .catch(() => setError("ニュースを取得できませんでした。"));
   }, []);
 
   const update = <K extends keyof NewsItemInput>(key: K, value: NewsItemInput[K]) => setForm((current) => ({ ...current, [key]: value }));
-  const reset = () => { setEditingId(null); setForm(emptyInput); setTargetIds(universities.filter((item) => item.slug === "tsukuba").map((item) => item.id)); };
+  const reset = () => { setEditingId(null); setForm(emptyInput); setTargetIds(defaultAdminTargetUniversityIds(universities)); };
   const edit = (item: NewsItemRecord) => {
     setEditingId(item.id);
     setForm({ kind: item.kind, category: item.category, title: item.title, description: item.description, published_at: item.published_at, status: item.status });

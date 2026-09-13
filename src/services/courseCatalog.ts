@@ -1,9 +1,11 @@
 import type { CatalogCourse, CourseCatalogFile } from "../types/courseCatalog";
 
 const TSUKUBA_UNIVERSITY_ID = "00000000-0000-4000-8000-000000000001";
+const OSAKA_UNIVERSITY_ID = "00000000-0000-4000-8000-000000000002";
 
 const slugByUniversityId: Record<string, string> = {
   [TSUKUBA_UNIVERSITY_ID]: "tsukuba",
+  [OSAKA_UNIVERSITY_ID]: "osaka",
 };
 
 const catalogCache = new Map<string, Promise<CatalogCourse[]>>();

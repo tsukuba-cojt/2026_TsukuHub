@@ -1,4 +1,4 @@
-import type { Course, Grade } from "../types";
+import type { Course, Grade } from "../core/types";
 
 /** テスト用の科目ビルダー */
 export const course = (

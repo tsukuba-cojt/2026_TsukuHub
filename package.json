@@ -10,6 +10,8 @@
     "preview": "npm run build && wrangler dev",
     "test": "vitest run",
     "sync:courses": "node src/script/sync-kdb-json.mjs",
+    "sync:osaka-courses": "node scripts/sync-osaka-syllabus.mjs",
+    "sync:courses:osaka": "node scripts/sync-osaka-syllabus.mjs",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {

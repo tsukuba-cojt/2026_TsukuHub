@@ -23,6 +23,7 @@ import {
   type PublishStatus,
 } from "../../types/content";
 import { listUniversities } from "../../services/universityService";
+import { defaultAdminTargetUniversityIds } from "../../lib/adminUniversityTargets";
 import type { University } from "../../types/university";
 
 type Tab = "articles" | "alumni";
@@ -105,7 +106,7 @@ function ArticleManager({ items, universities, onReload }: { items: CareerArticl
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [targetUniversityIds, setTargetUniversityIds] = useState<string[]>(
-    () => universities.filter((item) => item.slug === "tsukuba").map((item) => item.id),
+    () => defaultAdminTargetUniversityIds(universities),
   );
   const update = <K extends keyof CareerArticleInput>(key: K, value: CareerArticleInput[K]) => setForm((current) => ({ ...current, [key]: value }));
 
@@ -126,7 +127,7 @@ function ArticleManager({ items, universities, onReload }: { items: CareerArticl
     setMessage(""); setError("");
   };
 
-  const reset = () => { setEditingId(null); setForm(emptyArticle); setTargetUniversityIds(universities.filter((item) => item.slug === "tsukuba").map((item) => item.id)); };
+  const reset = () => { setEditingId(null); setForm(emptyArticle); setTargetUniversityIds(defaultAdminTargetUniversityIds(universities)); };
   const submit = async (event: React.FormEvent) => {
     event.preventDefault(); setSaving(true); setError(""); setMessage("");
     try {

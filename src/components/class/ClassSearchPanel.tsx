@@ -3,6 +3,7 @@ import "../../styles/class/ClassSearchPanel.css";
 import "rc-slider/assets/index.css";
 import Slider from "rc-slider";
 import bookIcon from "../../assets/home/CategoryCard/Book.svg";
+import { getTermUi } from "../../features/timetable/termUi";
 
 function SearchIcon() {
   return (
@@ -40,6 +41,7 @@ type Filters = {
 type Props = {
   filters: Filters;
   onChange: (next: Partial<Filters>) => void;
+  universitySlug?: string | null;
 };
 
 const SCHEDULE_SELECTION_MODE: "split" | "combined" = "split";
@@ -59,14 +61,19 @@ const CLASS_TYPE_OPTIONS = [
   { label: "その他", value: "nt" },
 ];
 
-export default function ClassSearchPanel({ filters, onChange }: Props) {
+export default function ClassSearchPanel({
+  filters,
+  onChange,
+  universitySlug,
+}: Props) {
+  const termUi = getTermUi(universitySlug);
   const handleReset = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     onChange({
       text: "",
       code: "",
       moduleRangeStart: 1,
-      moduleRangeEnd: 6,
+      moduleRangeEnd: termUi.classModuleMax,
       classType: "normal",
       schedule: "all",
       scheduleDay: "all",
@@ -163,17 +170,20 @@ export default function ClassSearchPanel({ filters, onChange }: Props) {
 
         {filters.classType === "normal" && (
           <label className="classField classFieldModule">
-            <span>モジュール</span>
+            <span>{termUi.classModuleFieldLabel}</span>
             <div className="classModuleRangeSlider">
               <Slider
                 range
                 min={1}
-                max={6}
+                max={termUi.classModuleMax}
                 step={1}
                 allowCross={false}
                 dots={false}
-                value={[filters.moduleRangeStart, filters.moduleRangeEnd]}
-                marks={{ 1: "春A", 2: "春B", 3: "春C", 4: "秋A", 5: "秋B", 6: "秋C" }}
+                value={[
+                  Math.min(filters.moduleRangeStart, termUi.classModuleMax),
+                  Math.min(filters.moduleRangeEnd, termUi.classModuleMax),
+                ]}
+                marks={termUi.classModuleMarks}
                 onChange={(value) => {
                   const [start, end] = value as number[];
                   onChange({ moduleRangeStart: start, moduleRangeEnd: end });

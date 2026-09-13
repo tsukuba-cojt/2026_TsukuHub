@@ -29,6 +29,7 @@ import {
 } from "../services/classReviewService";
 import { getCatalogCourse } from "../services/courseCatalog";
 import type { CatalogCourse } from "../types/courseCatalog";
+import { KOAN_SYLLABUS_PORTAL_URL } from "../data/osakaExternalLinks";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 
@@ -149,7 +150,17 @@ function ClassDetail() {
   const methodLabel = course ? getMethodLabel(course.method) : null;
   const classFormats = course ? getClassFormats(course.remarks) : [];
 
-  const syllabusUrl = useMemo(() => {
+  const syllabusPresentation = useMemo(() => {
+    if (university?.slug === "osaka") {
+      const externalUrl = course?.syllabus_url?.trim() || KOAN_SYLLABUS_PORTAL_URL;
+      return {
+        mode: "external" as const,
+        url: externalUrl,
+        description:
+          "大阪大学 KOAN 外部シラバスで確認できます（ログインが必要です）。",
+      };
+    }
+
     const record = course as (CatalogCourse & Record<string, unknown>) | null;
     const candidates = [
       record?.["syllabus_url"],
@@ -161,15 +172,27 @@ function ClassDetail() {
 
     for (const value of candidates) {
       if (typeof value === "string" && value.trim()) {
-        return value;
+        return {
+          mode: "embed" as const,
+          url: value,
+          description:
+            "筑波大学の教育課程編成支援システムの内容を表示します。",
+        };
       }
     }
 
     const fallbackCode = course?.course_number ?? courseCode;
-    return fallbackCode
-      ? `https://kdb.tsukuba.ac.jp/syllabi/2026/${fallbackCode}/jpn`
-      : null;
-  }, [course, courseCode]);
+    if (fallbackCode) {
+      return {
+        mode: "embed" as const,
+        url: `https://kdb.tsukuba.ac.jp/syllabi/2026/${fallbackCode}/jpn`,
+        description:
+          "筑波大学の教育課程編成支援システムの内容を表示します。",
+      };
+    }
+
+    return null;
+  }, [course, courseCode, university?.slug]);
 
   const syllabusSummary = useMemo(() => {
     const targetYear = course?.target_year?.trim();
@@ -368,19 +391,21 @@ function ClassDetail() {
                     </div>
                   </section>
 
-                  <section className="sidebarCard">
-                    <h2>関連授業</h2>
-                    <ul className="sidebarRelated">
-                      {mockRelatedCourses.map((related) => (
-                        <li key={related.code}>
-                          <Link to={path(`/class/${related.code}`)}>
-                            {related.title}
-                          </Link>
-                          <span>{related.code}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
+                  {university?.slug !== "osaka" && (
+                    <section className="sidebarCard">
+                      <h2>関連授業</h2>
+                      <ul className="sidebarRelated">
+                        {mockRelatedCourses.map((related) => (
+                          <li key={related.code}>
+                            <Link to={path(`/class/${related.code}`)}>
+                              {related.title}
+                            </Link>
+                            <span>{related.code}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
                 </aside>
               </div>
             ) : (
@@ -389,11 +414,11 @@ function ClassDetail() {
                   <div className="classDetailSyllabusHeader">
                     <div>
                       <h2>シラバス</h2>
-                      <p>筑波大学の教育課程編成支援システムの内容を表示します。</p>
+                      <p>{syllabusPresentation?.description ?? "シラバス情報は準備中です。"}</p>
                     </div>
                   </div>
 
-                  {syllabusUrl ? (
+                  {syllabusPresentation?.mode === "embed" ? (
                     <>
                       {syllabusSummary && (
                         <div className="classDetailSyllabusSummary">
@@ -402,12 +427,33 @@ function ClassDetail() {
                         </div>
                       )}
                       <iframe
-                        src={syllabusUrl}
+                        src={syllabusPresentation.url}
                         title={`${course?.course_name ?? "講義"} のシラバス`}
                         className="classDetailSyllabusFrame"
                         loading="lazy"
                       />
                     </>
+                  ) : syllabusPresentation?.mode === "external" ? (
+                    <div className="classDetailSyllabusPlaceholder">
+                      {syllabusSummary && (
+                        <div className="classDetailSyllabusSummary">
+                          <h3>講義概要</h3>
+                          <p>{syllabusSummary}</p>
+                        </div>
+                      )}
+                      <p>
+                        このページ内ではシラバス全文を表示できません。KOAN
+                        外部シラバスからご確認ください。
+                      </p>
+                      <a
+                        href={syllabusPresentation.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="classDetailBackLink"
+                      >
+                        KOAN外部シラバスを開く
+                      </a>
+                    </div>
                   ) : (
                     <div className="classDetailSyllabusPlaceholder">
                       <p>シラバス情報を取得できませんでした。</p>

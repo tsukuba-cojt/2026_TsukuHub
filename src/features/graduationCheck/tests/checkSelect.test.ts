@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { checkSelect } from "../checkSelect";
-import type { GradRequirement } from "../types";
+import { checkSelect } from "../tsukuba";
+import type { GradRequirement } from "../core/types";
 import { course } from "./helpers";
 
 const requirement: GradRequirement = {
