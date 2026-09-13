@@ -12,7 +12,7 @@ import Footer from "../components/utility/Footer";
 import {
   TimetableAttributeCard,
   TimetableDetailView,
-  TimetableHistoryCard,
+  TimetableHistoryCarousel,
   TimetableLegend,
 } from "../components/class/TimetableDisplay";
 import {
@@ -279,19 +279,12 @@ function Timetable() {
             {!loading && filtered.length === 0 ? (
               <TimetableEmptyState onRelax={resetSoft} />
             ) : (
-              <div className="timetableResultsScroller">
-                {filtered.map((history) => {
-                  const moduleKey = firstVisibleModule(history, filters.module);
-                  return (
-                    <TimetableHistoryCard
-                      history={history}
-                      moduleKey={moduleKey}
-                      onOpen={() => openHistory(history)}
-                      key={history.id}
-                    />
-                  );
-                })}
-              </div>
+              <TimetableHistoryCarousel
+                histories={filtered}
+                moduleForHistory={(history) => firstVisibleModule(history, filters.module)}
+                onOpen={openHistory}
+                label="みんなの時間割"
+              />
             )}
           </section>
         ) : (

@@ -7,8 +7,24 @@ Supabase Dashboard の SQL Editor で、`migrations` 内のSQLをファイル名
 3. `20260811090000_timetable_history_and_reviews.sql`
 4. `20260811121000_security_hardening.sql`
 5. `20260813130000_multi_university.sql`
+6. `20260913140000_internship_contact_email.sql`
+7. `20260913150000_fix_application_university_grants.sql`
+8. `20260913160000_profile_faculty.sql`
 
-最後のmigrationは、筑波大学・大阪大学、大学別機能、掲載対象、全体管理者許可リスト、大学別RLSを作成し、既存データを筑波大学へ移行します。
+`20260813130000_multi_university.sql` は、筑波大学・大阪大学、大学別機能、掲載対象、全体管理者許可リスト、大学別RLSを作成し、既存データを筑波大学へ移行します。
+
+`20260913160000_profile_faculty.sql` は、新規登録の学群を`profiles.faculty`へ保存し、学類・研究群を`profiles.major`へ保存します。旧データに学群しか残っていないプロフィールは学群へ移行します。
+
+## インターン応募通知
+
+`supabase/functions/send-application-notification` は、ログイン済みの応募者から応募IDを受け取り、応募内容とプロフィール情報を取得してResendから企業運営管理者へ通知します。Resend APIキーはSupabase Secretsにのみ保存してください。
+
+```bash
+supabase functions deploy send-application-notification
+supabase secrets set RESEND_API_KEY=re_xxxxxxxxx RESEND_FROM_EMAIL="TsukuHub <noreply@example.com>"
+```
+
+`RESEND_FROM_EMAIL`はResendで検証済みドメインのアドレスを指定します。管理画面で求人ごとに企業運営管理者のメールアドレスを入力すると、その求人の応募通知先になります。
 
 ## Auth Hook
 

@@ -142,7 +142,7 @@ function GraduationCheck() {
   //
   // 行単位のパースエラーがあっても中断せず、読めた科目だけで判定して結果を出す。
   // エラーは結果ページへ渡し、警告として表示させる（1件も読めなかった場合のみ中断）。
-  const handleStart = async (agreedStats: boolean) => {
+  const handleStart = async () => {
     if (!file || requirementId === null || processingRef.current) return;
     processingRef.current = true;
     setIsProcessing(true);
@@ -163,7 +163,8 @@ function GraduationCheck() {
         department: departmentLabel,
         major: majorLabel,
         admissionYear: Number(admissionYear),
-        sharePublic: agreedStats,
+        // 必須同意済みの利用者だけがここへ進めるため、匿名時間割として公開する。
+        sharePublic: true,
         ownerId: user?.id,
         universityId: university?.id ?? "",
       });
@@ -189,7 +190,6 @@ function GraduationCheck() {
           department: departmentLabel,
           major: majorLabel,
           admissionYear,
-          agreedStats,
           csvErrors: errors,
           report,
           timetableHistories,

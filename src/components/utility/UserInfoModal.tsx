@@ -7,6 +7,7 @@ type Profile = {
   id: string;
   name: string;
   grade: number;
+  faculty: string;
   major: string;
   category: string;
 };
@@ -62,7 +63,7 @@ export default function UserInfoModal({ onClose }: UserInfoModalProps) {
 
       const { data, error: profileError } = await supabase
         .from("profiles")
-        .select("id, name, grade, major, category")
+        .select("id, name, grade, faculty, major, category")
         .eq("id", user.id)
         .single();
 
@@ -113,8 +114,12 @@ export default function UserInfoModal({ onClose }: UserInfoModalProps) {
                 <td>{profile.name}</td>
               </tr>
               <tr>
-                <th>所属</th>
+                <th>課程</th>
                 <td>{categoryLabel(profile.category)}</td>
+              </tr>
+              <tr>
+                <th>学群・学部</th>
+                <td>{profile.faculty || "未登録"}</td>
               </tr>
               <tr>
                 <th>学年</th>

@@ -167,7 +167,7 @@ export default function Signup() {
       password,
       options: {
         emailRedirectTo: `${window.location.origin}${path("/auth/confirm")}`,
-        data: { name, grade, school, major: resolvedMajor, category, university_slug: university.slug },
+        data: { name, grade, faculty: school, school, major: resolvedMajor, category, university_slug: university.slug },
       },
     });
 

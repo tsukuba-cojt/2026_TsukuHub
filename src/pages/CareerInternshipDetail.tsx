@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import ApplicationForm from "../components/career/ApplicationForm";
 import ArticleToc from "../components/career/ArticleToc";
 import InternshipDetailContent, {
@@ -11,38 +11,51 @@ import Globalnav from "../components/utility/Globalnav";
 import { getInternship, listPublishedInternships } from "../services/careerService";
 import type { Internship } from "../types/career";
 import { useUniversity } from "../components/university/universityContextValue";
+import { useAuth } from "../components/auth/authContextValue";
 import "../styles/career/CareerPlatform.css";
 import "../styles/career/CareerInternshipDetail.css";
 
 export default function CareerInternshipDetail() {
+  const { internshipId } = useParams();
+  const { university } = useUniversity();
+  const { user } = useAuth();
+  return <InternshipDetailPage key={`${university?.id}:${internshipId}:${user?.id}`} />;
+}
+
+function InternshipDetailPage() {
   const { university, path } = useUniversity();
+  const location = useLocation();
   const { internshipId = "" } = useParams();
   const [item, setItem] = useState<Internship | null>(null);
   const [related, setRelated] = useState<Internship[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [showForm, setShowForm] = useState(false);
+  const [formOpened, setShowForm] = useState(false);
+  const showForm = formOpened || location.hash === "#application";
   const [success, setSuccess] = useState(false);
   const [currentTime] = useState(() => Date.now());
 
   useEffect(() => {
     if (!university) return;
+    let active = true;
     void Promise.all([
       getInternship(internshipId, university.id),
       listPublishedInternships(university.id),
     ])
       .then(([internship, internships]) => {
+        if (!active) return;
         setItem(internship);
         setRelated(internships.filter((entry) => entry.id !== internshipId).slice(0, 3));
       })
-      .catch(() => setError("求人情報を取得できませんでした。"))
-      .finally(() => setLoading(false));
+      .catch(() => { if (active) setError("求人情報を取得できませんでした。"); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
   }, [internshipId, university]);
 
   useEffect(() => {
     if (!showForm) return;
     document.getElementById("application")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [showForm]);
+  }, [showForm, loading]);
 
   if (loading) {
     return (
@@ -72,9 +85,9 @@ export default function CareerInternshipDetail() {
     item.status !== "published" ||
     new Date(item.deadline).getTime() < currentTime;
 
-  const handleApplicationSuccess = () => {
-    setSuccess(true);
-    setShowForm(false);
+  const openApplication = () => {
+    setShowForm(true);
+    document.getElementById("application")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -94,20 +107,16 @@ export default function CareerInternshipDetail() {
             <InternshipDetailContent
               internship={item}
               closed={closed}
-              onApply={() => setShowForm(true)}
+              applied={success}
+              onApply={openApplication}
             />
-            {success && (
-              <div className="applicationSuccess" role="status">
-                <h2>応募を受け付けました</h2>
-                <p>マイページから現在のステータスを確認できます。</p>
-                <Link to={path("/mypage/applications")}>応募状況を見る</Link>
-              </div>
-            )}
-            {showForm && !closed && !success && (
+            {showForm && !closed && (
               <section id="application">
                 <ApplicationForm
                   internshipId={item.id}
-                  onSuccess={handleApplicationSuccess}
+                  title={item.title}
+                  companyName={item.company_name}
+                  onSuccess={() => setSuccess(true)}
                 />
               </section>
             )}
@@ -129,7 +138,7 @@ export default function CareerInternshipDetail() {
                 </div>
               </div>
               <p>
-                {closed
+                {success ? "応募を受け付けました。マイページで選考状況を確認できます。" : closed
                   ? "この求人の募集は終了しました。"
                   : "条件を確認したら、このページから応募できます。"}
               </p>
@@ -137,9 +146,9 @@ export default function CareerInternshipDetail() {
                 type="button"
                 className="careerPrimaryButton"
                 disabled={closed}
-                onClick={() => setShowForm(true)}
+                onClick={openApplication}
               >
-                {closed ? "募集終了" : "この募集に応募する"}
+                {success ? "応募済み・受付内容を見る" : closed ? "募集終了" : "このインターンに応募する"}
               </button>
               <Link className="internPostSideLink" to={path("/career/internships")}>
                 募集一覧へ戻る

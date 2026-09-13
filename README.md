@@ -20,6 +20,19 @@ Supabase SQL EditorまたはSupabase CLIで、[`supabase/README.md`](supabase/RE
 - 学生に`admin_notes`の列権限を与えず、管理者だけが利用できる応募管理関数
 - 公開バケット`company-logos`と、管理者だけが変更できるStorageポリシー
 
+インターン求人には「企業運営管理者のメールアドレス」を設定できます。学生が応募すると、応募フォームの入力内容とプロフィール（氏名・学年・学群・学類・カテゴリ）をSupabase Edge Function経由でResendから担当者へ通知します。ResendのAPIキーはフロントエンドへ設定しません。
+
+### 応募通知メールの設定
+
+Supabase CLIまたはDashboardでEdge Functionをデプロイし、Resendの送信元ドメインを検証したうえで次のSecretsを設定してください。
+
+```bash
+supabase functions deploy send-application-notification
+supabase secrets set RESEND_API_KEY=re_xxxxxxxxx RESEND_FROM_EMAIL="TsukuHub <noreply@example.com>"
+```
+
+`RESEND_FROM_EMAIL`はResendで検証済みドメインのアドレスを指定します。通知先は管理画面で求人ごとに設定します。応募自体は先に保存され、通知に失敗した場合は応募完了画面から再送できます。
+
 フロントエンドへ`service_role`キーを設定しないでください。`.env.local`には従来どおり
 `VITE_SUPABASE_URL`と`VITE_SUPABASE_PUBLISHABLE_KEY`だけを設定します。
 

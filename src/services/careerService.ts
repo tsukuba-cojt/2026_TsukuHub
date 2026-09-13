@@ -10,6 +10,7 @@ import type {
 } from "../types/career";
 
 const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
+type InternshipContact = { internship_id: string; company_contact_email: string | null };
 
 export async function listPublishedInternships(universityId: string): Promise<Internship[]> {
   const { data, error } = await supabase
@@ -35,19 +36,33 @@ export async function getInternship(id: string, universityId?: string): Promise<
 }
 
 export async function listAdminInternships(): Promise<Internship[]> {
-  const [itemsResult, targetsResult] = await Promise.all([
+  const [itemsResult, targetsResult, contactsResult] = await Promise.all([
     supabase.from("internships").select(internshipColumns).order("created_at", { ascending: false }),
     supabase.from("internship_universities").select("internship_id, university_id"),
+    supabase.rpc("admin_list_internship_contact_emails"),
   ]);
   const { data, error } = itemsResult;
   if (error) throw error;
   if (targetsResult.error) throw targetsResult.error;
+  if (contactsResult.error) throw contactsResult.error;
+  const contacts = new Map(((contactsResult.data ?? []) as InternshipContact[]).map((item) => [item.internship_id, item.company_contact_email]));
   return ((data ?? []) as Internship[]).map((item) => ({
     ...item,
+    company_contact_email: contacts.get(item.id) ?? null,
     university_ids: (targetsResult.data ?? [])
       .filter((target) => target.internship_id === item.id)
       .map((target) => target.university_id),
   }));
+}
+
+export async function getAdminInternship(id: string): Promise<Internship | null> {
+  const [item, contactResult] = await Promise.all([
+    getInternship(id),
+    supabase.rpc("admin_get_internship_contact_email", { target_id: id }),
+  ]);
+  if (contactResult.error) throw contactResult.error;
+  const contactEmail = typeof contactResult.data === "string" ? contactResult.data : null;
+  return item ? { ...item, company_contact_email: contactEmail } : null;
 }
 
 async function setInternshipUniversities(id: string, universityIds: string[]) {
@@ -105,9 +120,37 @@ export async function deleteInternship(id: string) {
   if (error) throw error;
 }
 
-export async function createApplication(input: ApplicationInput): Promise<void> {
-  const { error } = await supabase.from("applications").insert(input);
+export type ApplicationNotificationResult = {
+  applicationId: string;
+  notificationSent: boolean;
+};
+
+export async function sendApplicationNotification(applicationId: string): Promise<boolean> {
+  const { error } = await supabase.functions.invoke(
+    "send-application-notification",
+    { body: { application_id: applicationId } },
+  );
+  return !error;
+}
+
+export async function createApplication(input: ApplicationInput): Promise<ApplicationNotificationResult> {
+  const { data, error } = await supabase
+    .from("applications")
+    .insert(input)
+    .select("id")
+    .single();
   if (error) throw error;
+
+  let notificationSent: boolean;
+  try {
+    notificationSent = await sendApplicationNotification(data.id);
+  } catch {
+    notificationSent = false;
+  }
+  return {
+    applicationId: data.id,
+    notificationSent,
+  };
 }
 
 export async function listMyApplications(userId: string): Promise<Application[]> {

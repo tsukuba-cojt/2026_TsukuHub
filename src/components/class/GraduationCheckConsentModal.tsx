@@ -11,12 +11,12 @@ type Props = {
   onChangeFile: () => void;
   /** CSV取得方法モーダル（C）を開く */
   onOpenGuide: () => void;
-  /** 「チェックを開始する」：任意の統計協力チェックの状態を渡す */
-  onStart: (agreedStats: boolean) => void;
+  /** 「チェックを開始する」：必須同意済みのCSVを解析する */
+  onStart: () => void;
 };
 
 const policyItems = [
-  "ログイン中は、復元した時間割を本人履歴として保存します（同じ年度は最新結果に更新）",
+  "ログイン中は、復元した時間割を本人履歴として保存し、匿名化して「みんなの時間割」に表示します（同じ年度は最新結果に更新）",
   "CSVの元ファイルは解析後すぐに破棄されます",
   "氏名・学籍番号・メールアドレスは保存しません",
 ];
@@ -32,7 +32,6 @@ function GraduationCheckConsentModal({
   onStart,
 }: Props) {
   const [agreedRequired, setAgreedRequired] = useState(false);
-  const [agreedStats, setAgreedStats] = useState(false);
 
   // モーダル表示中は ESC キーで閉じる（Contact のモーダルと同じパターン）
   useEffect(() => {
@@ -110,30 +109,20 @@ function GraduationCheckConsentModal({
             <span className="gradCheckBadgeRequired">必須</span>
           </label>
 
-          <div>
-            <label className="gradCheckConsentRow">
-              <input
-                type="checkbox"
-                checked={agreedStats}
-                onChange={(e) => setAgreedStats(e.target.checked)}
-              />
-              匿名の統計・みんなの時間割に協力する
-              <span className="gradCheckBadgeOptional">任意</span>
-            </label>
-            <p className="gradCheckConsentNote">
-              公開されるのは学類・学年・履修科目などの匿名化された時間割情報のみです。
-              <br />
-              個人が特定される情報やCSV元ファイルは公開・保存しません。
-            </p>
-            <button
-              type="button"
-              className="gradCheckGuideLink"
-              onClick={onOpenGuide}
-            >
-              <CircleQuestionMark aria-hidden="true" />
-              CSVの取得方法・データの取り扱い詳細はこちら
-            </button>
-          </div>
+          <p className="gradCheckConsentNote">
+            同意すると、ログイン中は学類・学年・履修科目などを匿名化した時間割が
+            「みんなの時間割」に記録されます。
+            <br />
+            個人が特定される情報やCSV元ファイルは公開・保存しません。
+          </p>
+          <button
+            type="button"
+            className="gradCheckGuideLink"
+            onClick={onOpenGuide}
+          >
+            <CircleQuestionMark aria-hidden="true" />
+            CSVの取得方法・データの取り扱い詳細はこちら
+          </button>
         </div>
 
         {/* 下部ボタン */}
@@ -145,7 +134,7 @@ function GraduationCheckConsentModal({
             type="button"
             className="gradCheckStartBtn"
             disabled={!agreedRequired || isProcessing}
-            onClick={() => onStart(agreedStats)}
+            onClick={onStart}
           >
             {isProcessing ? "解析しています..." : "チェックを開始する"}
           </button>

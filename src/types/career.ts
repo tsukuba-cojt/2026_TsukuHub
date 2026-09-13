@@ -10,6 +10,7 @@ export type ApplicationStatus =
 export type Internship = {
   id: string;
   company_name: string;
+  company_contact_email?: string | null;
   company_logo_url: string | null;
   cover_image_url: string | null;
   title: string;

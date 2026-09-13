@@ -310,6 +310,126 @@
   scroll-snap-type: x proximity;
 }
 
+.timetableCarousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.timetableCarouselArrow {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid #b4c6e2;
+  border-radius: 50%;
+  color: #1376ff;
+  background: #fff;
+}
+
+.timetableCarouselArrow:disabled {
+  color: #b7c3d5;
+  background: #f4f7fb;
+  cursor: not-allowed;
+}
+
+.timetableCarouselArrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.timetableCarouselFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+  color: rgba(7, 28, 66, 0.55);
+  font-size: 12px;
+}
+
+.timetableCarouselFooter button {
+  flex-shrink: 0;
+  border: 0;
+  color: #1376ff;
+  background: transparent;
+  font-size: inherit;
+  font-weight: 800;
+}
+
+.timetableAllOverlay {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(8, 28, 66, 0.48);
+}
+
+.timetableAllDialog {
+  width: min(1120px, 100%);
+  max-height: min(820px, 90vh);
+  overflow-y: auto;
+  padding: 28px;
+  border-radius: 18px;
+  background: #f7faff;
+  box-shadow: 0 24px 70px rgba(7, 28, 66, 0.25);
+}
+
+.timetableAllDialogHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.timetableAllDialogHeader p,
+.timetableAllDialogHeader h2 {
+  margin: 0;
+}
+
+.timetableAllDialogHeader p {
+  color: #1376ff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.timetableAllDialogHeader h2 {
+  margin-top: 4px;
+  color: #071c42;
+  font-size: 24px;
+}
+
+.timetableAllDialogClose {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #b4c6e2;
+  border-radius: 50%;
+  color: #40506d;
+  background: #fff;
+}
+
+.timetableAllDialogClose svg {
+  width: 18px;
+  height: 18px;
+}
+
+.timetableAllGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.timetableAllGrid .timetableResultCard {
+  min-width: 0;
+}
+
 .timetableResultsScroller::-webkit-scrollbar {
   height: 8px;
 }
@@ -765,6 +885,21 @@
     grid-auto-columns: minmax(284px, 86vw);
   }
 
+  .timetableCarousel {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 4px;
+  }
+
+  .timetableCarouselArrow {
+    display: grid;
+    width: 32px;
+    height: 32px;
+  }
+
+  .timetableAllGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .timetableModuleTabs {
     margin-left: 0;
     overflow-x: auto;
@@ -782,5 +917,17 @@
   .timetableLegend {
     margin-left: 0;
     gap: 14px;
+  }
+
+  .timetableAllOverlay {
+    padding: 12px;
+  }
+
+  .timetableAllDialog {
+    padding: 20px 14px;
+  }
+
+  .timetableAllGrid {
+    grid-template-columns: 1fr;
   }
 }

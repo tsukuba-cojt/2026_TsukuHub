@@ -58,3 +58,35 @@
   .internPostFacts div { border-right: 0; }
   .internPostCover img { height: 180px; }
 }
+
+.applicationStepForm { display: grid; gap: 18px; min-width: 0; }
+.applicationProgress { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.applicationProgress li { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 4px; border-bottom: 3px solid #e4ebf3; color: #66778c; font-size: 13px; font-weight: 800; }
+.applicationProgress li.isActive { border-color: var(--color-primary); color: var(--color-primary-dark); }
+.applicationProgress li span { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: #edf2f8; }
+.applicationProgress li.isActive span { color: #fff; background: var(--color-primary-dark); }
+.applicationTarget { display: grid; gap: 5px; padding: 16px; border-radius: 8px; background: #f5f8fc; overflow-wrap: anywhere; }
+.applicationTarget span { color: var(--color-text-secondary); font-size: 12px; }
+.applicationTarget strong { font-size: 15px; line-height: 1.6; }
+.applicationHeading { scroll-margin-top: 160px; }
+.applicationHeading:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 6px; }
+.applicationFieldHint { color: var(--color-text-secondary); font-weight: 500; text-align: right; }
+.applicationReview { display: grid; margin: 0; }
+.applicationReview > div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid #e4ebf3; }
+.applicationReview dt { color: var(--color-text-secondary); font-size: 12px; font-weight: 800; }
+.applicationReview dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; font-size: 14px; }
+.applicationActions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; }
+.applicationEditButton { padding: 12px 18px; border: 1px solid #cfdae6; border-radius: 8px; background: #fff; color: var(--color-primary-dark); font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.applicationEditButton:disabled { opacity: .6; cursor: wait; }
+.applicationCompletion { display: grid; justify-items: center; gap: 14px; text-align: center; overflow-wrap: anywhere; }
+.applicationCompletion > svg { color: #087755; }
+.applicationCompletion p { margin: 0; line-height: 1.8; }
+.applicationNotificationWarning { display: grid; justify-items: center; gap: 10px; width: 100%; padding: 14px 16px; border: 1px solid #f0c27b; border-radius: 8px; color: #7e4b0b; background: #fff8eb; }
+.applicationNotificationWarning p { font-size: 13px; }
+.applicationBackLink { color: var(--color-primary-dark); font-size: 13px; font-weight: 800; }
+@media (max-width: 700px) {
+  .applicationReview > div { grid-template-columns: 1fr; gap: 6px; }
+  .applicationActions { flex-direction: column-reverse; }
+  .applicationActions button { width: 100%; }
+  .applicationProgress li { gap: 5px; font-size: 12px; }
+}
