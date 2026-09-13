@@ -63,6 +63,14 @@ export default function ApplicationFormFields({
           maxLength={254}
           onChange={onChange}
         />
+        <IdentityField
+          label="電話番号"
+          field="phone"
+          type="tel"
+          value={form.phone}
+          maxLength={20}
+          onChange={onChange}
+        />
         <label>
           所属学群・学類 <span>*</span>
           {facultyOptions.length > 0 ? (

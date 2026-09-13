@@ -44,7 +44,7 @@ export async function listAdminCareerArticles(): Promise<CareerArticleRecord[]> 
   if (targets.error) throw targets.error;
   return ((data ?? []) as CareerArticleRecord[]).map((item) => ({
     ...item,
-    university_ids: (targets.data ?? [])
+    university_ids: ((targets.data ?? []) as { career_article_id: string; university_id: string }[])
       .filter((target) => target.career_article_id === item.id)
       .map((target) => target.university_id),
   }));

@@ -52,6 +52,7 @@ export type ApplicationInput = {
   university_id: string;
   applicant_name: string;
   email: string;
+  phone: string;
   faculty: string;
   graduation_year: number;
   motivation: string;

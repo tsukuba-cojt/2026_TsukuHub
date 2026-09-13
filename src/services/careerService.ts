@@ -118,7 +118,7 @@ export async function createApplication(input: ApplicationInput): Promise<void> 
 export async function listMyApplications(userId: string): Promise<Application[]> {
   const { data, error } = await supabase
     .from("applications")
-    .select("id, internship_id, user_id, university_id, applicant_name, email, faculty, graduation_year, motivation, skills, portfolio_url, additional_notes, status, created_at, updated_at, internship:internships(id, title, company_name)")
+    .select("id, internship_id, user_id, university_id, applicant_name, email, phone, faculty, graduation_year, motivation, skills, portfolio_url, additional_notes, status, created_at, updated_at, internship:internships(id, title, company_name)")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   if (error) throw error;

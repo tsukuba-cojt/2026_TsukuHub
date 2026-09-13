@@ -3,6 +3,7 @@ import { universityAcademicOptions, type AcademicCategory } from "../../data/uni
 export type ApplicationFormState = {
   applicant_name: string;
   email: string;
+  phone: string;
   faculty: string;
   graduation_year: string;
   motivation: string;
@@ -14,6 +15,7 @@ export type ApplicationFormState = {
 export const emptyApplicationForm: ApplicationFormState = {
   applicant_name: "",
   email: "",
+  phone: "",
   faculty: "",
   graduation_year: "",
   motivation: "",
@@ -85,6 +87,15 @@ export const facultyChoices = (
   return options;
 };
 
+export const phoneDigits = (value: string) => value.replace(/\D/g, "");
+
+export const isValidPhone = (value: string) => {
+  const trimmed = value.trim();
+  const digits = phoneDigits(trimmed);
+  if (digits.length < 10 || digits.length > 15) return false;
+  return /^[+]?[0-9\s\-()]{10,20}$/.test(trimmed);
+};
+
 export const normalizeHttpUrl = (value: string) => {
   const trimmed = value.trim();
   if (!trimmed) return "";
@@ -100,6 +111,7 @@ export const validateApplicationForm = (form: ApplicationFormState) => {
   if (
     !form.applicant_name.trim() ||
     !form.email.trim() ||
+    !form.phone.trim() ||
     !form.faculty.trim() ||
     !form.graduation_year ||
     !form.motivation.trim()
@@ -108,6 +120,9 @@ export const validateApplicationForm = (form: ApplicationFormState) => {
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
     return "メールアドレスの形式を確認してください。";
+  }
+  if (!isValidPhone(form.phone)) {
+    return "電話番号の形式を確認してください。";
   }
   if (form.portfolio_url) {
     if (!normalizeHttpUrl(form.portfolio_url)) {

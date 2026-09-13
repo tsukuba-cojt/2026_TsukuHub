@@ -56,6 +56,7 @@ describe("validateApplicationForm", () => {
     email: "s1234567@u.tsukuba.ac.jp",
     faculty: "情報科学類",
     graduation_year: "2028",
+    phone: "090-1234-5678",
     motivation: "この求人に興味があります。",
   };
 
@@ -65,5 +66,10 @@ describe("validateApplicationForm", () => {
 
   it("still requires motivation", () => {
     expect(validateApplicationForm({ ...filled, motivation: "" })).toBe("必須項目を入力してください。");
+  });
+
+  it("requires a valid phone number", () => {
+    expect(validateApplicationForm({ ...filled, phone: "" })).toBe("必須項目を入力してください。");
+    expect(validateApplicationForm({ ...filled, phone: "123" })).toBe("電話番号の形式を確認してください。");
   });
 });

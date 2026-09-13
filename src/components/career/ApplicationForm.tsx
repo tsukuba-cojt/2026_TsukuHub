@@ -90,6 +90,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
         university_id: university?.id ?? "",
         applicant_name: form.applicant_name.trim(),
         email: form.email.trim(),
+        phone: form.phone.trim(),
         faculty: form.faculty.trim(),
         graduation_year: Number(form.graduation_year),
         motivation: form.motivation.trim(),
@@ -111,7 +112,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
     <form className="careerForm applicationForm" onSubmit={submit}>
       <h2>応募フォーム</h2>
       <p className="formNote">
-        氏名・メール・所属・卒業予定年は登録情報から自動入力しています。
+        氏名・メール・所属・卒業予定年は登録情報から自動入力しています。電話番号は企業への連絡に使います。
         <span>*</span> は必須項目です。
       </p>
       <ApplicationFormFields form={form} facultyOptions={facultyOptions} onChange={update} />

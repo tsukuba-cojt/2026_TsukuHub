@@ -75,6 +75,7 @@ export default function AdminApplicationDetail() {
   const detailRows = [
     ["氏名", item.applicant_name],
     ["メールアドレス", item.email],
+    ["電話番号", item.phone || "未入力"],
     ["所属", item.faculty],
     ["卒業予定年", String(item.graduation_year)],
     [
@@ -109,7 +110,13 @@ export default function AdminApplicationDetail() {
               {detailRows.map(([label, value]) => (
                 <div key={label}>
                   <dt>{label}</dt>
-                  <dd>{value}</dd>
+                  <dd>
+                    {label === "電話番号" && item.phone ? (
+                      <a href={`tel:${item.phone}`}>{item.phone}</a>
+                    ) : (
+                      value
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
