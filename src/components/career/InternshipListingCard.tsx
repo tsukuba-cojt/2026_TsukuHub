@@ -26,6 +26,9 @@ export default function InternshipListingCard({ internship }: InternshipListingC
             {internship.is_featured && <span>おすすめ</span>}
           </div>
           <h2>{internship.title}</h2>
+          {internship.compensation.trim() ? (
+            <p className="alumniCardWage">{internship.compensation}</p>
+          ) : null}
           <p>{internship.summary}</p>
           <ul>
             {internship.tags.slice(0, 4).map((tag) => (

@@ -3,13 +3,13 @@ import "../../styles/utility/ComingSoon.css";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
-  ArrowLeft,
   House,
   BriefcaseBusiness,
   BookOpen,
   UsersRound,
   Utensils,
   Globe,
+  ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { classMenuItems } from "./classMenuItems";
@@ -234,18 +234,18 @@ function Globalnav() {
         </nav>
       </header>
       <div className="globalHeaderSpacer" aria-hidden="true" />
-      {showBack && (
+      {showBack ? (
         <div className="pageBackBar">
           <button
             type="button"
             className="pageBackButton"
-            aria-label="前のページに戻る"
             onClick={handleBack}
           >
-            <ArrowLeft aria-hidden="true" />
+            <ChevronLeft aria-hidden="true" />
+            戻る
           </button>
         </div>
-      )}
+      ) : null}
     </>
   );
 }
