@@ -75,9 +75,9 @@ export default function AdminApplicationDetail() {
   const detailRows = [
     ["氏名", item.applicant_name],
     ["メールアドレス", item.email],
-    ["電話番号", item.phone || "未入力"],
     ["所属", item.faculty],
     ["卒業予定年", String(item.graduation_year)],
+    ["電話番号", item.phone || "未入力"],
     [
       "応募日時",
       new Intl.DateTimeFormat("ja-JP", {

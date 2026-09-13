@@ -14,6 +14,7 @@ function IdentityField({
   maxLength,
   min,
   max,
+  className,
   onChange,
 }: {
   label: string;
@@ -23,10 +24,11 @@ function IdentityField({
   maxLength?: number;
   min?: string;
   max?: string;
+  className?: string;
   onChange: (key: keyof ApplicationFormState, value: string) => void;
 }) {
   return (
-    <label>
+    <label className={className}>
       {label} <span>*</span>
       <input
         type={type}
@@ -63,14 +65,6 @@ export default function ApplicationFormFields({
           maxLength={254}
           onChange={onChange}
         />
-        <IdentityField
-          label="電話番号"
-          field="phone"
-          type="tel"
-          value={form.phone}
-          maxLength={20}
-          onChange={onChange}
-        />
         <label>
           所属学群・学類 <span>*</span>
           {facultyOptions.length > 0 ? (
@@ -101,6 +95,15 @@ export default function ApplicationFormFields({
           value={form.graduation_year}
           min="2026"
           max="2100"
+          onChange={onChange}
+        />
+        <IdentityField
+          label="電話番号"
+          field="phone"
+          type="tel"
+          value={form.phone}
+          maxLength={20}
+          className="formGridPhone"
           onChange={onChange}
         />
       </div>

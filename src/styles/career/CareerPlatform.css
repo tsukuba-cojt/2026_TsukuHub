@@ -268,6 +268,7 @@
 .careerForm textarea, .adminReviewPanel textarea { resize: vertical; line-height: 1.65; }
 .careerForm input:focus, .careerForm select:focus, .careerForm textarea:focus { border-color: var(--color-primary); outline: 3px solid rgba(21,120,253,.14); }
 .formGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.formGridPhone { grid-column: 2; }
 .formNote { margin: -10px 0 0; color: var(--color-text-secondary); font-size: 11px; }
 .applicationList { display: grid; gap: 14px; }
 .applicationList article { padding: 24px 27px; border-radius: 14px; background: #fff; box-shadow: var(--shadow-card); }
@@ -387,6 +388,7 @@
   .careerShell, .adminShell { width: calc(100% - 30px); padding-bottom: 58px; }
   .careerPageHeader { padding-top: 40px; }
   .careerTopicGrid, .alumniGrid, .formGrid, .adminDashboardGrid { grid-template-columns: 1fr; }
+  .formGridPhone { grid-column: 1; }
   .alumniArticleLayout { grid-template-columns: 1fr; }
   .alumniSidebar { position: static; }
   .alumniArticle { padding: 24px 20px; }
