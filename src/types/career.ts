@@ -15,6 +15,11 @@ export type Internship = {
   title: string;
   summary: string;
   company_description: string;
+  company_mission: string;
+  company_business: string;
+  company_message_to_students: string;
+  company_address: string;
+  company_map_url: string;
   job_category: string;
   location: string;
   work_style: string;
@@ -30,7 +35,7 @@ export type Internship = {
   deadline: string;
   status: InternshipStatus;
   is_featured: boolean;
-  created_by: string | null;
+  created_by?: string | null;
   created_at: string;
   updated_at: string;
   university_ids?: string[];

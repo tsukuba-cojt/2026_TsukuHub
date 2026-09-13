@@ -29,6 +29,7 @@
 .careerMiniCardBody { display: flex; flex: 1; flex-direction: column; padding: 18px 20px 20px; }
 .careerMiniCard h3 { margin: 0 0 8px; font-size: 18px; line-height: 1.5; }
 .careerMiniCard p { margin: 0; color: var(--color-text-secondary); font-size: 13px; line-height: 1.7; }
+.careerMiniCard p.careerMiniWage { margin: 0 0 10px; color: var(--color-primary-dark); font-size: 14px; font-weight: 800; line-height: 1.4; }
 .careerMiniCard strong { display: flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 18px; color: var(--color-primary-dark); font-size: 12px; }
 .careerMiniCard svg, .careerFirstGuide svg { width: 15px; }
 .careerFirstGuide { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 72px; padding: 32px 36px; border-radius: 18px; color: #fff; background: var(--color-main-gradient); }
@@ -61,6 +62,7 @@
 .alumniCardCover strong { font-size: 18px; line-height: 1.35; }
 .alumniCardCover small { font-size: 12px; opacity: .86; }
 .alumniCardBody { padding: 22px 24px 24px; }
+.alumniCard p.alumniCardWage { margin: 0 0 8px; color: var(--color-primary-dark); font-size: 15px; font-weight: 800; line-height: 1.4; }
 .alumniCard > div, .alumniCard ul, .alumniCardBody > div, .tagRow { display: flex; flex-wrap: wrap; gap: 7px; }
 .alumniCard > div span, .alumniCard li, .alumniCardBody > div span, .tagRow span { padding: 5px 8px; border-radius: 6px; color: #5f4bd0; background: #efecff; font-size: 10px; font-weight: 800; }
 .alumniCard ul { margin: 16px 0 12px; padding: 0; list-style: none; }
@@ -150,6 +152,7 @@
 .alumniRelated a { display: grid; gap: 4px; color: inherit; text-decoration: none; }
 .alumniRelated span { color: var(--color-primary-dark); font-size: 11px; font-weight: 800; }
 .alumniRelated strong { font-size: 13px; line-height: 1.55; }
+.alumniRelated em { color: var(--color-primary-dark); font-size: 12px; font-weight: 800; font-style: normal; }
 
 .articleMarkdown { color: var(--color-text-primary); line-height: 1.9; }
 .articleMarkdown h2, .articleMarkdown h3 { scroll-margin-top: 140px; margin: 32px 0 12px; font-weight: 800; }
@@ -319,7 +322,24 @@
 .checkboxLabel input { width: 18px; min-height: 18px; }
 .logoPreview { display: flex; align-items: center; gap: 12px; }
 .logoPreview img { width: 72px; height: 72px; object-fit: contain; border: 1px solid #e0e7ef; border-radius: 9px; }
+.logoPreview.coverPreview img { width: 160px; height: 96px; object-fit: cover; }
 .logoPreview button { border: 0; color: #a33b4e; background: transparent; cursor: pointer; }
+.adminImageFields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.adminImageField { display: grid; gap: 10px; }
+.adminImageHint { display: block; margin: 2px 0 6px; color: var(--color-text-secondary); font-size: 11px; font-weight: 600; line-height: 1.5; }
+.adminImageStatus { margin: 0; color: var(--color-text-secondary); font-size: 12px; font-weight: 600; }
+@media (max-width: 800px) {
+  .adminImageFields { grid-template-columns: 1fr; }
+}
+.adminJobPreview { border-bottom: 0; padding-bottom: 0; }
+.adminJobPreviewNote { margin: 0; color: var(--color-text-secondary); font-size: 13px; font-weight: 500; line-height: 1.7; }
+.adminJobPreviewBlock { display: grid; gap: 12px; }
+.adminJobPreviewBlock h3 { margin: 0; color: #334861; font-size: 14px; font-weight: 800; }
+.adminJobPreviewListing { max-width: 420px; }
+.adminJobPreviewListing .alumniCardLink { cursor: default; pointer-events: none; }
+.adminJobPreviewDetail { overflow: auto; max-height: 720px; padding: 4px; border-radius: 10px; background: #eef3f8; }
+.adminJobPreviewDetail .internPost { max-width: 760px; margin: 0 auto; }
+.adminJobPreviewDetail .internPostCard { box-shadow: none; }
 .formActions { display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
 .adminApplicationLayout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-items: start; gap: 18px; margin-top: 18px; }
 .adminApplicationLayout > div { display: grid; gap: 18px; }

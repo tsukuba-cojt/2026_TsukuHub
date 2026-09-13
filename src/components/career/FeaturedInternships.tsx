@@ -33,6 +33,9 @@ export default function FeaturedInternships({ items }: FeaturedInternshipsProps)
                 <div className="careerMiniCardBody">
                   <h3>{item.title}</h3>
                   <p>{item.company_name}</p>
+                  {item.compensation?.trim() ? (
+                    <p className="careerMiniWage">{item.compensation}</p>
+                  ) : null}
                   <strong>
                     詳細を見る <ArrowRight aria-hidden="true" />
                   </strong>
