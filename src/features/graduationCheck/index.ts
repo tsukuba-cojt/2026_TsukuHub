@@ -39,6 +39,24 @@ export { collectCategoryCourses } from "./categoryCourses";
 export type { CategoryCourses } from "./categoryCourses";
 export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
 export { categoryLabels, categoryOrder } from "./categoryMapping";
+export { gradeBreakdown, GRADE_BREAKDOWN_ORDER } from "./gradeBreakdown";
+export type { GradeBreakdown, GradeSlice } from "./gradeBreakdown";
+export { creditCapForecast, findCreditCapRule } from "./creditCap";
+export type {
+  CreditCapForecast,
+  CreditCapRule,
+  CreditCapState,
+} from "./creditCap";
+export {
+  applyCertifiedCredits,
+  createCertifiedCredit,
+} from "./certifiedCredits";
+export type { CertifiedCredit } from "./certifiedCredits";
+export {
+  categoryChildItems,
+  formatUnits,
+} from "./resultView";
+export type { RequirementBarItem } from "./resultView";
 export type {
   CategoryKey,
   CategoryResult,

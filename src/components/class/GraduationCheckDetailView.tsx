@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, Check, SquarePen } from "lucide-react";
 import GraduationCheckLeaveConfirmModal from "./GraduationCheckLeaveConfirmModal";
+import GraduationRequirementRow from "./GraduationRequirementRow";
 import ProgressBar from "./GraduationProgressBar";
 import { useReviewedCourseCodes } from "./useReviewedCourseCodes";
 import {
@@ -9,7 +10,11 @@ import {
   levelClass,
   levelFromPercent,
 } from "./graduationProgressLevel";
-import { collectCategoryCourses } from "../../features/graduationCheck";
+import {
+  categoryChildItems,
+  collectCategoryCourses,
+  formatUnits,
+} from "../../features/graduationCheck";
 import type {
   CategoryKey,
   Course,
@@ -153,6 +158,7 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
       {report.categories.map((category) => {
         const level = levelFromPercent(category.percent);
         const courses = categoryCourses[category.category];
+        const children = categoryChildItems(report, category.category);
         return (
           <section
             className="gradDetailSection"
@@ -187,6 +193,22 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
                 %
               </p>
             </div>
+
+            {category.prospectiveUnits > category.earnedUnits && (
+              <p className="gradDetailProspective">
+                履修中を含めると {formatUnits(category.prospectiveUnits)}
+              </p>
+            )}
+
+            {children.length > 0 && (
+              <ul className="gradResultReqChildren gradDetailChildRows">
+                {children.map((child) => (
+                  <li key={child.label}>
+                    <GraduationRequirementRow item={child} nested />
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <div className="gradDetailTableWrap">
               <table className="gradDetailTable">

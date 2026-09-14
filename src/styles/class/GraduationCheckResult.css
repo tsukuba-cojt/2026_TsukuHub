@@ -232,6 +232,22 @@
   gap: 8px;
 }
 
+.gradResultReqGroup {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gradResultReqChildren {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 /* 行全体が詳細画面への導線（キーボード操作はシェブロンのボタンで行う） */
 .gradResultReqRow {
   border: 1px solid #e3eaf5;
@@ -239,6 +255,10 @@
   background: #fff;
   padding: 14px 20px;
   cursor: pointer;
+}
+
+.gradResultReqRow.isStatic {
+  cursor: default;
 }
 
 .gradResultReqName {
@@ -330,6 +350,11 @@
   border: none;
   background: none;
   cursor: pointer;
+}
+
+.gradResultReqChevronSpacer {
+  width: 20px;
+  height: 20px;
 }
 
 .gradResultReqChevron {
@@ -514,8 +539,13 @@
     grid-area: pct;
   }
 
-  .gradResultReqChevronBtn {
+  .gradResultReqChevronBtn,
+  .gradResultReqChevronSpacer {
     grid-area: chevron;
+  }
+
+  .gradResultReqChildren {
+    padding-left: 16px;
   }
 
   .gradResultForecast {
