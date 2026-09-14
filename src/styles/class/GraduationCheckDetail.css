@@ -254,6 +254,22 @@
   font-size: 13px;
 }
 
+.gradDetailProspective {
+  margin: 0 8px 10px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  text-align: right;
+}
+
+.gradDetailChildRows {
+  margin: 0 0 16px;
+  padding-left: 8px;
+}
+
+.gradDetailChildRows .gradResultReqRow {
+  cursor: default;
+}
+
 /* ── レスポンシブ ─────────────────── */
 @media (max-width: 1100px) {
   .gradDetailSectionHeader {

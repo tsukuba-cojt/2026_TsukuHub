@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
-  Check,
   ChevronRight,
   GraduationCap,
   RefreshCw,
@@ -13,6 +12,7 @@ import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import Toast from "../components/utility/Toast";
 import GraduationCheckDetailView from "../components/class/GraduationCheckDetailView";
+import GraduationRequirementRow from "../components/class/GraduationRequirementRow";
 import {
   TimetableAttributeCard,
   TimetableDetailView,
@@ -20,12 +20,9 @@ import {
   TimetableLegend,
 } from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
+import { formatPercent } from "../components/class/graduationProgressLevel";
 import {
-  formatPercent,
-  levelClass,
-  levelFromPercent,
-} from "../components/class/graduationProgressLevel";
-import {
+  categoryChildItems,
   listDepartmentAdmissionYears,
   supportedDepartments,
 } from "../features/graduationCheck";
@@ -123,56 +120,29 @@ function SummaryCard({
   );
 }
 
-// 要件項目リストの1行。
-// 単位数と%は未クランプの実値を出し（100%超あり）、バーの塗りのみ100%で頭打ち。
-// 行（またはシェブロン）を押すとその区分の詳細画面へ移動する。
-function RequirementRow({
+function RequirementGroup({
   item,
+  report,
   onOpenDetail,
 }: {
   item: CategoryResult;
+  report: GraduationCheckReport;
   onOpenDetail: (category: CategoryKey) => void;
 }) {
-  const level = levelFromPercent(item.percent);
+  const children = categoryChildItems(report, item.category);
+  const open = () => onOpenDetail(item.category);
   return (
-    <li
-      className={`gradResultReqRow ${levelClass[level]}`}
-      onClick={() => onOpenDetail(item.category)}
-    >
-      <div className="gradResultReqName">
-        <span
-          className={`gradResultReqBadge ${levelClass[level]}`}
-          aria-hidden="true"
-        >
-          {level === "ok" ? <Check /> : "！"}
-        </span>
-        {item.label}
-      </div>
-      <p className="gradResultReqUnits">
-        <span className="gradResultReqEarned gradResultNumFont">
-          {item.earnedUnits}
-        </span>
-        <span className="gradResultReqUnitsSub">/ {item.requiredUnits} 単位</span>
-      </p>
-      <div className="gradResultReqBarCell">
-        <ProgressBar percent={item.percent} />
-      </div>
-      <p className="gradResultReqPct">
-        <span className="gradResultNumFont">{formatPercent(item.percent)}</span>{" "}
-        %
-      </p>
-      <button
-        type="button"
-        className="gradResultReqChevronBtn"
-        aria-label={`${item.label}の詳細を見る`}
-        onClick={(e) => {
-          // 親（行）の onClick と二重に発火させない
-          e.stopPropagation();
-          onOpenDetail(item.category);
-        }}
-      >
-        <ChevronRight className="gradResultReqChevron" aria-hidden="true" />
-      </button>
+    <li className="gradResultReqGroup">
+      <GraduationRequirementRow item={item} onOpen={open} />
+      {children.length > 0 ? (
+        <ul className="gradResultReqChildren">
+          {children.map((child) => (
+            <li key={child.label}>
+              <GraduationRequirementRow item={child} nested onOpen={open} />
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </li>
   );
 }
@@ -375,8 +345,9 @@ function GraduationCheckResult() {
               </div>
               <ul className="gradResultReqList">
                 {report.categories.map((item) => (
-                  <RequirementRow
+                  <RequirementGroup
                     item={item}
+                    report={report}
                     onOpenDetail={openDetail}
                     key={item.category}
                   />
