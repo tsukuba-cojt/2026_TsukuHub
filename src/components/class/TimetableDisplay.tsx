@@ -1,5 +1,5 @@
-import { Fragment } from "react";
-import { ChevronRight, Clock3, GraduationCap, Layers3 } from "lucide-react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, Clock3, GraduationCap, Layers3, X } from "lucide-react";
 import type {
   TimetableCourse,
   TimetableHistory,
@@ -106,6 +106,134 @@ export function TimetableHistoryCard({
         <ChevronRight aria-hidden="true" />
       </button>
     </article>
+  );
+}
+
+export function TimetableHistoryCarousel({
+  histories,
+  moduleForHistory,
+  onOpen,
+  label = "時間割一覧",
+}: {
+  histories: TimetableHistory[];
+  moduleForHistory: (history: TimetableHistory) => TimetableModuleKey;
+  onOpen: (history: TimetableHistory) => void;
+  label?: string;
+}) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [isAllOpen, setIsAllOpen] = useState(false);
+
+  useEffect(() => {
+    const element = scrollerRef.current;
+    if (!element) return;
+
+    const updateScrollButtons = () => {
+      const maxScrollLeft = element.scrollWidth - element.clientWidth;
+      setCanScrollLeft(element.scrollLeft > 2);
+      setCanScrollRight(element.scrollLeft < maxScrollLeft - 2);
+    };
+
+    updateScrollButtons();
+    element.addEventListener("scroll", updateScrollButtons, { passive: true });
+    window.addEventListener("resize", updateScrollButtons);
+    return () => {
+      element.removeEventListener("scroll", updateScrollButtons);
+      window.removeEventListener("resize", updateScrollButtons);
+    };
+  }, [histories.length]);
+
+  useEffect(() => {
+    if (!isAllOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsAllOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isAllOpen]);
+
+  const scrollByCard = (direction: -1 | 1) => {
+    const element = scrollerRef.current;
+    if (!element) return;
+    const firstCard = element.querySelector<HTMLElement>(".timetableResultCard");
+    const gap = Number.parseFloat(getComputedStyle(element).columnGap) || 20;
+    const distance = (firstCard?.getBoundingClientRect().width ?? 310) + gap;
+    element.scrollBy({ left: direction * distance, behavior: "smooth" });
+  };
+
+  if (histories.length === 0) return null;
+
+  const cards = histories.map((history) => (
+    <TimetableHistoryCard
+      history={history}
+      moduleKey={moduleForHistory(history)}
+      onOpen={() => onOpen(history)}
+      key={history.id}
+    />
+  ));
+
+  return (
+    <>
+      <div className="timetableCarousel">
+        <button
+          type="button"
+          className="timetableCarouselArrow"
+          aria-label="前の時間割を見る"
+          onClick={() => scrollByCard(-1)}
+          disabled={!canScrollLeft}
+        >
+          <ChevronLeft aria-hidden="true" />
+        </button>
+        <div ref={scrollerRef} className="timetableResultsScroller">
+          {cards}
+        </div>
+        <button
+          type="button"
+          className="timetableCarouselArrow"
+          aria-label="次の時間割を見る"
+          onClick={() => scrollByCard(1)}
+          disabled={!canScrollRight}
+        >
+          <ChevronRight aria-hidden="true" />
+        </button>
+      </div>
+      <div className="timetableCarouselFooter">
+        <span>横にスライド、または矢印で切り替えられます</span>
+        {histories.length > 1 && (
+          <button type="button" onClick={() => setIsAllOpen(true)}>
+            すべて見る（{histories.length}件）
+          </button>
+        )}
+      </div>
+      {isAllOpen && (
+        <div
+          className="timetableAllOverlay"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setIsAllOpen(false);
+          }}
+        >
+          <section className="timetableAllDialog" role="dialog" aria-modal="true" aria-label={label}>
+            <div className="timetableAllDialogHeader">
+              <div>
+                <p>一覧表示</p>
+                <h2>{label}</h2>
+              </div>
+              <button
+                type="button"
+                className="timetableAllDialogClose"
+                aria-label="一覧を閉じる"
+                onClick={() => setIsAllOpen(false)}
+              >
+                <X aria-hidden="true" />
+              </button>
+            </div>
+            <div className="timetableAllGrid">{cards}</div>
+          </section>
+        </div>
+      )}
+    </>
   );
 }
 

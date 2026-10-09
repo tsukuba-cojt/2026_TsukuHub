@@ -16,7 +16,7 @@ import GraduationCheckDetailView from "../components/class/GraduationCheckDetail
 import {
   TimetableAttributeCard,
   TimetableDetailView,
-  TimetableHistoryCard,
+  TimetableHistoryCarousel,
   TimetableLegend,
 } from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
@@ -54,7 +54,6 @@ type GraduationCheckResultState = {
   department?: string;
   major: string;
   admissionYear: string;
-  agreedStats: boolean;
   /** CSVの行単位パースエラー（0件でない場合は警告トーストを出す） */
   csvErrors: CsvRowError[];
   /** アップロードページで判定済みの結果（features/graduationCheck） */
@@ -410,28 +409,22 @@ function GraduationCheckResult() {
                   <span>過去の時間割</span>
                   <span className="gradResultReqHeadStatus">
                     {result?.timetableSaveStatus === "saved"
-                      ? "本人履歴として保存済み"
+                      ? "匿名時間割として保存済み"
                       : result?.timetableSaveStatus === "failed"
                         ? "保存に失敗しました（画面内表示のみ）"
                         : "未ログインのため画面内表示のみ"}
                   </span>
                 </div>
-                <div className="timetableResultsScroller">
-                  {result?.timetableHistories?.map((history) => {
-                    const module =
-                      timetableModuleOrder.find((item) =>
-                        history.courses.some((course) => course.modules.includes(item))
-                      ) ?? "springA";
-                    return (
-                      <TimetableHistoryCard
-                        history={history}
-                        moduleKey={module}
-                        onOpen={() => openTimetable(history)}
-                        key={history.id}
-                      />
-                    );
-                  })}
-                </div>
+                <TimetableHistoryCarousel
+                  histories={result?.timetableHistories ?? []}
+                  moduleForHistory={(history) =>
+                    timetableModuleOrder.find((item) =>
+                      history.courses.some((course) => course.modules.includes(item))
+                    ) ?? "springA"
+                  }
+                  onOpen={openTimetable}
+                  label="卒業要件チェックの時間割"
+                />
               </section>
             )}
 

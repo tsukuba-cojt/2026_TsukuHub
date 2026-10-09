@@ -4,6 +4,8 @@ import {
   emptyApplicationForm,
   facultyChoices,
   graduationYearFromGrade,
+  normalizeHttpUrl,
+  textValue,
   validateApplicationForm,
 } from "./applicationFormState";
 
@@ -49,27 +51,51 @@ describe("facultyChoices", () => {
   });
 });
 
-describe("validateApplicationForm", () => {
-  const filled = {
+describe("応募フォームの入力確認", () => {
+  const validForm = {
     ...emptyApplicationForm,
-    applicant_name: "山田太郎",
-    email: "s1234567@u.tsukuba.ac.jp",
-    faculty: "情報科学類",
-    graduation_year: "2028",
+    applicant_name: "筑波 花子",
+    email: "student@example.com",
     phone: "090-1234-5678",
-    motivation: "この求人に興味があります。",
+    faculty: "情報学群",
+    graduation_year: "2028",
+    motivation: "授業で学んだことを実践したいです。",
+    skills: "授業でWebアプリを制作しました。",
   };
 
-  it("allows empty skills, portfolio, and notes", () => {
-    expect(validateApplicationForm(filled)).toBe("");
+  it("任意項目が空でも確認画面へ進める", () => {
+    expect(validateApplicationForm(validForm)).toBe("");
   });
 
-  it("still requires motivation", () => {
-    expect(validateApplicationForm({ ...filled, motivation: "" })).toBe("必須項目を入力してください。");
+  it("前後の空白を除去したメールアドレスを受け付ける", () => {
+    expect(validateApplicationForm({ ...validForm, email: " student@example.com ", portfolio_url: " " })).toBe("");
   });
 
-  it("requires a valid phone number", () => {
-    expect(validateApplicationForm({ ...filled, phone: "" })).toBe("必須項目を入力してください。");
-    expect(validateApplicationForm({ ...filled, phone: "123" })).toBe("電話番号の形式を確認してください。");
+  it.each(["applicant_name", "email", "faculty", "motivation"] as const)("必須項目 %s が空白のみなら進めない", (key) => {
+    expect(validateApplicationForm({ ...validForm, [key]: "  " })).toBe("必須項目を入力してください。");
+  });
+
+  it.each(["2025", "2101", "2028.5", "NaN", "Infinity"])("不正な卒業予定年 %s を送信させない", (graduation_year) => {
+    expect(validateApplicationForm({ ...validForm, graduation_year })).toContain("卒業予定年");
+  });
+
+  it("プロフィールの数値の卒業予定年をフォームに反映できる", () => {
+    expect(textValue(2028)).toBe("2028");
+    expect(textValue(null)).toBe("");
+    expect(textValue(Number.NaN)).toBe("");
+  });
+
+  it("電話番号の形式を確認する", () => {
+    expect(validateApplicationForm({ ...validForm, phone: "123" })).toContain("電話番号");
+  });
+
+  it("HTTP以外のポートフォリオURLを拒否する", () => {
+    expect(validateApplicationForm({ ...validForm, portfolio_url: "javascript:alert(1)" })).toContain("URL");
+    expect(normalizeHttpUrl(" https://example.com/work ")).toBe("https://example.com/work");
+  });
+
+  it("文字数の上限を確認する", () => {
+    expect(validateApplicationForm({ ...validForm, motivation: "あ".repeat(2000) })).toBe("");
+    expect(validateApplicationForm({ ...validForm, motivation: "あ".repeat(2001) })).toContain("文字数");
   });
 });

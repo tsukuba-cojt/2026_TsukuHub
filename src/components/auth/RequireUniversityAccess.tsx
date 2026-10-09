@@ -10,6 +10,7 @@ export default function RequireUniversityAccess() {
   const { university, loading: universityLoading, path } = useUniversity();
   const location = useLocation();
   const navigate = useNavigate();
+  const returnTo = `${location.pathname}${location.search}${location.hash}`;
 
   if (authLoading || universityLoading) {
     return <main className="careerState"><p>利用権限を確認しています...</p></main>;
@@ -17,7 +18,7 @@ export default function RequireUniversityAccess() {
   if (!university) return <Navigate to="/404" replace />;
   if (university.status === "suspended") return <Navigate to={path()} replace />;
   if (!user) {
-    return <Navigate to={path("/login")} replace state={{ from: location.pathname }} />;
+    return <Navigate to={path("/login")} replace state={{ from: returnTo }} />;
   }
 
   const profileCanAccess = canAccessUniversitySite({
@@ -30,7 +31,7 @@ export default function RequireUniversityAccess() {
   const loginAgain = async () => {
     await supabase.auth.signOut();
     clearActiveUniversitySlug();
-    navigate(path("/login"), { replace: true, state: { from: location.pathname } });
+    navigate(path("/login"), { replace: true, state: { from: returnTo } });
   };
 
   return (

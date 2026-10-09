@@ -12,6 +12,7 @@ import { useUniversity } from "../university/universityContextValue";
 type InternshipDetailContentProps = {
   internship: Internship;
   closed: boolean;
+  applied?: boolean;
   onApply: () => void;
 };
 
@@ -62,6 +63,7 @@ export const internshipHeadings = (internship: Internship): ArticleHeading[] => 
 export default function InternshipDetailContent({
   internship,
   closed,
+  applied = false,
   onApply,
 }: InternshipDetailContentProps) {
   const { path } = useUniversity();
@@ -184,7 +186,7 @@ export default function InternshipDetailContent({
         <div className="internPostBlock" id="apply">
           <h2>応募</h2>
           <p>
-            {closed
+            {applied ? "応募を受け付けました。マイページで選考状況を確認できます。" : closed
               ? "この求人の募集は終了しました。ほかの長期インターンもぜひご覧ください。"
               : "内容を確認したら、このページから応募できます。"}
           </p>
@@ -194,7 +196,7 @@ export default function InternshipDetailContent({
             className="careerPrimaryButton"
             onClick={onApply}
           >
-            {closed ? "募集は終了しました" : "この募集に応募する"}
+            {applied ? "応募済み・受付内容を見る" : closed ? "募集は終了しました" : "このインターンに応募する"}
           </button>
         </div>
       </section>
