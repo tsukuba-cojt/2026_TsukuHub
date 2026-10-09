@@ -6,9 +6,10 @@ import { createApplication, getProfileDefaults, hasApplied, sendApplicationNotif
 import ApplicationFormFields from "./ApplicationFormFields";
 import { useUniversity } from "../university/universityContextValue";
 import {
+  defaultsFromAccount,
   emptyApplicationForm,
+  facultyChoices,
   normalizeHttpUrl,
-  textValue,
   validateApplicationForm,
   type ApplicationFormState,
 } from "./applicationFormState";
@@ -37,8 +38,13 @@ function ApplicationFlow({ internshipId, title, companyName, onSuccess }: Props)
   const { user } = useAuth();
   const { university, path } = useUniversity();
   const [form, setForm] = useState(emptyApplicationForm);
+<<<<<<< HEAD
   const [checkState, setCheckState] = useState<"loading" | "ready" | "error">("loading");
   const [attempt, setAttempt] = useState(0);
+=======
+  const [facultyOptions, setFacultyOptions] = useState<{ value: string; label: string }[]>([]);
+  const [checking, setChecking] = useState(Boolean(user));
+>>>>>>> origin/feature/internship-hourly-wage-display
   const [alreadyApplied, setAlreadyApplied] = useState(false);
   const [step, setStep] = useState<"input" | "review" | "complete">("input");
   const [submitting, setSubmitting] = useState(false);
@@ -54,6 +60,7 @@ function ApplicationFlow({ internshipId, title, companyName, onSuccess }: Props)
   const userName = textValue(user?.user_metadata.name);
 
   useEffect(() => {
+<<<<<<< HEAD
     if (!userId) return;
     let active = true;
     void Promise.allSettled([
@@ -88,6 +95,27 @@ function ApplicationFlow({ internshipId, title, companyName, onSuccess }: Props)
     heading.current?.focus({ preventScroll: true });
     heading.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step, checkState, alreadyApplied]);
+=======
+    if (!user) return;
+    let remaining = 2;
+    const done = () => {
+      remaining -= 1;
+      if (remaining === 0) setChecking(false);
+    };
+    void getProfileDefaults(user.id)
+      .then((profile) => {
+        const { category, ...identity } = defaultsFromAccount(profile, user);
+        setForm((current) => ({ ...current, ...identity }));
+        setFacultyOptions(facultyChoices(university?.slug ?? "", category, identity.faculty));
+      })
+      .catch(() => undefined)
+      .finally(done);
+    void hasApplied(internshipId, user.id)
+      .then(setAlreadyApplied)
+      .catch(() => setError("応募状況の確認に失敗しました。時間をおいて再度お試しください。"))
+      .finally(done);
+  }, [internshipId, university?.slug, user]);
+>>>>>>> origin/feature/internship-hourly-wage-display
 
   if (!user) {
     return (
@@ -150,6 +178,7 @@ function ApplicationFlow({ internshipId, title, companyName, onSuccess }: Props)
         university_id: university.id,
         applicant_name: form.applicant_name.trim(),
         email: form.email.trim(),
+        phone: form.phone.trim(),
         faculty: form.faculty.trim(),
         graduation_year: Number(form.graduation_year),
         motivation: form.motivation.trim(),
@@ -191,6 +220,7 @@ function ApplicationFlow({ internshipId, title, companyName, onSuccess }: Props)
   };
 
   return (
+<<<<<<< HEAD
     <div className="careerForm applicationForm">
       <ol className="applicationProgress" aria-label="応募の手順">
         {["入力", "内容確認", "完了"].map((label, index) => (
@@ -238,6 +268,19 @@ function ApplicationFlow({ internshipId, title, companyName, onSuccess }: Props)
             </button>
           </div>
         </form>
+=======
+    <form className="careerForm applicationForm" onSubmit={submit}>
+      <h2>応募フォーム</h2>
+      <p className="formNote">
+        氏名・メール・所属・卒業予定年は登録情報から自動入力しています。電話番号は企業への連絡に使います。
+        <span>*</span> は必須項目です。
+      </p>
+      <ApplicationFormFields form={form} facultyOptions={facultyOptions} onChange={update} />
+      {error && (
+        <p className="formError" role="alert">
+          {error}
+        </p>
+>>>>>>> origin/feature/internship-hourly-wage-display
       )}
     </div>
   );

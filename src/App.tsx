@@ -119,15 +119,8 @@ function App() {
               <Route path="privacy" element={<LegalDocument type="privacy" />} />
             </Route>
 
-            <Route element={<RequireUniversityAccess />}>
-              <Route path="mypage" element={<Navigate to=".." replace />} />
-              <Route path="mypage/applications" element={<MyApplications />} />
+            <Route element={<RequireActiveUniversity />}>
               <Route path="career" element={<Career />} />
-
-              <Route element={<FeatureGate feature="news" />}>
-                <Route path="news" element={<NewsList />} />
-                <Route path="topics" element={<TopicList />} />
-              </Route>
               <Route element={<FeatureGate feature="career_articles" />}>
                 <Route path="career/basics" element={<CareerBasics />} />
                 <Route path="career/articles/:id" element={<CareerArticleDetail />} />
@@ -135,6 +128,16 @@ function App() {
               <Route element={<FeatureGate feature="internships" />}>
                 <Route path="career/internships" element={<CareerInternships />} />
                 <Route path="career/internships/:internshipId" element={<CareerInternshipDetail />} />
+              </Route>
+            </Route>
+
+            <Route element={<RequireUniversityAccess />}>
+              <Route path="mypage" element={<Navigate to=".." replace />} />
+              <Route path="mypage/applications" element={<MyApplications />} />
+
+              <Route element={<FeatureGate feature="news" />}>
+                <Route path="news" element={<NewsList />} />
+                <Route path="topics" element={<TopicList />} />
               </Route>
               <Route element={<FeatureGate feature="alumni_stories" />}>
                 <Route path="career/alumni" element={<CareerAlumni />} />
