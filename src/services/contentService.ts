@@ -17,26 +17,37 @@ const announcementColumns = "id, university_id, category, title, content, publis
 const reportColumns = "id, university_id, review_id, course_code, review_snapshot, reporter_id, reason, status, admin_notes, created_at, updated_at";
 
 export async function listPublishedCareerArticles(universityId: string): Promise<CareerArticleRecord[]> {
-  const { data, error } = await supabase.from("career_articles").select(`${articleColumns}, career_article_universities!inner(university_id)`).eq("career_article_universities.university_id", universityId).eq("status", "published").order("published_at", { ascending: false });
+  const { data, error } = await supabase.rpc(
+    "list_published_career_articles_for_university",
+    { target_university_id: universityId },
+  );
   if (error) throw error;
   return (data ?? []) as CareerArticleRecord[];
 }
 
 export async function getPublishedCareerArticle(id: string, universityId: string): Promise<CareerArticleRecord | null> {
-  const { data, error } = await supabase.from("career_articles").select(`${articleColumns}, career_article_universities!inner(university_id)`).eq("career_article_universities.university_id", universityId).eq("id", id).eq("status", "published").maybeSingle();
+  const { data, error } = await supabase.rpc(
+    "get_published_career_article_for_university",
+    { target_id: id, target_university_id: universityId },
+  );
   if (error) throw error;
-  return data as CareerArticleRecord | null;
+  return (data as CareerArticleRecord | null) ?? null;
 }
 
 export async function listAdminCareerArticles(): Promise<CareerArticleRecord[]> {
   const [items, targets] = await Promise.all([
-    supabase.from("career_articles").select(articleColumns).order("created_at", { ascending: false }),
-    supabase.from("career_article_universities").select("career_article_id, university_id"),
+    supabase.rpc("admin_list_career_articles"),
+    supabase.rpc("admin_list_career_article_universities"),
   ]);
   const { data, error } = items;
   if (error) throw error;
   if (targets.error) throw targets.error;
-  return ((data ?? []) as CareerArticleRecord[]).map((item) => ({ ...item, university_ids: (targets.data ?? []).filter((target) => target.career_article_id === item.id).map((target) => target.university_id) }));
+  return ((data ?? []) as CareerArticleRecord[]).map((item) => ({
+    ...item,
+    university_ids: ((targets.data ?? []) as { career_article_id: string; university_id: string }[])
+      .filter((target) => target.career_article_id === item.id)
+      .map((target) => target.university_id),
+  }));
 }
 
 async function setCareerArticleUniversities(id: string, universityIds: string[]) {

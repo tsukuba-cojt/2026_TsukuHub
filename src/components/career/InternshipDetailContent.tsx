@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import type { Internship } from "../../types/career";
 import type { ArticleHeading } from "../../lib/articleMarkdown";
-import { splitSelectionSteps } from "../../lib/internshipDetail";
+import {
+  companyLocation,
+  companyProfileSections,
+  hasCompanyProfile,
+  splitSelectionSteps,
+} from "../../lib/internshipDetail";
 import { useUniversity } from "../university/universityContextValue";
 
 type InternshipDetailContentProps = {
@@ -47,7 +52,7 @@ export const internshipHeadings = (internship: Internship): ArticleHeading[] => 
     { id: "flow", level: 2, text: "選考の流れ" },
     { id: "work", level: 2, text: "仕事内容" },
   ];
-  if (internship.company_description.trim()) {
+  if (hasCompanyProfile(internship)) {
     headings.push({ id: "company", level: 2, text: "企業について" });
   }
   headings.push({ id: "apply", level: 2, text: "応募" });
@@ -62,6 +67,8 @@ export default function InternshipDetailContent({
   const { path } = useUniversity();
   const updated = formatMetaDate(internship.updated_at);
   const steps = splitSelectionSteps(internship.selection_process);
+  const companySections = companyProfileSections(internship);
+  const location = companyLocation(internship);
   const facts: [string, string][] = [
     ["職種", internship.job_category],
     ["勤務地", internship.location],
@@ -70,7 +77,7 @@ export default function InternshipDetailContent({
       `${internship.work_style}${internship.is_remote ? " / リモート可" : ""}`,
     ],
     ["勤務条件", internship.work_conditions],
-    ["給与", internship.compensation],
+    ["時給", internship.compensation],
     ["募集締切", formatDate(internship.deadline)],
   ].filter(([, value]) => Boolean(value.trim())) as [string, string][];
 
@@ -192,13 +199,44 @@ export default function InternshipDetailContent({
         </div>
       </section>
 
-      {internship.company_description.trim() ? (
+      {hasCompanyProfile(internship) ? (
         <section className="internPostCard" id="company">
           <p className="internPostKicker">企業について</p>
-          <div className="internPostBlock">
-            <h2>{internship.company_name}について</h2>
-            <TextBlock text={internship.company_description} />
-          </div>
+          {companySections.map(([label, text]) => (
+            <div className="internPostBlock" key={label}>
+              <h2>{label}</h2>
+              <TextBlock text={text} />
+            </div>
+          ))}
+          {location.address || location.mapUrl || location.embedUrl ? (
+            <div className="internPostBlock">
+              <h2>住所</h2>
+              {location.address ? <p>{location.address}</p> : null}
+              {location.embedUrl ? (
+                <div className="internPostMap">
+                  <iframe
+                    title={location.address ? `${location.address}の地図` : "所在地の地図"}
+                    src={location.embedUrl}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  />
+                </div>
+              ) : null}
+              {location.mapUrl ? (
+                <p>
+                  <a
+                    className="internPostMapLink"
+                    href={location.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google マップで開く
+                  </a>
+                </p>
+              ) : null}
+            </div>
+          ) : null}
         </section>
       ) : null}
     </article>

@@ -73,7 +73,7 @@ export default function InternshipCard({
             <dd>{internship.work_conditions}</dd>
           </div>
           <div>
-            <dt>報酬</dt>
+            <dt>時給</dt>
             <dd>{internship.compensation}</dd>
           </div>
         </dl>

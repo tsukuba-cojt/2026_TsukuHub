@@ -1,15 +1,21 @@
 insert into public.internships (
-  company_name, cover_image_url, title, summary, company_description, job_category, location,
+  company_name, company_logo_url, cover_image_url, title, summary, company_description,
+  company_mission, company_business, company_message_to_students, company_address, company_map_url, job_category, location,
   work_style, is_remote, work_conditions, compensation, description,
   requirements, preferred_skills, acquirable_skills, selection_process,
   tags, deadline, status, is_featured
 ) values
 (
   'ダミー つくばテックラボ',
+  '/data/dummy/dummy-logo-techlab.svg',
   '/data/dummy/dummy-internship-engineer.jpg',
   'ダミー｜研究とプロダクトをつなぐWebエンジニア',
   '学生チームと一緒に、学習支援プロダクトを改善します。',
   '教育領域の課題を技術で解決するサンプル企業です。',
+  '教育領域の課題を技術で解決する',
+  '学習支援プロダクトの企画・開発・改善を行うサンプル企業です。',
+  '研究と開発をつなぎたい学生と、一緒にプロダクトを良くしていきたいです。',
+  '茨城県つくば市天王台1丁目1-1', '',
   'エンジニア', 'つくば市・オンライン', 'ハイブリッド', true, '週2日以上・1日4時間から', '時給1,300円〜',
   'ReactとTypeScriptを使った機能開発、レビュー、ユーザー調査を行います。',
   '基本的なプログラミング経験、チームで学ぶ姿勢', 'React、TypeScript、Gitの経験', 'Web開発、チーム開発、ユーザー理解',
@@ -17,10 +23,15 @@ insert into public.internships (
 ),
 (
   'ダミー 未来営業デザイン',
+  '/data/dummy/dummy-logo-sales.svg',
   '/data/dummy/dummy-internship-sales.jpg',
   'ダミー｜新規事業を支える法人営業インターン',
   '顧客の課題を聞き、提案づくりから商談まで経験します。',
   '地域企業の新規事業を支援するサンプル企業です。',
+  '地域企業の新規事業を支援する',
+  '顧客の課題を聞き、提案づくりから商談まで伴走するサンプル企業です。',
+  '人と話すことが好きで、自分から動ける学生を歓迎します。',
+  '東京都千代田区丸の内1丁目9-2', '',
   '営業・ビジネス', '東京都・オンライン', 'ハイブリッド', true, '週3日以上', '時給1,250円〜＋交通費',
   '顧客リサーチ、提案資料作成、商談同席を担当します。',
   '人と話すことが好きで、主体的に行動できる方', '接客、プレゼンテーション経験', '課題発見、提案、法人営業',
@@ -28,10 +39,15 @@ insert into public.internships (
 ),
 (
   'ダミー ブルームマーケティング',
+  '/data/dummy/dummy-logo-marketing.svg',
   '/data/dummy/dummy-internship-marketing.jpg',
   'ダミー｜データから企画するSNSマーケター',
   '発信結果を分析し、次のコンテンツ企画へつなげます。',
   '若者向けサービスのマーケティングを支援するサンプル企業です。',
+  '若者向けサービスの成長をデータで支える',
+  'SNS運用とコンテンツ企画を支援するサンプル企業です。',
+  '発信を分析して、次の企画まで考えてみたい学生と働きたいです。',
+  '茨城県つくば市研究学園5丁目19', '',
   'マーケティング', 'つくば市', '出社中心', false, '週2日以上', '時給1,200円〜',
   'SNS運用、数値分析、コンテンツ企画を行います。',
   '文章や企画を考えることが好きな方', 'SNS運用、デザインツールの経験', 'マーケティング分析、企画、編集',
@@ -39,15 +55,43 @@ insert into public.internships (
 ),
 (
   'ダミー キャンパスデザイン室',
+  '/data/dummy/dummy-logo-design.svg',
   '/data/dummy/dummy-internship-marketing.jpg',
   'ダミー｜サービスの見た目をつくるUIデザイナー',
   '学生向けサービスの画面設計と改善を担当します。',
   '学びの体験をデザインするサンプル企業です。',
+  '学びの体験をデザインする',
+  '学生向けサービスの画面設計と改善を行うサンプル企業です。',
+  '見た目だけでなく、使いやすさまで考えたい学生を待っています。',
+  '茨城県つくば市吾妻1丁目8-10', '',
   'デザイン', 'つくば市・オンライン', 'ハイブリッド', true, '週2日以上', '時給1,250円〜',
   'ワイヤー作成、UI改善、ユーザーテストの記録を行います。',
   'FigmaやCanvaなど、何らかのデザインツールに触れたことがある方', 'Figma、デザインシステム', 'UI設計、ユーザー調査、チーム共有',
   'ポートフォリオ確認 → 面談', array['ポートフォリオ歓迎','リモート可'], now() + interval '28 days', 'published', false
 )
+on conflict do nothing;
+
+update public.internships
+set company_logo_url = case title
+  when 'ダミー｜研究とプロダクトをつなぐWebエンジニア' then '/data/dummy/dummy-logo-techlab.svg'
+  when 'ダミー｜新規事業を支える法人営業インターン' then '/data/dummy/dummy-logo-sales.svg'
+  when 'ダミー｜データから企画するSNSマーケター' then '/data/dummy/dummy-logo-marketing.svg'
+  when 'ダミー｜サービスの見た目をつくるUIデザイナー' then '/data/dummy/dummy-logo-design.svg'
+  else company_logo_url
+end
+where title like 'ダミー｜%'
+  and coalesce(company_logo_url, '') = '';
+
+insert into public.internship_universities (internship_id, university_id)
+select internships.id, '00000000-0000-4000-8000-000000000001'::uuid
+from public.internships internships
+where internships.title like 'ダミー｜%'
+on conflict do nothing;
+
+insert into public.internship_universities (internship_id, university_id)
+select internships.id, '00000000-0000-4000-8000-000000000002'::uuid
+from public.internships internships
+where internships.title like 'ダミー｜%'
 on conflict do nothing;
 
 insert into public.alumni_stories (
@@ -117,6 +161,16 @@ insert into public.internship_universities (internship_id, university_id)
 select internships.id, '00000000-0000-4000-8000-000000000002'::uuid
 from public.internships
 where internships.title like 'ダミー｜%'
+on conflict do nothing;
+
+insert into public.career_article_universities (career_article_id, university_id)
+select articles.id, '00000000-0000-4000-8000-000000000001'::uuid
+from public.career_articles articles
+on conflict do nothing;
+
+insert into public.career_article_universities (career_article_id, university_id)
+select articles.id, '00000000-0000-4000-8000-000000000002'::uuid
+from public.career_articles articles
 on conflict do nothing;
 
 insert into public.alumni_stories (
