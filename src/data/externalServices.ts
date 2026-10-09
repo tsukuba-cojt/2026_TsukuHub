@@ -34,23 +34,23 @@ export const externalServices: ExternalService[] = [
 
 export const osakaExternalServices: ExternalService[] = [
   {
-    name: "ダミー｜CLE",
-    description: "履修登録や成績確認など、学生生活の基本手続きへ。",
-    href: "https://example.com/dummy/osaka-cle",
+    name: "KOAN",
+    description: "履修登録や成績確認など、学務情報システムへの入口。",
+    href: "https://koan.osaka-u.ac.jp/",
     icon: BookOpenCheck,
     colorClass: "isBlue",
   },
   {
-    name: "ダミー｜学務情報",
-    description: "大阪大学の学務関連システムへの入口（サンプル）。",
-    href: "https://example.com/dummy/osaka-academic",
+    name: "マイハンダイ",
+    description: "大阪大学ポータルから各種システムへアクセス。",
+    href: "https://www.osaka-u.ac.jp/ja/campus/myhandai",
     icon: KeyRound,
     colorClass: "isPurple",
   },
   {
-    name: "ダミー｜図書館",
-    description: "附属図書館の蔵書検索や学修支援情報へ。",
-    href: "https://example.com/dummy/osaka-library",
+    name: "CELAS",
+    description: "全学共通教育科目の履修案内・卒業要件情報へ。",
+    href: "https://www.celas.osaka-u.ac.jp/",
     icon: LibraryBig,
     colorClass: "isGreen",
   },

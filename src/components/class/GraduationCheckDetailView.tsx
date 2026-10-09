@@ -9,7 +9,8 @@ import {
   levelClass,
   levelFromPercent,
 } from "./graduationProgressLevel";
-import { collectCategoryCourses } from "../../features/graduationCheck";
+import { getGraduationCheckProvider } from "../../features/graduationCheck/provider";
+import { useUniversity } from "../university/universityContextValue";
 import type {
   CategoryKey,
   Course,
@@ -33,25 +34,35 @@ const gradeClass: Record<Grade, string> = {
   履修中: "isNeutral",
 };
 
+// 大阪は KOAN CSV に科目番号が無いため catalogCourseNumber をリンクキーに使う。
+function courseLinkCode(course: Course, universitySlug?: string): string {
+  if (course.catalogCourseNumber) return course.catalogCourseNumber;
+  return universitySlug === "osaka" ? "" : course.id;
+}
+
 // 科目テーブルの1行。
 // 科目番号が無い科目（成績CSVに載っていない等）は講義を特定できないため、
 // 講義詳細・口コミ投稿への導線を非活性にする。
 // 遷移は直接行わず、親へ依頼して確認ダイアログを挟む（判定結果が失われるため）。
 function CourseRow({
   course,
+  linkCode,
   isReviewed,
   onRequestLeave,
 }: {
   course: Course;
+  linkCode: string;
   /** ログイン中ユーザーが口コミ投稿済みか */
   isReviewed: boolean;
   onRequestLeave: (path: string) => void;
 }) {
-  const hasCourseCode = course.id !== "";
+  const hasCourseCode = linkCode !== "";
+  const disabledReason =
+    "授業カタログに未登録のため、講義詳細へリンクできません";
 
   return (
     <tr className="gradDetailRow">
-      <td className="gradDetailCode">{course.id}</td>
+      <td className="gradDetailCode">{linkCode || "—"}</td>
       <td className="gradDetailName">{course.name}</td>
       <td className="gradDetailUnit gradResultNumFont">
         {course.unit.toFixed(1)}
@@ -64,8 +75,9 @@ function CourseRow({
           type="button"
           className="gradDetailIconBtn"
           disabled={!hasCourseCode}
+          title={hasCourseCode ? undefined : disabledReason}
           aria-label={`${course.name}の講義詳細を見る`}
-          onClick={() => onRequestLeave(`/class/${course.id}`)}
+          onClick={() => onRequestLeave(`/class/${encodeURIComponent(linkCode)}`)}
         >
           <ArrowUpRight aria-hidden="true" />
         </button>
@@ -86,8 +98,11 @@ function CourseRow({
             type="button"
             className="gradDetailIconBtn"
             disabled={!hasCourseCode}
+            title={hasCourseCode ? undefined : disabledReason}
             aria-label={`${course.name}の口コミを投稿する`}
-            onClick={() => onRequestLeave(`/class/${course.id}/review`)}
+            onClick={() =>
+            onRequestLeave(`/class/${encodeURIComponent(linkCode)}/review`)
+          }
           >
             <SquarePen aria-hidden="true" />
           </button>
@@ -108,9 +123,11 @@ type Props = {
 // 全区分を縦に並べ、区分ごとに計上された科目の一覧を出す。
 function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
   const navigate = useNavigate();
+  const { university } = useUniversity();
+  const provider = getGraduationCheckProvider(university?.slug);
   const categoryCourses = useMemo(
-    () => collectCategoryCourses(report),
-    [report]
+    () => provider.collectCategoryCourses(report),
+    [provider, report]
   );
   const sectionRefs = useRef<Partial<Record<CategoryKey, HTMLElement | null>>>(
     {}
@@ -209,16 +226,23 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
                     </tr>
                   ) : (
                     // 再履修などで同じ科目が複数行になるため index も key に含める
-                    courses.map((course, index) => (
-                      <CourseRow
-                        course={course}
-                        isReviewed={
-                          course.id !== "" && reviewedCodes.has(course.id)
-                        }
-                        onRequestLeave={setPendingPath}
-                        key={`${course.id}-${course.name}-${index}`}
-                      />
-                    ))
+                    courses.map((course, index) => {
+                      const linkCode = courseLinkCode(
+                        course,
+                        university?.slug
+                      );
+                      return (
+                        <CourseRow
+                          course={course}
+                          linkCode={linkCode}
+                          isReviewed={
+                            linkCode !== "" && reviewedCodes.has(linkCode)
+                          }
+                          onRequestLeave={setPendingPath}
+                          key={`${linkCode || course.id}-${course.name}-${index}`}
+                        />
+                      );
+                    })
                   )}
                 </tbody>
               </table>

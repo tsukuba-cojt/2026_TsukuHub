@@ -24,11 +24,9 @@ import type {
   TimetableHistory,
   TimetableModuleKey,
 } from "../types/timetable";
-import {
-  timetableModuleLabels,
-  timetableModuleOrder,
-} from "../types/timetable";
 import { timetableFilterOptions } from "../features/timetable/filterOptions";
+import { getGraduationCheckProvider } from "../features/graduationCheck/provider";
+import { getTermUi } from "../features/timetable/termUi";
 import "../styles/class/Timetable.css";
 import { useUniversity } from "../components/university/universityContextValue";
 
@@ -41,13 +39,14 @@ const initialFilters: TimetableFilters = {
 
 const firstVisibleModule = (
   history: TimetableHistory,
-  selected: TimetableFilters["module"]
+  selected: TimetableFilters["module"],
+  order: TimetableModuleKey[]
 ): TimetableModuleKey => {
   if (selected !== "all") return selected;
   return (
-    timetableModuleOrder.find((module) =>
+    order.find((module) =>
       history.courses.some((course) => course.modules.includes(module))
-    ) ?? "springA"
+    ) ?? order[0] ?? "springA"
   );
 };
 
@@ -114,13 +113,26 @@ function TimetableEmptyState({ onRelax }: { onRelax: () => void }) {
 
 function Timetable() {
   const { university, path } = useUniversity();
+  const termUi = getTermUi(university?.slug);
+  const provider = useMemo(
+    () => getGraduationCheckProvider(university?.slug),
+    [university?.slug]
+  );
+  const departmentLabel = provider.departmentSelectLabel;
   const [histories, setHistories] = useState<TimetableHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState<TimetableFilters>(initialFilters);
   const [selected, setSelected] = useState<TimetableHistory | null>(null);
-  const [activeModule, setActiveModule] = useState<TimetableModuleKey>("springA");
+  const [activeModule, setActiveModule] = useState<TimetableModuleKey>(
+    termUi.defaultTimetableModule
+  );
 
+  useEffect(() => {
+    setActiveModule(termUi.defaultTimetableModule);
+    setFilters(initialFilters);
+    setSelected(null);
+  }, [termUi.defaultTimetableModule, university?.slug]);
   useEffect(() => {
     let cancelled = false;
     if (!university) return;
@@ -153,6 +165,7 @@ function Timetable() {
   const options = useMemo(
     () =>
       timetableFilterOptions({
+        universitySlug: university?.slug,
         department: filters.department,
         extraDepartments: histories.map((history) => history.department),
         extraYears: histories.map((history) => history.studentYearLabel),
@@ -160,7 +173,7 @@ function Timetable() {
           .filter((history) => !filters.department || history.department === filters.department)
           .map((history) => history.major),
       }),
-    [filters.department, histories]
+    [filters.department, histories, university?.slug]
   );
 
   const updateFilters = (next: Partial<TimetableFilters>) => {
@@ -173,7 +186,11 @@ function Timetable() {
   };
 
   const openHistory = (history: TimetableHistory) => {
-    const moduleKey = firstVisibleModule(history, filters.module);
+    const moduleKey = firstVisibleModule(
+      history,
+      filters.module,
+      termUi.timetableOrder
+    );
     setSelected(history);
     setActiveModule(moduleKey);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -209,7 +226,7 @@ function Timetable() {
             <div className="timetableFilterGrid">
               <TimetableSelect
                 id="timetable-department"
-                label="学類を選択"
+                label={`${departmentLabel}を選択`}
                 required
                 value={filters.department}
                 onChange={(value) =>
@@ -237,16 +254,16 @@ function Timetable() {
               </TimetableSelect>
               <TimetableSelect
                 id="timetable-module"
-                label="モジュールを選択"
+                label={`${termUi.classModuleFieldLabel}を選択`}
                 value={filters.module}
                 onChange={(value) =>
                   updateFilters({ module: value as TimetableFilters["module"] })
                 }
               >
                 <option value="all">-- 選択する --</option>
-                {timetableModuleOrder.map((module) => (
+                {termUi.timetableOrder.map((module) => (
                   <option value={module} key={module}>
-                    {timetableModuleLabels[module]}
+                    {termUi.timetableLabels[module]}
                   </option>
                 ))}
               </TimetableSelect>
@@ -281,7 +298,11 @@ function Timetable() {
             ) : (
               <div className="timetableResultsScroller">
                 {filtered.map((history) => {
-                  const moduleKey = firstVisibleModule(history, filters.module);
+                  const moduleKey = firstVisibleModule(
+                    history,
+                    filters.module,
+                    termUi.timetableOrder
+                  );
                   return (
                     <TimetableHistoryCard
                       history={history}
@@ -313,7 +334,7 @@ function Timetable() {
               </div>
             </div>
             <div className="timetableModuleTabs" role="tablist">
-              {timetableModuleOrder.map((module) => (
+              {termUi.timetableOrder.map((module) => (
                 <button
                   type="button"
                   role="tab"
@@ -322,7 +343,7 @@ function Timetable() {
                   onClick={() => setActiveModule(module)}
                   key={module}
                 >
-                  {timetableModuleLabels[module]}
+                  {termUi.timetableLabels[module]}
                 </button>
               ))}
             </div>

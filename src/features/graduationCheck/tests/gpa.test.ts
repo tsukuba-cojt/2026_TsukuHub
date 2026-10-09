@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { calcARatePercent, calcGpa } from "../gpa";
+import { calcARatePercent, calcGpa } from "../core/gpa";
 import { course } from "./helpers";
 
 describe("calcGpa", () => {

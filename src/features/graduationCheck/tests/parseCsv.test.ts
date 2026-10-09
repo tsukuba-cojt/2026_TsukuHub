@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { parseGradesCsv } from "../parseCsv";
+import { parseGradesCsv } from "../tsukuba/parseCsv";
 import { CSV_HEADER, csvRow } from "./helpers";
 
 describe("parseGradesCsv", () => {
