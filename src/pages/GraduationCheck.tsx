@@ -1,14 +1,14 @@
 import { useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import type { DragEvent } from "react";
 import {
   ChevronDown,
   CircleQuestionMark,
-  CloudUpload,
   GraduationCap,
 } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
+import CsvDropzone from "../components/class/CsvDropzone";
+import type { CsvDropzoneHandle } from "../components/class/CsvDropzone";
 import GraduationCheckConsentModal from "../components/class/GraduationCheckConsentModal";
 import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsvGuideModal";
 import { useAuth } from "../components/auth/authContextValue";
@@ -53,7 +53,7 @@ function GraduationCheck() {
   const { university, path } = useUniversity();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const dropzoneRef = useRef<CsvDropzoneHandle>(null);
   const processingRef = useRef(false);
 
   const [departmentKey, setDepartmentKey] = useState("");
@@ -61,7 +61,6 @@ function GraduationCheck() {
   const [admissionYear, setAdmissionYear] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [csvError, setCsvError] = useState<string | null>(null);
-  const [isDragOver, setIsDragOver] = useState(false);
   const [isConsentOpen, setIsConsentOpen] = useState(false);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -125,16 +124,11 @@ function GraduationCheck() {
     );
   };
 
-  const openFilePicker = () => fileInputRef.current?.click();
+  const openFilePicker = () => dropzoneRef.current?.openFilePicker();
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const dropped = e.dataTransfer.files?.[0];
-    if (dropped) {
-      setFile(dropped);
-      setCsvError(null);
-    }
+  const handleFileSelect = (selected: File) => {
+    setFile(selected);
+    setCsvError(null);
   };
 
   // 「チェックを開始する」→ CSVをその場で判定して結果ページへ遷移。
@@ -350,66 +344,11 @@ function GraduationCheck() {
               </h2>
             </div>
 
-            <div
-              className={`gradCheckDropzone${isDragOver ? " isDragOver" : ""}${file ? " hasFile" : ""}`}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setIsDragOver(true);
-              }}
-              onDragLeave={() => setIsDragOver(false)}
-              onDrop={handleDrop}
-            >
-              <CloudUpload className="gradCheckDropzoneIcon" aria-hidden="true" />
-              {file ? (
-                <>
-                  <p className="gradCheckDropzoneTitle">{file.name}</p>
-                  <p className="gradCheckDropzoneSub">
-                    <button
-                      type="button"
-                      className="gradCheckFileLink"
-                      onClick={openFilePicker}
-                    >
-                      別のファイルを選択
-                    </button>
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="gradCheckDropzoneTitle">
-                    CSVファイルをドラッグ&ドロップ
-                  </p>
-                  <p className="gradCheckDropzoneSub">
-                    または{" "}
-                    <button
-                      type="button"
-                      className="gradCheckFileLink"
-                      onClick={openFilePicker}
-                    >
-                      クリックしてファイルを選択
-                    </button>
-                  </p>
-                </>
-              )}
-              <p className="gradCheckDropzoneNote">
-                <span className="gradCheckDropzoneNoteBadge">対応ファイル</span>
-                CSV形式
-              </p>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".csv,text/csv"
-                hidden
-                onChange={(e) => {
-                  const selected = e.target.files?.[0];
-                  if (selected) {
-                    setFile(selected);
-                    setCsvError(null);
-                  }
-                  // 同じファイルを選び直しても onChange が発火するようリセット
-                  e.target.value = "";
-                }}
-              />
-            </div>
+            <CsvDropzone
+              ref={dropzoneRef}
+              file={file}
+              onFileSelect={handleFileSelect}
+            />
 
             {csvError && <p className="gradCheckFieldError">{csvError}</p>}
           </section>

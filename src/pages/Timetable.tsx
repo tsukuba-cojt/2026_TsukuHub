@@ -4,8 +4,8 @@ import {
   CalendarDays,
   ChevronDown,
   ChevronLeft,
-  FileUp,
   Search,
+  Upload,
 } from "lucide-react";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
@@ -198,8 +198,8 @@ function Timetable() {
             </h1>
             <p>みんなの時間割を参考に、あなたの履修計画を立てよう</p>
           </div>
-          <Link to={path("/graduation-checker")} className="timetableShareBtn">
-            <FileUp aria-hidden="true" />
+          <Link to={path("/timetable/share")} className="timetableShareBtn">
+            <Upload aria-hidden="true" />
             自分の時間割を共有する
           </Link>
         </div>
@@ -335,9 +335,9 @@ function Timetable() {
                 <button
                   type="button"
                   className="timetableBaseBtn"
-                  onClick={() => window.alert("すいません、時間割作成機能はまだ準備中です。")}
+                  onClick={() => window.alert("すみません、時間割作成機能はまだ準備中です。")}
                 >
-                  <FileUp aria-hidden="true" />
+                  <Upload aria-hidden="true" />
                   この時間割をベースにする
                 </button>
               </aside>

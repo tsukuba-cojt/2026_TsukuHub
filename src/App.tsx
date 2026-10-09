@@ -4,6 +4,7 @@ import InternalLinkGuard from "./components/utility/InternalLinkGuard";
 import ScrollToTop from "./components/utility/ScrollToTop";
 import { AuthProvider } from "./components/auth/AuthContext";
 import RequireAdmin from "./components/auth/RequireAdmin";
+import RequireAuth from "./components/auth/RequireAuth";
 import RequireUniversityAccess from "./components/auth/RequireUniversityAccess";
 import Confirm from "./components/auth/Confirm";
 import FeatureGate from "./components/university/FeatureGate";
@@ -22,6 +23,7 @@ import ClassReviewForm from "./pages/ClassReviewForm";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
+import TimetableShare from "./pages/TimetableShare";
 import Notfound404 from "./pages/404";
 import Contact from "./pages/Contact";
 import LegalDocument from "./pages/LegalDocument";
@@ -157,6 +159,14 @@ function App() {
               </Route>
               <Route element={<FeatureGate feature="timetable" />}>
                 <Route path="timetable" element={<Timetable />} />
+                <Route
+                  path="timetable/share"
+                  element={
+                    <RequireAuth>
+                      <TimetableShare />
+                    </RequireAuth>
+                  }
+                />
               </Route>
             </Route>
             <Route path="*" element={<Notfound404 />} />
