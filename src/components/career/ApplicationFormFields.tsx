@@ -15,6 +15,7 @@ function IdentityField({
   min,
   max,
   className,
+  autoComplete,
   onChange,
 }: {
   label: string;
@@ -25,17 +26,20 @@ function IdentityField({
   min?: string;
   max?: string;
   className?: string;
+  autoComplete?: string;
   onChange: (key: keyof ApplicationFormState, value: string) => void;
 }) {
   return (
     <label className={className}>
       {label} <span>*</span>
       <input
+        required
         type={type}
         value={value}
         maxLength={maxLength}
         min={min}
         max={max}
+        autoComplete={autoComplete}
         onChange={(event) => onChange(field, event.target.value)}
       />
     </label>
@@ -50,54 +54,12 @@ export default function ApplicationFormFields({
   return (
     <>
       <div className="formGrid">
-<<<<<<< HEAD
-        <label>
-          氏名 <span>*</span>
-          <input
-            required
-            autoComplete="name"
-            value={form.applicant_name}
-            maxLength={100}
-            onChange={(event) => onChange("applicant_name", event.target.value)}
-          />
-        </label>
-        <label>
-          メールアドレス <span>*</span>
-          <input
-            type="email"
-            required
-            autoComplete="email"
-            value={form.email}
-            maxLength={254}
-            onChange={(event) => onChange("email", event.target.value)}
-          />
-        </label>
-        <label>
-          所属学群・学類 <span>*</span>
-          <input
-            required
-            value={form.faculty}
-            maxLength={100}
-            onChange={(event) => onChange("faculty", event.target.value)}
-          />
-        </label>
-        <label>
-          卒業予定年 <span>*</span>
-          <input
-            type="number"
-            required
-            step="1"
-            min="2026"
-            max="2100"
-            value={form.graduation_year}
-            onChange={(event) => onChange("graduation_year", event.target.value)}
-          />
-=======
         <IdentityField
           label="氏名"
           field="applicant_name"
           value={form.applicant_name}
           maxLength={100}
+          autoComplete="name"
           onChange={onChange}
         />
         <IdentityField
@@ -106,12 +68,14 @@ export default function ApplicationFormFields({
           type="email"
           value={form.email}
           maxLength={254}
+          autoComplete="email"
           onChange={onChange}
         />
         <label>
           所属学群・学類 <span>*</span>
           {facultyOptions.length > 0 ? (
             <select
+              required
               value={form.faculty}
               onChange={(event) => onChange("faculty", event.target.value)}
             >
@@ -124,13 +88,13 @@ export default function ApplicationFormFields({
             </select>
           ) : (
             <input
+              required
               type="text"
               value={form.faculty}
               maxLength={100}
               onChange={(event) => onChange("faculty", event.target.value)}
             />
           )}
->>>>>>> origin/feature/internship-hourly-wage-display
         </label>
         <IdentityField
           label="卒業予定年"

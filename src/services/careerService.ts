@@ -9,12 +9,8 @@ import type {
   InternshipStatus,
 } from "../types/career";
 
-<<<<<<< HEAD
-const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
-type InternshipContact = { internship_id: string; company_contact_email: string | null };
-=======
 const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, company_mission, company_business, company_message_to_students, company_address, company_map_url, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
->>>>>>> origin/feature/internship-hourly-wage-display
+type InternshipContact = { internship_id: string; company_contact_email: string | null };
 
 export async function listPublishedInternships(universityId: string): Promise<Internship[]> {
   const { data, error } = await supabase.rpc(
@@ -45,13 +41,8 @@ export async function getInternship(id: string, universityId?: string): Promise<
 }
 
 export async function listAdminInternships(): Promise<Internship[]> {
-<<<<<<< HEAD
   const [itemsResult, targetsResult, contactsResult] = await Promise.all([
-    supabase.from("internships").select(internshipColumns).order("created_at", { ascending: false }),
-=======
-  const [itemsResult, targetsResult] = await Promise.all([
     supabase.rpc("admin_list_internships"),
->>>>>>> origin/feature/internship-hourly-wage-display
     supabase.from("internship_universities").select("internship_id, university_id"),
     supabase.rpc("admin_list_internship_contact_emails"),
   ]);

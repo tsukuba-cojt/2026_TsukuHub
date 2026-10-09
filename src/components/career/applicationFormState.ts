@@ -24,12 +24,6 @@ export const emptyApplicationForm: ApplicationFormState = {
   additional_notes: "",
 };
 
-<<<<<<< HEAD
-export const textValue = (value: unknown) =>
-  typeof value === "string" || (typeof value === "number" && Number.isFinite(value))
-    ? String(value)
-    : "";
-=======
 export const textValue = (value: unknown) => {
   if (typeof value === "string") return value.trim();
   if (typeof value === "number" && Number.isFinite(value)) return String(value);
@@ -101,7 +95,6 @@ export const isValidPhone = (value: string) => {
   if (digits.length < 10 || digits.length > 15) return false;
   return /^[+]?[0-9\s\-()]{10,20}$/.test(trimmed);
 };
->>>>>>> origin/feature/internship-hourly-wage-display
 
 export const normalizeHttpUrl = (value: string) => {
   const trimmed = value.trim();
@@ -128,18 +121,14 @@ export const validateApplicationForm = (form: ApplicationFormState) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
     return "メールアドレスの形式を確認してください。";
   }
-<<<<<<< HEAD
   const graduationYear = Number(form.graduation_year);
   if (!Number.isInteger(graduationYear) || graduationYear < 2026 || graduationYear > 2100) {
     return "卒業予定年は2026〜2100年の整数で入力してください。";
   }
-  if (form.portfolio_url.trim()) {
-=======
   if (!isValidPhone(form.phone)) {
     return "電話番号の形式を確認してください。";
   }
-  if (form.portfolio_url) {
->>>>>>> origin/feature/internship-hourly-wage-display
+  if (form.portfolio_url.trim()) {
     if (!normalizeHttpUrl(form.portfolio_url)) {
       return "ポートフォリオURLの形式を確認してください。";
     }

@@ -17,13 +17,9 @@ import type { University } from "../../types/university";
 import type { InternshipInput, InternshipStatus } from "../../types/career";
 
 const emptyForm: InternshipInput = {
-<<<<<<< HEAD
-  company_name: "", company_contact_email: "", company_logo_url: null, cover_image_url: null, title: "", summary: "", company_description: "",
-=======
-  company_name: "", company_logo_url: null, cover_image_url: null, title: "", summary: "",
+  company_name: "", company_contact_email: "", company_logo_url: null, cover_image_url: null, title: "", summary: "",
   company_description: "", company_mission: "", company_business: "", company_message_to_students: "",
   company_address: "", company_map_url: "",
->>>>>>> origin/feature/internship-hourly-wage-display
   job_category: "エンジニア", location: "", work_style: "ハイブリッド", is_remote: false,
   work_conditions: "", compensation: "", description: "", requirements: "", preferred_skills: "",
   acquirable_skills: "", selection_process: "", tags: [], deadline: "", status: "draft", is_featured: false,
@@ -107,7 +103,6 @@ export default function AdminInternshipForm() {
     setRemoving(kind);
     setError("");
     try {
-      // ローカルのダミーパス（/data/dummy/...）は Storage に無いので URL だけ外す
       if (currentUrl.includes("/company-logos/")) {
         await removeCompanyLogo(currentUrl);
       }
@@ -126,7 +121,6 @@ export default function AdminInternshipForm() {
       form.location, form.work_style, form.work_conditions, form.compensation, form.description,
       form.requirements, form.selection_process, form.deadline];
     if (required.some((value) => !value.trim()) || targetUniversityIds.length === 0) { setError("必須項目と掲載対象大学を入力してください。"); return; }
-<<<<<<< HEAD
     const contactEmail = form.company_contact_email?.trim() ?? "";
     if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
       setError("企業運営管理者のメールアドレスの形式を確認してください。");
@@ -136,10 +130,6 @@ export default function AdminInternshipForm() {
       setError("公開する求人には企業運営管理者のメールアドレスが必要です。");
       return;
     }
-    setSubmitting(true);
-    try {
-      const input = { ...form, company_contact_email: contactEmail || null, deadline: new Date(form.deadline).toISOString(), tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean) };
-=======
     if (form.company_map_url.trim()) {
       try {
         const url = new URL(form.company_map_url.trim());
@@ -153,6 +143,7 @@ export default function AdminInternshipForm() {
     try {
       const input = {
         ...form,
+        company_contact_email: contactEmail || null,
         deadline: new Date(form.deadline).toISOString(),
         tags: parsedTags,
         company_description: [form.company_mission, form.company_business, form.company_message_to_students]
@@ -160,7 +151,6 @@ export default function AdminInternshipForm() {
           .filter(Boolean)
           .join("\n\n"),
       };
->>>>>>> origin/feature/internship-hourly-wage-display
       if (id) await updateInternship(id, input, targetUniversityIds); else await createInternship(input, targetUniversityIds);
       navigate("/admin/internships", { state: { message: id ? "求人を更新しました。" : "求人を登録しました。" } });
     } catch { setError("求人を保存できませんでした。入力内容を確認してください。"); }
@@ -176,11 +166,7 @@ export default function AdminInternshipForm() {
           <label>企業名 <span>*</span><input value={form.company_name} maxLength={120} onChange={(event) => update("company_name", event.target.value)} /></label>
           <label>職種 <span>*</span><select value={form.job_category} onChange={(event) => update("job_category", event.target.value)}><option>エンジニア</option><option>営業・ビジネス</option><option>マーケティング</option><option>企画</option><option>デザイン</option></select></label>
         </div>
-<<<<<<< HEAD
         <label>企業運営管理者のメールアドレス {form.status === "published" && <span>*</span>}<input type="email" required={form.status === "published"} autoComplete="email" value={form.company_contact_email ?? ""} maxLength={254} placeholder="担当者@example.co.jp" onChange={(event) => update("company_contact_email", event.target.value)} /><small>応募が完了すると、応募フォームと学生プロフィールの内容をこのアドレスへ通知します。</small></label>
-        <label>企業ロゴ<input type="file" accept="image/*" disabled={uploading || removingLogo} onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file); }} /></label>
-        {form.company_logo_url && <div className="logoPreview"><img src={form.company_logo_url} alt="アップロード済み企業ロゴ" /><button type="button" disabled={removingLogo} onClick={() => void removeLogo()}>{removingLogo ? "削除中..." : "削除"}</button></div>}
-=======
         <div className="adminImageFields">
           <div className="adminImageField">
             <label>
@@ -233,7 +219,6 @@ export default function AdminInternshipForm() {
             {uploading === "cover" ? <p className="adminImageStatus">カバー画像をアップロードしています...</p> : null}
           </div>
         </div>
->>>>>>> origin/feature/internship-hourly-wage-display
         <label>求人タイトル <span>*</span><input value={form.title} maxLength={160} onChange={(event) => update("title", event.target.value)} /></label>
         <label>一言説明 <span>*</span><textarea rows={3} value={form.summary} maxLength={300} onChange={(event) => update("summary", event.target.value)} /></label>
         <label>ミッション <span>*</span><textarea rows={3} value={form.company_mission} maxLength={1000} onChange={(event) => update("company_mission", event.target.value)} /></label>
