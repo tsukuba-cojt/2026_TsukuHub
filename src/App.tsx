@@ -20,6 +20,7 @@ import ClassGuideList from "./pages/ClassGuideList";
 import ClassGuideDetail from "./pages/ClassGuideDetail";
 import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
+import Circle from "./pages/Circle";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
@@ -125,6 +126,7 @@ function App() {
               <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
+              <Route path="circles/search" element={<Circle />} />
 
               <Route element={<FeatureGate feature="news" />}>
                 <Route path="news" element={<NewsList />} />

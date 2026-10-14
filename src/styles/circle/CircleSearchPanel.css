@@ -1,0 +1,168 @@
+.classSearchPanel.circleSearchPanel {
+  min-height: 0;
+  padding: 34px 0 0;
+  overflow: hidden;
+}
+
+.circleSearchPanel .classSearchHeading {
+  padding: 0 38px;
+}
+
+.circleSearchHeadingIcon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  fill: var(--color-primary);
+}
+
+.circleSearchForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px 48px;
+  padding: 0 38px 28px;
+}
+
+.circleFieldText {
+  width: 250px;
+}
+
+.circleFieldText .classInputShell svg {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.circleSelect {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  width: 136px;
+  height: 38px;
+  padding: 0 28px 0 8px;
+  border: 1px solid #dce5f4;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 14px rgba(8, 28, 66, 0.08);
+  color: var(--color-text-primary);
+}
+
+.circleSelect span {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.circleSelect select {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.circleSelect svg {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  color: #878787;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.circleClearButton {
+  align-self: flex-end;
+  margin-bottom: 4px;
+}
+
+.circleTagBar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 38px;
+  background: #eef5fe;
+}
+
+.circleTagBarLabel {
+  flex-shrink: 0;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.circleTagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.circleTagChip {
+  height: 30px;
+  padding: 0 16px;
+  border: 1px solid #c9d2df;
+  border-radius: 999px;
+  background: #fff;
+  color: #4a5568;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.circleTagClear {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-primary);
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.circleTagClear svg {
+  width: 12px;
+  height: 12px;
+}
+
+@media (max-width: 760px) {
+  .classSearchPanel.circleSearchPanel {
+    padding: 24px 0 0;
+  }
+
+  .circleSearchPanel .classSearchHeading,
+  .circleSearchForm {
+    padding-inline: 18px;
+  }
+
+  .circleSearchForm {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .circleFieldText,
+  .circleSelect,
+  .circleClearButton {
+    width: 100%;
+  }
+
+  .circleTagBar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 18px;
+  }
+}
