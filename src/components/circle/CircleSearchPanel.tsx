@@ -1,15 +1,27 @@
-import { ChevronDown, Search, SlidersHorizontal, Users, X } from "lucide-react";
-import { circleCategories, circleTags } from "./mockCircles";
+import { useState } from "react";
+import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
+import { circleCategories, circleTags, type CircleTag } from "./mockCircles";
+import peopleIcon from "../../assets/home/CategoryCard/People.svg";
 import "../../styles/class/ClassSearchPanel.css";
 import "../../styles/circle/CircleSearchPanel.css";
 
 const FREQUENCY_OPTIONS = ["週1回", "週2〜3回", "週4回以上", "不定期"];
 
 function CircleSearchPanel() {
+  const [selectedTags, setSelectedTags] = useState<CircleTag[]>([]);
+
+  const toggleTag = (tag: CircleTag) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag)
+        ? prev.filter((t) => t !== tag)
+        : circleTags.filter((t) => prev.includes(t) || t === tag)
+    );
+  };
+
   return (
     <section className="classSearchPanel circleSearchPanel">
       <div className="classSearchHeading">
-        <Users className="circleSearchHeadingIcon" aria-hidden="true" />
+        <img src={peopleIcon} alt="" className="classSearchHeadingIcon" />
         <div>
           <h1>サークル検索</h1>
           <p>キーワード・条件から興味のあるサークルを検索</p>
@@ -60,13 +72,28 @@ function CircleSearchPanel() {
       <div className="circleTagBar">
         <span className="circleTagBarLabel">おすすめのタグ</span>
         <div className="circleTagList">
-          {circleTags.map((tag) => (
-            <button type="button" className="circleTagChip" key={tag}>
-              {tag}
-            </button>
-          ))}
+          {circleTags.map((tag) => {
+            const selected = selectedTags.includes(tag);
+            return (
+              <button
+                type="button"
+                className={`circleTagChip${selected ? " isSelected" : ""}`}
+                key={tag}
+                aria-pressed={selected}
+                onClick={() => toggleTag(tag)}
+              >
+                {tag}
+                {selected && <X aria-hidden="true" />}
+              </button>
+            );
+          })}
         </div>
-        <button type="button" className="circleTagClear">
+        <button
+          type="button"
+          className="circleTagClear"
+          disabled={selectedTags.length === 0}
+          onClick={() => setSelectedTags([])}
+        >
           タグをクリア
           <X aria-hidden="true" />
         </button>

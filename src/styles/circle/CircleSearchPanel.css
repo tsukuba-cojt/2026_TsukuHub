@@ -8,12 +8,12 @@
   padding: 0 38px;
 }
 
-.circleSearchHeadingIcon {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  color: var(--color-primary);
-  fill: var(--color-primary);
+.circleSearchPanel .classSearchHeading h1 {
+  width: fit-content;
+  background: var(--color-category-club);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .circleSearchForm {
@@ -107,6 +107,9 @@
 }
 
 .circleTagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   height: 30px;
   padding: 0 16px;
   border: 1px solid #c9d2df;
@@ -116,6 +119,22 @@
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.circleTagChip:hover {
+  border-color: var(--color-primary);
+}
+
+.circleTagChip.isSelected {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.circleTagChip svg {
+  width: 12px;
+  height: 12px;
 }
 
 .circleTagClear {
@@ -131,6 +150,11 @@
   font-size: 10px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.circleTagClear:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .circleTagClear svg {
