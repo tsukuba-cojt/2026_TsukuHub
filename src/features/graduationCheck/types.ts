@@ -37,6 +37,8 @@ export type Course = {
   grade: Grade;
   /** 開講年度 */
   year: number;
+  /** 同じ開講年度の静的授業カタログで「同一」とされる別科目番号 */
+  equivalentCourseIds?: string[];
 };
 
 /** CSVのパースに失敗した行（UIがエラー表示できる形で返す） */
@@ -205,6 +207,25 @@ export type SelectResult = {
   courses: Course[];
 };
 
+/** 1科目がどの規則に該当し、最終的にどこへ割り当てられたかの監査情報。 */
+export type SelectAllocationCandidate = {
+  /** select 配列内の定義順（0始まり）。競合時は小さい規則が優先される */
+  ruleIndex: number;
+  label: string;
+  group: number;
+  category: Exclude<CategoryKey, "compulsory"> | null;
+};
+
+export type AllocationTrace = {
+  course: Course;
+  assigned:
+    | { kind: "compulsory"; label: string }
+    | ({ kind: "select" } & SelectAllocationCandidate)
+    | { kind: "uncounted" };
+  /** 必修でなければ、消し込み前に該当した選択要件を定義順ですべて保持する */
+  selectCandidates: SelectAllocationCandidate[];
+};
+
 // ── 5区分の集計 ──
 
 /** TsukuHub の要件5区分 */
@@ -252,6 +273,12 @@ export type GraduationCheckReport = {
     /** 対象の入学年度。単年は数値、範囲は "2022~2024" のような文字列 */
     enrollYear: number | string;
   };
+  /** 成績CSVの開講年度を使った年度別静的カタログの検証状況 */
+  catalogVerification: {
+    source: "transcript_academic_year";
+    verifiedAcademicYears: number[];
+    unsupportedAcademicYears: number[];
+  };
   /** 全体サマリー */
   summary: UnitProgress & {
     /** 不足単位数（確定ベース。0で下限） */
@@ -283,5 +310,7 @@ export type GraduationCheckReport = {
     uncountedCourses: Course[];
     /** 5区分に対応しないグループの単位数（集計対象外。グループ表示名→単位数） */
     unmappedGroupUnits: Record<string, number>;
+    /** 誤分類・要件重複を追跡するための、科目ごとの割り当て経路 */
+    allocationTraces: AllocationTrace[];
   };
 };

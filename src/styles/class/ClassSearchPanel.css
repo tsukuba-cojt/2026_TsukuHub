@@ -53,6 +53,7 @@
 .classField.classFieldScheduleDay,
 .classField.classFieldScheduleCombined,
 .classField.classFieldClassType,
+.classField.classFieldYear,
 .classField.classFieldSchedulePeriod{
   grid-column: span 1;
 }

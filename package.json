@@ -10,6 +10,10 @@
     "preview": "npm run build && wrangler dev",
     "test": "vitest run",
     "sync:courses": "node src/script/sync-kdb-json.mjs",
+    "sync:courses:all": "node src/script/sync-kdb-json.mjs --all",
+    "sync:graduation-catalog": "node src/script/build-graduation-catalog-json.mjs",
+    "sync:curriculum-catalog": "node src/script/build-curriculum-catalog-snapshot.mjs",
+    "sync:catalog-assets": "npm run sync:courses:all && npm run sync:graduation-catalog && npm run sync:curriculum-catalog",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {

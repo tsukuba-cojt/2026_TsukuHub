@@ -18,6 +18,13 @@ export const isFailed = (grade: Grade): boolean =>
 export const isPassed = (grade: Grade): boolean =>
   !isFailed(grade) && grade !== "履修中";
 
+/**
+ * 編入学などで個別認定された、科目番号のない単位か。
+ * 必修等の明示的な科目名一致を優先した後、関連科目への推測配分防止に使う。
+ */
+export const isUnnumberedRecognizedCredit = (course: Course): boolean =>
+  course.id.trim() === "" && course.grade.includes("認");
+
 /** 科目番号がプレフィックス群のいずれかで始まるか */
 export const beginWithMatch = (
   code: string,

@@ -34,6 +34,25 @@ describe("parseGradesCsv", () => {
     expect(courses[0]).toMatchObject({ id: "GC51234", name: "データ構造" });
   });
 
+  test("科目番号が空の認定単位も未分類判定用に保持する", () => {
+    const csv = [
+      CSV_HEADER,
+      csvRow("", "編入学時の認定科目", "2.0", "認", "2023"),
+    ].join("\n");
+
+    const { courses, errors } = parseGradesCsv(csv);
+    expect(errors).toHaveLength(0);
+    expect(courses).toEqual([
+      {
+        id: "",
+        name: "編入学時の認定科目",
+        unit: 2,
+        grade: "認",
+        year: 2023,
+      },
+    ]);
+  });
+
   test("不正な行は行番号と理由を返し、正常な行は残す", () => {
     const csv = [
       CSV_HEADER,

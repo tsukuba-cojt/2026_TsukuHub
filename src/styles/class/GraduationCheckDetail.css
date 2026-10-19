@@ -104,6 +104,45 @@
   white-space: nowrap;
 }
 
+.gradDetailUnclassifiedSection {
+  margin-top: 8px;
+}
+
+.gradDetailSectionHeader.isUnclassified {
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  grid-template-areas: "badge name units";
+}
+
+.gradDetailUnclassifiedBadge {
+  grid-area: badge;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #8793a5;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.gradDetailUnclassifiedCount {
+  grid-area: units;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.gradDetailUnclassifiedNote {
+  margin: -4px 8px 12px;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
 /* ── 科目テーブル ─────────────────── */
 .gradDetailTableWrap {
   border: 1px solid #e3eaf5;

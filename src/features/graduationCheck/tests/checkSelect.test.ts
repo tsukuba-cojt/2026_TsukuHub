@@ -91,4 +91,35 @@ describe("checkSelect", () => {
     );
     expect(leftCourses.map((c) => c.id)).toEqual(["ZZ00001"]);
   });
+
+  test("科目番号なしの認定単位は明示的な科目名規則を関連判定より先に評価する", () => {
+    const requirementWithNamedRule: GradRequirement = {
+      ...requirement,
+      courses: {
+        ...requirement.courses,
+        select: [
+          [
+            [],
+            0,
+            2,
+            false,
+            "認定済み専門科目",
+            0,
+            { includeCourseNames: ["認定プログラミング"] },
+          ],
+          requirement.courses.select[2],
+        ],
+      },
+    };
+    const recognizedCredit = course("", "認定プログラミング", 2, "認");
+
+    const { selectResults, leftCourses } = checkSelect(
+      [recognizedCredit],
+      requirementWithNamedRule,
+    );
+
+    expect(selectResults[0].courses).toEqual([recognizedCredit]);
+    expect(selectResults[1].courses).toEqual([]);
+    expect(leftCourses).toEqual([]);
+  });
 });

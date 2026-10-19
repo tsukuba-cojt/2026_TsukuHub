@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useUniversity } from "../components/university/universityContextValue";
 import {
   BookMarked,
@@ -71,6 +71,15 @@ function ClassReviewForm() {
   const { university, path } = useUniversity();
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const requestedAcademicYear = Number(
+    new URLSearchParams(location.search).get("year")
+  );
+  const academicYear = [2023, 2024, 2025, 2026].includes(
+    requestedAcademicYear
+  )
+    ? requestedAcademicYear
+    : undefined;
 
   const [course, setCourse] = useState<CatalogCourse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -100,7 +109,11 @@ function ClassReviewForm() {
       setError(null);
 
       try {
-        const nextCourse = await getCatalogCourse(university.slug, courseCode);
+        const nextCourse = await getCatalogCourse(
+          university.slug,
+          courseCode,
+          academicYear
+        );
         setCourse(nextCourse);
       } catch {
         setError("講義情報の取得に失敗しました。");
@@ -110,7 +123,7 @@ function ClassReviewForm() {
     };
 
     void fetchCourse();
-  }, [courseCode, university]);
+  }, [academicYear, courseCode, university]);
 
   const commentTooLong = comment.length > COMMENT_MAX;
 
@@ -147,7 +160,7 @@ function ClassReviewForm() {
         courseCode: courseCode ?? "",
         ...currentValues(),
       }, university?.id ?? "");
-      navigate(path(`/class/${courseCode}`), {
+      navigate(path(`/class/${courseCode}${location.search}`), {
         state: { toast: "口コミの投稿に成功しました！" },
       });
     } catch {

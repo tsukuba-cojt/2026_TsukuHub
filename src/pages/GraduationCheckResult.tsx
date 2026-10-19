@@ -20,12 +20,14 @@ import {
   TimetableLegend,
 } from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
+import UnclassifiedCourseFeedback from "../components/class/UnclassifiedCourseFeedback";
 import {
   formatPercent,
   levelClass,
   levelFromPercent,
 } from "../components/class/graduationProgressLevel";
 import {
+  classifyUncountedCourse,
   listDepartmentAdmissionYears,
   supportedDepartments,
 } from "../features/graduationCheck";
@@ -189,6 +191,9 @@ function GraduationCheckResult() {
   const [result] = useState<GraduationCheckResultState>(
     () => location.state as GraduationCheckResultState
   );
+  const [report, setReport] = useState<GraduationCheckReport | null>(
+    () => result?.report ?? null,
+  );
   // 詳細画面は同一ページ内のビュー切替にする。
   // 別ルートへ遷移すると、下の useEffect で history state を消しているぶん
   // 判定結果を引き継げず破棄されてしまうため。
@@ -196,9 +201,21 @@ function GraduationCheckResult() {
   const [focusCategory, setFocusCategory] = useState<CategoryKey | null>(null);
   const [selectedTimetable, setSelectedTimetable] = useState<TimetableHistory | null>(null);
   const [activeTimetableModule, setActiveTimetableModule] = useState<TimetableModuleKey>("springA");
-  // CSVに読めない行があった場合の警告（閉じるまで表示し続ける）
-  const [isCsvWarningOpen, setIsCsvWarningOpen] = useState(
-    () => (result?.csvErrors?.length ?? 0) > 0
+  const unsupportedCatalogYears =
+    result?.report.catalogVerification.unsupportedAcademicYears ?? [];
+  const resultWarningMessage = [
+    (result?.csvErrors?.length ?? 0) > 0
+      ? "CSVエラーのため一部不正確な場合があります"
+      : null,
+    unsupportedCatalogYears.length > 0
+      ? `${unsupportedCatalogYears.join("・")}年度の授業カタログが未対応のため、その年度の同一授業情報は未検証です`
+      : null,
+  ]
+    .filter((message): message is string => message !== null)
+    .join("。\n");
+  // CSVまたは授業カタログに警告がある場合は、閉じるまで表示し続ける。
+  const [isResultWarningOpen, setIsResultWarningOpen] = useState(
+    () => resultWarningMessage !== ""
   );
 
   useEffect(() => {
@@ -206,9 +223,6 @@ function GraduationCheckResult() {
       navigate(path("/graduation-checker/result"), { replace: true, state: null });
     }
   }, [location.state, navigate, path]);
-
-  // サマリーカード・要件項目リスト・詳細画面とも同一の判定結果（report）を参照する
-  const report = result?.report ?? null;
 
   const openDetail = (category: CategoryKey) => {
     setFocusCategory(category);
@@ -404,6 +418,21 @@ function GraduationCheckResult() {
               </div>
             </section>
 
+            <UnclassifiedCourseFeedback
+              report={report}
+              onClassify={(uncountedIndex, classification) => {
+                setReport((current) =>
+                  current
+                    ? classifyUncountedCourse(
+                        current,
+                        uncountedIndex,
+                        classification,
+                      )
+                    : current,
+                );
+              }}
+            />
+
             {(result?.timetableHistories?.length ?? 0) > 0 && (
               <section className="gradResultTimetableSection">
                 <div className="gradResultReqHead">
@@ -484,12 +513,12 @@ function GraduationCheckResult() {
         )}
       </main>
       <Footer />
-      {isCsvWarningOpen && (
+      {isResultWarningOpen && (
         <Toast
-          message="CSVエラーのため一部不正確な場合があります"
+          message={resultWarningMessage}
           variant="warning"
           dismissible
-          onClose={() => setIsCsvWarningOpen(false)}
+          onClose={() => setIsResultWarningOpen(false)}
         />
       )}
     </div>

@@ -16,27 +16,9 @@
  * 要件データでも二重計上しない）。
  */
 
-import { courseCodeTypes } from "./data/courseCodeTypes";
 import type { Course, GradRequirement, SelectResult } from "./types";
-import { beginWithMatch } from "./utils";
-
-/** "*タグ" を含むプレフィックス群を { 対象, 除外 } の実プレフィックスへ展開する */
-const expandCodes = (
-  codes: readonly string[]
-): { included: string[]; excepted: string[] } => {
-  const included: string[] = [];
-  const excepted: string[] = [];
-  for (const code of codes) {
-    if (code.startsWith("*")) {
-      const { codes: tagCodes, except } = courseCodeTypes[code.slice(1)];
-      included.push(...tagCodes);
-      excepted.push(...except);
-    } else {
-      included.push(code);
-    }
-  }
-  return { included, excepted };
-};
+import { categoryByGroup } from "./requirementGroups";
+import { matchesSelectAllocationRequirement } from "./selectMatcher";
 
 export type CheckSelectResult = {
   selectResults: SelectResult[];
@@ -50,42 +32,22 @@ export const checkSelect = (
 ): CheckSelectResult => {
   const consumed = new Set<Course>();
   const selectResults: SelectResult[] = [];
+  const categories = categoryByGroup(requirement);
 
-  for (const [
-    codes,
-    minimum,
-    maximum,
-    isExcludeRequirement,
-    message,
-    group,
-    options,
-  ] of requirement.courses.select) {
-    const { included, excepted } = expandCodes(codes);
-
-    const matchesRequirement = (course: Course): boolean => {
-      const matchesPrefix =
-        beginWithMatch(course.id, included) &&
-        !beginWithMatch(course.id, excepted);
-      const matchesName =
-        options?.includeCourseNames?.includes(course.name) ?? false;
-      const isExceptedName =
-        options?.excludeCourseNames?.includes(course.name) ?? false;
-      const isExceptedCode = beginWithMatch(
-        course.id,
-        options?.excludeCodes ?? []
-      );
-      const isExcepted = isExceptedName || isExceptedCode;
-      const matchesConfiguredRule = matchesPrefix || matchesName;
-
-      // 除外要件では「設定したプレフィックス・科目名に該当しない科目」がマッチする。
-      // except と excludeCourseNames は、否定条件では再び対象へ戻す例外として扱う。
-      return isExcludeRequirement
-        ? !matchesConfiguredRule || isExcepted
-        : matchesConfiguredRule && !isExcepted;
-    };
+  for (const rule of requirement.courses.select) {
+    const [
+      codes,
+      minimum,
+      maximum,
+      isExcludeRequirement,
+      message,
+      group,
+    ] = rule;
 
     const matched = courseList.filter(
-      (course) => !consumed.has(course) && matchesRequirement(course)
+      (course) =>
+        !consumed.has(course) &&
+        matchesSelectAllocationRequirement(course, rule, categories.get(group))
     );
     for (const course of matched) consumed.add(course);
 

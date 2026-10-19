@@ -1,10 +1,12 @@
 # TsukuHub database ER diagram
 
-Snapshot of the running local Supabase `public` schema on 2026-08-15.
-The schema contains 18 base tables and 2 read-only views. `auth.users` is shown
+Schema represented by migrations through 2026-10-16.
+The schema contains 19 base tables and 2 read-only views. `auth.users` is shown
 as an external Supabase Auth table. To keep the diagrams readable, only keys
 and important domain columns are included. Course catalog metadata is not a
-database table; it is served from static JSON (`public/data/courses/{slug}.json`).
+database table; it is served from year-specific static JSON
+(`public/data/courses/{slug}-{academicYear}.json`). The current year follows the
+same naming rule and does not use an unversioned alias.
 
 ## University, accounts, and classes
 
@@ -23,6 +25,7 @@ erDiagram
     universities ||--o{ classReviews : receives
     universities ||--o{ reviewReports : scopes
     universities ||--o{ timetableHistories : stores
+    universities ||--o{ courseClassificationResponses : receives
     timetableHistories ||--o{ timetableHistoryCourses : contains
 
     authUsers["auth.users"] {
@@ -110,6 +113,16 @@ erDiagram
         text grade "Nullable"
         int academic_year
         text module_key
+    }
+    courseClassificationResponses["course_classification_responses"] {
+        uuid id PK
+        uuid university_id FK
+        text course_code
+        text course_name
+        text respondent_department
+        text respondent_major "Nullable"
+        text classification
+        timestamptz created_at
     }
 ```
 
@@ -257,7 +270,8 @@ erDiagram
 ## Constraints that are easy to miss
 
 - `class_reviews(course_code, user_id)` is unique. `course_code` is a catalog
-  key from static JSON, not a database foreign key.
+  key from static JSON, not a database foreign key. Reviews are currently shared
+  across academic years for the same course code.
 - `review_reports(review_id, reporter_id)` is unique, but `review_id` is stored
   as text and is not a foreign key to `class_reviews`.
 - `applications(internship_id, user_id)` is unique.

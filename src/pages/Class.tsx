@@ -11,6 +11,7 @@ import type { CatalogCourse } from "../types/courseCatalog";
 import "../styles/class/Class.css";
 
 type FiltersState = {
+  academicYear: number;
   text: string;
   code: string;
   moduleRangeStart: number;
@@ -27,6 +28,7 @@ function Class() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState<FiltersState>({
+    academicYear: 2026,
     text: "",
     code: "",
     moduleRangeStart: 1,
@@ -41,6 +43,7 @@ function Class() {
 
   const toClassCourse = (r: CatalogCourse): ClassCourse => ({
     id: r.course_number,
+    academicYear: r.academic_year ?? filters.academicYear,
     code: r.course_number,
     title: r.course_name,
     teacher: r.instructor || r.method || "",
@@ -57,7 +60,10 @@ function Class() {
       setLoading(true);
       setError(null);
       try {
-        const rows = await listCatalogCourses(university.slug);
+        const rows = await listCatalogCourses(
+          university.slug,
+          filters.academicYear
+        );
         setCourses(rows.map(toClassCourse));
       } catch {
         setError("履修一覧の取得に失敗しました。");
@@ -67,7 +73,7 @@ function Class() {
     };
 
     void fetchCourses();
-  }, [university]);
+  }, [filters.academicYear, university]);
 
   // フィルタを適用した配列をメモ化
   const filteredCourses = useMemo(() => {

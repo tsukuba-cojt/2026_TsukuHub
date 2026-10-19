@@ -27,6 +27,7 @@ function SlidersIcon() {
 }
 
 type Filters = {
+  academicYear: number;
   text: string;
   code: string;
   moduleRangeStart: number;
@@ -58,11 +59,13 @@ const CLASS_TYPE_OPTIONS = [
   { label: "オンデマンド", value: "anytime" },
   { label: "その他", value: "nt" },
 ];
+const ACADEMIC_YEAR_OPTIONS = [2026, 2025, 2024, 2023];
 
 export default function ClassSearchPanel({ filters, onChange }: Props) {
   const handleReset = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     onChange({
+      academicYear: 2026,
       text: "",
       code: "",
       moduleRangeStart: 1,
@@ -85,6 +88,20 @@ export default function ClassSearchPanel({ filters, onChange }: Props) {
       </div>
 
       <form className="classSearchForm" onReset={handleReset}>
+        <label className="classField classFieldYear">
+          <span>開講年度</span>
+          <select
+            value={filters.academicYear}
+            onChange={(e) => onChange({ academicYear: Number(e.target.value) })}
+          >
+            {ACADEMIC_YEAR_OPTIONS.map((year) => (
+              <option key={year} value={year}>
+                {year}年度
+              </option>
+            ))}
+          </select>
+        </label>
+
         <label className="classField classFieldText">
           <span>授業名</span>
           <div className="classInputShell">

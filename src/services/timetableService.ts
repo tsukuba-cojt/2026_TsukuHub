@@ -168,22 +168,33 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
     ...report.details.selectResults.flatMap((item) => item.courses),
     ...report.details.uncountedCourses,
   ];
-  const uniqueCodes = [...new Set(allCourses.map((course) => course.id).filter(Boolean))];
-  const metaByCode = new Map<string, CourseMetaRow>();
-
-  if (uniqueCodes.length > 0) {
-    const catalog = await getCatalogCoursesByCodes(universityId, uniqueCodes);
-    catalog.forEach((row, courseNumber) => {
-      metaByCode.set(courseNumber, row);
-    });
+  const codesByYear = new Map<number, Set<string>>();
+  for (const course of allCourses) {
+    if (!course.id) continue;
+    const codes = codesByYear.get(course.year) ?? new Set<string>();
+    codes.add(course.id);
+    codesByYear.set(course.year, codes);
   }
+  const metaByYearAndCode = new Map<string, CourseMetaRow>();
+  await Promise.all(
+    [...codesByYear.entries()].map(async ([academicYear, codes]) => {
+      const catalog = await getCatalogCoursesByCodes(
+        universityId,
+        [...codes],
+        academicYear
+      );
+      catalog.forEach((row, courseNumber) => {
+        metaByYearAndCode.set(`${academicYear}\0${courseNumber}`, row);
+      });
+    })
+  );
 
   const categoryByCode = categoryFromReport(report);
   const grouped = new Map<number, TimetableCourse[]>();
   for (const course of allCourses) {
     const timetableCourse = toTimetableCourse(
       course,
-      metaByCode.get(course.id),
+      metaByYearAndCode.get(`${course.year}\0${course.id}`),
       categoryByCode.get(course.id) ?? "unknown"
     );
     if (!grouped.has(course.year)) grouped.set(course.year, []);

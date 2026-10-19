@@ -7,8 +7,8 @@
  * ここでは判定・集計は一切行わず、判定済みの科目を並べ替えるだけ。
  */
 
-import { groupLabelToCategory } from "./categoryMapping";
 import { gradRequirementData } from "./data/gradRequirementData";
+import { categoryByGroup } from "./requirementGroups";
 import type { CategoryKey, Course, GraduationCheckReport } from "./types";
 
 /** 区分 → その区分に計上された科目（要件データの定義順） */
@@ -30,15 +30,10 @@ export const collectCategoryCourses = (
   }
 
   // グループ番号 → 区分（5区分に対応しないグループは持たない＝表示対象外）
-  const categoryByGroup = new Map<number, CategoryKey>();
-  const { groups } = gradRequirementData[report.requirement.id].courses;
-  for (const [groupNo, , , label] of groups) {
-    const category = groupLabelToCategory[label];
-    if (category !== undefined) categoryByGroup.set(groupNo, category);
-  }
+  const categories = categoryByGroup(gradRequirementData[report.requirement.id]);
 
   for (const select of report.details.selectResults) {
-    const category = categoryByGroup.get(select.group);
+    const category = categories.get(select.group);
     if (category !== undefined) {
       categoryCourses[category].push(...select.courses);
     }
