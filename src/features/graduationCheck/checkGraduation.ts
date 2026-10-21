@@ -78,6 +78,7 @@ export const checkGraduation = (
     details: {
       compulsoryResults: allocation.compulsoryResults,
       selectResults: allocation.selectResults,
+      requirementItems: progress.requirementItems,
       uncountedCourses: allocation.uncountedCourses,
       unmappedGroupUnits: progress.unmappedGroupUnits,
       allocationTraces: allocation.allocationTraces,

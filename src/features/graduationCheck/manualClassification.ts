@@ -41,6 +41,7 @@ export const classifyUncountedCourse = (
       isCourseGroup: false,
       passed: !isFailed(course.grade),
       courses: [course],
+      isManualClassification: true,
     });
   } else {
     if (!selectedGroup) {
@@ -54,6 +55,7 @@ export const classifyUncountedCourse = (
       message: MANUAL_CLASSIFICATION_LABEL,
       group: selectedGroup.groupNo,
       courses: [course],
+      isManualClassification: true,
     });
   }
 
@@ -81,6 +83,7 @@ export const classifyUncountedCourse = (
       ...report.details,
       compulsoryResults,
       selectResults,
+      requirementItems: progress.requirementItems,
       uncountedCourses: report.details.uncountedCourses.filter(
         (_, index) => index !== uncountedIndex,
       ),

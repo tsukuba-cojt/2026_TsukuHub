@@ -15,6 +15,7 @@ import type {
   Course,
   Grade,
   GraduationCheckReport,
+  RequirementItemProgress,
 } from "../../features/graduationCheck";
 import "../../styles/class/GraduationCheckResult.css";
 import "../../styles/class/GraduationCheckDetail.css";
@@ -145,6 +146,58 @@ function CourseTable({
   );
 }
 
+function RequirementItemBlock({
+  item,
+  reviewedCodes,
+  onRequestLeave,
+}: {
+  item: RequirementItemProgress;
+  reviewedCodes: ReadonlySet<string>;
+  onRequestLeave: (path: string) => void;
+}) {
+  const unitRange =
+    item.minimumUnits === null
+      ? null
+      : item.maximumUnits !== null && item.maximumUnits !== item.minimumUnits
+        ? `${item.minimumUnits}〜${item.maximumUnits}`
+        : String(item.minimumUnits);
+
+  return (
+    <div className="gradDetailRequirementItem">
+      <div className="gradDetailRequirementItemHeader">
+        <span
+          className={`gradDetailRequirementItemBadge ${item.isSatisfied ? "isSatisfied" : "isUnsatisfied"}`}
+          aria-hidden="true"
+        >
+          {item.isSatisfied ? <Check /> : "！"}
+        </span>
+        <h4>{item.label}</h4>
+        <p>
+          {unitRange === null ? (
+            item.isSatisfied ? "充足" : "未充足"
+          ) : (
+            <>
+              <span className="gradResultNumFont">{item.earnedUnits}</span>
+              {` / ${unitRange} 単位`}
+            </>
+          )}
+        </p>
+        {!item.isSatisfied && item.isProspectivelySatisfied && (
+          <span className="gradDetailRequirementProspective">
+            履修中を含めると充足
+          </span>
+        )}
+      </div>
+      <CourseTable
+        courses={item.courses}
+        reviewedCodes={reviewedCodes}
+        onRequestLeave={onRequestLeave}
+        emptyMessage="この個別要件に該当する科目はありません"
+      />
+    </div>
+  );
+}
+
 type Props = {
   report: GraduationCheckReport;
   /** 概要画面で押された区分（この区分が先頭に来るようスクロールする） */
@@ -199,8 +252,20 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
       </div>
 
       {report.categories.map((category) => {
-        const level = levelFromPercent(category.percent);
+        const level = category.isSatisfied
+          ? "ok"
+          : category.percent >= 100
+            ? "warn"
+            : levelFromPercent(category.percent);
         const courses = categoryCourses[category.category];
+        const requirementItems = report.details.requirementItems.filter(
+          (item) => item.category === category.category,
+        );
+        const hasManualClassification = requirementItems.some(
+          (item) =>
+            item.isManualClassification &&
+            (item.earnedUnits > 0 || item.prospectiveUnits > 0),
+        );
         return (
           <section
             className="gradDetailSection"
@@ -226,7 +291,7 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
                 </span>
               </p>
               <div className="gradDetailSectionBarCell">
-                <ProgressBar percent={category.percent} />
+                <ProgressBar percent={category.percent} level={level} />
               </div>
               <p className="gradDetailSectionPct">
                 <span className="gradResultNumFont">
@@ -236,12 +301,32 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
               </p>
             </div>
 
-            <CourseTable
-              courses={courses}
-              reviewedCodes={reviewedCodes}
-              onRequestLeave={setPendingPath}
-              emptyMessage="この区分に計上された科目はありません"
-            />
+            {hasManualClassification && (
+              <p className="gradDetailManualClassificationNote" role="note">
+                この区分には、ご自身で分類した未分類科目の単位が含まれています。
+                卒業要件上この区分への分類が正しいか、履修細則などでご確認ください。
+              </p>
+            )}
+
+            {requirementItems.length === 0 ? (
+              <CourseTable
+                courses={courses}
+                reviewedCodes={reviewedCodes}
+                onRequestLeave={setPendingPath}
+                emptyMessage="この区分に計上された科目はありません"
+              />
+            ) : (
+              <div className="gradDetailRequirementList">
+                {requirementItems.map((item) => (
+                  <RequirementItemBlock
+                    item={item}
+                    reviewedCodes={reviewedCodes}
+                    onRequestLeave={setPendingPath}
+                    key={item.id}
+                  />
+                ))}
+              </div>
+            )}
           </section>
         );
       })}

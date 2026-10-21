@@ -7,7 +7,7 @@ import type {
 
 type Props = {
   report: GraduationCheckReport;
-  onClassify: (uncountedIndex: number, classification: CategoryKey) => void;
+  onClassify: (course: Course, classification: CategoryKey) => void;
 };
 
 function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
@@ -69,7 +69,7 @@ function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
                 className="gradClassificationSaveBtn"
                 disabled={!classification}
                 onClick={() => {
-                  if (classification) onClassify(index, classification);
+                  if (classification) onClassify(course, classification);
                 }}
               >
                 分類

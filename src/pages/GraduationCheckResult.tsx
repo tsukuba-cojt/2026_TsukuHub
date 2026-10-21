@@ -34,6 +34,7 @@ import {
 import type {
   CategoryKey,
   CategoryResult,
+  Course,
   CsvRowError,
   GraduationCheckReport,
 } from "../features/graduationCheck";
@@ -135,7 +136,11 @@ function RequirementRow({
   item: CategoryResult;
   onOpenDetail: (category: CategoryKey) => void;
 }) {
-  const level = levelFromPercent(item.percent);
+  const level = item.isSatisfied
+    ? "ok"
+    : item.percent >= 100
+      ? "warn"
+      : levelFromPercent(item.percent);
   return (
     <li
       className={`gradResultReqRow ${levelClass[level]}`}
@@ -157,7 +162,7 @@ function RequirementRow({
         <span className="gradResultReqUnitsSub">/ {item.requiredUnits} 単位</span>
       </p>
       <div className="gradResultReqBarCell">
-        <ProgressBar percent={item.percent} />
+        <ProgressBar percent={item.percent} level={level} />
       </div>
       <p className="gradResultReqPct">
         <span className="gradResultNumFont">{formatPercent(item.percent)}</span>{" "}
@@ -358,9 +363,24 @@ function GraduationCheckResult() {
               <SummaryCard
                 tone="pink"
                 icon={<TriangleAlert />}
-                label="不足単位"
-                value={String(report.summary.shortageUnits)}
-                valueSub="単位"
+                label={
+                  report.summary.shortageUnits === 0 &&
+                  !report.summary.isSatisfied
+                    ? "未充足の個別要件"
+                    : "不足単位"
+                }
+                value={String(
+                  report.summary.shortageUnits === 0 &&
+                    !report.summary.isSatisfied
+                    ? report.summary.unsatisfiedRequirementCount
+                    : report.summary.shortageUnits,
+                )}
+                valueSub={
+                  report.summary.shortageUnits === 0 &&
+                  !report.summary.isSatisfied
+                    ? "件"
+                    : "単位"
+                }
               />
               <SummaryCard
                 tone="purple"
@@ -420,16 +440,19 @@ function GraduationCheckResult() {
 
             <UnclassifiedCourseFeedback
               report={report}
-              onClassify={(uncountedIndex, classification) => {
-                setReport((current) =>
-                  current
-                    ? classifyUncountedCourse(
+              onClassify={(course: Course, classification) => {
+                setReport((current) => {
+                  if (!current) return current;
+                  const uncountedIndex =
+                    current.details.uncountedCourses.indexOf(course);
+                  return uncountedIndex === -1
+                    ? current
+                    : classifyUncountedCourse(
                         current,
                         uncountedIndex,
                         classification,
-                      )
-                    : current,
-                );
+                      );
+                });
               }}
             />
 

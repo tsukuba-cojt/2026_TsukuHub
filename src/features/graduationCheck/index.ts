@@ -72,6 +72,7 @@ export type {
   Grade,
   ParseCsvResult,
   RequirementId,
+  RequirementItemProgress,
   SelectAllocationCandidate,
   SelectResult,
   UnitProgress,
