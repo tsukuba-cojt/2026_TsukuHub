@@ -19,7 +19,7 @@ import { useUniversity } from "../components/university/universityContextValue";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import RatingStars from "../components/class/RatingStars";
-import { circleCategoryClass, mockCircles } from "../components/circle/mockCircles";
+import { circleCategoryClass, getCircleNotices, getCircleReviews, mockCircles } from "../components/circle/mockCircles";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
 import "../styles/circle/CircleCard.css";
@@ -53,8 +53,10 @@ function CircleDetail() {
   const [membersPrefix, membersCount, membersSuffix] = circle.members.split(/(\d+)/);
   const gradeMembers = detail.gradeMembers.filter((item) => item.count > 0).sort((a, b) => b.grade - a.grade);
   const totalMembers = gradeMembers.reduce((sum, item) => sum + item.count, 0);
-  const reviewCount = detail.reviews.length;
-  const averageRating = reviewCount ? detail.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount : 0;
+  const notices = getCircleNotices(circle);
+  const reviews = getCircleReviews(circle);
+  const reviewCount = reviews.length;
+  const averageRating = reviewCount ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount : 0;
 
   return (
     <div className="classPage">
@@ -129,13 +131,13 @@ function CircleDetail() {
                     <Megaphone aria-hidden="true" />
                     サークルからのお知らせ
                   </h2>
-                  <button type="button" className="circleDetailMore">
-                    もっと見る
+                  <Link to={path(`/circles/${circle.id}/notices`)} className="circleDetailMore">
+                    一覧を見る
                     <ChevronRight aria-hidden="true" />
-                  </button>
+                  </Link>
                 </div>
                 <ul className="circleDetailNotices">
-                  {detail.notices.slice(0, 3).map((notice) => (
+                  {notices.slice(0, 3).map((notice) => (
                     <li key={`${notice.date}-${notice.title}`}>
                       <time className="circleNumber">{notice.date}</time>
                       <div>
@@ -281,7 +283,7 @@ function CircleDetail() {
               </div>
               <div className="circleDetailReviewScroll">
                 <ul className="circleDetailReviewList">
-                  {detail.reviews.map((review) => (
+                  {reviews.slice(0, 10).map((review) => (
                     <li key={`${review.date}-${review.comment}`}>
                       <time className="circleNumber">{review.date}</time>
                       <div className="circleDetailReviewMeta">
@@ -295,10 +297,10 @@ function CircleDetail() {
                   ))}
                 </ul>
               </div>
-              <button type="button" className="circleDetailMore circleDetailReviewMore">
-                もっと見る
+              <Link to={path(`/circles/${circle.id}/reviews`)} className="circleDetailMore circleDetailReviewMore">
+                一覧を見る
                 <ChevronRight aria-hidden="true" />
-              </button>
+              </Link>
             </section>
           </div>
         </div>

@@ -851,3 +851,57 @@ export const mockCircles: Circle[] = [
     },
   },
 ];
+
+// 一覧ページ（お知らせ・口コミ）のページ送り確認用ダミー。詳細ページに載せている分より古い投稿として生成する
+const dummyNoticeTemplates: Omit<CircleNotice, "date">[] = [
+  { title: "定例ミーティングのお知らせ", body: "今月の定例ミーティングを活動場所で行います。今後の活動予定について共有しますので、できるだけ参加してください。" },
+  { title: "活動場所変更のお知らせ", body: "施設点検のため、次回の活動は別の教室で行います。詳細は各種SNSで連絡します。" },
+  { title: "見学会を開催します", body: "サークルに興味のある方向けの見学会を開催します。事前連絡なしでも参加できます。" },
+  { title: "合宿の参加者募集", body: "長期休暇中に合宿を予定しています。参加希望の方は代表まで連絡してください。" },
+  { title: "活動休止期間のお知らせ", body: "試験期間中は活動をお休みします。再開日は改めてお知らせします。" },
+  { title: "他大学との交流会について", body: "近隣大学の同系統サークルとの交流会を予定しています。初めての方も歓迎です。" },
+  { title: "新役員が決まりました", body: "新年度の役員が決まりました。今後ともよろしくお願いします。" },
+  { title: "学園祭の出展について", body: "学園祭での出展内容を決めるミーティングを行います。アイデアを持ち寄ってください。" },
+];
+
+const dummyReviewTemplates: Omit<CircleReview, "date">[] = [
+  { rating: 5, grade: "1年", department: "情報学群", comment: "入学してすぐ参加しましたが、先輩が丁寧に教えてくれるので安心して続けられています。" },
+  { rating: 4, grade: "2年", department: "理工学群", comment: "活動頻度がちょうどよく、授業や課題と両立しやすいです。" },
+  { rating: 3, grade: "3年", department: "社会・国際学群", comment: "雰囲気は良いですが、時期によって参加人数にばらつきがあります。" },
+  { rating: 4, grade: "4年", department: "人間学群", comment: "学年や学類を超えて友人ができました。卒業後も付き合いが続きそうです。" },
+  { rating: 5, grade: "2年", department: "生命環境学群", comment: "イベントが多く、大学生活の思い出がたくさんできました。" },
+  { rating: 2, grade: "3年", department: "人文・文化学群", comment: "連絡がSNS中心なので、こまめに確認しないと予定を見逃しがちです。" },
+  { rating: 4, grade: "1年", department: "芸術専門学群", comment: "初心者でも参加しやすく、見学のときから歓迎してもらえました。" },
+  { rating: 3, grade: "2年", department: "体育専門学群", comment: "活動内容は充実していますが、もう少し練習時間がほしいです。" },
+];
+
+const formatDummyDate = (daysAgo: number) => {
+  // 2025/11/01 を起点に過去へさかのぼる
+  const date = new Date(Date.UTC(2025, 10, 1 - daysAgo));
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  return `${date.getUTCFullYear()}/${month}/${day}`;
+};
+
+const byNewest = <T extends { date: string }>(items: T[]) =>
+  [...items].sort((a, b) => b.date.localeCompare(a.date));
+
+const circleIndex = (circle: Circle) => mockCircles.findIndex((item) => item.id === circle.id);
+
+export const getCircleNotices = (circle: Circle): CircleNotice[] => {
+  const extraCount = [24, 8, 0][circleIndex(circle) % 3];
+  const extras = Array.from({ length: extraCount }, (_, index) => ({
+    ...dummyNoticeTemplates[index % dummyNoticeTemplates.length],
+    date: formatDummyDate(index * 9),
+  }));
+  return byNewest([...circle.detail.notices, ...extras]);
+};
+
+export const getCircleReviews = (circle: Circle): CircleReview[] => {
+  const extraCount = [38, 4][circleIndex(circle) % 2];
+  const extras = Array.from({ length: extraCount }, (_, index) => ({
+    ...dummyReviewTemplates[(index * 3) % dummyReviewTemplates.length],
+    date: formatDummyDate(index * 6),
+  }));
+  return byNewest([...circle.detail.reviews, ...extras]);
+};

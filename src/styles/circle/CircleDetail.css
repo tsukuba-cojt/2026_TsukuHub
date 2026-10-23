@@ -131,7 +131,12 @@
   font-size: 12px;
   font-weight: 700;
   font-family: inherit;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.circleDetailMore:hover {
+  text-decoration: underline;
 }
 
 .circleDetailMore svg {
