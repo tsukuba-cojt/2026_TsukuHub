@@ -1,0 +1,83 @@
+{
+  "selection": {
+    "departmentKey": "mast",
+    "majorKey": "mast",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 13,
+    "csvErrors": [],
+    "requirement": {
+      "id": "mast-22"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 124,
+      "earnedUnits": 18,
+      "prospectiveUnits": 20,
+      "shortageUnits": 106,
+      "prospectiveShortageUnits": 104,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "earnedUnits": 9,
+        "prospectiveUnits": 9,
+        "requiredUnits": 50
+      },
+      "specialized": {
+        "earnedUnits": 2,
+        "prospectiveUnits": 4,
+        "requiredUnits": 20
+      },
+      "specializedFoundation": {
+        "earnedUnits": 2,
+        "prospectiveUnits": 2,
+        "requiredUnits": 32
+      },
+      "common": {
+        "earnedUnits": 1,
+        "prospectiveUnits": 1,
+        "requiredUnits": 1
+      },
+      "related": {
+        "earnedUnits": 4,
+        "prospectiveUnits": 4,
+        "requiredUnits": 6
+      }
+    },
+    "gpa": {
+      "value": 3.3590909090909093,
+      "max": 4.3,
+      "targetUnits": 22,
+      "aRatePercent": 70
+    },
+    "assignments": {
+      "GC00001": "compulsory",
+      "Y1": "compulsory",
+      "Y2": "compulsory",
+      "6100101": "compulsory",
+      "6100202": "compulsory",
+      "6100303": "compulsory",
+      "GC51234": "specialized",
+      "GC59999": "specialized",
+      "GA12345": "specializedFoundation",
+      "1226011": "common",
+      "GB12345": "related",
+      "8001234": "related",
+      "GC00002": "compulsory"
+    },
+    "compulsoryPassed": {
+      "卒業研究A": true,
+      "微分積分A": true,
+      "情報": true,
+      "確率と統計": false
+    }
+  }
+}
