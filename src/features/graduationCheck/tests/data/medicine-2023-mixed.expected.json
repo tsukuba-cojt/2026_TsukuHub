@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "medicine",
+    "majorKey": "medicine",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "medicine-22",
+      "department": "医学類",
+      "major": "医学主専攻",
+      "enrollYear": "2022~2026"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 199,
+      "earnedUnits": 11,
+      "prospectiveUnits": 12,
+      "shortageUnits": 188,
+      "prospectiveShortageUnits": 187,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 186,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 0,
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
+      },
+      "specializedFoundation": {
+        "requiredUnits": 5,
+        "earnedUnits": 4,
+        "prospectiveUnits": 5
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 7,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "FA00901": "specializedFoundation",
+      "FA00902": "specializedFoundation",
+      "FA00903": "specializedFoundation",
+      "FA00904": "specializedFoundation",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "医学統計学": true
+    }
+  }
+}
