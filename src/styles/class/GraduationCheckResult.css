@@ -214,13 +214,15 @@
 }
 
 .gradResultReqHeadStatus {
-  grid-column: 2 / 4;
+  /* 「取得単位 / 必要単位」の列の真上に配置する。 */
+  grid-column: 2;
   text-align: center;
 }
 
 .gradResultReqHeadDetail {
-  grid-column: 4 / 6;
-  text-align: right;
+  grid-column: 5;
+  justify-self: center;
+  white-space: nowrap;
 }
 
 .gradResultReqList {
@@ -552,6 +554,54 @@
   gap: 10px;
 }
 
+.gradClassificationToolbar,
+.gradClassificationBatchActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.gradClassificationToolbar {
+  margin-bottom: 12px;
+}
+
+.gradClassificationBatchActions {
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.gradClassificationAutoBtn,
+.gradClassificationBatchBtn {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gradClassificationAutoBtn {
+  border: 1px solid #1473e6;
+  background: #fff;
+  color: #1473e6;
+}
+
+.gradClassificationBatchBtn {
+  border: 0;
+  background: #1473e6;
+  color: #fff;
+}
+
+.gradClassificationAutoBtn:disabled,
+.gradClassificationBatchBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.gradClassificationStatus {
+  color: #526071;
+  font-size: 13px;
+}
+
 .gradClassificationRow {
   display: grid;
   grid-template-columns: minmax(180px, 1fr) minmax(180px, 240px) auto;
@@ -598,6 +648,11 @@
 }
 
 @media (max-width: 820px) {
+  .gradClassificationToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .gradClassificationRow {
     grid-template-columns: 1fr;
   }

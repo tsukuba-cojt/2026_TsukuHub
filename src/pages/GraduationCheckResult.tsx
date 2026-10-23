@@ -21,6 +21,7 @@ import {
 } from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
 import UnclassifiedCourseFeedback from "../components/class/UnclassifiedCourseFeedback";
+import type { ClassificationSelection } from "../components/class/UnclassifiedCourseFeedback";
 import {
   formatPercent,
   levelClass,
@@ -34,12 +35,12 @@ import {
 import type {
   CategoryKey,
   CategoryResult,
-  Course,
   CsvRowError,
   GraduationCheckReport,
 } from "../features/graduationCheck";
 import type { TimetableHistory, TimetableModuleKey } from "../types/timetable";
 import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable";
+import { saveClassCategorize } from "../services/classCategorizeService";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 import { useUniversity } from "../components/university/universityContextValue";
@@ -222,6 +223,9 @@ function GraduationCheckResult() {
   const [isResultWarningOpen, setIsResultWarningOpen] = useState(
     () => resultWarningMessage !== ""
   );
+  const [classificationSaveError, setClassificationSaveError] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
     if (location.state !== null) {
@@ -249,6 +253,46 @@ function GraduationCheckResult() {
     setActiveTimetableModule(module);
     setView("timetable");
     window.scrollTo({ top: 0 });
+  };
+
+  const classifyAndSave = (selections: ClassificationSelection[]) => {
+    if (!report || selections.length === 0) return;
+    let nextReport = report;
+    const appliedSelections: ClassificationSelection[] = [];
+
+    selections.forEach(({ course, classification }) => {
+      const uncountedIndex = nextReport.details.uncountedCourses.indexOf(course);
+      if (uncountedIndex === -1) return;
+      nextReport = classifyUncountedCourse(
+        nextReport,
+        uncountedIndex,
+        classification,
+      );
+      appliedSelections.push({ course, classification });
+    });
+    if (appliedSelections.length === 0) return;
+
+    // DB保存に失敗しても、利用者が行った画面内の分類と再集計は維持する。
+    setReport(nextReport);
+    setClassificationSaveError(null);
+    void Promise.allSettled(
+      appliedSelections.map(({ course, classification }) =>
+        saveClassCategorize({
+          className: course.name,
+          categorized: classification,
+          department: report.requirement.department,
+        }),
+      ),
+    ).then((results) => {
+      const failedCount = results.filter(
+        (result) => result.status === "rejected",
+      ).length;
+      if (failedCount > 0) {
+        setClassificationSaveError(
+          `分類結果を画面には反映しましたが、${failedCount}件のDB記録に失敗しました。`,
+        );
+      }
+    });
   };
 
   return (
@@ -440,20 +484,7 @@ function GraduationCheckResult() {
 
             <UnclassifiedCourseFeedback
               report={report}
-              onClassify={(course: Course, classification) => {
-                setReport((current) => {
-                  if (!current) return current;
-                  const uncountedIndex =
-                    current.details.uncountedCourses.indexOf(course);
-                  return uncountedIndex === -1
-                    ? current
-                    : classifyUncountedCourse(
-                        current,
-                        uncountedIndex,
-                        classification,
-                      );
-                });
-              }}
+              onClassify={classifyAndSave}
             />
 
             {(result?.timetableHistories?.length ?? 0) > 0 && (
@@ -536,12 +567,18 @@ function GraduationCheckResult() {
         )}
       </main>
       <Footer />
-      {isResultWarningOpen && (
+      {(classificationSaveError !== null || isResultWarningOpen) && (
         <Toast
-          message={resultWarningMessage}
+          message={classificationSaveError ?? resultWarningMessage}
           variant="warning"
           dismissible
-          onClose={() => setIsResultWarningOpen(false)}
+          onClose={() => {
+            if (classificationSaveError !== null) {
+              setClassificationSaveError(null);
+            } else {
+              setIsResultWarningOpen(false);
+            }
+          }}
         />
       )}
     </div>

@@ -198,6 +198,55 @@ function RequirementItemBlock({
   );
 }
 
+function CompulsoryGroupBlock({
+  report,
+  courses,
+  reviewedCodes,
+  onRequestLeave,
+}: {
+  report: GraduationCheckReport;
+  courses: Course[];
+  reviewedCodes: ReadonlySet<string>;
+  onRequestLeave: (path: string) => void;
+}) {
+  const compulsory = report.categories.find(
+    (category) => category.category === "compulsory",
+  );
+  if (!compulsory) return null;
+
+  return (
+    <div className="gradDetailRequirementList">
+      <div className="gradDetailRequirementItem">
+        <div className="gradDetailRequirementItemHeader">
+          <span
+            className={`gradDetailRequirementItemBadge ${compulsory.isSatisfied ? "isSatisfied" : "isUnsatisfied"}`}
+            aria-hidden="true"
+          >
+            {compulsory.isSatisfied ? <Check /> : "！"}
+          </span>
+          <h4>必修</h4>
+          <p>
+            <span className="gradResultNumFont">{compulsory.earnedUnits}</span>
+            {` / ${compulsory.requiredUnits} 単位`}
+          </p>
+          {!compulsory.isSatisfied &&
+            compulsory.isProspectivelySatisfied && (
+              <span className="gradDetailRequirementProspective">
+                履修中を含めると充足
+              </span>
+            )}
+        </div>
+        <CourseTable
+          courses={courses}
+          reviewedCodes={reviewedCodes}
+          onRequestLeave={onRequestLeave}
+          emptyMessage="必修に計上された科目はありません"
+        />
+      </div>
+    </div>
+  );
+}
+
 type Props = {
   report: GraduationCheckReport;
   /** 概要画面で押された区分（この区分が先頭に来るようスクロールする） */
@@ -308,7 +357,14 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
               </p>
             )}
 
-            {requirementItems.length === 0 ? (
+            {category.category === "compulsory" ? (
+              <CompulsoryGroupBlock
+                report={report}
+                courses={courses}
+                reviewedCodes={reviewedCodes}
+                onRequestLeave={setPendingPath}
+              />
+            ) : requirementItems.length === 0 ? (
               <CourseTable
                 courses={courses}
                 reviewedCodes={reviewedCodes}
