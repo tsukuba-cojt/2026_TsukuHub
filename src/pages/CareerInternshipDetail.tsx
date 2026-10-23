@@ -128,6 +128,14 @@ export default function CareerInternshipDetail() {
                   <span>{item.job_category}</span>
                 </div>
               </div>
+              {item.compensation.trim() ? (
+                <dl className="internPostSideWage">
+                  <div>
+                    <dt>時給</dt>
+                    <dd>{item.compensation}</dd>
+                  </div>
+                </dl>
+              ) : null}
               <p>
                 {closed
                   ? "この求人の募集は終了しました。"
@@ -155,6 +163,9 @@ export default function CareerInternshipDetail() {
                       <Link to={path(`/career/internships/${entry.id}`)}>
                         <span>{entry.job_category}</span>
                         <strong>{entry.title}</strong>
+                        {entry.compensation.trim() ? (
+                          <em>{entry.compensation}</em>
+                        ) : null}
                       </Link>
                     </li>
                   ))}

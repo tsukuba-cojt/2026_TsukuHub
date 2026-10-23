@@ -18,12 +18,38 @@ export default function AdminDashboard() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    void Promise.all([listAdminInternships(), listAdminApplications(), listAdminReviewReports(), listUniversities()])
-      .then(([nextJobs, nextApplications, nextReports, nextUniversities]) => {
-        setJobs(nextJobs); setApplications(nextApplications); setReports(nextReports); setUniversities(nextUniversities);
-      })
-      .catch(() => setError("管理データを取得できませんでした。"))
-      .finally(() => setLoading(false));
+    let cancelled = false;
+    const failed: string[] = [];
+    const jobsDone = listAdminInternships()
+      .then(setJobs)
+      .catch(() => {
+        failed.push("求人");
+      });
+    const applicationsDone = listAdminApplications()
+      .then(setApplications)
+      .catch(() => {
+        failed.push("応募");
+      });
+    const reportsDone = listAdminReviewReports()
+      .then(setReports)
+      .catch(() => {
+        failed.push("通報");
+      });
+    const universitiesDone = listUniversities()
+      .then(setUniversities)
+      .catch(() => {
+        failed.push("大学一覧");
+      });
+
+    void Promise.allSettled([jobsDone, applicationsDone, reportsDone, universitiesDone]).then(() => {
+      if (cancelled) return;
+      setError(failed.length > 0 ? `${failed.join("、")}を取得できませんでした。` : "");
+      setLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const visibleJobs = useMemo(() => jobs.filter((item) => universityFilter === "all" || item.university_ids?.includes(universityFilter)), [jobs, universityFilter]);
@@ -40,7 +66,8 @@ export default function AdminDashboard() {
 
   return <AdminLayout title="ダッシュボード">
     <div className="adminToolbar"><p>大学別・全体の運用状況を確認できます。</p><select aria-label="大学で絞り込む" value={universityFilter} onChange={(event) => setUniversityFilter(event.target.value)}><option value="all">すべての大学</option>{universities.map((university) => <option value={university.id} key={university.id}>{university.name}</option>)}</select></div>
-    {loading ? <div className="careerState">集計しています...</div> : error ? <div className="careerState isError">{error}</div> : <>
+    {error ? <p className="formError" role="alert">{error}</p> : null}
+    {loading ? <div className="careerState">集計しています...</div> : <>
       <section className="adminStats">{stats.map((stat) => <article key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong><small>件</small></article>)}</section>
       <div className="adminDashboardGrid">
         <section className="adminPanel"><div className="adminPanelHeader"><h2>最近の応募</h2><Link to="/admin/applications">すべて見る</Link></div>{visibleApplications.slice(0, 5).map((item) => <Link className="adminListRow" to={`/admin/applications/${item.id}`} key={item.id}><div><strong>{item.applicant_name}</strong><span>{item.internship?.title}</span></div><span className={`statusBadge is-${item.status}`}>{applicationStatusLabels[item.status]}</span></Link>)}</section>

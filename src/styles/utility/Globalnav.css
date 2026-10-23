@@ -18,33 +18,38 @@
 }
 
 .pageBackBar {
+  position: sticky;
+  top: 147px;
+  z-index: 400;
   width: 100%;
-  padding: 4px 24px 8px;
+  padding: 6px 24px;
   box-sizing: border-box;
+  background: rgba(247, 250, 253, 0.92);
+  backdrop-filter: blur(8px);
 }
 
 .pageBackButton {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
+  gap: 2px;
+  min-height: 32px;
+  padding: 0 4px 0 0;
   border: none;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 0px 10px 3px rgba(21, 120, 253, 0.1);
-  color: var(--color-text-primary);
+  background: none;
+  color: var(--color-text-secondary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
 }
 
 .pageBackButton svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .pageBackButton:hover {
-  background: #f0f5fc;
+  color: var(--color-primary-dark);
 }
 
 /* ホームの一番上にいる間だけ背景を透明にする */
@@ -523,6 +528,10 @@
 
 /* 画面幅が 1024px 以下になったら適用するルール */
 @media (max-width: 1024px) {
+  .pageBackBar {
+    top: 122px;
+  }
+
   .navLinkItem {
     font-size: 9px; /* 文字を少し小さくして1行に収める */
     gap: 2px;
@@ -545,7 +554,8 @@
   }
 
   .pageBackBar {
-    padding: 8px 12px 4px;
+    top: 122px;
+    padding: 4px 12px;
   }
 
   .headerNav {
@@ -576,5 +586,11 @@
 
   .navDropdownWrap .navLinkItem {
     flex: 1 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .pageBackBar {
+    top: 64px;
   }
 }

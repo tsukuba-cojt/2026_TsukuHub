@@ -68,17 +68,50 @@ export default function AdminCareerContent() {
   const [universityFilter, setUniversityFilter] = useState("all");
 
   const reload = async () => {
-    setError("");
-    const [nextArticles, nextStories] = await Promise.all([listAdminCareerArticles(), listAdminAlumniStories()]);
-    setArticles(nextArticles);
-    setStories(nextStories);
+    const failed: string[] = [];
+    const [nextArticles, nextStories] = await Promise.all([
+      listAdminCareerArticles().catch(() => {
+        failed.push("基礎知識");
+        return null;
+      }),
+      listAdminAlumniStories().catch(() => {
+        failed.push("卒業生体験記");
+        return null;
+      }),
+    ]);
+    if (nextArticles) setArticles(nextArticles);
+    if (nextStories) setStories(nextStories);
+    setError(failed.length > 0 ? `${failed.join("、")}を更新できませんでした。` : "");
   };
 
   useEffect(() => {
-    void Promise.all([listAdminCareerArticles(), listAdminAlumniStories(), listUniversities()])
-      .then(([nextArticles, nextStories, nextUniversities]) => { setArticles(nextArticles); setStories(nextStories); setUniversities(nextUniversities); })
-      .catch(() => setError("就活コンテンツを取得できませんでした。DBマイグレーションを確認してください。"))
-      .finally(() => setLoading(false));
+    let cancelled = false;
+    const failed: string[] = [];
+    const articlesDone = listAdminCareerArticles()
+      .then(setArticles)
+      .catch(() => {
+        failed.push("基礎知識");
+      });
+    const storiesDone = listAdminAlumniStories()
+      .then(setStories)
+      .catch(() => {
+        failed.push("卒業生体験記");
+      });
+    const universitiesDone = listUniversities()
+      .then(setUniversities)
+      .catch(() => {
+        failed.push("大学一覧");
+      });
+
+    void Promise.allSettled([articlesDone, storiesDone, universitiesDone]).then(() => {
+      if (cancelled) return;
+      setError(failed.length > 0 ? `${failed.join("、")}を取得できませんでした。` : "");
+      setLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return <AdminLayout title="就活コンテンツ管理">

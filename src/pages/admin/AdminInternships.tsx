@@ -27,14 +27,12 @@ export default function AdminInternships() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    void Promise.all([listAdminInternships(), listAdminApplications(), listUniversities()])
-      .then(([jobs, nextApplications, nextUniversities]) => {
-        setItems(jobs);
-        setApplications(nextApplications);
-        setUniversities(nextUniversities);
-      })
+    void listAdminInternships()
+      .then(setItems)
       .catch(() => setError("求人を取得できませんでした。"))
       .finally(() => setLoading(false));
+    void listAdminApplications().then(setApplications).catch(() => undefined);
+    void listUniversities().then(setUniversities).catch(() => undefined);
   }, []);
 
   const changeStatus = async (id: string, status: InternshipStatus) => {

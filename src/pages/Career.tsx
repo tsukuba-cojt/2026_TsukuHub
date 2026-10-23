@@ -24,13 +24,12 @@ export default function Career() {
 
   useEffect(() => {
     if (!university) return;
-    void Promise.all([
-      listPublishedInternships(university.id),
-      listPublishedCareerArticles(university.id),
-    ]).then(([items, nextArticles]) => {
-      setFeatured(items.filter((item) => item.is_featured).slice(0, 3));
-      setArticles(nextArticles.filter(isInternalCareerArticle).slice(0, 6));
-    }).catch(() => { setFeatured([]); setArticles([]); });
+    void listPublishedInternships(university.id)
+      .then((items) => setFeatured(items.filter((item) => item.is_featured).slice(0, 3)))
+      .catch(() => setFeatured([]));
+    void listPublishedCareerArticles(university.id)
+      .then((nextArticles) => setArticles(nextArticles.filter(isInternalCareerArticle).slice(0, 6)))
+      .catch(() => setArticles([]));
   }, [university]);
 
   return (

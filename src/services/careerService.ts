@@ -9,34 +9,39 @@ import type {
   InternshipStatus,
 } from "../types/career";
 
-const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
+const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, company_mission, company_business, company_message_to_students, company_address, company_map_url, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
 
 export async function listPublishedInternships(universityId: string): Promise<Internship[]> {
-  const { data, error } = await supabase
-    .from("internships")
-    .select(`${internshipColumns}, internship_universities!inner(university_id)`)
-    .eq("internship_universities.university_id", universityId)
-    .eq("status", "published")
-    .order("is_featured", { ascending: false })
-    .order("created_at", { ascending: false });
+  const { data, error } = await supabase.rpc(
+    "list_published_internships_for_university",
+    { target_university_id: universityId },
+  );
   if (error) throw error;
   return (data ?? []) as Internship[];
 }
 
 export async function getInternship(id: string, universityId?: string): Promise<Internship | null> {
-  let query = supabase
+  if (universityId) {
+    const { data, error } = await supabase.rpc(
+      "get_published_internship_for_university",
+      { target_id: id, target_university_id: universityId },
+    );
+    if (error) throw error;
+    const row = Array.isArray(data) ? data[0] : data;
+    return (row as Internship | undefined) ?? null;
+  }
+  const { data, error } = await supabase
     .from("internships")
-    .select(universityId ? `${internshipColumns}, internship_universities!inner(university_id)` : internshipColumns)
-    .eq("id", id);
-  if (universityId) query = query.eq("internship_universities.university_id", universityId);
-  const { data, error } = await query.maybeSingle();
+    .select(internshipColumns)
+    .eq("id", id)
+    .maybeSingle();
   if (error) throw error;
   return data as Internship | null;
 }
 
 export async function listAdminInternships(): Promise<Internship[]> {
   const [itemsResult, targetsResult] = await Promise.all([
-    supabase.from("internships").select(internshipColumns).order("created_at", { ascending: false }),
+    supabase.rpc("admin_list_internships"),
     supabase.from("internship_universities").select("internship_id, university_id"),
   ]);
   const { data, error } = itemsResult;
@@ -113,7 +118,7 @@ export async function createApplication(input: ApplicationInput): Promise<void> 
 export async function listMyApplications(userId: string): Promise<Application[]> {
   const { data, error } = await supabase
     .from("applications")
-    .select("id, internship_id, user_id, university_id, applicant_name, email, faculty, graduation_year, motivation, skills, portfolio_url, additional_notes, status, created_at, updated_at, internship:internships(id, title, company_name)")
+    .select("id, internship_id, user_id, university_id, applicant_name, email, phone, faculty, graduation_year, motivation, skills, portfolio_url, additional_notes, status, created_at, updated_at, internship:internships(id, title, company_name)")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   if (error) throw error;
@@ -164,6 +169,17 @@ export async function updateAdminApplication(
 export async function uploadCompanyLogo(file: File, userId: string): Promise<string> {
   const extension = file.name.split(".").pop()?.toLowerCase() || "png";
   const path = `${userId}/${crypto.randomUUID()}.${extension}`;
+  const { error } = await supabase.storage.from("company-logos").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
+  if (error) throw error;
+  return supabase.storage.from("company-logos").getPublicUrl(path).data.publicUrl;
+}
+
+export async function uploadInternshipCover(file: File, userId: string): Promise<string> {
+  const extension = file.name.split(".").pop()?.toLowerCase() || "png";
+  const path = `${userId}/covers/${crypto.randomUUID()}.${extension}`;
   const { error } = await supabase.storage.from("company-logos").upload(path, file, {
     cacheControl: "3600",
     upsert: false,

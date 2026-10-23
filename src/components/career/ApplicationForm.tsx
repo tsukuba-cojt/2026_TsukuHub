@@ -5,9 +5,10 @@ import { createApplication, getProfileDefaults, hasApplied } from "../../service
 import ApplicationFormFields from "./ApplicationFormFields";
 import { useUniversity } from "../university/universityContextValue";
 import {
+  defaultsFromAccount,
   emptyApplicationForm,
+  facultyChoices,
   normalizeHttpUrl,
-  textValue,
   validateApplicationForm,
   type ApplicationFormState,
 } from "./applicationFormState";
@@ -18,6 +19,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
   const { user } = useAuth();
   const { university, path } = useUniversity();
   const [form, setForm] = useState(emptyApplicationForm);
+  const [facultyOptions, setFacultyOptions] = useState<{ value: string; label: string }[]>([]);
   const [checking, setChecking] = useState(Boolean(user));
   const [alreadyApplied, setAlreadyApplied] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -25,21 +27,24 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
 
   useEffect(() => {
     if (!user) return;
-    void Promise.all([
-      getProfileDefaults(user.id),
-      hasApplied(internshipId, user.id),
-    ]).then(([profile, applied]) => {
-      setAlreadyApplied(applied);
-      setForm((current) => ({
-        ...current,
-        applicant_name: textValue(profile?.name) || textValue(user.user_metadata.name),
-        email: textValue(user.email),
-        faculty: textValue(profile?.major),
-        graduation_year: textValue(profile?.graduation_year),
-      }));
-    }).catch(() => setError("応募状況の確認に失敗しました。時間をおいて再度お試しください。"))
-      .finally(() => setChecking(false));
-  }, [internshipId, user]);
+    let remaining = 2;
+    const done = () => {
+      remaining -= 1;
+      if (remaining === 0) setChecking(false);
+    };
+    void getProfileDefaults(user.id)
+      .then((profile) => {
+        const { category, ...identity } = defaultsFromAccount(profile, user);
+        setForm((current) => ({ ...current, ...identity }));
+        setFacultyOptions(facultyChoices(university?.slug ?? "", category, identity.faculty));
+      })
+      .catch(() => undefined)
+      .finally(done);
+    void hasApplied(internshipId, user.id)
+      .then(setAlreadyApplied)
+      .catch(() => setError("応募状況の確認に失敗しました。時間をおいて再度お試しください。"))
+      .finally(done);
+  }, [internshipId, university?.slug, user]);
 
   if (!user) {
     return (
@@ -85,6 +90,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
         university_id: university?.id ?? "",
         applicant_name: form.applicant_name.trim(),
         email: form.email.trim(),
+        phone: form.phone.trim(),
         faculty: form.faculty.trim(),
         graduation_year: Number(form.graduation_year),
         motivation: form.motivation.trim(),
@@ -106,9 +112,10 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
     <form className="careerForm applicationForm" onSubmit={submit}>
       <h2>応募フォーム</h2>
       <p className="formNote">
+        氏名・メール・所属・卒業予定年は登録情報から自動入力しています。電話番号は企業への連絡に使います。
         <span>*</span> は必須項目です。
       </p>
-      <ApplicationFormFields form={form} onChange={update} />
+      <ApplicationFormFields form={form} facultyOptions={facultyOptions} onChange={update} />
       {error && (
         <p className="formError" role="alert">
           {error}
