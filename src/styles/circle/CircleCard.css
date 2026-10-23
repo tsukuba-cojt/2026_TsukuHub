@@ -149,3 +149,9 @@
 .circleCard:hover .circleCardChevron {
   opacity: 1;
 }
+
+.circleCardLink {
+  display: grid;
+  color: inherit;
+  text-decoration: none;
+}

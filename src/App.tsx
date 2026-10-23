@@ -21,6 +21,7 @@ import ClassGuideDetail from "./pages/ClassGuideDetail";
 import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
 import Circle from "./pages/Circle";
+import CircleDetail from "./pages/CircleDetail";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
@@ -127,6 +128,7 @@ function App() {
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
               <Route path="circles/search" element={<Circle />} />
+              <Route path="circles/:circleId" element={<CircleDetail />} />
 
               <Route element={<FeatureGate feature="news" />}>
                 <Route path="news" element={<NewsList />} />

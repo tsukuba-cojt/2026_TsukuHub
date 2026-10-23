@@ -94,6 +94,7 @@ const KNOWN_DYNAMIC_PATHS: readonly RegExp[] = [
   /^\/career\/articles\/[^/]+$/,
   /^\/career\/internships\/[^/]+$/,
   /^\/career\/alumni\/[^/]+$/,
+  /^\/circles\/[^/]+$/,
   /^\/admin\/internships\/[^/]+\/edit$/,
   /^\/admin\/applications\/[^/]+$/,
 ];
