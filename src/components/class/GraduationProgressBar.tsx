@@ -1,4 +1,8 @@
-import { levelClass, levelFromPercent } from "./graduationProgressLevel";
+import {
+  levelClass,
+  levelFromPercent,
+  type ProgressLevel,
+} from "./graduationProgressLevel";
 
 // 卒業要件チェックのプログレスバー（サマリー・要件項目リスト・詳細画面で共通）。
 // スタイルは GraduationCheckResult.css（.gradResultBar 系）を使う。
@@ -8,15 +12,18 @@ import { levelClass, levelFromPercent } from "./graduationProgressLevel";
 function ProgressBar({
   percent = 0,
   tone = "auto",
+  level,
   markerPercent,
 }: {
   percent?: number;
   tone?: "auto" | "blue" | "purple";
+  /** 個別要件を含む判定など、割合だけでは決まらない表示レベル */
+  level?: ProgressLevel;
   markerPercent?: number;
 }) {
   const fillClass =
     tone === "auto"
-      ? levelClass[levelFromPercent(percent)]
+      ? levelClass[level ?? levelFromPercent(percent)]
       : tone === "blue"
         ? "isBlue"
         : "isPurple";

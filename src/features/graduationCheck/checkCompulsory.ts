@@ -17,7 +17,11 @@
 
 import { courseCodeTypes } from "./data/courseCodeTypes";
 import type { CompulsoryResult, Course, GradRequirement } from "./types";
-import { beginWithMatch, isFailed, sumUnits } from "./utils";
+import {
+  beginWithMatch,
+  isFailed,
+  sumUnits,
+} from "./utils";
 
 /**
  * 認定（認）で総合評価がつく必修英語は、CSV上の科目番号が要件の科目番号と
@@ -66,7 +70,9 @@ export const checkCompulsory = (
   const takeByName = (name: string): Course[] => {
     // 再履修で同名科目が複数行ある場合もすべて消し込む
     const matched = courseList.filter(
-      (course) => !consumed.has(course) && course.name === name
+      (course) =>
+        !consumed.has(course) &&
+        course.name === name
     );
     for (const course of matched) consumed.add(course);
     return matched;

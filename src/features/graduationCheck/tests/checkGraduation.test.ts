@@ -144,6 +144,16 @@ describe("checkGraduation (math-22)", () => {
     );
     expect(calculus).toMatchObject({ passed: true, minimumUnit: 2 });
     expect(linearAlgebra).toMatchObject({ passed: true, minimumUnit: 2 });
+    expect(
+      report.details.requirementItems.find(
+        (item) => item.kind === "compulsory" && item.label === "微積分系",
+      ),
+    ).toMatchObject({
+      category: "compulsory",
+      minimumUnits: 2,
+      earnedUnits: 2,
+      isSatisfied: true,
+    });
   });
 
   test("区分最低単位だけでは合計124単位を満たした扱いにしない", () => {

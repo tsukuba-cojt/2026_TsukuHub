@@ -13,7 +13,8 @@ import GraduationCheckConsentModal from "../components/class/GraduationCheckCons
 import GraduationCheckCsvGuideModal from "../components/class/GraduationCheckCsvGuideModal";
 import { useAuth } from "../components/auth/authContextValue";
 import {
-  checkGraduation,
+  checkGraduationWithCatalog,
+  GraduationCatalogError,
   findDepartment,
   findMajor,
   listAdmissionYearOptions,
@@ -149,7 +150,11 @@ function GraduationCheck() {
         );
         return;
       }
-      const report = checkGraduation(courses, requirementId);
+      const report = await checkGraduationWithCatalog(
+        courses,
+        requirementId,
+        university?.slug ?? "tsukuba"
+      );
       const departmentLabel = department?.label ?? "";
       const majorLabel = major?.label ?? departmentLabel;
       const timetableHistories = await buildTimetableHistoriesFromGraduationReport({
@@ -190,9 +195,13 @@ function GraduationCheck() {
           timetableSaveStatus,
         },
       });
-    } catch {
+    } catch (error) {
       setIsConsentOpen(false);
-      setCsvError("成績データの解析に失敗しました。もう一度お試しください。");
+      setCsvError(
+        error instanceof GraduationCatalogError
+          ? error.message
+          : "成績データの解析に失敗しました。もう一度お試しください。"
+      );
     } finally {
       setIsProcessing(false);
       processingRef.current = false;

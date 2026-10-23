@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "earth",
+    "majorKey": "earth-interdisciplinary",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "earth-interdisciplinary-22",
+      "department": "地球学類",
+      "major": "生命環境学際",
+      "enrollYear": "2022~2023"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 124,
+      "earnedUnits": 11,
+      "prospectiveUnits": 13,
+      "shortageUnits": 113,
+      "prospectiveShortageUnits": 111,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 43,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 47,
+        "earnedUnits": 2,
+        "prospectiveUnits": 4
+      },
+      "specializedFoundation": {
+        "requiredUnits": 10,
+        "earnedUnits": 2,
+        "prospectiveUnits": 2
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 13,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "EG90901": "specialized",
+      "EG90902": "specialized",
+      "EG90903": "specialized",
+      "EG02904": "specializedFoundation",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "研究演習A": true
+    }
+  }
+}

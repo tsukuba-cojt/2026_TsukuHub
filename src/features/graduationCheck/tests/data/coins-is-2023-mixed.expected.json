@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "coins",
+    "majorKey": "coins-is",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "coins-is-22",
+      "department": "情報科学類",
+      "major": "情報システム",
+      "enrollYear": "2022~2025"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 125,
+      "earnedUnits": 11,
+      "prospectiveUnits": 13,
+      "shortageUnits": 114,
+      "prospectiveShortageUnits": 112,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 54,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 34,
+        "earnedUnits": 2,
+        "prospectiveUnits": 4
+      },
+      "specializedFoundation": {
+        "requiredUnits": 26,
+        "earnedUnits": 2,
+        "prospectiveUnits": 2
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 6,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "GB30901": "specialized",
+      "GB30902": "specialized",
+      "GB30903": "specialized",
+      "GB116904": "specializedFoundation",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "情報システム実験A": true
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  checkGraduation,
+  checkGraduationWithCatalog,
+  GraduationCatalogError,
   findDepartment,
   findMajor,
   listDepartmentAdmissionYears,
@@ -98,7 +99,11 @@ function TimetableShareWizard({
         );
         return;
       }
-      const report = checkGraduation(courses, requirementId);
+      const report = await checkGraduationWithCatalog(
+        courses,
+        requirementId,
+        university?.slug ?? "tsukuba"
+      );
       const histories = await buildTimetableHistoriesFromGraduationReport({
         report,
         department: departmentLabel,
@@ -109,8 +114,12 @@ function TimetableShareWizard({
         universityId: university?.id ?? "",
       });
       setState((prev) => ({ ...prev, courses, histories }));
-    } catch {
-      setCsvError("成績データの解析に失敗しました。もう一度お試しください。");
+    } catch (error) {
+      setCsvError(
+        error instanceof GraduationCatalogError
+          ? error.message
+          : "成績データの解析に失敗しました。もう一度お試しください。"
+      );
     } finally {
       setIsParsing(false);
     }

@@ -37,6 +37,8 @@ export type Course = {
   grade: Grade;
   /** 開講年度 */
   year: number;
+  /** 同じ開講年度の静的授業カタログで「同一」とされる別科目番号 */
+  equivalentCourseIds?: string[];
 };
 
 /** CSVのパースに失敗した行（UIがエラー表示できる形で返す） */
@@ -191,6 +193,8 @@ export type CompulsoryResult = {
   courses: Course[];
   /** 代替科目（//記法）で充足を試みたときの科目名一覧 */
   alternative?: string;
+  /** 利用者が未分類科目をこの区分へ手動分類した結果か */
+  isManualClassification?: boolean;
 };
 
 /** 選択要件1件の判定結果 */
@@ -203,6 +207,27 @@ export type SelectResult = {
   group: number;
   /** この要件にマッチした科目 */
   courses: Course[];
+  /** 利用者が未分類科目をこの区分へ手動分類した結果か */
+  isManualClassification?: boolean;
+};
+
+/** 1科目がどの規則に該当し、最終的にどこへ割り当てられたかの監査情報。 */
+export type SelectAllocationCandidate = {
+  /** select 配列内の定義順（0始まり）。競合時は小さい規則が優先される */
+  ruleIndex: number;
+  label: string;
+  group: number;
+  category: Exclude<CategoryKey, "compulsory"> | null;
+};
+
+export type AllocationTrace = {
+  course: Course;
+  assigned:
+    | { kind: "compulsory"; label: string }
+    | ({ kind: "select" } & SelectAllocationCandidate)
+    | { kind: "uncounted" };
+  /** 必修でなければ、消し込み前に該当した選択要件を定義順ですべて保持する */
+  selectCandidates: SelectAllocationCandidate[];
 };
 
 // ── 5区分の集計 ──
@@ -233,12 +258,41 @@ export type UnitProgress = {
   prospectivePercentClamped: number;
 };
 
+/**
+ * 区分合計とは別に判定する、必修1件または選択小区分1件の進捗。
+ * 必修科目名だけでは必要単位数を特定できないため、その場合の minimumUnits は null とする。
+ */
+export type RequirementItemProgress = {
+  /** 同一レポート内で安定した識別子 */
+  id: string;
+  kind: "compulsory" | "select";
+  label: string;
+  category: CategoryKey | null;
+  minimumUnits: number | null;
+  maximumUnits: number | null;
+  earnedUnits: number;
+  prospectiveUnits: number;
+  isSatisfied: boolean;
+  isProspectivelySatisfied: boolean;
+  courses: Course[];
+  /** 利用者が未分類科目をこの区分へ手動分類した進捗か */
+  isManualClassification: boolean;
+};
+
 export type CategoryResult = UnitProgress & {
   category: CategoryKey;
   /** 表示名（例: 必修科目 / 選択科目（専門）） */
   label: string;
   /** 選択区分の上限単位数（必修は undefined） */
   maxUnits?: number;
+  /** 区分合計と、その区分内の全個別要件を確定単位で満たしたか */
+  isSatisfied: boolean;
+  /** 区分合計と、その区分内の全個別要件を見込み単位で満たしたか */
+  isProspectivelySatisfied: boolean;
+  /** 未充足の個別要件数（区分合計の不足は含めない） */
+  unsatisfiedRequirementCount: number;
+  /** 見込みでも未充足の個別要件数（区分合計の不足は含めない） */
+  prospectivelyUnsatisfiedRequirementCount: number;
 };
 
 // ── 最終的な判定結果オブジェクト ──
@@ -252,12 +306,26 @@ export type GraduationCheckReport = {
     /** 対象の入学年度。単年は数値、範囲は "2022~2024" のような文字列 */
     enrollYear: number | string;
   };
+  /** 成績CSVの開講年度を使った年度別静的カタログの検証状況 */
+  catalogVerification: {
+    source: "transcript_academic_year";
+    verifiedAcademicYears: number[];
+    unsupportedAcademicYears: number[];
+  };
   /** 全体サマリー */
   summary: UnitProgress & {
     /** 不足単位数（確定ベース。0で下限） */
     shortageUnits: number;
     /** 見込みベースの不足単位数（0で下限） */
     prospectiveShortageUnits: number;
+    /** 全体単位、5区分の合算、個別要件をすべて満たしたか */
+    isSatisfied: boolean;
+    /** 履修中を含めて、全体単位、5区分の合算、個別要件をすべて満たすか */
+    isProspectivelySatisfied: boolean;
+    /** 確定単位で未充足の個別要件数 */
+    unsatisfiedRequirementCount: number;
+    /** 見込み単位でも未充足の個別要件数 */
+    prospectivelyUnsatisfiedRequirementCount: number;
   };
   gpa: {
     /** GPA（対象科目が1つもない場合は null） */
@@ -279,9 +347,13 @@ export type GraduationCheckReport = {
   details: {
     compulsoryResults: CompulsoryResult[];
     selectResults: SelectResult[];
+    /** 5区分の合算とは独立して判定した、必修・選択の個別要件 */
+    requirementItems: RequirementItemProgress[];
     /** どの要件にもマッチしなかった科目（卒業要件に含まれない単位） */
     uncountedCourses: Course[];
     /** 5区分に対応しないグループの単位数（集計対象外。グループ表示名→単位数） */
     unmappedGroupUnits: Record<string, number>;
+    /** 誤分類・要件重複を追跡するための、科目ごとの割り当て経路 */
+    allocationTraces: AllocationTrace[];
   };
 };

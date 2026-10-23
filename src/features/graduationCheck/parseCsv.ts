@@ -65,7 +65,7 @@ export const parseGradesCsv = (csvText: string): ParseCsvResult => {
       return;
     }
 
-    const id = row[COL_ID].trim();
+    const id = row[COL_ID].trim().toUpperCase();
     const name = row[COL_NAME].trim();
     const unitText = row[COL_UNIT].replaceAll(" ", "");
     const gradeText = row[COL_GRADE].trim();
