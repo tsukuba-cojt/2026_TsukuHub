@@ -38,3 +38,20 @@ docker exec -i supabase_db_2026_TsukuHub \
 ## ローカル管理者
 
 ローカル開発用の `s9999999@u.tsukuba.ac.jp` は `global_admin` のまま維持します。本番用migrationではこのユーザーを作成しません。管理画面は `/admin`、大学画面は大学ごとのURLからログインしてください。
+
+## 応募通知メール
+
+管理画面の求人登録・編集で募集者メールアドレスを設定します。連絡先は管理者だけが閲覧できる `internship_recruiter_contacts` に保存します。応募を保存した後、画面から `send-application-notification` を呼び出し、募集者へResendで通知します。返信先は応募者のメールです。
+
+送信失敗でも応募は保存されます。応募完了画面の再送ボタンはメール通知だけを再試行します。送信済みの記録とResendの冪等キーにより、再送時の重複送信を防ぎます。送信済みはResend APIの受付成功を表し、受信箱への配達確認とは区別します。
+
+必要なEdge Function secrets: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `APPLICATION_SUPABASE_ANON_KEY`, `APPLICATION_SUPABASE_SERVICE_ROLE_KEY`。後者2つには対象プロジェクトの有効なキーを設定します。秘密鍵をフロントエンドの環境変数に設定しないでください。関数は `auth.getUser` で認証し、応募者本人の応募だけを送信できます。
+
+追加migrationは `20261023090000_internship_recruiter_contacts.sql` と `20261023100000_application_email_notifications.sql` です。旧 `company_contact_email` が存在する場合は、既存の連絡先を引き継ぎます。
+
+```bash
+supabase functions deploy send-application-notification --use-api
+npx deno test --allow-env --allow-net supabase/functions/send-application-notification/index_test.ts
+npm test
+npm run build
+```

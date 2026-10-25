@@ -35,15 +35,18 @@ export async function getInternship(id: string, universityId?: string): Promise<
 }
 
 export async function listAdminInternships(): Promise<Internship[]> {
-  const [itemsResult, targetsResult] = await Promise.all([
+  const [itemsResult, targetsResult, contactsResult] = await Promise.all([
     supabase.from("internships").select(internshipColumns).order("created_at", { ascending: false }),
     supabase.from("internship_universities").select("internship_id, university_id"),
+    supabase.from("internship_recruiter_contacts").select("internship_id, email"),
   ]);
   const { data, error } = itemsResult;
   if (error) throw error;
   if (targetsResult.error) throw targetsResult.error;
+  if (contactsResult.error) throw contactsResult.error;
   return ((data ?? []) as Internship[]).map((item) => ({
     ...item,
+    recruiter_email: contactsResult.data?.find((contact) => contact.internship_id === item.id)?.email ?? "",
     university_ids: (targetsResult.data ?? [])
       .filter((target) => target.internship_id === item.id)
       .map((target) => target.university_id),
@@ -72,26 +75,43 @@ export async function getInternshipTargetUniversityIds(id: string): Promise<stri
   return (data ?? []).map((item) => item.university_id);
 }
 
+export async function getRecruiterEmail(id: string): Promise<string> {
+  const { data, error } = await supabase.from("internship_recruiter_contacts")
+    .select("email").eq("internship_id", id).maybeSingle();
+  if (error) throw error;
+  return data?.email ?? "";
+}
+
+async function saveRecruiterEmail(id: string, email: string) {
+  const { error } = await supabase.from("internship_recruiter_contacts")
+    .upsert({ internship_id: id, email: email.trim() });
+  if (error) throw error;
+}
+
 export async function createInternship(input: InternshipInput, universityIds: string[]): Promise<Internship> {
+  const { recruiter_email, ...jobInput } = input;
   const { data, error } = await supabase
     .from("internships")
-    .insert(input)
+    .insert(jobInput)
     .select(internshipColumns)
     .single();
   if (error) throw error;
   await setInternshipUniversities((data as Internship).id, universityIds);
+  await saveRecruiterEmail((data as Internship).id, recruiter_email ?? "");
   return data as Internship;
 }
 
 export async function updateInternship(id: string, input: InternshipInput, universityIds: string[]): Promise<Internship> {
+  const { recruiter_email, ...jobInput } = input;
   const { data, error } = await supabase
     .from("internships")
-    .update(input)
+    .update(jobInput)
     .eq("id", id)
     .select(internshipColumns)
     .single();
   if (error) throw error;
   await setInternshipUniversities(id, universityIds);
+  await saveRecruiterEmail(id, recruiter_email ?? "");
   return data as Internship;
 }
 
@@ -105,9 +125,21 @@ export async function deleteInternship(id: string) {
   if (error) throw error;
 }
 
-export async function createApplication(input: ApplicationInput): Promise<void> {
-  const { error } = await supabase.from("applications").insert(input);
+export async function sendApplicationNotification(applicationId: string): Promise<boolean> {
+  try {
+    const { data, error } = await supabase.functions.invoke("send-application-notification", {
+      body: { application_id: applicationId },
+    });
+    return !error && data?.notification_sent === true;
+  } catch {
+    return false;
+  }
+}
+
+export async function createApplication(input: ApplicationInput): Promise<{ id: string; notificationSent: boolean }> {
+  const { data, error } = await supabase.from("applications").insert(input).select("id").single();
   if (error) throw error;
+  return { id: data.id, notificationSent: await sendApplicationNotification(data.id) };
 }
 
 export async function listMyApplications(userId: string): Promise<Application[]> {

@@ -32,7 +32,22 @@ export default function FeaturedInternships({ items }: FeaturedInternshipsProps)
                 </div>
                 <div className="careerMiniCardBody">
                   <h3>{item.title}</h3>
-                  <p>{item.company_name}</p>
+                  <div className="internshipCardCompany">
+                    {item.company_logo_url ? (
+                      <img src={item.company_logo_url} alt={`${item.company_name}のロゴ`} loading="lazy" />
+                    ) : null}
+                    <p>{item.company_name}</p>
+                  </div>
+                  <dl className="careerMiniJobDetails">
+                    <div>
+                      <dt>報酬</dt>
+                      <dd>{item.compensation.trim() || "未記載"}</dd>
+                    </div>
+                    <div>
+                      <dt>最寄り駅</dt>
+                      <dd>{item.location.trim() || "未記載"}</dd>
+                    </div>
+                  </dl>
                   <strong>
                     詳細を見る <ArrowRight aria-hidden="true" />
                   </strong>
