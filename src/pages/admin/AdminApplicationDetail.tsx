@@ -109,7 +109,11 @@ export default function AdminApplicationDetail() {
               {detailRows.map(([label, value]) => (
                 <div key={label}>
                   <dt>{label}</dt>
-                  <dd>{value}</dd>
+                  <dd>
+                    {label === "メールアドレス" && value ? (
+                      <a href={`mailto:${encodeURIComponent(value)}`}>{value}</a>
+                    ) : value}
+                  </dd>
                 </div>
               ))}
             </dl>

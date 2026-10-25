@@ -73,10 +73,11 @@ export default function AdminInternships() {
     {message && <p className="formSuccess" role="status">{message}</p>}
     {error && <p className="formError" role="alert">{error}</p>}
     {loading ? <div className="careerState">読み込んでいます...</div> : visibleItems.length === 0 ? <div className="careerState">登録された求人はありません。</div> :
-      <div className="adminTableWrap"><table className="adminTable"><thead><tr><th>求人</th><th>掲載先</th><th>職種</th><th>公開状態</th><th>応募件数</th><th>締切</th><th>作成日</th><th>操作</th></tr></thead><tbody>
+      <div className="adminTableWrap"><table className="adminTable"><thead><tr><th>求人</th><th>掲載先</th><th>募集者メール</th><th>職種</th><th>公開状態</th><th>応募件数</th><th>締切</th><th>作成日</th><th>操作</th></tr></thead><tbody>
         {visibleItems.map((item) => <tr key={item.id}>
           <td><strong>{item.title}</strong><span>{item.company_name}</span></td>
           <td>{targetNames(item)}</td>
+          <td>{item.recruiter_email ? <a href={`mailto:${encodeURIComponent(item.recruiter_email)}`}>{item.recruiter_email}</a> : "未記載"}</td>
           <td>{item.job_category}</td>
           <td><select aria-label={`${item.title}の公開状態`} value={item.status} onChange={(event) => void changeStatus(item.id, event.target.value as InternshipStatus)}>{Object.entries(internshipStatusLabels).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></td>
           <td>{applications.filter((application) => application.internship_id === item.id).length}件</td>

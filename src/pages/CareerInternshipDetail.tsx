@@ -8,7 +8,7 @@ import InternshipDetailContent, {
 } from "../components/career/InternshipDetailContent";
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
-import { getInternship, listPublishedInternships } from "../services/careerService";
+import { getInternship, listPublishedInternships, sendApplicationNotification } from "../services/careerService";
 import type { Internship } from "../types/career";
 import { useUniversity } from "../components/university/universityContextValue";
 import "../styles/career/CareerPlatform.css";
@@ -23,6 +23,9 @@ export default function CareerInternshipDetail() {
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [notificationSent, setNotificationSent] = useState(false);
+  const [applicationId, setApplicationId] = useState("");
+  const [retryingNotification, setRetryingNotification] = useState(false);
   const [currentTime] = useState(() => Date.now());
 
   useEffect(() => {
@@ -72,7 +75,9 @@ export default function CareerInternshipDetail() {
     item.status !== "published" ||
     new Date(item.deadline).getTime() < currentTime;
 
-  const handleApplicationSuccess = () => {
+  const handleApplicationSuccess = (sent: boolean, savedApplicationId: string) => {
+    setNotificationSent(sent);
+    setApplicationId(savedApplicationId);
     setSuccess(true);
     setShowForm(false);
   };
@@ -99,6 +104,18 @@ export default function CareerInternshipDetail() {
             {success && (
               <div className="applicationSuccess" role="status">
                 <h2>応募を受け付けました</h2>
+                {notificationSent ? (
+                  <p>募集者へ応募通知メールを送信しました。</p>
+                ) : (
+                  <>
+                    <p>応募は保存されましたが、通知メールを送信できませんでした。応募し直す必要はありません。</p>
+                    <button type="button" disabled={retryingNotification} onClick={async () => {
+                      setRetryingNotification(true);
+                      try { setNotificationSent(await sendApplicationNotification(applicationId)); }
+                      finally { setRetryingNotification(false); }
+                    }}>{retryingNotification ? "再送しています..." : "通知メールを再送する"}</button>
+                  </>
+                )}
                 <p>マイページから現在のステータスを確認できます。</p>
                 <Link to={path("/mypage/applications")}>応募状況を見る</Link>
               </div>
