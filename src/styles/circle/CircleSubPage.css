@@ -1,0 +1,105 @@
+.circleSubPageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.circleSubPageCircle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.circleSubPageImage {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  background: #d9d9d9;
+  overflow: hidden;
+}
+
+.circleSubPageImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.circleSubPageName {
+  margin: 6px 0 0;
+  color: var(--color-text-primary);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.circleSubPageCard {
+  margin-top: 28px;
+}
+
+.sidebarCard .circleDetailCardHead h1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.circleDetailCardHead h1 svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+}
+
+.circleSubPageScore.sidebarScoreRow {
+  margin-bottom: 18px;
+}
+
+/* 一覧ページでは本文を省略せず全文表示する */
+.circleSubPageNotices p {
+  overflow: visible;
+  white-space: normal;
+  line-height: 1.6;
+}
+
+.circleSubPageReviews {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.circleSubPageReviews li {
+  padding: 14px 8px;
+  border-bottom: 1px solid #e3eaf5;
+}
+
+.circleSubPageReviews li:last-child {
+  border-bottom: none;
+}
+
+.circleSubPageReviews time {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+.circleSubPageReviews p {
+  margin: 6px 0 0;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .circleSubPageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .circleSubPageNotices li {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
