@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { Internship } from "../../types/career";
 import { useUniversity } from "../university/universityContextValue";
@@ -7,46 +7,45 @@ type FeaturedInternshipsProps = {
   items: Internship[];
 };
 
+// 講義・履修トップの履修ガイド（classGuidePanel）と同じ見た目にそろえる。
 export default function FeaturedInternships({ items }: FeaturedInternshipsProps) {
   const { path } = useUniversity();
   return (
-    <section className="careerHomeSection">
-      <div className="careerSectionHeading">
-        <span>FEATURED</span>
-        <h2>おすすめの長期インターン</h2>
+    <section className="classGuidePanel">
+      <div className="classGuidePanelHead">
+        <h2 className="classGuidePanelTitle">
+          <BriefcaseBusiness aria-hidden="true" />
+          おすすめの長期インターン
+        </h2>
+        <Link className="classGuidePanelMore" to={path("/career/internships")}>
+          インターン一覧を見る
+          <ChevronRight aria-hidden="true" />
+        </Link>
       </div>
       {items.length > 0 ? (
-        <>
-          <div className="careerMiniGrid">
-            {items.map((item) => (
-              <Link
-                className="careerMiniCard"
-                to={path(`/career/internships/${item.id}`)}
-                key={item.id}
-              >
-                <div className={`careerMiniCover${item.cover_image_url ? " hasImage" : ""}`}>
-                  {item.cover_image_url ? (
-                    <img src={item.cover_image_url} alt="" />
-                  ) : null}
-                  <span>{item.job_category}</span>
-                </div>
-                <div className="careerMiniCardBody">
-                  <h3>{item.title}</h3>
-                  <p>{item.company_name}</p>
-                  <strong>
-                    詳細を見る <ArrowRight aria-hidden="true" />
-                  </strong>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <p className="alumniPreviewMore">
-            <Link className="careerPrimaryButton" to={path("/career/internships")}>
-              インターン一覧を見る
-              <ArrowRight aria-hidden="true" />
+        <div className="careerMiniGrid">
+          {items.map((item) => (
+            <Link
+              className="careerMiniCard"
+              to={path(`/career/internships/${item.id}`)}
+              key={item.id}
+            >
+              <div className={`careerMiniCover${item.cover_image_url ? " hasImage" : ""}`}>
+                {item.cover_image_url ? (
+                  <img src={item.cover_image_url} alt="" />
+                ) : null}
+                <span>{item.job_category}</span>
+              </div>
+              <div className="careerMiniCardBody">
+                <h3>{item.title}</h3>
+                <p>{item.company_name}</p>
+                <strong>
+                  詳細を見る <ArrowRight aria-hidden="true" />
+                </strong>
+              </div>
             </Link>
-          </p>
-        </>
+          ))}
+        </div>
       ) : (
         <div className="careerInlineState">
           公開中のおすすめ求人は、現在準備中です。
