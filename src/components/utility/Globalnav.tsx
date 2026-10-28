@@ -22,7 +22,6 @@ import {
   fallbackNavBasePath,
   isNavBasePath,
 } from "../../lib/pageBack";
-import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
@@ -183,10 +182,6 @@ function Globalnav() {
                       <p className="navDropdownDesc">
                         {dropdown.description.replace("筑波大", university?.short_name ?? "大学")}
                       </p>
-                      <div className="navDropdownLogo" role="img" aria-label="TsukuHub">
-                        <img src={logoBlue} alt="" aria-hidden="true" />
-                        <span>TsukuHub</span>
-                      </div>
                     </div>
                     <ul className="navDropdownColumns">
                       {dropdown.items.map((menu) => {
