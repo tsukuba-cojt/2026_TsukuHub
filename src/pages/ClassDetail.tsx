@@ -45,6 +45,14 @@ function ClassDetail() {
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const requestedAcademicYear = Number(
+    new URLSearchParams(location.search).get("year")
+  );
+  const academicYear = [2023, 2024, 2025, 2026].includes(
+    requestedAcademicYear
+  )
+    ? requestedAcademicYear
+    : undefined;
   // 口コミ投稿ページから router state で渡されるトーストメッセージ
   const [toast, setToast] = useState<string | null>(() => {
     const state = location.state as { toast?: string } | null;
@@ -76,7 +84,11 @@ function ClassDetail() {
       setError(null);
 
       try {
-        const nextCourse = await getCatalogCourse(university.slug, courseCode);
+        const nextCourse = await getCatalogCourse(
+          university.slug,
+          courseCode,
+          academicYear
+        );
         setCourse(nextCourse);
       } catch {
         setError("講義情報の取得に失敗しました。");
@@ -86,7 +98,7 @@ function ClassDetail() {
     };
 
     void fetchCourse();
-  }, [courseCode, university]);
+  }, [academicYear, courseCode, university]);
 
   useEffect(() => {
     if (!courseCode || !university) return;
@@ -142,7 +154,7 @@ function ClassDetail() {
   }, [reviews]);
 
   const handlePostReview = () => {
-    navigate(path(`/class/${courseCode}/review`));
+    navigate(path(`/class/${courseCode}/review${location.search}`));
   };
 
   // 授業方法（数字コード→日本語ラベル）と講義形式（備考から判定）のバッジ
@@ -166,10 +178,11 @@ function ClassDetail() {
     }
 
     const fallbackCode = course?.course_number ?? courseCode;
+    const syllabusYear = course?.academic_year ?? academicYear ?? 2026;
     return fallbackCode
-      ? `https://kdb.tsukuba.ac.jp/syllabi/2026/${fallbackCode}/jpn`
+      ? `https://kdb.tsukuba.ac.jp/syllabi/${syllabusYear}/${fallbackCode}/jpn`
       : null;
-  }, [course, courseCode]);
+  }, [academicYear, course, courseCode]);
 
   const syllabusSummary = useMemo(() => {
     const targetYear = course?.target_year?.trim();

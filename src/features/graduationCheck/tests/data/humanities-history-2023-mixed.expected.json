@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "humanities",
+    "majorKey": "humanities-history",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "humanities-history-22",
+      "department": "人文学類",
+      "major": "史学主専攻",
+      "enrollYear": "2022~2026"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 124,
+      "earnedUnits": 11,
+      "prospectiveUnits": 13,
+      "shortageUnits": 113,
+      "prospectiveShortageUnits": 111,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 28,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 44,
+        "earnedUnits": 2,
+        "prospectiveUnits": 4
+      },
+      "specializedFoundation": {
+        "requiredUnits": 11,
+        "earnedUnits": 2,
+        "prospectiveUnits": 2
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 6,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "AB71901": "specialized",
+      "AB71902": "specialized",
+      "AB71903": "specialized",
+      "AB50904": "specializedFoundation",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "卒業論文（史学）": true
+    }
+  }
+}

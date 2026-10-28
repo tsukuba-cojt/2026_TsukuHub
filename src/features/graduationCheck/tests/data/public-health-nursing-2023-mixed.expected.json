@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "nursing",
+    "majorKey": "public-health-nursing",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "public-health-nursing-22",
+      "department": "看護学類",
+      "major": "保健師課程",
+      "enrollYear": "2022~2026"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 137,
+      "earnedUnits": 8,
+      "prospectiveUnits": 8,
+      "shortageUnits": 129,
+      "prospectiveShortageUnits": 129,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 131,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 0,
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
+      },
+      "specializedFoundation": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 4,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "HE00901": "specializedFoundation",
+      "HE00902": "specializedFoundation",
+      "HE00903": "specializedFoundation",
+      "HE00904": "specializedFoundation",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "基礎看護学概論": true
+    }
+  }
+}

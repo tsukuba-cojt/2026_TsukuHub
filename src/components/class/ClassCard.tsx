@@ -6,6 +6,7 @@ import { useUniversity } from "../university/universityContextValue";
 
 export type ClassCourse = {
   id: string;
+  academicYear: number;
   code: string;
   title: string;
   teacher: string;
@@ -23,7 +24,10 @@ type ClassCardProps = {
 function ClassCard({ course }: ClassCardProps) {
   const { path } = useUniversity();
   return (
-    <Link to={path(`/class/${course.code}`)} className="classCardLink">
+    <Link
+      to={path(`/class/${course.code}?year=${course.academicYear}`)}
+      className="classCardLink"
+    >
       <article className="classCard">
       <div className="classCardMain">
         <div className="classCardMeta">

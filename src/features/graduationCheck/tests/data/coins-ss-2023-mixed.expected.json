@@ -1,0 +1,79 @@
+{
+  "selection": {
+    "departmentKey": "coins",
+    "majorKey": "coins-ss",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 11,
+    "csvErrors": [],
+    "requirement": {
+      "id": "coins-ss-22"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 125,
+      "earnedUnits": 15,
+      "prospectiveUnits": 17,
+      "shortageUnits": 110,
+      "prospectiveShortageUnits": 108,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "earnedUnits": 0,
+        "prospectiveUnits": 0,
+        "requiredUnits": 54
+      },
+      "specialized": {
+        "earnedUnits": 4,
+        "prospectiveUnits": 6,
+        "requiredUnits": 34
+      },
+      "specializedFoundation": {
+        "earnedUnits": 8,
+        "prospectiveUnits": 8,
+        "requiredUnits": 26
+      },
+      "common": {
+        "earnedUnits": 1,
+        "prospectiveUnits": 1,
+        "requiredUnits": 1
+      },
+      "related": {
+        "earnedUnits": 2,
+        "prospectiveUnits": 2,
+        "requiredUnits": 6
+      }
+    },
+    "gpa": {
+      "value": 3.4,
+      "max": 4.3,
+      "targetUnits": 19,
+      "aRatePercent": 82.3529411764706
+    },
+    "assignments": {
+      "GB20001": "specialized",
+      "GB13312": "specialized",
+      "GB11601": "specializedFoundation",
+      "GB13614": "specializedFoundation",
+      "GB15001": "specializedFoundation",
+      "GA10001": "specializedFoundation",
+      "1226011": "common",
+      "GC10001": "related",
+      "8000001": "related",
+      "GB20002": "specialized",
+      "GB20003": "specialized"
+    },
+    "compulsoryPassed": {
+      "卒業研究A": false,
+      "情報": false
+    }
+  }
+}

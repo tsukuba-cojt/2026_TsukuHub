@@ -12,6 +12,37 @@
   （同じ科目の二重計上を防ぐ。選択要件間でも消し込む）
 - 単位数は「確定（履修中を除く）」と「見込み（履修中を含む）」の2系統で返す
 - 複数の候補科目から合計N単位を求める必修や、科目名指定を含む選択要件にも対応する
+- 科目番号が空で評価が「認」の単位認定科目も、まず必修の科目名一致と明示的な選択規則を
+  評価する。それでも分類できない場合は、関連科目へ推測配分せず `uncountedCourses` に残す
+
+## 判定パイプライン
+
+処理を次の段階に分けている。単位の誤分類を調べるときは、上から順に確認する。
+
+1. `parseCsv.ts`: TWINS CSVを `Course[]` へ変換
+2. `graduationCatalog.ts`: 開講年度別の静的JSONから同一授業番号を補完
+3. `selectMatcher.ts`: 1科目が1つの選択規則に該当するか判定
+4. `checkCompulsory.ts` / `checkSelect.ts`: 定義順に科目を消し込み
+5. `courseAllocation.ts`: 必修・選択・対象外の割り当てと競合候補を記録
+6. `progress.ts`: 小区分上限、グループ上限、必要単位を集計
+7. `checkGraduation.ts`: 各段階を接続し、GPAを加えてレポート化
+
+`report.details.allocationTraces` には、各科目の最終的な割り当てと、消し込み前に
+該当したすべての選択規則が入る。`selectCandidates` が複数ある科目は規則が競合しており、
+現在は `ruleIndex` が最小の規則（要件データで先に書かれた規則）へ割り当てられる。
+原因調査では、まずこの競合と `uncounted` を確認する。
+
+## 卒業要件データの移行方針
+
+公式PDFから直接 `GradRequirement` を手書きせず、今後は次の3層に分ける。
+
+1. Raw: PDFの原文、表セル、抽出警告を失わず保存
+2. `curriculum/`: 出典付きの正規化形式で要件をレビュー・静的検証
+3. `GradRequirement`: ブラウザで評価するためのコンパイル済み形式
+
+正規化形式は公式表の科目区分と必修・選択を別軸で保持し、合算条件、読み替え、
+年度・経過措置を表現する。否定条件だけで関連科目を確定する規則は検証エラーとし、
+未分類の科目を例外区分へ自動計上しない。
 
 ## 使い方
 
@@ -19,14 +50,40 @@
 import {
   parseGradesCsv,
   resolveRequirementIds,
-  checkGraduation,
+  checkGraduationWithCatalog,
 } from "../features/graduationCheck";
 
 const { courses, errors } = parseGradesCsv(csvText); // errors はUIで行番号付き表示
 const ids = resolveRequirementIds("情報メディア創成学類", 2023); // → ["mast-22"]
 // 知識情報・図書館学類は主専攻ごとに3件返る → UIで選択させる
-const report = checkGraduation(courses, ids[0]);
+const report = await checkGraduationWithCatalog(courses, ids[0], "tsukuba");
 ```
+
+公開APIでは必ず `checkGraduationWithCatalog` を使用する。同期版の `checkGraduation` は、
+カタログ補完後の判定ロジックを単体テストするための内部関数であり、公開indexからはexportしない。
+
+`report.catalogVerification` には、成績CSVの開講年度を基準として静的カタログで検証できた年度と、
+未対応年度が記録される。対応年度のJSON取得に失敗した場合は判定を中止し、未対応年度は結果画面で
+未検証として警告する。
+
+## 判定後のDB保存
+
+ログイン利用者の卒業要件確認では、既存の次の接続を維持する。
+
+```text
+GraduationCheckReport
+  -> buildTimetableHistoriesFromGraduationReport
+  -> saveTimetableHistories
+  -> timetable_histories / timetable_history_courses
+```
+
+`Course.year` はTWINS成績CSVの開講年度列から取得し、年度別履歴と各科目行の
+`academic_year`として保存する。生の成績CSV自体はDBへ送信しない。
+
+判定結果の `uncountedCourses` には、利用者がこの画面内で正しい区分へ移動できるUIを表示する。
+分類後は既存の区分上限を含めて単位を再集計するが、DBへは保存せず、ページを離れると破棄する。
+将来の匿名回答蓄積用コードとマイグレーションは用意しているが、現在のUIからは接続していない。
+将来案のデータ形式は `docs/course-classification-responses.md` を参照する。
 
 ## 区分マッピング
 

@@ -31,6 +31,14 @@
 .careerMiniCard p { margin: 0; color: var(--color-text-secondary); font-size: 13px; line-height: 1.7; }
 .careerMiniCard strong { display: flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 18px; color: var(--color-primary-dark); font-size: 12px; }
 .careerMiniCard svg, .careerFirstGuide svg { width: 15px; }
+.careerMiniJobDetails { margin: 16px 0 0; font-size: 13px; line-height: 1.7; }
+.careerMiniJobDetails > div { display: grid; grid-template-columns: 5em minmax(0, 1fr); align-items: start; gap: 12px; padding: 10px 0; border-top: 1px solid #e2e8f0; }
+.careerMiniJobDetails > div:last-child { border-bottom: 1px solid #e2e8f0; }
+.careerMiniJobDetails dt { padding: 2px 4px; border-radius: 3px; background: #1e293b; color: #fff; font-weight: 700; text-align: center; }
+.careerMiniJobDetails dd { margin: 0; color: var(--color-text-primary, #1e293b); overflow-wrap: anywhere; }
+.internshipCardCompany, .alumniCardBody > .internshipCardCompany { display: flex; align-items: center; flex-wrap: nowrap; gap: 12px; }
+.internshipCardCompany img { width: 56px; height: 56px; flex-shrink: 0; padding: 6px; box-sizing: border-box; object-fit: contain; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; }
+.internshipCardCompany p { min-width: 0; margin: 0; overflow-wrap: anywhere; }
 .careerFirstGuide { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 72px; padding: 32px 36px; border-radius: 18px; color: #fff; background: var(--color-main-gradient); }
 .careerFirstGuide span { font-size: 11px; font-weight: 800; letter-spacing: .08em; }
 .careerFirstGuide h2 { max-width: 650px; margin: 8px 0; font-size: 23px; }
@@ -317,6 +325,8 @@
 .logoPreview { display: flex; align-items: center; gap: 12px; }
 .logoPreview img { width: 72px; height: 72px; object-fit: contain; border: 1px solid #e0e7ef; border-radius: 9px; }
 .logoPreview button { border: 0; color: #a33b4e; background: transparent; cursor: pointer; }
+.bannerPreview { flex-wrap: wrap; }
+.bannerPreview img { width: min(100%, 360px); height: auto; max-height: 220px; object-fit: contain; }
 .formActions { display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
 .adminApplicationLayout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-items: start; gap: 18px; margin-top: 18px; }
 .adminApplicationLayout > div { display: grid; gap: 18px; }

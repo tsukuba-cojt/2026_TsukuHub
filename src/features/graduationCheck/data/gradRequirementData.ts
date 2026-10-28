@@ -553,7 +553,7 @@ export const gradRequirementData: GradRequirementTable = {
   },
   "klis-irm-21": {
     "header": {
-      "department": "知識情報図書館学類",
+      "department": "知識情報・図書館学類",
       "major": "情報資源経営",
       "enrollYear": 2021
     },
@@ -698,7 +698,7 @@ export const gradRequirementData: GradRequirementTable = {
   },
   "klis-irm-22": {
     "header": {
-      "department": "知識情報図書館学類",
+      "department": "知識情報・図書館学類",
       "major": "情報資源経営",
       "enrollYear": "2022~2024"
     },
@@ -844,7 +844,7 @@ export const gradRequirementData: GradRequirementTable = {
   },
   "klis-kis-21": {
     "header": {
-      "department": "知識情報図書館学類",
+      "department": "知識情報・図書館学類",
       "major": "知識情報システム",
       "enrollYear": 2021
     },
@@ -989,7 +989,7 @@ export const gradRequirementData: GradRequirementTable = {
   },
   "klis-kis-22": {
     "header": {
-      "department": "知識情報図書館学類",
+      "department": "知識情報・図書館学類",
       "major": "知識情報システム",
       "enrollYear": "2022~2024"
     },
@@ -1135,7 +1135,7 @@ export const gradRequirementData: GradRequirementTable = {
   },
   "klis-ksc-21": {
     "header": {
-      "department": "知識情報図書館学類",
+      "department": "知識情報・図書館学類",
       "major": "知識科学",
       "enrollYear": 2021
     },
@@ -1280,7 +1280,7 @@ export const gradRequirementData: GradRequirementTable = {
   },
   "klis-ksc-22": {
     "header": {
-      "department": "知識情報図書館学類",
+      "department": "知識情報・図書館学類",
       "major": "知識科学",
       "enrollYear": "2022~2024"
     },

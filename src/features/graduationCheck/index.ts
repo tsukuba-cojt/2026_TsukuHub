@@ -7,7 +7,7 @@
  * 使い方:
  *   const { courses, errors } = parseGradesCsv(csvText);
  *   const ids = resolveRequirementIds("情報メディア創成学類", 2023); // → ["mast-22"]
- *   const report = checkGraduation(courses, ids[0]);
+ *   const report = await checkGraduationWithCatalog(courses, ids[0], "tsukuba");
  *
  * 判定ロジックは Mimori256/Graduation-Checker
  * (https://github.com/Mimori256/Graduation-Checker, MPL-2.0) を踏襲している。
@@ -15,8 +15,9 @@
  */
 
 export { parseGradesCsv } from "./parseCsv";
+export { GraduationCatalogError } from "./graduationCatalog";
 export {
-  checkGraduation,
+  checkGraduationWithCatalog,
   listSupportedRequirements,
   resolveRequirementIds,
 } from "./checkGraduation";
@@ -37,9 +38,30 @@ export type {
 } from "./data/supportedDepartments";
 export { collectCategoryCourses } from "./categoryCourses";
 export type { CategoryCourses } from "./categoryCourses";
+export { classifyUncountedCourse } from "./manualClassification";
+export { matchesSelectRequirement } from "./selectMatcher";
+export {
+  assessCurriculumCompilation,
+  isSupportedNormalizedAdmissionYear,
+  normalizedCurriculumScope,
+  officialCurriculumSources,
+  supportedNormalizedAdmissionYears,
+  validateNormalizedCurriculum,
+} from "./curriculum";
+export type {
+  CurriculumCompilationAssessment,
+  CurriculumValidationIssue,
+  MatcherResolution,
+  NormalizedCurriculum,
+  SourceCoverageItem,
+  SourceDocument,
+  SourceReference,
+  TranscriptSubjectMatcher,
+} from "./curriculum";
 export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
 export { categoryLabels, categoryOrder } from "./categoryMapping";
 export type {
+  AllocationTrace,
   CategoryKey,
   CategoryResult,
   CompulsoryResult,
@@ -50,6 +72,8 @@ export type {
   Grade,
   ParseCsvResult,
   RequirementId,
+  RequirementItemProgress,
+  SelectAllocationCandidate,
   SelectResult,
   UnitProgress,
 } from "./types";

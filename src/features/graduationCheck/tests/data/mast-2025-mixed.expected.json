@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "mast",
+    "majorKey": "mast",
+    "admissionYear": 2025
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "mast-25",
+      "department": "情報メディア創成学類",
+      "major": "情報メディア創成",
+      "enrollYear": 2025
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2025
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 124,
+      "earnedUnits": 11,
+      "prospectiveUnits": 13,
+      "shortageUnits": 113,
+      "prospectiveShortageUnits": 111,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 51,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 20,
+        "earnedUnits": 2,
+        "prospectiveUnits": 4
+      },
+      "specializedFoundation": {
+        "requiredUnits": 31,
+        "earnedUnits": 2,
+        "prospectiveUnits": 2
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 6,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "GC50901": "specialized",
+      "GC50902": "specialized",
+      "GC50903": "specialized",
+      "GA10904": "specializedFoundation",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "卒業研究A": true
+    }
+  }
+}

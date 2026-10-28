@@ -1,0 +1,80 @@
+{
+  "selection": {
+    "departmentKey": "esys",
+    "majorKey": "esys-ies",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 10,
+    "csvErrors": [],
+    "requirement": {
+      "id": "esys-ies-22",
+      "department": "工学システム学類",
+      "major": "知的・機能工学システム",
+      "enrollYear": "2022~2026"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 125,
+      "earnedUnits": 11,
+      "prospectiveUnits": 13,
+      "shortageUnits": 114,
+      "prospectiveShortageUnits": 112,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "requiredUnits": 69,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
+      },
+      "specialized": {
+        "requiredUnits": 40,
+        "earnedUnits": 2,
+        "prospectiveUnits": 4
+      },
+      "specializedFoundation": {
+        "requiredUnits": 0,
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
+      },
+      "common": {
+        "requiredUnits": 1,
+        "earnedUnits": 1,
+        "prospectiveUnits": 1
+      },
+      "related": {
+        "requiredUnits": 6,
+        "earnedUnits": 5,
+        "prospectiveUnits": 5
+      }
+    },
+    "gpa": {
+      "value": 2.89,
+      "max": 4.3,
+      "targetUnits": 10,
+      "aRatePercent": 62.5
+    },
+    "assignments": {
+      "ZZ0091": "compulsory",
+      "FG17901": "specialized",
+      "FG17902": "specialized",
+      "FG17903": "specialized",
+      "ZZ10904": "related",
+      "1226991": "common",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted"
+    },
+    "compulsoryPassed": {
+      "プログラミング序論C": true
+    }
+  }
+}

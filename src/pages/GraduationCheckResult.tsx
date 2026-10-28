@@ -20,18 +20,21 @@ import {
   TimetableLegend,
 } from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
+import UnclassifiedCourseFeedback from "../components/class/UnclassifiedCourseFeedback";
 import {
   formatPercent,
   levelClass,
   levelFromPercent,
 } from "../components/class/graduationProgressLevel";
 import {
+  classifyUncountedCourse,
   listDepartmentAdmissionYears,
   supportedDepartments,
 } from "../features/graduationCheck";
 import type {
   CategoryKey,
   CategoryResult,
+  Course,
   CsvRowError,
   GraduationCheckReport,
 } from "../features/graduationCheck";
@@ -133,7 +136,11 @@ function RequirementRow({
   item: CategoryResult;
   onOpenDetail: (category: CategoryKey) => void;
 }) {
-  const level = levelFromPercent(item.percent);
+  const level = item.isSatisfied
+    ? "ok"
+    : item.percent >= 100
+      ? "warn"
+      : levelFromPercent(item.percent);
   return (
     <li
       className={`gradResultReqRow ${levelClass[level]}`}
@@ -155,7 +162,7 @@ function RequirementRow({
         <span className="gradResultReqUnitsSub">/ {item.requiredUnits} 単位</span>
       </p>
       <div className="gradResultReqBarCell">
-        <ProgressBar percent={item.percent} />
+        <ProgressBar percent={item.percent} level={level} />
       </div>
       <p className="gradResultReqPct">
         <span className="gradResultNumFont">{formatPercent(item.percent)}</span>{" "}
@@ -189,6 +196,9 @@ function GraduationCheckResult() {
   const [result] = useState<GraduationCheckResultState>(
     () => location.state as GraduationCheckResultState
   );
+  const [report, setReport] = useState<GraduationCheckReport | null>(
+    () => result?.report ?? null,
+  );
   // 詳細画面は同一ページ内のビュー切替にする。
   // 別ルートへ遷移すると、下の useEffect で history state を消しているぶん
   // 判定結果を引き継げず破棄されてしまうため。
@@ -196,9 +206,21 @@ function GraduationCheckResult() {
   const [focusCategory, setFocusCategory] = useState<CategoryKey | null>(null);
   const [selectedTimetable, setSelectedTimetable] = useState<TimetableHistory | null>(null);
   const [activeTimetableModule, setActiveTimetableModule] = useState<TimetableModuleKey>("springA");
-  // CSVに読めない行があった場合の警告（閉じるまで表示し続ける）
-  const [isCsvWarningOpen, setIsCsvWarningOpen] = useState(
-    () => (result?.csvErrors?.length ?? 0) > 0
+  const unsupportedCatalogYears =
+    result?.report.catalogVerification.unsupportedAcademicYears ?? [];
+  const resultWarningMessage = [
+    (result?.csvErrors?.length ?? 0) > 0
+      ? "CSVエラーのため一部不正確な場合があります"
+      : null,
+    unsupportedCatalogYears.length > 0
+      ? `${unsupportedCatalogYears.join("・")}年度の授業カタログが未対応のため、その年度の同一授業情報は未検証です`
+      : null,
+  ]
+    .filter((message): message is string => message !== null)
+    .join("。\n");
+  // CSVまたは授業カタログに警告がある場合は、閉じるまで表示し続ける。
+  const [isResultWarningOpen, setIsResultWarningOpen] = useState(
+    () => resultWarningMessage !== ""
   );
 
   useEffect(() => {
@@ -206,9 +228,6 @@ function GraduationCheckResult() {
       navigate(path("/graduation-checker/result"), { replace: true, state: null });
     }
   }, [location.state, navigate, path]);
-
-  // サマリーカード・要件項目リスト・詳細画面とも同一の判定結果（report）を参照する
-  const report = result?.report ?? null;
 
   const openDetail = (category: CategoryKey) => {
     setFocusCategory(category);
@@ -344,9 +363,24 @@ function GraduationCheckResult() {
               <SummaryCard
                 tone="pink"
                 icon={<TriangleAlert />}
-                label="不足単位"
-                value={String(report.summary.shortageUnits)}
-                valueSub="単位"
+                label={
+                  report.summary.shortageUnits === 0 &&
+                  !report.summary.isSatisfied
+                    ? "未充足の個別要件"
+                    : "不足単位"
+                }
+                value={String(
+                  report.summary.shortageUnits === 0 &&
+                    !report.summary.isSatisfied
+                    ? report.summary.unsatisfiedRequirementCount
+                    : report.summary.shortageUnits,
+                )}
+                valueSub={
+                  report.summary.shortageUnits === 0 &&
+                  !report.summary.isSatisfied
+                    ? "件"
+                    : "単位"
+                }
               />
               <SummaryCard
                 tone="purple"
@@ -403,6 +437,24 @@ function GraduationCheckResult() {
                 </p>
               </div>
             </section>
+
+            <UnclassifiedCourseFeedback
+              report={report}
+              onClassify={(course: Course, classification) => {
+                setReport((current) => {
+                  if (!current) return current;
+                  const uncountedIndex =
+                    current.details.uncountedCourses.indexOf(course);
+                  return uncountedIndex === -1
+                    ? current
+                    : classifyUncountedCourse(
+                        current,
+                        uncountedIndex,
+                        classification,
+                      );
+                });
+              }}
+            />
 
             {(result?.timetableHistories?.length ?? 0) > 0 && (
               <section className="gradResultTimetableSection">
@@ -484,12 +536,12 @@ function GraduationCheckResult() {
         )}
       </main>
       <Footer />
-      {isCsvWarningOpen && (
+      {isResultWarningOpen && (
         <Toast
-          message="CSVエラーのため一部不正確な場合があります"
+          message={resultWarningMessage}
           variant="warning"
           dismissible
-          onClose={() => setIsCsvWarningOpen(false)}
+          onClose={() => setIsResultWarningOpen(false)}
         />
       )}
     </div>

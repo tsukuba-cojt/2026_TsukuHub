@@ -1,0 +1,78 @@
+{
+  "selection": {
+    "departmentKey": "math",
+    "majorKey": "math",
+    "admissionYear": 2023
+  },
+  "expected": {
+    "courseCount": 9,
+    "csvErrors": [],
+    "requirement": {
+      "id": "math-22"
+    },
+    "catalogVerification": {
+      "verifiedAcademicYears": [
+        2023
+      ],
+      "unsupportedAcademicYears": []
+    },
+    "summary": {
+      "requiredUnits": 124,
+      "earnedUnits": 11,
+      "prospectiveUnits": 13,
+      "shortageUnits": 113,
+      "prospectiveShortageUnits": 111,
+      "isSatisfied": false,
+      "isProspectivelySatisfied": false
+    },
+    "categories": {
+      "compulsory": {
+        "earnedUnits": 4,
+        "prospectiveUnits": 4,
+        "requiredUnits": 32
+      },
+      "specialized": {
+        "earnedUnits": 2,
+        "prospectiveUnits": 4,
+        "requiredUnits": 46
+      },
+      "specializedFoundation": {
+        "earnedUnits": 2,
+        "prospectiveUnits": 2,
+        "requiredUnits": 15
+      },
+      "common": {
+        "earnedUnits": 1,
+        "prospectiveUnits": 1,
+        "requiredUnits": 1
+      },
+      "related": {
+        "earnedUnits": 2,
+        "prospectiveUnits": 2,
+        "requiredUnits": 6
+      }
+    },
+    "gpa": {
+      "value": 3.0461538461538464,
+      "max": 4.3,
+      "targetUnits": 13,
+      "aRatePercent": 63.63636363636363
+    },
+    "assignments": {
+      "FA00001": "compulsory",
+      "FA00002": "compulsory",
+      "FA00003": "compulsory",
+      "FB12001": "specialized",
+      "FB13001": "specialized",
+      "FBA0001": "specializedFoundation",
+      "1226011": "common",
+      "GC10001": "related",
+      "FB14001": "specialized"
+    },
+    "compulsoryPassed": {
+      "微積分系": true,
+      "線形代数系": true,
+      "卒業研究": false
+    }
+  }
+}
