@@ -47,7 +47,7 @@ export const saveClassCategorize = async (
   if (error) throw error;
 };
 
-/** 科目名ごとの分類履歴を集計し、同じ学類を優先した一意な最多分類を返す。 */
+/** 科目名ごとの分類履歴を同じ学類内だけで集計し、一意な最多分類を返す。 */
 export const getClassCategorizeSuggestions = async (
   classNames: string[],
   department: string,
@@ -59,19 +59,21 @@ export const getClassCategorizeSuggestions = async (
   const { data, error } = await supabase
     .from("class_categorize")
     .select("classname,categorized,major")
-    .in("classname", normalizedNames);
+    .in("classname", normalizedNames)
+    .eq("major", normalizedDepartment);
   if (error) throw error;
 
   const rows = (data ?? []) as ClassCategorizeRow[];
   const suggestions = new Map<string, CategoryKey>();
 
   normalizedNames.forEach((className) => {
-    const matchingRows = rows.filter((row) => row.classname.trim() === className);
-    const sameDepartmentRows = matchingRows.filter(
-      (row) => row.major.trim() === normalizedDepartment,
+    // DB側でも学類を絞るが、想定外のレスポンスを候補へ混ぜないよう
+    // クライアント側でも同じ境界を検証する。
+    const candidateRows = rows.filter(
+      (row) =>
+        row.classname.trim() === className &&
+        row.major.trim() === normalizedDepartment,
     );
-    const candidateRows =
-      sameDepartmentRows.length > 0 ? sameDepartmentRows : matchingRows;
     const counts = new Map<CategoryKey, number>();
 
     candidateRows.forEach((row) => {

@@ -5,6 +5,10 @@ type GraduationCrossListingFile = {
   university: string;
   academic_year: number;
   groups: string[][];
+  instruction_method_policy?: "biology-name-and-method-v1";
+  instruction_methods?: Record<string, Course["catalogInstructionMethod"] | null>;
+  bioresources_method_policy?: "bioresources-name-and-method-v1";
+  bioresources_core_courses?: string[];
 };
 
 export type GraduationCatalogVerification = {
@@ -21,10 +25,12 @@ export class GraduationCatalogError extends Error {
 }
 
 const SUPPORTED_ACADEMIC_YEARS = new Set([2023, 2024, 2025, 2026]);
-const crossListingIndexCache = new Map<
-  string,
-  Promise<Map<string, readonly string[]>>
->();
+type CatalogIndex = {
+  groups: Map<string, readonly string[]>;
+  instructionMethods: Map<string, NonNullable<Course["catalogInstructionMethod"]>>;
+  bioresourcesCore: Set<string>;
+};
+const crossListingIndexCache = new Map<string, Promise<CatalogIndex>>();
 
 const loadCrossListingIndex = (
   universitySlug: string,
@@ -57,7 +63,19 @@ const loadCrossListingIndex = (
       for (const group of payload.groups) {
         for (const courseCode of group) index.set(courseCode, group);
       }
-      return index;
+      const instructionMethods: CatalogIndex["instructionMethods"] = new Map();
+      if (payload.instruction_method_policy === "biology-name-and-method-v1") {
+        for (const [code, method] of Object.entries(payload.instruction_methods ?? {})) {
+          if (!/^EB(?:1[5-9]|[2-9])/.test(code) && payload.bioresources_method_policy !== "bioresources-name-and-method-v1") continue;
+          if (method === "experiment" || method === "practicum" || method === "other" ||
+            (payload.bioresources_method_policy === "bioresources-name-and-method-v1" && (method === "lecture" || method === "seminar"))) {
+            instructionMethods.set(code, method);
+          }
+        }
+      }
+      const bioresourcesCore = new Set(payload.bioresources_method_policy === "bioresources-name-and-method-v1"
+        ? (payload.bioresources_core_courses ?? []).filter((code) => /^EC2/.test(code)) : []);
+      return { groups: index, instructionMethods, bioresourcesCore };
     })
     .catch((error) => {
       crossListingIndexCache.delete(key);
@@ -99,14 +117,20 @@ export const attachCatalogEquivalencies = async (
   return {
     courses: courses.map((course) => {
       const courseCode = course.id.trim().toUpperCase();
-      const group = indexes.get(course.year)?.get(courseCode);
-      if (!group) return course;
-      return {
-        ...course,
-        equivalentCourseIds: group.filter(
+      const index = indexes.get(course.year);
+      const group = index?.groups.get(courseCode);
+      // 再照合時に旧年度や別カタログ由来の属性を持ち越さない。
+      const prepared = { ...course };
+      delete prepared.equivalentCourseIds;
+      delete prepared.catalogInstructionMethod;
+      delete prepared.catalogBioresourcesCore;
+      if (group) prepared.equivalentCourseIds = group.filter(
           (equivalentCourseCode) => equivalentCourseCode !== courseCode,
-        ),
-      };
+        );
+      const instructionMethod = index?.instructionMethods.get(courseCode);
+      if (instructionMethod) prepared.catalogInstructionMethod = instructionMethod;
+      if (index?.bioresourcesCore.has(courseCode)) prepared.catalogBioresourcesCore = true;
+      return prepared;
     }),
     verification: {
       source: "transcript_academic_year",

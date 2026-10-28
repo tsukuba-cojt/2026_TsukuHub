@@ -1,6 +1,7 @@
 import type { GradRequirement, GradRequirementTable } from "../../types";
 
-type EsysRequirementId = "esys-ies-22" | "esys-eme-22";
+type EsysRequirementId = "esys-ies-22" | "esys-eme-22" | "esys-ies-23" | "esys-eme-23" | "esys-ies-24" | "esys-eme-24";
+type LegacyEsysId = "esys-ies-22" | "esys-eme-22";
 
 type EsysMajor = {
   label: string;
@@ -100,7 +101,7 @@ const relatedSelectRules: GradRequirement["courses"]["select"] = [
   ],
 ];
 
-const majors: Record<EsysRequirementId, EsysMajor> = {
+const majors: Record<LegacyEsysId, EsysMajor> = {
   "esys-ies-22": {
     label: "知的・機能工学システム",
     compulsory: [
@@ -180,9 +181,7 @@ const majors: Record<EsysRequirementId, EsysMajor> = {
 };
 
 /**
- * 2022〜2026年度の筑波大学「学群等履修細則」理工学群別表第1を照合済み。
- * 各年度とも工学システム学類の2主専攻は同じ卒業要件表を使用している。
- * https://www.tsukuba.ac.jp/education/ug-courses-directory/
+ * 旧22版の比較履歴。現行の全行・注記監査と指定条件の残件は curriculum/audits/esys.md。
  */
 const buildEsysRequirement = (major: EsysMajor): GradRequirement => ({
   header: {
@@ -209,7 +208,45 @@ const buildEsysRequirement = (major: EsysMajor): GradRequirement => ({
   },
 });
 
+/** 2023と2024以降の専門英語B・演習の番号指定を区別する。 */
+const buildAuditedEsys = (legacyId: LegacyEsysId, revised: boolean): GradRequirement => {
+  const requirement = buildEsysRequirement(majors[legacyId]);
+  const energy = legacyId === "esys-eme-22";
+  requirement.header.enrollYear = revised ? "2024~2026" : 2023;
+  const units: Record<string, number> = {
+    線形代数総論B: 2, 常微分方程式: 2, 複素解析: 2, プログラミング序論A: 2, プログラミング序論C: 2,
+    工学システム基礎実験A: 2, 工学システム基礎実験B: 2, "知的・機能工学システム実験": 6,
+    "エネルギー・メカニクス専門実験": 3, "エネルギー・メカニクス応用実験": 3, 数値計算法: 3,
+  };
+  requirement.courses.compulsory = requirement.courses.compulsory.map((entry) => {
+    if (entry.startsWith("卒業研究A")) return "工学システム卒業研究A::4";
+    if (entry.startsWith("卒業研究B")) return "工学システム卒業研究B::4";
+    if (entry === "専門英語A") return "工学専門英語A::1";
+    if (entry === "専門英語B") return `${revised ? energy ? "エネメカ専門英語B" : "知的専門英語B" : "工学専門英語B"}::1`;
+    if (entry === "専門英語演習") return `${revised ? energy ? "エネメカ専門英語演習" : "知的専門英語演習" : "工学専門英語演習"}::1`;
+    if (entry.includes("::")) return entry;
+    // 同名の並行クラスを複数取得しても公式表の1行の単位を超えて加算しない。
+    return `${entry}::${units[entry] ?? 1}//['${entry}']`;
+  });
+  const pending = ["FJ", ...(energy ? ["FH", "YA", "YB"] : [])];
+  requirement.courses.select = requirement.courses.select.map((rule) => {
+    const copy = [...rule] as typeof rule;
+    copy[0] = rule[0].filter((prefix) => !pending.includes(prefix));
+    if (rule[4] === "資格・特設自由科目") copy[0] = ["*博物館に関する科目", "*教職に関する科目", "8"];
+    if (rule[4] === "他学群又は他学類の授業科目") {
+      // 指定一覧が欠ける候補は、専門から関連へ推測振替しない。学校確認後又は手動5分類で処理する。
+      copy[0] = [...copy[0].filter((prefix) => prefix !== "*自由科目特設"), "8", ...pending];
+    }
+    return copy;
+  });
+  return requirement;
+};
+
 export const esysRequirements = {
   "esys-ies-22": buildEsysRequirement(majors["esys-ies-22"]),
   "esys-eme-22": buildEsysRequirement(majors["esys-eme-22"]),
+  "esys-ies-23": buildAuditedEsys("esys-ies-22", false),
+  "esys-eme-23": buildAuditedEsys("esys-eme-22", false),
+  "esys-ies-24": buildAuditedEsys("esys-ies-22", true),
+  "esys-eme-24": buildAuditedEsys("esys-eme-22", true),
 } satisfies Pick<GradRequirementTable, EsysRequirementId>;

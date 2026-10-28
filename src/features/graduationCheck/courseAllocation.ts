@@ -16,6 +16,7 @@ import type {
   CompulsoryResult,
   Course,
   GradRequirement,
+  GraduationStudentContext,
   SelectResult,
 } from "./types";
 
@@ -28,15 +29,17 @@ export type CourseAllocationResult = {
 
 export const allocateCourses = (
   courses: Course[],
-  requirement: GradRequirement
+  requirement: GradRequirement,
+  studentContext?: GraduationStudentContext,
 ): CourseAllocationResult => {
   const { compulsoryResults, remainingCourses } = checkCompulsory(
     courses,
-    requirement
+    requirement,
   );
   const { selectResults, leftCourses } = checkSelect(
     remainingCourses,
-    requirement
+    requirement,
+    studentContext,
   );
   const categories = categoryByGroup(requirement);
 

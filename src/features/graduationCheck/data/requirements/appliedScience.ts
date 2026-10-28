@@ -1,13 +1,18 @@
 import type { GradRequirement, GradRequirementTable } from "../../types";
+import { appliedBasicCourses, appliedFoundationCourses } from "../appliedScienceCourses";
 
 type AppliedScienceRequirementId =
   | "applied-physics-22"
+  | "applied-physics-23"
   | "applied-physics-24"
   | "applied-electron-22"
+  | "applied-electron-23"
   | "applied-electron-24"
   | "applied-materials-22"
+  | "applied-materials-23"
   | "applied-materials-24"
   | "applied-molecule-22"
+  | "applied-molecule-23"
   | "applied-molecule-24";
 
 type AppliedScienceMajor = {
@@ -226,7 +231,7 @@ const majors = {
  * 2024年度から17単位分が専門基礎の必修から選択へ移っている。
  * https://www.tsukuba.ac.jp/education/ug-courses-directory/
  */
-export const appliedScienceRequirements = {
+const historicalAppliedScienceRequirements = {
   "applied-physics-22": buildAppliedScienceRequirement(
     majors.physics,
     "2022~2023"
@@ -259,4 +264,37 @@ export const appliedScienceRequirements = {
     majors.molecule,
     "2024~2026"
   ),
+};
+
+const buildAuditedAppliedScience = (key: keyof typeof majors, modern: boolean): GradRequirement => {
+  const major = majors[key];
+  const digit = major.primaryPrefix[2];
+  const requirement = buildAppliedScienceRequirement(major, modern ? "2024~2026" : "2022~2023");
+  requirement.header.enrollYear = modern ? "2024~2026" : 2023;
+  const basics = appliedBasicCourses.flatMap(({ codes }) => codes);
+  requirement.courses.compulsory = ["応用理工・基礎実験学::1", `応用理工${digit}・専攻実験A::2`, `応用理工${digit}・専攻実験B::2`,
+    `応用理工${digit}・卒業研究A::4`, `応用理工${digit}・卒業研究B::4`,
+    ...appliedFoundationCourses.map(({ name, units }) => `応用理工・${name}::${units}`),
+    ...(!modern ? appliedBasicCourses.map(({ name }) => `応用理工・${name === "微積分1" ? "微積分1（2023）" : name}::1`) : []),
+    ...commonCompulsory.map((name) => name === "必修英語::4" ? "英語::4" : name)];
+  // 主専攻開設範囲を特定できないFF全体は使わず、確認できる他主専攻選択群と明記科目に限定。
+  const otherMajors = Object.values(majors).filter((candidate) => candidate !== major).flatMap((candidate) => [candidate.primaryPrefix, candidate.secondaryPrefix]);
+  requirement.courses.select[2] = [[...otherMajors, "FA00", "FF13103", "FF13203", "FF14003", "FF14103"], 0, 4, false, "実習・輪講・他主専攻科目", 0, { includeCourseNames: [major.seminar] }];
+  if (modern) requirement.courses.select[4] = [basics, 15, 17, false, "数学・物理・化学の基礎科目", 1];
+  const relatedIndex = modern ? 8 : 7;
+  requirement.courses.select[relatedIndex] = [["FF", "FA00", "FA45", ...basics, "*総合科目", "8", "9"], 12, 16, true, "他学群・他学類の科目", 3];
+  requirement.courses.select[relatedIndex + 1] = [["8", "9"], 0, 4, false, "教職・博物館・特設自由科目", 3];
+  return requirement;
+};
+
+export const appliedScienceRequirements = {
+  ...historicalAppliedScienceRequirements,
+  "applied-physics-23": buildAuditedAppliedScience("physics", false),
+  "applied-physics-24": buildAuditedAppliedScience("physics", true),
+  "applied-electron-23": buildAuditedAppliedScience("electron", false),
+  "applied-electron-24": buildAuditedAppliedScience("electron", true),
+  "applied-materials-23": buildAuditedAppliedScience("materials", false),
+  "applied-materials-24": buildAuditedAppliedScience("materials", true),
+  "applied-molecule-23": buildAuditedAppliedScience("molecule", false),
+  "applied-molecule-24": buildAuditedAppliedScience("molecule", true),
 } satisfies Pick<GradRequirementTable, AppliedScienceRequirementId>;

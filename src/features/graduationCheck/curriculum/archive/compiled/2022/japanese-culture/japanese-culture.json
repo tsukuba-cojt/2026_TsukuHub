@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "japanese-culture",
+    "label": "日本語・日本文化学類"
+  },
+  "major": {
+    "key": "japanese-culture",
+    "label": "日本語・日本文化主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "japanese-culture/japanese-culture/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "japanese-culture",
+      "label": "日本語・日本文化学類"
+    },
+    "major": {
+      "key": "japanese-culture",
+      "label": "日本語・日本文化主専攻"
+    },
+    "requirementId": "japanese-culture-22",
+    "ruleSemanticSha256": "8f9c51ad07cccb0e88bd475a5ea6772bfbee1a228692caec4faa4c484a094c01",
+    "snapshotSha256": "a701d6d84279a67697ac08300186b0450ce77458cb3e1a17a136890c86f12705",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "日本語・日本文化学類",
+        "major": "日本語・日本文化主専攻",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "卒業論文",
+          "日本語・日本文化研究法",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4",
+          "国語::2"
+        ],
+        "compulsorySumUnit": 26,
+        "select": [
+          [
+            [
+              "AE2",
+              "AE3",
+              "AE4",
+              "AE7",
+              "AE8",
+              "AE9"
+            ],
+            43,
+            75,
+            false,
+            "日本語・日本文化主専攻の専門科目",
+            0
+          ],
+          [
+            [
+              "AE1",
+              "AE5",
+              "AE6",
+              "AB",
+              "AC"
+            ],
+            14,
+            28,
+            false,
+            "日本語・日本文化学類の専門基礎科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            11,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            11,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C",
+              "W",
+              "Y"
+            ],
+            4,
+            32,
+            false,
+            "A・B・C・W・Yで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G",
+              "H"
+            ],
+            2,
+            30,
+            false,
+            "E・F・G・Hで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "*自由科目特設",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            0,
+            14,
+            false,
+            "8・9で始まる関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 98,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            43,
+            75,
+            "専門科目選択"
+          ],
+          [
+            1,
+            14,
+            28,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            11,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            34,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

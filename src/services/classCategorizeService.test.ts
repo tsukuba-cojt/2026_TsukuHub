@@ -5,6 +5,7 @@ const mocks = vi.hoisted(() => ({
   insert: vi.fn(),
   select: vi.fn(),
   in: vi.fn(),
+  eq: vi.fn(),
 }));
 
 vi.mock("../lib/supabase", () => ({
@@ -19,14 +20,15 @@ import {
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.insert.mockResolvedValue({ error: null });
-  mocks.in.mockResolvedValue({ data: [], error: null });
+  mocks.eq.mockResolvedValue({ data: [], error: null });
+  mocks.in.mockReturnValue({ eq: mocks.eq });
   mocks.select.mockReturnValue({ in: mocks.in });
   mocks.from.mockReturnValue({ insert: mocks.insert, select: mocks.select });
 });
 
 describe("class_categorizeからの分類候補取得", () => {
-  test("同じ学類の回答があれば、他学類より優先して最多分類を返す", async () => {
-    mocks.in.mockResolvedValue({
+  test("同じ学類の回答だけを集計して最多分類を返す", async () => {
+    mocks.eq.mockResolvedValue({
       data: [
         { classname: "認定科目", categorized: "common", major: "情報科学類" },
         { classname: "認定科目", categorized: "specialized", major: "他学類" },
@@ -42,11 +44,12 @@ describe("class_categorizeからの分類候補取得", () => {
 
     expect(mocks.select).toHaveBeenCalledWith("classname,categorized,major");
     expect(mocks.in).toHaveBeenCalledWith("classname", ["認定科目"]);
+    expect(mocks.eq).toHaveBeenCalledWith("major", "情報科学類");
     expect(suggestions.get("認定科目")).toBe("common");
   });
 
-  test("同じ学類の回答がなくても、全回答で最多の分類を返す", async () => {
-    mocks.in.mockResolvedValue({
+  test("同じ学類の回答がなければ、他学類の回答を候補にしない", async () => {
+    mocks.eq.mockResolvedValue({
       data: [
         { classname: "認定科目", categorized: "related", major: "他学類" },
         { classname: "認定科目", categorized: "related", major: "別学類" },
@@ -60,11 +63,11 @@ describe("class_categorizeからの分類候補取得", () => {
       "情報科学類",
     );
 
-    expect(suggestions.get("認定科目")).toBe("related");
+    expect(suggestions.has("認定科目")).toBe(false);
   });
 
   test("最多分類が同数なら自動入力しない", async () => {
-    mocks.in.mockResolvedValue({
+    mocks.eq.mockResolvedValue({
       data: [
         { classname: "認定科目", categorized: "related", major: "情報科学類" },
         { classname: "認定科目", categorized: "common", major: "情報科学類" },
@@ -82,7 +85,7 @@ describe("class_categorizeからの分類候補取得", () => {
 
   test("Supabaseの取得エラーを呼び出し元へ返す", async () => {
     const error = new Error("select failed");
-    mocks.in.mockResolvedValue({ data: null, error });
+    mocks.eq.mockResolvedValue({ data: null, error });
 
     await expect(
       getClassCategorizeSuggestions(["認定科目"], "情報科学類"),

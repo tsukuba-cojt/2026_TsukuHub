@@ -13,6 +13,7 @@
     "sync:courses:all": "node src/script/sync-kdb-json.mjs --all",
     "sync:graduation-catalog": "node src/script/build-graduation-catalog-json.mjs",
     "sync:curriculum-catalog": "node src/script/build-curriculum-catalog-snapshot.mjs",
+    "sync:requirement-snapshots": "node src/script/build-annual-requirement-snapshots.mjs",
     "sync:catalog-assets": "npm run sync:courses:all && npm run sync:graduation-catalog && npm run sync:curriculum-catalog",
     "deploy": "npm run build && wrangler deploy"
   },

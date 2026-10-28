@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "annual-grad-requirement-index-2.0.0",
+  "admissionYear": 2022,
+  "entries": [
+    {
+      "snapshotId": "medicine/medicine/2022",
+      "fileName": "medicine/medicine.json",
+      "requirementId": "medicine-22",
+      "publishable": false,
+      "sha256": "900ac073ff2efc22cac14c1c1aa02e606999e27ed6f6b9b6e4a90acdd1af78b3"
+    },
+    {
+      "snapshotId": "medicine/new-medicine/2022",
+      "fileName": "medicine/new-medicine.json",
+      "requirementId": "new-medicine-22",
+      "publishable": false,
+      "sha256": "f28e84a52f2e1b67c8675d84249bd9d188937d15b0ceb56fb2f541c9f3399846"
+    }
+  ]
+}

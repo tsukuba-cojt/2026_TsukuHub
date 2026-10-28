@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "coins",
+    "label": "情報科学類"
+  },
+  "major": {
+    "key": "coins-is",
+    "label": "情報システム主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "coins/coins-is/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "coins",
+      "label": "情報科学類"
+    },
+    "major": {
+      "key": "coins-is",
+      "label": "情報システム主専攻"
+    },
+    "requirementId": "coins-is-22",
+    "ruleSemanticSha256": "11ae095e22adbcae72b7c9f16338ad352aa4e3e63e70d8fac7eb3affa293e083",
+    "snapshotSha256": "74394ec630d83b3b100f3d3442986f5ba9e7f37eb0b89629bf0fa15d7b91b2e1",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "情報科学類",
+        "major": "情報システム",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "情報システム実験A",
+          "情報システム実験B",
+          "卒業研究A",
+          "卒業研究B",
+          "専門語学A",
+          "専門語学B",
+          "線形代数A//['線形代数1', '線形代数2']",
+          "線形代数B",
+          "微分積分A//['微積分1', '微積分2']",
+          "微分積分B",
+          "情報数学A",
+          "専門英語基礎",
+          "プログラミング入門A",
+          "プログラミング入門B",
+          "コンピュータとプログラミング",
+          "データ構造とアルゴリズム",
+          "データ構造とアルゴリズム実験",
+          "論理回路",
+          "論理回路演習",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 54,
+        "select": [
+          [
+            [
+              "GB30"
+            ],
+            16,
+            34,
+            false,
+            "情報システム主専攻科目",
+            0
+          ],
+          [
+            [
+              "GB2",
+              "GB3",
+              "GB4",
+              "GA4",
+              "GB133"
+            ],
+            0,
+            18,
+            false,
+            "情報科学類専門科目・特別演習",
+            0
+          ],
+          [
+            [
+              "GB116",
+              "GB123",
+              "GB126",
+              "GB128"
+            ],
+            8,
+            26,
+            false,
+            "確率論・統計学・数値計算法・論理系科目",
+            1
+          ],
+          [
+            [
+              "GB136"
+            ],
+            2,
+            26,
+            false,
+            "Computer Science in English A/B",
+            1
+          ],
+          [
+            [
+              "GB1"
+            ],
+            4,
+            26,
+            false,
+            "GB1で始まる科目（特別演習を除く）",
+            1
+          ],
+          [
+            [
+              "GA1"
+            ],
+            8,
+            26,
+            false,
+            "GA1で始まる科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            5,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育"
+            ],
+            0,
+            4,
+            false,
+            "体育",
+            2
+          ],
+          [
+            [
+              "*外国語"
+            ],
+            0,
+            4,
+            false,
+            "外国語",
+            2
+          ],
+          [
+            [
+              "*国語"
+            ],
+            0,
+            4,
+            false,
+            "国語",
+            2
+          ],
+          [
+            [
+              "*芸術"
+            ],
+            0,
+            4,
+            false,
+            "芸術",
+            2
+          ],
+          [
+            [
+              "E",
+              "F",
+              "GC",
+              "GE",
+              "H"
+            ],
+            0,
+            4,
+            false,
+            "関連科目（上限4単位）",
+            3
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G",
+              "H",
+              "*総合科目",
+              "*教職に関する科目"
+            ],
+            6,
+            10,
+            true,
+            "その他の関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 71,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            34,
+            34,
+            "専門科目選択"
+          ],
+          [
+            1,
+            26,
+            26,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            5,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            10,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

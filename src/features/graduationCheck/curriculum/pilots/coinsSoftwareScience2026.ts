@@ -1,4 +1,4 @@
-import { officialCurriculumSources } from "../officialSources";
+import { getOfficialCurriculumSource } from "../officialSources";
 import {
   findCrossListedExclusions,
   tsukuba2026CatalogSnapshot,
@@ -140,7 +140,7 @@ export const coinsSoftwareScience2026Pilot: NormalizedCurriculum = {
   schemaVersion: "normalized-curriculum-1.0.0",
   curriculumId: "tsukuba-inf-coins-software-science-2026-pilot",
   sourceDocuments: [
-    { ...officialCurriculumSources[3] },
+    { ...getOfficialCurriculumSource(2026) },
     { ...tsukuba2026CatalogSnapshot.sourceDocument },
   ],
   organization: {

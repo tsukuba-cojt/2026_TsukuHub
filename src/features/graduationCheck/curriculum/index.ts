@@ -22,6 +22,7 @@ export type {
   AggregateConstraint,
   CourseEquivalence,
   CourseReference,
+  CountConstraint,
   CreditConstraint,
   CurriculumApplicability,
   CurriculumArea,
@@ -34,6 +35,8 @@ export type {
   SourceCoverageItem,
   SourceDocument,
   SourceReference,
+  StudentContextDimension,
+  StudentScope,
   SubjectMatcher,
   TranscriptSubjectMatcher,
 } from "./types";

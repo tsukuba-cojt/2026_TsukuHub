@@ -1,0 +1,297 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "social",
+    "label": "社会学類"
+  },
+  "major": {
+    "key": "social-economics",
+    "label": "経済学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "social/social-economics/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "social",
+      "label": "社会学類"
+    },
+    "major": {
+      "key": "social-economics",
+      "label": "経済学主専攻"
+    },
+    "requirementId": "social-economics-22",
+    "ruleSemanticSha256": "6db3bf423cc488b9725cd0c1d8aed145f9bf6c18cbab084ec2b99e2da9cc8e1c",
+    "snapshotSha256": "2a53e6b463e56e6ad47088a50ac7e2a318974c57fa23e17e6fb83244c5cb288f",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "社会学類",
+        "major": "経済学主専攻",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "経済学基礎論",
+          "現代経済史",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 20,
+        "select": [
+          [
+            [
+              "BB4",
+              "BC11411",
+              "BC11451",
+              "BC11751",
+              "BC11791",
+              "BC11861",
+              "BC11871",
+              "BC11891",
+              "BC11971",
+              "BC11981",
+              "BC12121",
+              "BC12701",
+              "BC12731",
+              "BC12851",
+              "BC16011",
+              "FH25051",
+              "FH25061",
+              "FH26021",
+              "FH27061",
+              "FH48021"
+            ],
+            32,
+            62,
+            false,
+            "経済学主専攻科目等（BC・FHは別途指定科目のみ）",
+            0,
+            {
+              "excludeCourseNames": [
+                "社会学概論",
+                "現代社会論",
+                "法学概論",
+                "民事法概論",
+                "政治学概論",
+                "国際政治史",
+                "経済学基礎論",
+                "現代経済史"
+              ],
+              "minimumIncludedUnits": [
+                {
+                  "courseNames": [
+                    "ミクロ経済学",
+                    "マクロ経済学",
+                    "経済統計論"
+                  ],
+                  "minimum": 4,
+                  "label": "ミクロ・マクロ経済学、経済統計論（内数）"
+                },
+                {
+                  "courseIdSuffixes": [
+                    "2"
+                  ],
+                  "minimum": 8,
+                  "label": "経済学演習（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "BB1",
+              "BB2",
+              "BB3"
+            ],
+            29,
+            50,
+            false,
+            "他主専攻科目",
+            0,
+            {
+              "excludeCourseNames": [
+                "社会学概論",
+                "現代社会論",
+                "法学概論",
+                "民事法概論",
+                "政治学概論",
+                "国際政治史",
+                "経済学基礎論",
+                "現代経済史"
+              ]
+            }
+          ],
+          [
+            [],
+            6,
+            12,
+            false,
+            "他主専攻の概論・基礎論（6科目）",
+            1,
+            {
+              "includeCourseNames": [
+                "社会学概論",
+                "現代社会論",
+                "法学概論",
+                "民事法概論",
+                "政治学概論",
+                "国際政治史"
+              ]
+            }
+          ],
+          [
+            [],
+            2,
+            4,
+            false,
+            "社会学類4主専攻の最前線科目",
+            1,
+            {
+              "includeCourseNames": [
+                "社会学の最前線",
+                "法学の最前線",
+                "政治学の最前線",
+                "経済学の最前線"
+              ]
+            }
+          ],
+          [
+            [],
+            0,
+            4,
+            false,
+            "社会学類4主専攻の最前線チュートリアル",
+            1,
+            {
+              "includeCourseNames": [
+                "社会学の最前線チュートリアル",
+                "法学の最前線チュートリアル",
+                "政治学の最前線チュートリアル",
+                "経済学の最前線チュートリアル"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            15,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            15,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G"
+            ],
+            2,
+            26,
+            false,
+            "E・F・Gで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "BC",
+              "C",
+              "H",
+              "W",
+              "Y",
+              "V",
+              "*自由科目特設",
+              "*博物館に関する科目"
+            ],
+            10,
+            34,
+            false,
+            "A・BC・C・H・W・Y・V・8・99で始まる関連科目",
+            3
+          ],
+          [
+            [
+              "*教職に関する科目"
+            ],
+            0,
+            8,
+            false,
+            "教職に関する科目",
+            3
+          ],
+          [
+            [
+              "BA",
+              "BE"
+            ],
+            0,
+            12,
+            false,
+            "社会学類の専門基礎指定を除くBA・BE科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 106,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            61,
+            84,
+            "専門科目選択"
+          ],
+          [
+            1,
+            8,
+            20,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            15,
+            "共通科目選択"
+          ],
+          [
+            3,
+            12,
+            36,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

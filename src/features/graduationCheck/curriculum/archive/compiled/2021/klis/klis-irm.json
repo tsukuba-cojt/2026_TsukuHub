@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2021,
+  "department": {
+    "key": "klis",
+    "label": "知識情報・図書館学類"
+  },
+  "major": {
+    "key": "klis-irm",
+    "label": "情報資源経営主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "klis/klis-irm/2021",
+    "admissionYear": 2021,
+    "department": {
+      "key": "klis",
+      "label": "知識情報・図書館学類"
+    },
+    "major": {
+      "key": "klis-irm",
+      "label": "情報資源経営主専攻"
+    },
+    "requirementId": "klis-irm-21",
+    "ruleSemanticSha256": "4927cb25d505b14ce03244486b333017be3afbc62a650e4ee1c604611732813b",
+    "snapshotSha256": "6b2a54dca7394876b1fbc5ea151e5499d035a661b842ac65b424d4e615ccbaf8",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "知識情報・図書館学類",
+        "major": "情報資源経営",
+        "enrollYear": 2021
+      },
+      "courses": {
+        "compulsory": [
+          "卒業研究",
+          "専門英語B-3",
+          "専門英語C-3",
+          "情報資源経営実習A",
+          "情報資源経営実習B",
+          "知識情報概論",
+          "アカデミックスキルズ",
+          "プログラミング入門A",
+          "プログラミング入門B",
+          "情報数学A",
+          "統計",
+          "哲学",
+          "専門英語A1",
+          "専門英語A2",
+          "知識情報演習::6",
+          "フレッシュマン・セミナー",
+          "学問への誘い",
+          "情報::4",
+          "体育::2",
+          "必修英語::4"
+        ],
+        "compulsorySumUnit": 41,
+        "select": [
+          [
+            [
+              "GE8"
+            ],
+            16,
+            128,
+            false,
+            "GE8",
+            0
+          ],
+          [
+            [
+              "GA4",
+              "GE4",
+              "GE6",
+              "GE7"
+            ],
+            8,
+            128,
+            false,
+            "GA4, GE4, GE6, GE7",
+            0
+          ],
+          [
+            [
+              "GA1",
+              "GE2",
+              "GE3"
+            ],
+            32,
+            52,
+            false,
+            "GA1, GE2, GE3",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            4,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            128,
+            false,
+            "体育, 外国語, 国語, 芸術",
+            2
+          ],
+          [
+            [
+              "GB",
+              "GC"
+            ],
+            0,
+            128,
+            false,
+            "GB, GC",
+            3
+          ],
+          [
+            [
+              "GA",
+              "GB",
+              "GC",
+              "GE",
+              "*総合科目",
+              "*教職に関する科目"
+            ],
+            0,
+            128,
+            true,
+            "他学群の授業科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 83,
+        "groups": [
+          [
+            0,
+            24,
+            44,
+            "専門科目選択"
+          ],
+          [
+            1,
+            32,
+            52,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            21,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            26,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

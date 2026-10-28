@@ -122,4 +122,36 @@ describe("checkSelect", () => {
     expect(selectResults[1].courses).toEqual([]);
     expect(leftCourses).toEqual([]);
   });
+
+  test("複数タグでは一方のexceptを他方の明示包含へ波及させない", () => {
+    const taggedRequirement: GradRequirement = {
+      ...requirement,
+      courses: {
+        ...requirement.courses,
+        select: [
+          [
+            ["*教職に関する科目", "*博物館に関する科目"],
+            0,
+            4,
+            false,
+            "教職・博物館科目",
+            3,
+          ],
+        ],
+      },
+    };
+
+    const { selectResults } = checkSelect(
+      [
+        course("9000001", "教職科目", 2),
+        course("9900001", "博物館科目", 2),
+      ],
+      taggedRequirement,
+    );
+
+    expect(selectResults[0].courses.map((item) => item.id)).toEqual([
+      "9000001",
+      "9900001",
+    ]);
+  });
 });

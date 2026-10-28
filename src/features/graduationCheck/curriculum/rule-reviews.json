@@ -1,0 +1,2388 @@
+{
+  "schemaVersion": "annual-rule-review-1.0.0",
+  "defaultStatus": "needs_review",
+  "defaultBlockingIssue": "年度別公式表の全行・注記に対する証拠表の確認が完了していない",
+  "reviews": {
+    "disability/disability/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-016"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "CEの短期留学生対象科目一覧、第一・第二外国語・必修超過配分・二重開設、独立レビューが未完了"
+      ]
+    },
+    "disability/disability/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-016"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "CEの短期留学生対象科目一覧、第一・第二外国語・必修超過配分・二重開設、独立レビューが未完了"
+      ]
+    },
+    "disability/disability/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-016"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "CEの短期留学生対象科目一覧、第一・第二外国語・必修超過配分・二重開設、独立レビューが未完了"
+      ]
+    },
+    "disability/disability/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-016"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "CEの短期留学生対象科目一覧、第一・第二外国語・必修超過配分・二重開設、独立レビューが未完了"
+      ]
+    },
+    "psychology/psychology/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-015"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "第一・第二外国語と留学生特例、必修超過の配分・二重開設、旧CSV表記、独立レビューが未完了"
+      ]
+    },
+    "psychology/psychology/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-015"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "第一・第二外国語と留学生特例、必修超過の配分・二重開設、旧CSV表記、独立レビューが未完了"
+      ]
+    },
+    "psychology/psychology/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-015"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "第一・第二外国語と留学生特例、必修超過の配分・二重開設、旧CSV表記、独立レビューが未完了"
+      ]
+    },
+    "psychology/psychology/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-015"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "第一・第二外国語と留学生特例、必修超過の配分・二重開設、旧CSV表記、独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-philosophy/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-philosophy/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-philosophy/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-philosophy/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-history/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-history/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-history/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-history/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-archaeology/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-archaeology/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-archaeology/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-archaeology/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-linguistics/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-linguistics/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-linguistics/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-linguistics/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "bioresources/bioresources/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-003"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-003"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-003"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-003"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources-interdisciplinary/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-004"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources-interdisciplinary/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-004"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources-interdisciplinary/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-004"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources-interdisciplinary/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-004"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "biology/biology/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-002"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実験・実習の固定分類表の独立承認、旧コース指定・他学類専門指定、関連小区分・横断上限・言語属性の対応が未完了"
+      ]
+    },
+    "biology/biology/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-002"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実験・実習の固定分類表の独立承認、旧コース指定・他学類専門指定、関連小区分・横断上限・言語属性の対応が未完了"
+      ]
+    },
+    "biology/biology/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-002"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実験・実習の固定分類表の独立承認、旧コース指定・他学類専門指定、関連小区分・横断上限・言語属性の対応が未完了"
+      ]
+    },
+    "biology/biology/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-002"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実験・実習の固定分類表の独立承認、旧コース指定・他学類専門指定、関連小区分・横断上限・言語属性の対応が未完了"
+      ]
+    },
+    "art/art-studies/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/art-studies/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/art-studies/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/art-studies/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/japanese-art/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/japanese-art/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/japanese-art/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "art/japanese-art/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "social/social-sociology/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-sociology/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-sociology/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-sociology/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-law/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-law/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-law/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-law/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-politics/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-politics/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-politics/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-politics/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-economics/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-economics/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-economics/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "social/social-economics/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "international/international-relations/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-relations/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-relations/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-relations/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-development/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-development/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-development/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "international/international-development/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-007"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済みの親条件・内数条件・小区分について独立した人手レビューが未完了"
+      ]
+    },
+    "education/education/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-005"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済みの末尾2内数条件とCC・CE専門分類について独立した人手レビューが未完了"
+      ]
+    },
+    "education/education/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-005"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済みの末尾2内数条件とCC・CE専門分類について独立した人手レビューが未完了"
+      ]
+    },
+    "education/education/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-005"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済みの末尾2内数条件とCC・CE専門分類について独立した人手レビューが未完了"
+      ]
+    },
+    "education/education/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-005"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済みの末尾2内数条件とCC・CE専門分類について独立した人手レビューが未完了"
+      ]
+    },
+    "japanese-culture/japanese-culture/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-014"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "実装済みの全行・AE14内数条件・年度差について独立した人手レビューが未完了"
+      ]
+    },
+    "japanese-culture/japanese-culture/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-014"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済みの全行・AE14内数条件・年度差について独立した人手レビューが未完了"
+      ]
+    },
+    "japanese-culture/japanese-culture/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-014"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "実装済みの全行・AE14内数条件・年度差について独立した人手レビューが未完了"
+      ]
+    },
+    "japanese-culture/japanese-culture/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-014"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済みの全行・AE14内数条件・年度差について独立した人手レビューが未完了"
+      ]
+    },
+    "comparative-culture/comparative-culture/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-001"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "AC67の春AB・秋AB各1単位、演習・実習8単位、所属領域10単位、所属班対象科目を現行型で完全には表現できない"
+      ]
+    },
+    "comparative-culture/comparative-culture/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-001"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "AC67の春AB・秋AB各1単位、演習・実習8単位、所属領域10単位、所属班対象科目を現行型で完全には表現できない"
+      ]
+    },
+    "comparative-culture/comparative-culture/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-001"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "AC67の春AB・秋AB各1単位、演習・実習8単位、所属領域10単位、所属班対象科目を現行型で完全には表現できない"
+      ]
+    },
+    "comparative-culture/comparative-culture/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-001"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "AC67の春AB・秋AB各1単位、演習・実習8単位、所属領域10単位、所属班対象科目を現行型で完全には表現できない"
+      ]
+    },
+    "medicine/medicine/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と古い成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/medicine/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/medicine/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/medicine/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/medicine/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と学術英語への変更について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/new-medicine/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と古い成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/new-medicine/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/new-medicine/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/new-medicine/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "medicine/new-medicine/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と学術英語への変更について独立した人手レビューが未完了"
+      ]
+    },
+    "nursing/nursing/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "関連選択のAB61〜63・AC65対応と履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/nursing/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "関連選択のAB61〜63・AC65対応と履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/nursing/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "全必修行、関連科目改訂、履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/nursing/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "全必修行、関連科目、科目名表記差、履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/public-health-nursing/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "保健師科目、関連選択のAB61〜63・AC65対応、履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/public-health-nursing/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "保健師科目、関連選択のAB61〜63・AC65対応、履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/public-health-nursing/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "保健師科目、関連科目改訂、履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/public-health-nursing/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "保健師科目、関連科目、科目名表記差、履修前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/medical-science/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "全必修行、専門選択表、学類長指定科目、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/medical-science/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "全必修行、2024専門選択表、学類長指定科目、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/medical-science/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "全必修行、2025専門選択表、学類長指定科目、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/medical-science/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "全必修行、2026専門選択表、学類長指定科目、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/international-medical-science/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻必修名、専門・専門基礎選択群、国際研修名称、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/international-medical-science/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻必修名、2024選択群、国際研修名称、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/international-medical-science/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻必修名、2025選択群、国際研修名称、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/international-medical-science/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻必修名、2026選択群、国際研修名称、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "physical-education/physical-education/2023": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-011"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "科目群下限、関連欄の内訳、成績CSV名称の独立レビューが未完了"
+      ]
+    },
+    "physical-education/physical-education/2024": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-011"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "科目群下限、関連欄の内訳、成績CSV名称の独立レビューが未完了"
+      ]
+    },
+    "physical-education/physical-education/2025": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-011"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "科目群下限、関連欄の内訳、成績CSV名称の独立レビューが未完了"
+      ]
+    },
+    "physical-education/physical-education/2026": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-011"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "2026必修差、H群、関連欄の内訳、成績CSV名称の独立レビューが未完了"
+      ]
+    },
+    "earth/earth-environment/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-evolution/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-interdisciplinary/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了。論文作成等の固定DB番号と2023選択・自由の詳細配分も未確認"
+      ]
+    },
+    "earth/earth-environment/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-evolution/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-interdisciplinary/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了。論文作成等の固定DB番号と2023選択・自由の詳細配分も未確認"
+      ]
+    },
+    "earth/earth-environment/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-evolution/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-interdisciplinary/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了。論文作成等の固定DB番号と2023選択・自由の詳細配分も未確認"
+      ]
+    },
+    "earth/earth-environment/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-evolution/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了"
+      ]
+    },
+    "earth/earth-interdisciplinary/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了。論文作成等の固定DB番号と2023選択・自由の詳細配分も未確認"
+      ]
+    },
+    "coins/coins-ss/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-019"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-is/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-im/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-ss/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-019"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-is/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-im/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-ss/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-019"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-is/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-im/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-ss/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-019"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-is/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "coins/coins-im/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "mast/mast/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-020"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "同一授業・個別認定、移行者の読み替え・同名必修・超過振替、語学・教職の範囲、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "mast/mast/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-020"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "同一授業・個別認定、移行者の読み替え・同名必修・超過振替、語学・教職の範囲、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "mast/mast/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-020"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "同一授業・個別認定、移行者の読み替え・同名必修・超過振替、語学・教職の範囲、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "mast/mast/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-020"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "同一授業・個別認定、移行者の読み替え・同名必修・超過振替、語学・教職の範囲、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-ksc/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-kis/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-irm/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-ksc/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-kis/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-irm/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-ksc/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-kis/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-irm/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻共通開設・同一授業の完全照合、語学・教職・移行者の基礎算入・同名必修・超過振替、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "klis/klis-ksc/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "利用者指定で必修43・選択81を採用。卒業論文の正式番号、共通開設・同一授業・認定・言語・配分・移行者特例・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "klis/klis-kis/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "利用者指定で必修43・選択81を採用。卒業論文の正式番号、共通開設・同一授業・認定・言語・配分・移行者特例・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "klis/klis-irm/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "利用者指定で必修43・選択81を採用。卒業論文の正式番号、共通開設・同一授業・認定・言語・配分・移行者特例・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "esys/esys-ies/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-eme/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-ies/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-eme/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-ies/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-eme/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-ies/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "esys/esys-eme/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-022"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
+        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+      ]
+    },
+    "math/math/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-023"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "旧名称と数字科目の各組1単位上限、移行者の微積分1/2/3・線形代数1/2/3の認定条件を完全には表現できない",
+        "数学の教科指導法の正式な番号対応、学類長・他大学認定、第一外国語・超過振替、総合学域群所属時の取得条件、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "math/math/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-023"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "数学の教科指導法の正式な番号対応、学類長・他大学認定、第一外国語・超過振替、総合学域群所属時の取得条件、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "math/math/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-023"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "数学の教科指導法の正式な番号対応、学類長・他大学認定、第一外国語・超過振替、総合学域群所属時の取得条件、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "math/math/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-023"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "数学の教科指導法の正式な番号対応、学類長・他大学認定、第一外国語・超過振替、総合学域群所属時の取得条件、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "policy/policy-economics/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-economics/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-economics/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-economics/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-engineering/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-engineering/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-engineering/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-engineering/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-urban/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-urban/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-urban/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "policy/policy-urban/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "physics/physics/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-025"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "欄間の厳密な科目配分・指導法の正式対応、学類長認定・特認・移行者・語学・旧番号・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "physics/physics/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-025"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "欄間の厳密な科目配分・指導法の正式対応、学類長認定・特認・移行者・語学・旧番号・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "physics/physics/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-025"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "欄間の厳密な科目配分・指導法の正式対応、学類長認定・特認・移行者・語学・旧番号・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "physics/physics/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-025"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "欄間の厳密な科目配分・指導法の正式対応、学類長認定・特認・移行者・語学・旧番号・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "chem/chem/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-026"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "欄間配分・組合せ・旧実験読み替え・専門導入／指導法の正式一覧・高年次学士・認定・語学・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "chem/chem/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-026"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "欄間配分・組合せ・旧実験読み替え・専門導入／指導法の正式一覧・高年次学士・認定・語学・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "chem/chem/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-026"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "欄間配分・組合せ・旧実験読み替え・専門導入／指導法の正式一覧・高年次学士・認定・語学・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "chem/chem/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-026"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "欄間配分・組合せ・旧実験読み替え・専門導入／指導法の正式一覧・高年次学士・認定・語学・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-physics/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-physics/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-physics/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-physics/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-electron/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-electron/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-electron/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-electron/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-materials/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-materials/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-materials/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-materials/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-molecule/2023": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-molecule/2024": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-molecule/2025": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "applied-science/applied-molecule/2026": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    }
+  }
+}

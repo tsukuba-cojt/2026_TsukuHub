@@ -19,6 +19,7 @@ export { GraduationCatalogError } from "./graduationCatalog";
 export {
   checkGraduationWithCatalog,
   listSupportedRequirements,
+  listStudentCourseOptions,
   resolveRequirementIds,
 } from "./checkGraduation";
 export {
@@ -51,11 +52,14 @@ export {
 export type {
   CurriculumCompilationAssessment,
   CurriculumValidationIssue,
+  CountConstraint,
   MatcherResolution,
   NormalizedCurriculum,
   SourceCoverageItem,
   SourceDocument,
   SourceReference,
+  StudentContextDimension,
+  StudentScope,
   TranscriptSubjectMatcher,
 } from "./curriculum";
 export { calcGpa, calcARatePercent, GPA_MAX } from "./gpa";
@@ -70,6 +74,8 @@ export type {
   GradRequirement,
   GraduationCheckReport,
   Grade,
+  GraduationStudentContext,
+  StudentCourseOption,
   ParseCsvResult,
   RequirementId,
   RequirementItemProgress,

@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "humanities",
+    "label": "人文学類"
+  },
+  "major": {
+    "key": "humanities-history",
+    "label": "史学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "humanities/humanities-history/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "humanities",
+      "label": "人文学類"
+    },
+    "major": {
+      "key": "humanities-history",
+      "label": "史学主専攻"
+    },
+    "requirementId": "humanities-history-25",
+    "ruleSemanticSha256": "c74061eceb867d7e6fff9aa23e89c2185de414ea197000e6e54b28e2356cdb9e",
+    "snapshotSha256": "4189bd3d51cb7edac2613b741d780e170a0e354d24994f5c13655604096be884",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "人文学類",
+        "major": "史学主専攻",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "卒業論文（指定候補）::6//[\"卒業論文(日本史学)\",\"卒業論文（日本史学）\",\"卒業論文(ユーラシア史学)\",\"卒業論文（ユーラシア史学）\",\"卒業論文(歴史地理学)\",\"卒業論文（歴史地理学）\"]",
+          "研究-a（指定候補）::2//[\"日本史研究-a\",\"ユーラシア史研究-a\",\"歴史地理学研究-a\"]",
+          "研究-b（指定候補）::2//[\"日本史研究-b\",\"ユーラシア史研究-b\",\"歴史地理学研究-b\"]",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4",
+          "国語::2"
+        ],
+        "compulsorySumUnit": 28,
+        "selectMinimumUnit": 96,
+        "enforceSelectMinimums": true,
+        "select": [
+          [
+            [
+              "AC56",
+              "AE56"
+            ],
+            0,
+            11,
+            false,
+            "11単位枠内の専門基礎指定候補",
+            1
+          ],
+          [
+            [
+              "AB5",
+              "AB70"
+            ],
+            0,
+            20,
+            false,
+            "主専攻の専門基礎指定候補",
+            1
+          ],
+          [
+            [
+              "AB6",
+              "AB7",
+              "AB8",
+              "AB9",
+              "AC5",
+              "AC6",
+              "EE21",
+              "AB71",
+              "AB72",
+              "AB73",
+              "AB74",
+              "AB75",
+              "AB61",
+              "AB91",
+              "AC60",
+              "AC61",
+              "AC62"
+            ],
+            44,
+            78,
+            false,
+            "人文学の専門指定候補",
+            0,
+            {
+              "excludeCodes": [
+                "AB5",
+                "AB70",
+                "AC56",
+                "AE56"
+              ],
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "AB71",
+                    "AB72",
+                    "AB73",
+                    "AB74",
+                    "AB75",
+                    "AB61",
+                    "AB91",
+                    "AC60",
+                    "AC61",
+                    "AC62",
+                    "EE21"
+                  ],
+                  "minimum": 20,
+                  "label": "主専攻の専門指定候補（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            3,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*芸術"
+            ],
+            0,
+            14,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "AA2",
+              "AC",
+              "AE",
+              "B",
+              "Y"
+            ],
+            4,
+            32,
+            false,
+            "人文・文化学群等の指定関連科目",
+            3
+          ],
+          [
+            [
+              "C",
+              "E",
+              "F",
+              "G",
+              "H",
+              "W"
+            ],
+            2,
+            30,
+            false,
+            "他学群の指定関連科目",
+            3
+          ],
+          [
+            [
+              "8"
+            ],
+            0,
+            10,
+            false,
+            "特設自由科目",
+            3
+          ],
+          [
+            [
+              "*教職に関する科目"
+            ],
+            0,
+            10,
+            false,
+            "教職科目",
+            3
+          ],
+          [
+            [
+              "*博物館に関する科目"
+            ],
+            0,
+            10,
+            false,
+            "博物館科目",
+            3
+          ]
+        ],
+        "groups": [
+          [
+            0,
+            44,
+            78,
+            "専門科目選択"
+          ],
+          [
+            1,
+            11,
+            20,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            17,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            34,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "psychology",
+    "label": "心理学類"
+  },
+  "major": {
+    "key": "psychology",
+    "label": "心理学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "psychology/psychology/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "psychology",
+      "label": "心理学類"
+    },
+    "major": {
+      "key": "psychology",
+      "label": "心理学主専攻"
+    },
+    "requirementId": "psychology-22",
+    "ruleSemanticSha256": "2703a61ad3154141943c58e4aedfdb6546c98834f8d0edf447e25b97facfc50d",
+    "snapshotSha256": "7f076444cb9c380116d825d6735995d8f9bd8f627718770a70f17346a6800b30",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-015"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "第一・第二外国語と留学生特例、必修超過の配分・二重開設、2022科目番号と旧CSV表記、独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "心理学類",
+        "major": "心理学主専攻",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "知覚・認知心理学",
+          "学習・言語心理学",
+          "感情・人格心理学",
+          "神経・生理心理学",
+          "社会・集団・家族心理学",
+          "発達心理学",
+          "臨床心理学概論",
+          "卒業研究セミナー",
+          "心理学卒業研究::6",
+          "人間学I",
+          "心理学類概論::2",
+          "教育科目::2//['教育基礎論', '学校の経営・制度・社会']",
+          "障害科学::2//['障害科学I', '障害科学II']",
+          "キャリアデザイン入門",
+          "心理学研究法",
+          "心理学統計法I",
+          "心理学統計法II",
+          "心理学統計法実習",
+          "心理学英語セミナー",
+          "心理学実験",
+          "心理学研究実習I",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::7",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 59,
+        "select": [
+          [
+            [
+              "CC11293"
+            ],
+            0,
+            3,
+            false,
+            "心理学研究実習II",
+            1,
+            {
+              "includeCourseNames": [
+                "心理学研究実習II",
+                "心理学研究実習Ⅱ"
+              ]
+            }
+          ],
+          [
+            [
+              "CA"
+            ],
+            0,
+            10,
+            false,
+            "人間学群コア科目",
+            1
+          ],
+          [
+            [
+              "CC"
+            ],
+            21,
+            58,
+            false,
+            "心理学類の専門科目",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "CC27"
+                  ],
+                  "minimum": 6,
+                  "label": "CC27で始まる心理学専門科目（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "CB",
+              "CE"
+            ],
+            0,
+            37,
+            false,
+            "教育学類・障害科学類の専門科目",
+            0
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            1,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            27,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "CA",
+              "CB",
+              "CC",
+              "CE"
+            ],
+            6,
+            33,
+            true,
+            "人間学群以外の関連科目（2022）",
+            3,
+            {
+              "includeCourseNames": [
+                "こころの発達",
+                "学習の心理"
+              ]
+            }
+          ]
+        ],
+        "selectMinimumUnit": 65,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            21,
+            58,
+            "専門科目選択"
+          ],
+          [
+            1,
+            0,
+            13,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            28,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            33,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,339 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2023,
+  "department": {
+    "key": "art",
+    "label": "芸術専門学群"
+  },
+  "major": {
+    "key": "japanese-art",
+    "label": "日本芸術主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "art/japanese-art/2023",
+    "admissionYear": 2023,
+    "department": {
+      "key": "art",
+      "label": "芸術専門学群"
+    },
+    "major": {
+      "key": "japanese-art",
+      "label": "日本芸術主専攻"
+    },
+    "requirementId": "japanese-art-22",
+    "ruleSemanticSha256": "56938f7ddfd2bb7b7fa2798d4fa55d86a987a6593701f265467eae37358feaac",
+    "snapshotSha256": "115d5efbf4942aa543e9d2f88e83850d29c99e6bb448485a3c1e39f4979b23d6",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "芸術専門学群",
+        "major": "日本芸術主専攻",
+        "enrollYear": 2023
+      },
+      "courses": {
+        "compulsory": [
+          "芸術卒業研究::6",
+          "芸術領域研究I::1",
+          "芸術領域研究II::1",
+          "芸術領域特別演習I::1",
+          "芸術領域特別演習II::1",
+          "芸術領域特別演習III::1",
+          "インターンシップ",
+          "芸術キャリア教育",
+          "アート&デザイン入門::1//['アート&デザイン入門', 'アート＆デザイン入門']",
+          "芸術と文化",
+          "芸術と社会",
+          "Japan-Expert総論",
+          "Japan-Expertファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "日本語::15",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 41,
+        "select": [
+          [
+            [
+              "YB"
+            ],
+            40,
+            64,
+            false,
+            "YB専門科目",
+            0
+          ],
+          [
+            [
+              "AB90",
+              "AB93",
+              "AC50",
+              "AC60"
+            ],
+            0,
+            15,
+            false,
+            "AB90・AB93・AC50・AC60専門科目",
+            0
+          ],
+          [
+            [
+              "FG45901",
+              "FH45051",
+              "FH45061",
+              "FH45071"
+            ],
+            0,
+            5,
+            false,
+            "FG・FH指定専門科目",
+            0
+          ],
+          [
+            [
+              "YA"
+            ],
+            12,
+            19,
+            false,
+            "YA専門基礎科目",
+            1,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "YAZ"
+                  ],
+                  "minimum": 2,
+                  "label": "美術史概説・デザイン史概説"
+                },
+                {
+                  "codes": [
+                    "YAC1012",
+                    "YAC1112",
+                    "YAC1122",
+                    "YAD1012",
+                    "YAE1022",
+                    "YAE1112",
+                    "YAE1122",
+                    "YAF1012",
+                    "YAF1022",
+                    "YAF1032",
+                    "YAG1012",
+                    "YAG1022",
+                    "YAH1012",
+                    "YAH1022",
+                    "YAH1032",
+                    "YAJ1022",
+                    "YAK1012",
+                    "YAL1012",
+                    "YAL1013",
+                    "YAL1022",
+                    "YAN1012",
+                    "YAP1012",
+                    "YAQ1012"
+                  ],
+                  "minimum": 3,
+                  "label": "YA基礎演習"
+                },
+                {
+                  "codes": [
+                    "YAA1011",
+                    "YAB1011",
+                    "YAC1011",
+                    "YAD1011",
+                    "YAE1011",
+                    "YAF1011",
+                    "YAG1011",
+                    "YAH1011",
+                    "YAJ1011",
+                    "YAK1011",
+                    "YAL1011",
+                    "YAN1011",
+                    "YAP1011",
+                    "YAQ1011"
+                  ],
+                  "minimum": 2,
+                  "label": "YA概論"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            3,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育"
+            ],
+            0,
+            2,
+            false,
+            "選択体育",
+            2
+          ],
+          [
+            [
+              "*日本語"
+            ],
+            0,
+            4,
+            false,
+            "選択第1外国語",
+            2
+          ],
+          [
+            [
+              "*初修外国語"
+            ],
+            0,
+            4,
+            false,
+            "選択第2外国語",
+            2,
+            {
+              "excludeCodes": [
+                "39"
+              ]
+            }
+          ],
+          [
+            [
+              "*国語"
+            ],
+            0,
+            2,
+            false,
+            "選択国語",
+            2
+          ],
+          [
+            [
+              "*芸術"
+            ],
+            0,
+            3,
+            false,
+            "選択芸術",
+            2
+          ],
+          [
+            [
+              "*教職に関する科目",
+              "*博物館に関する科目",
+              "*自由科目特設"
+            ],
+            0,
+            18,
+            false,
+            "教職・博物館・特設関連科目",
+            3
+          ],
+          [
+            [
+              "E",
+              "F"
+            ],
+            2,
+            14,
+            false,
+            "E・F系関連科目",
+            3,
+            {
+              "excludeCodes": [
+                "FG45901",
+                "FH45051",
+                "FH45061",
+                "FH45071"
+              ]
+            }
+          ],
+          [
+            [
+              "YA",
+              "YB",
+              "AB90",
+              "AB93",
+              "AC50",
+              "AC60",
+              "FG45901",
+              "FH45051",
+              "FH45061",
+              "FH45071",
+              "E",
+              "F",
+              "*総合科目",
+              "*自由科目特設",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            3,
+            18,
+            true,
+            "他学群・他学類の関連科目",
+            3
+          ],
+          [
+            [],
+            1,
+            1,
+            false,
+            "Japan-Expert共通科目（芸術を除く・指定一覧要確認）",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 95,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            50,
+            64,
+            "専門科目選択"
+          ],
+          [
+            1,
+            12,
+            19,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            12,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            24,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

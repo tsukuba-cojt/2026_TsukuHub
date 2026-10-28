@@ -6,6 +6,22 @@ import type { SourceDocument } from "./types";
  */
 export const officialCurriculumSources = [
   {
+    documentId: "tsukuba-graduation-requirements-2021",
+    fileName: "2021.pdf",
+    kind: "official_graduation_requirements",
+    editionYear: 2021,
+    pageCount: 118,
+    sha256: "b2be4ed06b4dfdad6a930de6af217c2a3b3664eb307bb97bb7e8d062a06dfd13",
+  },
+  {
+    documentId: "tsukuba-graduation-requirements-2022",
+    fileName: "2022.pdf",
+    kind: "official_graduation_requirements",
+    editionYear: 2022,
+    pageCount: 118,
+    sha256: "7a61e73099e0f1baa13a1a46ca3e0758c4398fe629526543694013cb573af478",
+  },
+  {
     documentId: "tsukuba-graduation-requirements-2023",
     fileName: "2023.pdf",
     kind: "official_graduation_requirements",
@@ -38,3 +54,16 @@ export const officialCurriculumSources = [
     sha256: "745bab5a17c7612ccdf8aa3e6df3b670e2f224b434e895c3d01b36c0d313030b",
   },
 ] as const satisfies readonly SourceDocument[];
+
+/** 台帳の並び順に依存せず、版年度から公式PDFを取得する。 */
+export const getOfficialCurriculumSource = (
+  editionYear: number,
+): SourceDocument => {
+  const source = officialCurriculumSources.find(
+    (candidate) => candidate.editionYear === editionYear,
+  );
+  if (source === undefined) {
+    throw new Error(`公式卒業要件PDFが未登録です: ${editionYear}`);
+  }
+  return source;
+};

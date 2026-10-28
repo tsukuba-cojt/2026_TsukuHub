@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "grad-requirement-manifest-2.0.0",
+  "hierarchy": [
+    "admissionYear",
+    "department",
+    "major"
+  ],
+  "years": [
+    {
+      "admissionYear": 2022,
+      "indexFile": "2022/index.json",
+      "snapshotCount": 2,
+      "sha256": "4444080c02c52d0771d4def42d5e3cd0619d8aef21ffa5b49a152a16d3c6e940"
+    },
+    {
+      "admissionYear": 2023,
+      "indexFile": "2023/index.json",
+      "snapshotCount": 49,
+      "sha256": "39e76aaddb071a8305b5010d71e8ede5932f83a7f4c38c340b648c020c83ce9d"
+    },
+    {
+      "admissionYear": 2024,
+      "indexFile": "2024/index.json",
+      "snapshotCount": 49,
+      "sha256": "b67e1448ada72cefb2dc43d41688b225d8e5b5e5864f2472c833554944c88788"
+    },
+    {
+      "admissionYear": 2025,
+      "indexFile": "2025/index.json",
+      "snapshotCount": 49,
+      "sha256": "1dbb1c11d7733d9894ce8874897a01d1e6a508aab1b6e024cc82809d1b10f1f3"
+    },
+    {
+      "admissionYear": 2026,
+      "indexFile": "2026/index.json",
+      "snapshotCount": 49,
+      "sha256": "0f690b2f6744658a69dd137dc9525bd069579565dbd296493ed180a7b520239b"
+    }
+  ]
+}

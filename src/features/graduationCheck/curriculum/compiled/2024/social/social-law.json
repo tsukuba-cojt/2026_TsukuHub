@@ -1,0 +1,296 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2024,
+  "department": {
+    "key": "social",
+    "label": "社会学類"
+  },
+  "major": {
+    "key": "social-law",
+    "label": "法学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "social/social-law/2024",
+    "admissionYear": 2024,
+    "department": {
+      "key": "social",
+      "label": "社会学類"
+    },
+    "major": {
+      "key": "social-law",
+      "label": "法学主専攻"
+    },
+    "requirementId": "social-law-23",
+    "ruleSemanticSha256": "0e6505c1e9efca1df3d4ca1c083dfb900abd65a3e5713fd0f84f424e993f18ab",
+    "snapshotSha256": "ed500761b35f0ef81b07a6fa28bb43da167df33ee5254bebb7066c6e6b75557b",
+    "review": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-006"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実装済み内数条件・経済学指定科目一覧の独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "社会学類",
+        "major": "法学主専攻",
+        "enrollYear": 2024
+      },
+      "courses": {
+        "compulsory": [
+          "法学概論",
+          "民事法概論",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 20,
+        "select": [
+          [
+            [
+              "BB2"
+            ],
+            40,
+            62,
+            false,
+            "法学主専攻科目",
+            0,
+            {
+              "excludeCourseNames": [
+                "社会学基礎論",
+                "現代社会論",
+                "法学概論",
+                "民事法概論",
+                "政治学概論",
+                "国際政治史",
+                "経済学基礎論",
+                "現代経済史"
+              ],
+              "minimumIncludedUnits": [
+                {
+                  "courseNames": [
+                    "憲法I",
+                    "憲法II",
+                    "民法総則",
+                    "刑法総論"
+                  ],
+                  "minimum": 4,
+                  "label": "憲法I・II、民法総則、刑法総論（内数）"
+                },
+                {
+                  "courseIdSuffixes": [
+                    "2"
+                  ],
+                  "minimum": 6,
+                  "label": "BB2の演習科目（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "BB1",
+              "BB3",
+              "BB4"
+            ],
+            21,
+            42,
+            false,
+            "他主専攻科目",
+            0,
+            {
+              "excludeCourseNames": [
+                "社会学基礎論",
+                "現代社会論",
+                "法学概論",
+                "民事法概論",
+                "政治学概論",
+                "国際政治史",
+                "経済学基礎論",
+                "現代経済史"
+              ]
+            }
+          ],
+          [
+            [
+              "AB00",
+              "AB60",
+              "BC11"
+            ],
+            0,
+            10,
+            false,
+            "指定された他学類科目",
+            0
+          ],
+          [
+            [],
+            6,
+            12,
+            false,
+            "他主専攻の概論・基礎論（6科目）",
+            1,
+            {
+              "includeCourseNames": [
+                "社会学基礎論",
+                "現代社会論",
+                "政治学概論",
+                "国際政治史",
+                "経済学基礎論",
+                "現代経済史"
+              ]
+            }
+          ],
+          [
+            [],
+            2,
+            4,
+            false,
+            "社会学類4主専攻の最前線科目",
+            1,
+            {
+              "includeCourseNames": [
+                "社会学の最前線",
+                "法学の最前線",
+                "政治学の最前線",
+                "経済学の最前線"
+              ]
+            }
+          ],
+          [
+            [],
+            0,
+            4,
+            false,
+            "社会学類4主専攻の最前線チュートリアル",
+            1,
+            {
+              "includeCourseNames": [
+                "社会学の最前線チュートリアル",
+                "法学の最前線チュートリアル",
+                "政治学の最前線チュートリアル",
+                "経済学の最前線チュートリアル"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            15,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            15,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G"
+            ],
+            2,
+            26,
+            false,
+            "E・F・Gで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "BC",
+              "C",
+              "H",
+              "W",
+              "Y",
+              "V",
+              "*自由科目特設",
+              "*博物館に関する科目"
+            ],
+            10,
+            34,
+            false,
+            "A・BC・C・H・W・Y・V・8・99で始まる関連科目",
+            3
+          ],
+          [
+            [
+              "*教職に関する科目"
+            ],
+            0,
+            8,
+            false,
+            "教職に関する科目",
+            3
+          ],
+          [
+            [
+              "BA",
+              "BE"
+            ],
+            0,
+            12,
+            false,
+            "社会学類の専門基礎指定を除くBA・BE科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 106,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            61,
+            84,
+            "専門科目選択"
+          ],
+          [
+            1,
+            8,
+            20,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            15,
+            "共通科目選択"
+          ],
+          [
+            3,
+            12,
+            36,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

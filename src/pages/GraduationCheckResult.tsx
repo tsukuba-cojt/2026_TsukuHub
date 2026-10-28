@@ -407,24 +407,9 @@ function GraduationCheckResult() {
               <SummaryCard
                 tone="pink"
                 icon={<TriangleAlert />}
-                label={
-                  report.summary.shortageUnits === 0 &&
-                  !report.summary.isSatisfied
-                    ? "未充足の個別要件"
-                    : "不足単位"
-                }
-                value={String(
-                  report.summary.shortageUnits === 0 &&
-                    !report.summary.isSatisfied
-                    ? report.summary.unsatisfiedRequirementCount
-                    : report.summary.shortageUnits,
-                )}
-                valueSub={
-                  report.summary.shortageUnits === 0 &&
-                  !report.summary.isSatisfied
-                    ? "件"
-                    : "単位"
-                }
+                label="不足単位"
+                value={String(report.summary.shortageUnits)}
+                valueSub="単位"
               />
               <SummaryCard
                 tone="purple"
@@ -445,6 +430,10 @@ function GraduationCheckResult() {
             </div>
 
             {/* 要件項目リスト */}
+            <p className="gradResultNotes" role="note">
+              この結果は5分類ごとの単位数の目安です。必修科目の内訳、所属コースの指定科目、
+              実験・実習などの詳細条件は、入学年度の履修細則でご自身でも確認してください。
+            </p>
             <section>
               <div className="gradResultReqHead">
                 <span>要件項目</span>
@@ -522,7 +511,7 @@ function GraduationCheckResult() {
             <div className="gradResultForecast">
               <div>
                 <p className="gradResultForecastTitle">
-                  このまま計画的に学習を進めると、卒業要件を満たせる見込みです！
+                  5分類の単位取得状況を参考に、履修計画を立てましょう
                 </p>
                 <p className="gradResultForecastSub">
                   不足単位を計画的に取得できるよう、履修提案を活用してみませんか？
