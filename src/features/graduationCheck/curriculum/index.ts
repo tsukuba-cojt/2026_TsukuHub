@@ -2,7 +2,7 @@ export {
   assessCurriculumCompilation,
   validateNormalizedCurriculum,
 } from "./validate";
-export { officialCurriculumSources } from "./officialSources";
+export { officialCurriculumSources, officialArchitectCourseSources, officialSupplementarySources } from "./officialSources";
 export {
   isSupportedNormalizedAdmissionYear,
   normalizedCurriculumScope,

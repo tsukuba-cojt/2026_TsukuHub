@@ -16,7 +16,7 @@ test("2主専攻・4年度の125単位と専門小区分を保持し、2024か�
   }
 });
 
-test("FJ指定一覧とエネメカ建築士対象一覧の欠損を広いprefixで充足扱いにせず未分類へ残す", () => {
+test("未確認FJと建築士一覧外のFH・YA・YBを広いprefixで専門へ入れず未分類へ残す", () => {
   for (const major of majors) {
     const input = [course("FJ20004", "指定確認前のFJ", 2), course("FH60001", "社会工学", 2),
       course("YA10001", "芸術基礎", 2), course("YBA0001", "芸術専門", 2)];
@@ -24,6 +24,22 @@ test("FJ指定一覧とエネメカ建築士対象一覧の欠損を広いprefix
     expect(collectCategoryCourses(report).specialized).toEqual([]);
     expect(report.details.uncountedCourses).toEqual(major === "esys-eme" ? input : input.slice(0, 1));
     if (major === "esys-ies") expect(collectCategoryCourses(report).related).toEqual(input.slice(1));
+  }
+});
+
+test("工シス自身の年度別建築士表で確認した科目だけをエネメカ専門へ追加する", () => {
+  const allowed = [course("FH45092", "施設設計演習", 2), course("FH45051", "建築関連法規", 1),
+    course("YBQ4061", "建築計画論", 2), course("YAQ1011", "建築デザイン概論", 1), course("YBP2831", "地域まちづくり論", 2)];
+  // 都市計画や芸術の資格表には載るが、工シスの指定表には載らない科目。
+  const otherPrograms = [course("FH46002", "住環境設計演習", 6), course("FH45142", "基本製図", 1), course("YBQ5011", "構造力学", 2)];
+  for (const year of [2023, 2024, 2025, 2026]) {
+    const id = resolveRequirementId("esys", "esys-eme", year)!;
+    const report = checkGraduation([...allowed, ...otherPrograms], id, undefined, "five-category");
+    expect(collectCategoryCourses(report).specialized).toEqual(allowed);
+    expect(report.categories[1].earnedUnits).toBe(8);
+    expect(report.details.uncountedCourses).toEqual(otherPrograms);
+    expect(report.details.selectResults.filter((r) => r.group === 0).flatMap((r) => r.courses)).toHaveLength(allowed.length);
+    expect(collectCategoryCourses(checkGraduation(allowed, resolveRequirementId("esys", "esys-ies", year)!)).specialized).toEqual([]);
   }
 });
 

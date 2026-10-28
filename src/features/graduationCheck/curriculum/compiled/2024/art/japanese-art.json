@@ -26,8 +26,8 @@
       "label": "日本芸術主専攻"
     },
     "requirementId": "japanese-art-22",
-    "ruleSemanticSha256": "56938f7ddfd2bb7b7fa2798d4fa55d86a987a6593701f265467eae37358feaac",
-    "snapshotSha256": "87b821497ff8c1da7f0afbf01423c9919e9b1c7e67407cb92d81910e9c8ca5d3",
+    "ruleSemanticSha256": "87277924430b78c9a8201185df83dc7ce9a1094d971b3abda4d66238a5a54b10",
+    "snapshotSha256": "2aa25b27665627c07ff5eb99ec4b05087744c095a6ecca4eea55df901ff588a5",
     "review": {
       "status": "unsupported",
       "humanReviewIds": [
@@ -37,7 +37,7 @@
         "tsukuba-graduation-requirements-2024"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "publishable": false,
@@ -55,7 +55,7 @@
           "芸術領域特別演習I::1",
           "芸術領域特別演習II::1",
           "芸術領域特別演習III::1",
-          "インターンシップ",
+          "日本芸術インターンシップ::1",
           "芸術キャリア教育",
           "アート&デザイン入門::1//['アート&デザイン入門', 'アート＆デザイン入門']",
           "芸術と文化",

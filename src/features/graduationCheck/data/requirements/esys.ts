@@ -1,4 +1,5 @@
 import type { GradRequirement, GradRequirementTable } from "../../types";
+import { esysArchitectCourseCodes } from "../esysArchitectCourses";
 
 type EsysRequirementId = "esys-ies-22" | "esys-eme-22" | "esys-ies-23" | "esys-eme-23" | "esys-ies-24" | "esys-eme-24";
 type LegacyEsysId = "esys-ies-22" | "esys-eme-22";
@@ -232,6 +233,7 @@ const buildAuditedEsys = (legacyId: LegacyEsysId, revised: boolean): GradRequire
   requirement.courses.select = requirement.courses.select.map((rule) => {
     const copy = [...rule] as typeof rule;
     copy[0] = rule[0].filter((prefix) => !pending.includes(prefix));
+    if (energy && rule[4] === "その他の専門科目") copy[0].push(...esysArchitectCourseCodes);
     if (rule[4] === "資格・特設自由科目") copy[0] = ["*博物館に関する科目", "*教職に関する科目", "8"];
     if (rule[4] === "他学群又は他学類の授業科目") {
       // 指定一覧が欠ける候補は、専門から関連へ推測振替しない。学校確認後又は手動5分類で処理する。

@@ -26,19 +26,19 @@
       "label": "エネルギー・メカニクス主専攻"
     },
     "requirementId": "esys-eme-23",
-    "ruleSemanticSha256": "a221dbc04d74709d73feae0816315935eca4597af41ed2385b716655719d8322",
-    "snapshotSha256": "d2598bf8cb0ef8de5cff635877a7e1f864a2d53707634f55338fd069080a29a6",
+    "ruleSemanticSha256": "14b1d5cf07afa34e39d933739832e839e1afac2bbb71bb57394c9c3551bd36fa",
+    "snapshotSha256": "0fdf70ca0b6fa182e42b00074dc273437609eb8fd99f42dbc96ba09405a8c8cf",
     "review": {
       "status": "unsupported",
       "humanReviewIds": [
         "HR-022"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2023"
+        "tsukuba-graduation-requirements-2023",
+        "tsukuba-qualification-guide-2023"
       ],
       "blockingIssues": [
-        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
-        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+        "FJの学類長指定一覧、建築士表と固定DBの未確認名称・旧番号・同一授業・認定・語学・移行前取得・超過振替・履修開始時点・独立レビューが未完了。建築士対応FH/YA/YBの33番号は年度別公式表で照合し算入済み。"
       ]
     },
     "publishable": false,
@@ -151,7 +151,40 @@
               "GB2",
               "GB3",
               "GB4",
-              "FA00"
+              "FA00",
+              "FH45051",
+              "FH45061",
+              "FH45071",
+              "FH45092",
+              "FH45201",
+              "FH45211",
+              "FH46021",
+              "FH46031",
+              "FH46041",
+              "FH46051",
+              "FH47021",
+              "FH47041",
+              "FH63071",
+              "FH63081",
+              "YAP1011",
+              "YAQ1011",
+              "YAX1601",
+              "YAZ1411",
+              "YAZ1421",
+              "YBP2831",
+              "YBP3301",
+              "YBP3401",
+              "YBQ0411",
+              "YBQ0821",
+              "YBQ3601",
+              "YBQ3811",
+              "YBQ3831",
+              "YBQ4041",
+              "YBQ4051",
+              "YBQ4061",
+              "YBQ4201",
+              "YBQ4202",
+              "YBQ5021"
             ],
             0,
             49,

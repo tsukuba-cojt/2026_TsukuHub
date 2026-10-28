@@ -26,8 +26,8 @@
       "label": "芸術学主専攻"
     },
     "requirementId": "art-studies-22",
-    "ruleSemanticSha256": "ea15b7a0b336de3bfb765682271cbe2f33d3b6efed6de9e2b00205512396b112",
-    "snapshotSha256": "497fc4c70bc030e7586105049cf3f6fb5606cacdfc014efb805ef2a9c7ff9e04",
+    "ruleSemanticSha256": "bf8d9873ee757a49ee2173dfb6385c650934bc6da9280848e5e8f25ad55542f5",
+    "snapshotSha256": "662b60d016365599a103cf1e632030a9cfdfeec0fef84cd4754cd70d390127bb",
     "review": {
       "status": "unsupported",
       "humanReviewIds": [
@@ -37,7 +37,7 @@
         "tsukuba-graduation-requirements-2024"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "publishable": false,
@@ -59,7 +59,7 @@
           "アート&デザイン入門::1//['アート&デザイン入門', 'アート＆デザイン入門']",
           "芸術と文化",
           "芸術と社会",
-          "芸術基礎演習::1//['芸術基礎演習A', '芸術基礎演習B', '芸術基礎演習C']",
+          "芸術英語基礎演習::1",
           "ファーストイヤーセミナー",
           "学問への誘い",
           "体育::2",

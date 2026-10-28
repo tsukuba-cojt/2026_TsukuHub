@@ -35,14 +35,14 @@
       "fileName": "art/art-studies.json",
       "requirementId": "art-studies-22",
       "publishable": false,
-      "sha256": "e43cc1737e21bdddec59dfe4898245335dc601fb49162baf82ba2ca698f3e8f2"
+      "sha256": "bdbd7b990261ef4c130b0730bb7dca4321c5bc57798816780ee474794653b4f7"
     },
     {
       "snapshotId": "art/japanese-art/2023",
       "fileName": "art/japanese-art.json",
       "requirementId": "japanese-art-22",
       "publishable": false,
-      "sha256": "b35a76f26840cf50aa0123287e0abcb8b7f303c44297a1d96434dbe50bf14438"
+      "sha256": "955be86f9213184668f690528898d875640d12b6895c298d0eb68a8298b0f850"
     },
     {
       "snapshotId": "biology/biology/2023",
@@ -140,7 +140,7 @@
       "fileName": "esys/esys-eme.json",
       "requirementId": "esys-eme-23",
       "publishable": false,
-      "sha256": "e9be9dc393920ea76f0b64c152d0745785507f17129107ed550811eee59bc6bb"
+      "sha256": "6f6a7e4d7387355c60777e8c08112ecef1fe31d9a00aa8df23b9bf03fe24ee14"
     },
     {
       "snapshotId": "esys/esys-ies/2023",

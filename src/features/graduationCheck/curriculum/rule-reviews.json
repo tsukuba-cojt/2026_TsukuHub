@@ -441,10 +441,11 @@
         "HR-012"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2023"
+        "tsukuba-graduation-requirements-2023",
+        "tsukuba-architect-course-list-art-admission-2023"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/art-studies/2024": {
@@ -456,7 +457,7 @@
         "tsukuba-graduation-requirements-2024"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/art-studies/2025": {
@@ -465,10 +466,11 @@
         "HR-012"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2025"
+        "tsukuba-graduation-requirements-2025",
+        "tsukuba-art-offered-courses-2025"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/art-studies/2026": {
@@ -477,10 +479,11 @@
         "HR-012"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2026"
+        "tsukuba-graduation-requirements-2026",
+        "tsukuba-art-offered-courses-2026"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/japanese-art/2023": {
@@ -489,10 +492,11 @@
         "HR-012"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2023"
+        "tsukuba-graduation-requirements-2023",
+        "tsukuba-architect-course-list-art-admission-2023"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/japanese-art/2024": {
@@ -504,7 +508,7 @@
         "tsukuba-graduation-requirements-2024"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/japanese-art/2025": {
@@ -513,10 +517,11 @@
         "HR-012"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2025"
+        "tsukuba-graduation-requirements-2025",
+        "tsukuba-art-offered-courses-2025"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "art/japanese-art/2026": {
@@ -525,10 +530,11 @@
         "HR-012"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2026"
+        "tsukuba-graduation-requirements-2026",
+        "tsukuba-art-offered-courses-2026"
       ],
       "blockingIssues": [
-        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・独立レビューが未完了"
+        "Japan-Expert共通指定の年度別適用、言語選択・必修超過配分・領域組合せの詳細実装・他学群読み替え・独立レビューが未完了"
       ]
     },
     "social/social-sociology/2023": {
@@ -1821,11 +1827,11 @@
         "HR-022"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2023"
+        "tsukuba-graduation-requirements-2023",
+        "tsukuba-qualification-guide-2023"
       ],
       "blockingIssues": [
-        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
-        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+        "FJの学類長指定一覧、建築士表と固定DBの未確認名称・旧番号・同一授業・認定・語学・移行前取得・超過振替・履修開始時点・独立レビューが未完了。建築士対応FH/YA/YBの33番号は年度別公式表で照合し算入済み。"
       ]
     },
     "esys/esys-ies/2024": {
@@ -1846,11 +1852,11 @@
         "HR-022"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2024"
+        "tsukuba-graduation-requirements-2024",
+        "tsukuba-qualification-guide-2024"
       ],
       "blockingIssues": [
-        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
-        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+        "FJの学類長指定一覧、建築士表と固定DBの未確認名称・旧番号・同一授業・認定・語学・移行前取得・超過振替・履修開始時点・独立レビューが未完了。建築士対応FH/YA/YBの33番号は年度別公式表で照合し算入済み。"
       ]
     },
     "esys/esys-ies/2025": {
@@ -1871,11 +1877,11 @@
         "HR-022"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2025"
+        "tsukuba-graduation-requirements-2025",
+        "tsukuba-qualification-guide-2025"
       ],
       "blockingIssues": [
-        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
-        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+        "FJの学類長指定一覧、建築士表と固定DBの未確認名称・旧番号・同一授業・認定・語学・移行前取得・超過振替・履修開始時点・独立レビューが未完了。建築士対応FH/YA/YBの33番号は年度別公式表で照合し算入済み。"
       ]
     },
     "esys/esys-ies/2026": {
@@ -1896,11 +1902,11 @@
         "HR-022"
       ],
       "sourceDocumentIds": [
-        "tsukuba-graduation-requirements-2026"
+        "tsukuba-graduation-requirements-2026",
+        "tsukuba-qualification-guide-2026"
       ],
       "blockingIssues": [
-        "FH・YA・YBの建築士資格科目対応表が欠損。広いprefixで専門を充足扱いにせず分類保留",
-        "FJの学類長指定一覧、新旧必修番号・同一授業・単位互換、語学・超過振替・移行前取得に限る読み替え、卒研履修開始時の前提と独立レビューが未完了"
+        "FJの学類長指定一覧、建築士表と固定DBの未確認名称・旧番号・同一授業・認定・語学・移行前取得・超過振替・履修開始時点・独立レビューが未完了。建築士対応FH/YA/YBの33番号は年度別公式表で照合し算入済み。"
       ]
     },
     "math/math/2023": {

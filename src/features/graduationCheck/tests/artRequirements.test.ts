@@ -2,8 +2,47 @@ import { describe, expect, test } from "vitest";
 import { checkGraduation } from "../checkGraduation";
 import { resolveRequirementId } from "../data/supportedDepartments";
 import { course } from "./helpers";
+import fs from "node:fs";
 
 const ids = ["art-studies-22", "japanese-art-22"] as const;
+
+test("実カタログの英語基礎演習・日本芸術インターンシップを必修へ数え、他学類の同名科目を混入させない", () => {
+  for (const year of [2023, 2024, 2025, 2026]) {
+    const { courses } = JSON.parse(fs.readFileSync(`public/data/courses/tsukuba-${year}.json`, "utf8"));
+    const actual = (code: string) => {
+      const item = courses.find((c: { course_number: string }) => c.course_number === code);
+      return course(code, item.course_name, Number(item.credits));
+    };
+    const english = ["YAX3132", "YAX3142", "YAX3152", "YAX3162", "YAX3172", "YAX3182"].map(actual);
+    for (const item of english) {
+      const report = checkGraduation([item], "art-studies-22", undefined, "five-category");
+      expect(report.categories[0].earnedUnits).toBe(1);
+      expect(report.categories[2].earnedUnits).toBe(0);
+    }
+    const all = checkGraduation(english, "art-studies-22", undefined, "five-category");
+    expect(all.categories[0].earnedUnits).toBe(6); // 5分類では小区分の1単位上限を適用しない。
+    expect(checkGraduation(english, "art-studies-22").categories[0].earnedUnits).toBe(1);
+    const internship = checkGraduation([actual("YBW2933")], "japanese-art-22", undefined, "five-category");
+    expect(internship.categories[0].earnedUnits).toBe(1);
+    expect(internship.categories[1].earnedUnits).toBe(0);
+    const wrong = checkGraduation([
+      course("AB00001", "英語基礎演習A", 1), course("FH00001", "インターンシップ", 1),
+    ], "japanese-art-22", undefined, "five-category");
+    expect(wrong.categories[0].earnedUnits).toBe(0);
+  }
+});
+
+test("建築士資格表にある工シス科目も、芸術の専門指定4番号へ無条件には追加しない", () => {
+  for (const id of ids) {
+    const specified = [course("FG45901", "建築設備", 2), course("FH45051", "建築関連法規", 1),
+      course("FH45061", "建築経済", 1), course("FH45071", "建築生産", 1)];
+    const other = [course("FG43811", "設計計画論", 1), course("FG45911", "建築環境工学", 2)];
+    const report = checkGraduation([...specified, ...other], id, undefined, "five-category");
+    expect(report.categories[1].earnedUnits).toBe(5);
+    expect(report.details.selectResults.find((r) => r.message === "FG・FH指定専門科目")?.courses).toEqual(specified);
+    expect(report.details.selectResults.find((r) => r.message === "E・F系関連科目")?.courses).toEqual(other);
+  }
+});
 
 describe.each(ids)("芸術専門学群 %s", (id) => {
   test("他科目群を多く取得してもYB40単位の不足を代替できない", () => {

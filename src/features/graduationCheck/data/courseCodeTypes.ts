@@ -23,6 +23,11 @@ const artDomainPrefixes = "ABCDEFGHJKLNPQ".split("").map((letter) => `YB${letter
 
 export const courseCodeTypes: Record<string, CourseCodeType> = {
   ...appliedCompulsoryCodeTypes,
+  芸術英語基礎演習: {
+    codes: ["YAX3132", "YAX3142", "YAX3152", "YAX3162", "YAX3172", "YAX3182"],
+    except: [],
+  },
+  日本芸術インターンシップ: { codes: ["YBW2933"], except: [] },
   生物資源専門語学I: { codes: ["EC131"], except: [] },
   生物資源専門語学II: { codes: ["EC14"], except: [] },
   芸術卒業研究: {
