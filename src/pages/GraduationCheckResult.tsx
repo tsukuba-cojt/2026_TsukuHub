@@ -1,3 +1,4 @@
+import { graduationCheckTestEnabled } from "../features/graduationCheck/testMode";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -54,6 +55,7 @@ const supportedSummary = supportedDepartments
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
+  testMode?: boolean;
   fileName: string;
   department?: string;
   major: string;
@@ -275,6 +277,7 @@ function GraduationCheckResult() {
     // DB保存に失敗しても、利用者が行った画面内の分類と再集計は維持する。
     setReport(nextReport);
     setClassificationSaveError(null);
+    if (graduationCheckTestEnabled || result?.testMode) return;
     void Promise.allSettled(
       appliedSelections.map(({ course, classification }) =>
         saveClassCategorize({
@@ -299,6 +302,9 @@ function GraduationCheckResult() {
     <div className="gradCheckPage">
       <Globalnav />
       <main className="gradCheckPageLayout">
+        {(graduationCheckTestEnabled || result?.testMode) && (
+          <p role="status">テストモード：判定結果と手動分類は画面内のみで反映し、DBには保存しません。</p>
+        )}
         <p className="gradCheckBreadcrumb">
           <Link to={path()} className="gradCheckBreadcrumbLink">
             ホーム
@@ -474,6 +480,7 @@ function GraduationCheckResult() {
             <UnclassifiedCourseFeedback
               report={report}
               onClassify={classifyAndSave}
+              disableDatabase={graduationCheckTestEnabled || result?.testMode === true}
             />
 
             {(result?.timetableHistories?.length ?? 0) > 0 && (
