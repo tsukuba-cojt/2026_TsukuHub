@@ -41,8 +41,8 @@ export default function Career() {
         <div className="classTopGuides">
           <CareerArticlePreview articles={articles} />
           <FeaturedInternships items={featured} />
+          <AlumniStoryPreview />
         </div>
-        <AlumniStoryPreview />
       </main>
       <Footer />
     </div>
