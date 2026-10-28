@@ -12,11 +12,12 @@ export type ClassificationSelection = {
 };
 
 type Props = {
+  disableDatabase?: boolean;
   report: GraduationCheckReport;
   onClassify: (selections: ClassificationSelection[]) => void;
 };
 
-function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
+function UnclassifiedCourseFeedback({ report, onClassify, disableDatabase = false }: Props) {
   const [answers, setAnswers] = useState<Map<Course, CategoryKey>>(new Map());
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const [suggestionMessage, setSuggestionMessage] = useState<string | null>(null);
@@ -27,6 +28,10 @@ function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
   });
 
   const fillFromHistory = async () => {
+    if (disableDatabase) {
+      setSuggestionMessage("テストモードではDBの分類履歴を取得しません。");
+      return;
+    }
     setIsLoadingSuggestions(true);
     setSuggestionMessage(null);
     try {
