@@ -3,6 +3,7 @@ import { Check, CircleQuestionMark, FileSpreadsheet, FileText, X } from "lucide-
 import "../../styles/class/GraduationCheck.css";
 
 type Props = {
+  testMode?: boolean;
   /** アップロード済みファイル名（未取得時は呼び出し側でダミーを渡す） */
   fileName: string;
   isProcessing: boolean;
@@ -24,6 +25,7 @@ const policyItems = [
 // データ取り扱い確認ポップアップ（B）
 // チェックボックスは開くたびに初期状態OFF（本コンポーネントの再マウントで担保）
 function GraduationCheckConsentModal({
+  testMode = false,
   fileName,
   isProcessing,
   onClose,
@@ -90,7 +92,7 @@ function GraduationCheckConsentModal({
         {/* このチェックでのデータの扱い */}
         <div className="gradCheckPolicyBox">
           <p className="gradCheckPolicyBoxTitle">このチェックでのデータの扱い</p>
-          {policyItems.map((item) => (
+          {(testMode ? ["CSV元ファイル・履修履歴・分類結果をDBに保存しません", "任意チェックをONにしても公開・統計協力は行いません"] : policyItems).map((item) => (
             <p className="gradCheckPolicyItem" key={item}>
               <Check aria-hidden="true" />
               {item}

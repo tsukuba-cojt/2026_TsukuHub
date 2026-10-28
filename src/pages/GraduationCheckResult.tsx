@@ -1,3 +1,4 @@
+import { graduationCheckTestEnabled } from "../features/graduationCheck/testMode";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -21,6 +22,7 @@ import {
 } from "../components/class/TimetableDisplay";
 import ProgressBar from "../components/class/GraduationProgressBar";
 import UnclassifiedCourseFeedback from "../components/class/UnclassifiedCourseFeedback";
+import type { ClassificationSelection } from "../components/class/UnclassifiedCourseFeedback";
 import {
   formatPercent,
   levelClass,
@@ -34,12 +36,12 @@ import {
 import type {
   CategoryKey,
   CategoryResult,
-  Course,
   CsvRowError,
   GraduationCheckReport,
 } from "../features/graduationCheck";
 import type { TimetableHistory, TimetableModuleKey } from "../types/timetable";
 import { timetableModuleLabels, timetableModuleOrder } from "../types/timetable";
+import { saveClassCategorize } from "../services/classCategorizeService";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/GraduationCheckResult.css";
 import { useUniversity } from "../components/university/universityContextValue";
@@ -53,6 +55,7 @@ const supportedSummary = supportedDepartments
 
 // アップロードページから遷移時に受け取るデータ（永続化しない）
 type GraduationCheckResultState = {
+  testMode?: boolean;
   fileName: string;
   department?: string;
   major: string;
@@ -222,6 +225,9 @@ function GraduationCheckResult() {
   const [isResultWarningOpen, setIsResultWarningOpen] = useState(
     () => resultWarningMessage !== ""
   );
+  const [classificationSaveError, setClassificationSaveError] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
     if (location.state !== null) {
@@ -251,10 +257,54 @@ function GraduationCheckResult() {
     window.scrollTo({ top: 0 });
   };
 
+  const classifyAndSave = (selections: ClassificationSelection[]) => {
+    if (!report || selections.length === 0) return;
+    let nextReport = report;
+    const appliedSelections: ClassificationSelection[] = [];
+
+    selections.forEach(({ course, classification }) => {
+      const uncountedIndex = nextReport.details.uncountedCourses.indexOf(course);
+      if (uncountedIndex === -1) return;
+      nextReport = classifyUncountedCourse(
+        nextReport,
+        uncountedIndex,
+        classification,
+      );
+      appliedSelections.push({ course, classification });
+    });
+    if (appliedSelections.length === 0) return;
+
+    // DB保存に失敗しても、利用者が行った画面内の分類と再集計は維持する。
+    setReport(nextReport);
+    setClassificationSaveError(null);
+    if (graduationCheckTestEnabled || result?.testMode) return;
+    void Promise.allSettled(
+      appliedSelections.map(({ course, classification }) =>
+        saveClassCategorize({
+          className: course.name,
+          categorized: classification,
+          department: report.requirement.department,
+        }),
+      ),
+    ).then((results) => {
+      const failedCount = results.filter(
+        (result) => result.status === "rejected",
+      ).length;
+      if (failedCount > 0) {
+        setClassificationSaveError(
+          `分類結果を画面には反映しましたが、${failedCount}件のDB記録に失敗しました。`,
+        );
+      }
+    });
+  };
+
   return (
     <div className="gradCheckPage">
       <Globalnav />
       <main className="gradCheckPageLayout">
+        {(graduationCheckTestEnabled || result?.testMode) && (
+          <p role="status">テストモード：判定結果と手動分類は画面内のみで反映し、DBには保存しません。</p>
+        )}
         <p className="gradCheckBreadcrumb">
           <Link to={path()} className="gradCheckBreadcrumbLink">
             ホーム
@@ -363,24 +413,9 @@ function GraduationCheckResult() {
               <SummaryCard
                 tone="pink"
                 icon={<TriangleAlert />}
-                label={
-                  report.summary.shortageUnits === 0 &&
-                  !report.summary.isSatisfied
-                    ? "未充足の個別要件"
-                    : "不足単位"
-                }
-                value={String(
-                  report.summary.shortageUnits === 0 &&
-                    !report.summary.isSatisfied
-                    ? report.summary.unsatisfiedRequirementCount
-                    : report.summary.shortageUnits,
-                )}
-                valueSub={
-                  report.summary.shortageUnits === 0 &&
-                  !report.summary.isSatisfied
-                    ? "件"
-                    : "単位"
-                }
+                label="不足単位"
+                value={String(report.summary.shortageUnits)}
+                valueSub="単位"
               />
               <SummaryCard
                 tone="purple"
@@ -401,6 +436,10 @@ function GraduationCheckResult() {
             </div>
 
             {/* 要件項目リスト */}
+            <p className="gradResultNotes" role="note">
+              この結果は5分類ごとの単位数の目安です。必修科目の内訳、所属コースの指定科目、
+              実験・実習などの詳細条件は、入学年度の履修細則でご自身でも確認してください。
+            </p>
             <section>
               <div className="gradResultReqHead">
                 <span>要件項目</span>
@@ -440,20 +479,8 @@ function GraduationCheckResult() {
 
             <UnclassifiedCourseFeedback
               report={report}
-              onClassify={(course: Course, classification) => {
-                setReport((current) => {
-                  if (!current) return current;
-                  const uncountedIndex =
-                    current.details.uncountedCourses.indexOf(course);
-                  return uncountedIndex === -1
-                    ? current
-                    : classifyUncountedCourse(
-                        current,
-                        uncountedIndex,
-                        classification,
-                      );
-                });
-              }}
+              onClassify={classifyAndSave}
+              disableDatabase={graduationCheckTestEnabled || result?.testMode === true}
             />
 
             {(result?.timetableHistories?.length ?? 0) > 0 && (
@@ -491,7 +518,7 @@ function GraduationCheckResult() {
             <div className="gradResultForecast">
               <div>
                 <p className="gradResultForecastTitle">
-                  このまま計画的に学習を進めると、卒業要件を満たせる見込みです！
+                  5分類の単位取得状況を参考に、履修計画を立てましょう
                 </p>
                 <p className="gradResultForecastSub">
                   不足単位を計画的に取得できるよう、履修提案を活用してみませんか？
@@ -536,12 +563,18 @@ function GraduationCheckResult() {
         )}
       </main>
       <Footer />
-      {isResultWarningOpen && (
+      {(classificationSaveError !== null || isResultWarningOpen) && (
         <Toast
-          message={resultWarningMessage}
+          message={classificationSaveError ?? resultWarningMessage}
           variant="warning"
           dismissible
-          onClose={() => setIsResultWarningOpen(false)}
+          onClose={() => {
+            if (classificationSaveError !== null) {
+              setClassificationSaveError(null);
+            } else {
+              setIsResultWarningOpen(false);
+            }
+          }}
         />
       )}
     </div>

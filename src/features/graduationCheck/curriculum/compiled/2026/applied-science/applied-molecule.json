@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "applied-science",
+    "label": "応用理工学類"
+  },
+  "major": {
+    "key": "applied-molecule",
+    "label": "物質・分子工学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "applied-science/applied-molecule/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "applied-science",
+      "label": "応用理工学類"
+    },
+    "major": {
+      "key": "applied-molecule",
+      "label": "物質・分子工学主専攻"
+    },
+    "requirementId": "applied-molecule-24",
+    "ruleSemanticSha256": "8412c666ca331e5445260e5ae15a0376173074ef4505dd5ad984fe60f1738368",
+    "snapshotSha256": "29dd137cafe7e51fc1a954b2ce605d5f8b432b3adffb5440de3359194347adfa",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-027"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "主専攻開設区分・輪講番号・学類長除外指定一覧、旧番号・同一授業・語学・単位互換・早期卒業・移行前取得の読替・超過振替・厳密な欄間配分・実験／卒研開始時点・独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "応用理工学類",
+        "major": "物質・分子工学",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "応用理工・基礎実験学::1",
+          "応用理工5・専攻実験A::2",
+          "応用理工5・専攻実験B::2",
+          "応用理工5・卒業研究A::4",
+          "応用理工5・卒業研究B::4",
+          "応用理工・応用理工学概論::1",
+          "応用理工・熱力学::2",
+          "応用理工・解析学A::1",
+          "応用理工・解析学B::1",
+          "応用理工・解析学C::1",
+          "応用理工・線形代数A::1",
+          "応用理工・線形代数B::1",
+          "応用理工・力学A::1",
+          "応用理工・電磁気学A::1",
+          "応用理工・電磁気学B::1",
+          "応用理工・電磁気学C::1",
+          "応用理工・化学A::1",
+          "応用理工・化学B::1",
+          "応用理工・応用理工物理学実験::3",
+          "応用理工・応用理工化学実験::3",
+          "応用理工・専門英語1::1",
+          "応用理工・専門英語2::1",
+          "応用理工・専門英語3::1",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::3",
+          "英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 49,
+        "select": [
+          [
+            [
+              "FF55"
+            ],
+            12,
+            16,
+            false,
+            "物質・分子工学の専門科目",
+            0
+          ],
+          [
+            [
+              "FF16",
+              "FF56"
+            ],
+            23,
+            27,
+            false,
+            "理工学群共通・主専攻関連科目",
+            0
+          ],
+          [
+            [
+              "FF25",
+              "FF26",
+              "FF35",
+              "FF36",
+              "FF45",
+              "FF46",
+              "FA00",
+              "FF13103",
+              "FF13203",
+              "FF14003",
+              "FF14103"
+            ],
+            0,
+            4,
+            false,
+            "実習・輪講・他主専攻科目",
+            0,
+            {
+              "includeCourseNames": [
+                "物質・分子工学輪講"
+              ]
+            }
+          ],
+          [
+            [
+              "FF15"
+            ],
+            6,
+            9,
+            false,
+            "FF15で始まる専門基礎科目",
+            1
+          ],
+          [
+            [
+              "FA011",
+              "FA012",
+              "FA013",
+              "FA014",
+              "FA015",
+              "FA016",
+              "FA017",
+              "FA018",
+              "FCB1201",
+              "FCB1211",
+              "FCB1221",
+              "FCB1231",
+              "FCB1241",
+              "FCB1251",
+              "FCB1261",
+              "FCB1271",
+              "FCB1281",
+              "FCB1291",
+              "FCB1301",
+              "FCB1311",
+              "FCB1321",
+              "FCB1331",
+              "FCB1341",
+              "FCB1351",
+              "FCB1361",
+              "FCB1371",
+              "FCB1381",
+              "FCB1391",
+              "FE11171",
+              "FE11271",
+              "FE11181",
+              "FE11281",
+              "FE11191",
+              "FE11291"
+            ],
+            15,
+            17,
+            false,
+            "数学・物理・化学の基礎科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            1,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*外国語",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            4,
+            false,
+            "外国語・国語・芸術",
+            2
+          ],
+          [
+            [
+              "*体育"
+            ],
+            0,
+            1,
+            false,
+            "体育",
+            2
+          ],
+          [
+            [
+              "FF",
+              "FA00",
+              "FA45",
+              "FA011",
+              "FA012",
+              "FA013",
+              "FA014",
+              "FA015",
+              "FA016",
+              "FA017",
+              "FA018",
+              "FCB1201",
+              "FCB1211",
+              "FCB1221",
+              "FCB1231",
+              "FCB1241",
+              "FCB1251",
+              "FCB1261",
+              "FCB1271",
+              "FCB1281",
+              "FCB1291",
+              "FCB1301",
+              "FCB1311",
+              "FCB1321",
+              "FCB1331",
+              "FCB1341",
+              "FCB1351",
+              "FCB1361",
+              "FCB1371",
+              "FCB1381",
+              "FCB1391",
+              "FE11171",
+              "FE11271",
+              "FE11181",
+              "FE11281",
+              "FE11191",
+              "FE11291",
+              "*総合科目",
+              "8",
+              "9"
+            ],
+            12,
+            16,
+            true,
+            "他学群・他学類の科目",
+            3
+          ],
+          [
+            [
+              "8",
+              "9"
+            ],
+            0,
+            4,
+            false,
+            "教職・博物館・特設自由科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 75,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            35,
+            39,
+            "専門科目選択"
+          ],
+          [
+            1,
+            21,
+            26,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            5,
+            "共通科目選択"
+          ],
+          [
+            3,
+            12,
+            16,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

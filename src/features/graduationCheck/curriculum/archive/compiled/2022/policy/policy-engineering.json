@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "policy",
+    "label": "社会工学類"
+  },
+  "major": {
+    "key": "policy-engineering",
+    "label": "経営工学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "policy/policy-engineering/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "policy",
+      "label": "社会工学類"
+    },
+    "major": {
+      "key": "policy-engineering",
+      "label": "経営工学主専攻"
+    },
+    "requirementId": "policy-engineering-22",
+    "ruleSemanticSha256": "a39be71fb82b40cab1baaa6797c991728d380933b0efcd56ae5870712a2f9b7f",
+    "snapshotSha256": "236024ccda9a696955914c621b2f0450e5b2b5e8a0a5f944cf9364c309d35465",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "社会工学類",
+        "major": "経営工学",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "問題発見と解決",
+          "卒業研究A",
+          "卒業研究B",
+          "社会工学演習",
+          "社会工学英語",
+          "プログラミング入門A",
+          "プログラミング入門B",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "外国語::4",
+          "情報::4",
+          "体育::3"
+        ],
+        "compulsorySumUnit": 31,
+        "select": [
+          [
+            [
+              "FH32",
+              "FH33",
+              "FH34"
+            ],
+            16,
+            75,
+            false,
+            "経営工学主専攻科目",
+            0
+          ],
+          [
+            [
+              "FH24",
+              "FH26",
+              "FH27",
+              "FH46",
+              "FH47",
+              "FH48"
+            ],
+            8,
+            75,
+            false,
+            "社会経済システム・都市計画科目",
+            0
+          ],
+          [
+            [
+              "FH2",
+              "FH3",
+              "FH4",
+              "FA00"
+            ],
+            0,
+            75,
+            false,
+            "その他の社会工学類専門科目",
+            0,
+            {
+              "excludeCodes": [
+                "FH24",
+                "FH26",
+                "FH27",
+                "FH32",
+                "FH33",
+                "FH34",
+                "FH46",
+                "FH47",
+                "FH48"
+              ]
+            }
+          ],
+          [
+            [],
+            11,
+            16,
+            false,
+            "社会工学専門基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "（共）数学リテラシー1",
+                "（共）数学リテラシー2",
+                "（共）線形代数1",
+                "（共）線形代数2",
+                "（共）線形代数3",
+                "（共）微積分1",
+                "（共）微積分2",
+                "（共）微積分3",
+                "（社工）統計学",
+                "経済学の数理",
+                "経済学の実証",
+                "会計と経営",
+                "社会と最適化",
+                "都市計画入門",
+                "都市数理"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            3,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            4,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C"
+            ],
+            2,
+            20,
+            false,
+            "A・B・Cで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G",
+              "H"
+            ],
+            2,
+            20,
+            false,
+            "E・F・G・Hで始まる関連科目",
+            3,
+            {
+              "excludeCodes": [
+                "FA0",
+                "FA45",
+                "FH"
+              ]
+            }
+          ],
+          [
+            [
+              "*教職に関する科目",
+              "*博物館に関する科目",
+              "*自由科目特設"
+            ],
+            0,
+            4,
+            false,
+            "教職・博物館・特設自由科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C",
+              "E",
+              "F",
+              "G",
+              "H",
+              "FH",
+              "FA00",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目",
+              "*博物館に関する科目",
+              "*自由科目特設"
+            ],
+            0,
+            20,
+            true,
+            "その他の他学群・他学類科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 93,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            50,
+            75,
+            "専門科目選択"
+          ],
+          [
+            1,
+            11,
+            16,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            7,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            20,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

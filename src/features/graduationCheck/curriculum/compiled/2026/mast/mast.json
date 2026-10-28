@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "mast",
+    "label": "情報メディア創成学類"
+  },
+  "major": {
+    "key": "mast",
+    "label": "情報メディア創成主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "mast/mast/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "mast",
+      "label": "情報メディア創成学類"
+    },
+    "major": {
+      "key": "mast",
+      "label": "情報メディア創成主専攻"
+    },
+    "requirementId": "mast-25",
+    "ruleSemanticSha256": "6844bb16e30a8c7be74b2e91d5944da9aa86a2627c09ffa67beb1b24f81dd2d9",
+    "snapshotSha256": "fd584423ececd03351d8f859006533df8c0ff07b93cf4c8dda070eb5acc2fe64",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-020"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "同一授業・個別認定、移行者の読み替え・同名必修・超過振替、語学・教職の範囲、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "情報メディア創成学類",
+        "major": "情報メディア創成",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "情報メディア卒業研究A::3",
+          "情報メディア卒業研究B::3",
+          "情報メディア実験A",
+          "情報メディア実験B",
+          "情報メディア専門英語A::1",
+          "情報メディア専門英語B::1",
+          "微分積分A//['微積分1', '微積分2']",
+          "微分積分B",
+          "線形代数A//['線形代数1', '線形代数2']",
+          "線形代数B",
+          "情報数学A",
+          "確率と統計",
+          "プログラミング入門A",
+          "プログラミング入門B",
+          "コンピュータリテラシー",
+          "プログラミング",
+          "コンピュータシステムとOS",
+          "データ構造とアルゴリズム",
+          "データ構造とアルゴリズム実習",
+          "データ工学概論",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "情報::4",
+          "体育::2",
+          "必修英語::4"
+        ],
+        "compulsorySumUnit": 51,
+        "selectMinimumUnit": 73,
+        "select": [
+          [
+            [
+              "GC5",
+              "GA4"
+            ],
+            20,
+            35,
+            false,
+            "GC5, GA4",
+            0
+          ],
+          [
+            [
+              "GC2",
+              "GA1"
+            ],
+            31,
+            46,
+            false,
+            "GC2, GA1",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            4,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育"
+            ],
+            0,
+            2,
+            false,
+            "体育",
+            2
+          ],
+          [
+            [
+              "*外国語"
+            ],
+            0,
+            6,
+            false,
+            "外国語",
+            2
+          ],
+          [
+            [
+              "*国語"
+            ],
+            0,
+            2,
+            false,
+            "国語",
+            2
+          ],
+          [
+            [
+              "*芸術"
+            ],
+            0,
+            6,
+            false,
+            "芸術",
+            2
+          ],
+          [
+            [
+              "GB",
+              "GE"
+            ],
+            0,
+            9,
+            false,
+            "GB, GE",
+            3
+          ],
+          [
+            [
+              "*博物館に関する科目",
+              "8"
+            ],
+            0,
+            9,
+            false,
+            "博物館・自由科目（特設）",
+            3
+          ],
+          [
+            [
+              "GA",
+              "GB",
+              "GC",
+              "GE",
+              "8",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            6,
+            15,
+            true,
+            "他学群の授業科目",
+            3
+          ]
+        ],
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            20,
+            35,
+            "専門科目選択"
+          ],
+          [
+            1,
+            31,
+            46,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            10,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            15,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

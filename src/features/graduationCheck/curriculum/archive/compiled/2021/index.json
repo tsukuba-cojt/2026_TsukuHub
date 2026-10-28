@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "annual-grad-requirement-index-2.0.0",
+  "admissionYear": 2021,
+  "entries": [
+    {
+      "snapshotId": "klis/klis-irm/2021",
+      "fileName": "klis/klis-irm.json",
+      "requirementId": "klis-irm-21",
+      "publishable": false,
+      "sha256": "d33629ee37726075ad8e33fde78898655ebe241ca2e291ea6c445f55f32a833e"
+    },
+    {
+      "snapshotId": "klis/klis-kis/2021",
+      "fileName": "klis/klis-kis.json",
+      "requirementId": "klis-kis-21",
+      "publishable": false,
+      "sha256": "3d1c31185c8ebcb780bc78bdcc12020dc8fea937f71e9fcef4c730c870b4351f"
+    },
+    {
+      "snapshotId": "klis/klis-ksc/2021",
+      "fileName": "klis/klis-ksc.json",
+      "requirementId": "klis-ksc-21",
+      "publishable": false,
+      "sha256": "99970fd396a596e97a1bdc3ad9eea5525317f3b5de45773620b6ac3f4b84c683"
+    },
+    {
+      "snapshotId": "mast/mast/2021",
+      "fileName": "mast/mast.json",
+      "requirementId": "mast-21",
+      "publishable": false,
+      "sha256": "de12034646bd0b3ae993924e9df9aae055b1b2d499e4c01804cee59e368b5ad1"
+    }
+  ]
+}

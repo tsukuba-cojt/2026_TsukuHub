@@ -1,4 +1,5 @@
 import type {
+  CountConstraint,
   CreditConstraint,
   FulfillmentRule,
   NormalizedCurriculum,
@@ -69,6 +70,57 @@ const validateCredits = (
     issues.push({
       severity: "error",
       code: "empty-credit-constraint",
+      path,
+      message: "exact / minimum / maximum のいずれかが必要です。",
+    });
+  }
+};
+
+const validateCount = (
+  count: CountConstraint,
+  path: string,
+  issues: CurriculumValidationIssue[]
+) => {
+  const values = [count.exact, count.minimum, count.maximum];
+  if (
+    values.some(
+      (value) => value !== undefined && (!Number.isInteger(value) || value < 0)
+    )
+  ) {
+    issues.push({
+      severity: "error",
+      code: "invalid-count-value",
+      path,
+      message: "科目数は0以上の整数で指定してください。",
+    });
+  }
+  if (
+    count.exact !== undefined &&
+    (count.minimum !== undefined || count.maximum !== undefined)
+  ) {
+    issues.push({
+      severity: "error",
+      code: "conflicting-count-constraint",
+      path,
+      message: "exact は minimum / maximum と併用できません。",
+    });
+  }
+  if (
+    count.minimum !== undefined &&
+    count.maximum !== undefined &&
+    count.minimum > count.maximum
+  ) {
+    issues.push({
+      severity: "error",
+      code: "reversed-count-range",
+      path,
+      message: "minimum は maximum 以下である必要があります。",
+    });
+  }
+  if (values.every((value) => value === undefined)) {
+    issues.push({
+      severity: "error",
+      code: "empty-count-constraint",
       path,
       message: "exact / minimum / maximum のいずれかが必要です。",
     });
@@ -197,6 +249,8 @@ const validateMatcher = (
   }
   if (
     matcher.type === "course_tag" ||
+    matcher.type === "instruction_method" ||
+    matcher.type === "term" ||
     matcher.type === "offering_organization" ||
     matcher.type === "external_designation"
   ) {
@@ -258,6 +312,16 @@ const validateFulfillment = (
       knownCatalogDocuments
     );
     validateCredits(fulfillment.credits, `${path}.credits`, issues);
+    return;
+  }
+  if (fulfillment.type === "course_count_from") {
+    validateMatcher(
+      fulfillment.matcher,
+      `${path}.matcher`,
+      issues,
+      knownCatalogDocuments
+    );
+    validateCount(fulfillment.count, `${path}.count`, issues);
     return;
   }
   if (fulfillment.type === "all_courses") {
@@ -399,6 +463,68 @@ export const validateNormalizedCurriculum = (
     });
   }
   validateCredits(curriculum.totalCredits, "totalCredits", issues);
+  if (
+    curriculum.schemaVersion === "normalized-curriculum-1.1.0" &&
+    curriculum.evaluationPolicy === undefined
+  ) {
+    issues.push({
+      severity: "error",
+      code: "missing-evaluation-policy",
+      path: "evaluationPolicy",
+      message:
+        "1.1.0では不足するカタログ属性・学生属性をunknownとする方針が必要です。",
+    });
+  }
+
+  const studentDimensions = new Map<string, Set<string>>();
+  (curriculum.studentContextDimensions ?? []).forEach((dimension, index) => {
+    const path = `studentContextDimensions[${index}]`;
+    if (studentDimensions.has(dimension.id)) {
+      issues.push({
+        severity: "error",
+        code: "duplicate-student-context-dimension",
+        path: `${path}.id`,
+        message: `学生属性IDが重複しています: ${dimension.id}`,
+      });
+    }
+    const values = new Set(dimension.options.map((option) => option.value));
+    if (dimension.options.length === 0 || values.size !== dimension.options.length) {
+      issues.push({
+        severity: "error",
+        code: "invalid-student-context-options",
+        path: `${path}.options`,
+        message: "学生属性には重複しない選択肢を1件以上指定してください。",
+      });
+    }
+    studentDimensions.set(dimension.id, values);
+  });
+
+  const validateStudentScope = (
+    scope: { dimensionId: string; values: string[] } | undefined,
+    path: string
+  ) => {
+    if (scope === undefined) return;
+    const options = studentDimensions.get(scope.dimensionId);
+    if (options === undefined) {
+      issues.push({
+        severity: "error",
+        code: "unknown-student-context-dimension",
+        path: `${path}.dimensionId`,
+        message: `未登録の学生属性IDです: ${scope.dimensionId}`,
+      });
+    }
+    if (
+      scope.values.length === 0 ||
+      (options !== undefined && scope.values.some((value) => !options.has(value)))
+    ) {
+      issues.push({
+        severity: "error",
+        code: "invalid-student-scope-values",
+        path: `${path}.values`,
+        message: "適用条件には登録済みの学生属性値を1件以上指定してください。",
+      });
+    }
+  };
 
   const requirementIds = new Set<string>();
   curriculum.requirements.forEach((requirement, index) => {
@@ -412,6 +538,7 @@ export const validateNormalizedCurriculum = (
       });
     }
     requirementIds.add(requirement.id);
+    validateStudentScope(requirement.studentScope, `${path}.studentScope`);
     validateFulfillment(
       requirement.fulfillment,
       `${path}.fulfillment`,
@@ -446,6 +573,7 @@ export const validateNormalizedCurriculum = (
       });
     }
     aggregateIds.add(constraint.id);
+    validateStudentScope(constraint.studentScope, `${path}.studentScope`);
     if (constraint.targetRequirementIds.length === 0) {
       issues.push({
         severity: "error",

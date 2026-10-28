@@ -2,7 +2,7 @@ export {
   assessCurriculumCompilation,
   validateNormalizedCurriculum,
 } from "./validate";
-export { officialCurriculumSources } from "./officialSources";
+export { officialCurriculumSources, officialArchitectCourseSources, officialSupplementarySources } from "./officialSources";
 export {
   isSupportedNormalizedAdmissionYear,
   normalizedCurriculumScope,
@@ -22,6 +22,7 @@ export type {
   AggregateConstraint,
   CourseEquivalence,
   CourseReference,
+  CountConstraint,
   CreditConstraint,
   CurriculumApplicability,
   CurriculumArea,
@@ -34,6 +35,8 @@ export type {
   SourceCoverageItem,
   SourceDocument,
   SourceReference,
+  StudentContextDimension,
+  StudentScope,
   SubjectMatcher,
   TranscriptSubjectMatcher,
 } from "./types";

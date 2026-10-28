@@ -6,7 +6,8 @@
  * See LICENSE in this directory.
  */
 
-import { categoryLabels } from "./categoryMapping";
+import { categoryLabels, categoryOrder } from "./categoryMapping";
+import { courseCountRequirementItems } from "./courseCount";
 import { countCompulsoryUnits } from "./checkCompulsory";
 import { listRequirementGroups } from "./requirementGroups";
 import type {
@@ -104,13 +105,13 @@ const selectRequirementItems = (
   selectResults: SelectResult[],
   categoryByGroup: Map<number, Exclude<CategoryKey, "compulsory">>
 ): RequirementItemProgress[] =>
-  selectResults.map((result, index) => {
+  selectResults.flatMap((result, index) => {
     const earnedUnits = Math.min(sumUnits(result.courses, false), result.maximum);
     const prospectiveUnits = Math.min(
       sumUnits(result.courses, true),
       result.maximum
     );
-    return {
+    const parent: RequirementItemProgress = {
       id: `select-${index}`,
       kind: "select",
       label: result.message,
@@ -124,13 +125,48 @@ const selectRequirementItems = (
       courses: result.courses,
       isManualClassification: result.isManualClassification === true,
     };
+    const included = (result.minimumIncludedResults ?? []).map(
+      (includedResult, includedIndex): RequirementItemProgress => {
+        const includedEarned = sumUnits(includedResult.courses, false);
+        const includedProspective = sumUnits(includedResult.courses, true);
+        const unknownUnits = sumUnits(includedResult.unknownCourses ?? [], false);
+        const prospectiveUnknownUnits = sumUnits(includedResult.unknownCourses ?? [], true);
+        const status = (known: number, unknown: number) => known >= includedResult.minimum
+          ? "satisfied" as const : known + unknown >= includedResult.minimum ? "unknown" as const : "unsatisfied" as const;
+        return {
+          id: `select-${index}-included-${includedIndex}`,
+          kind: "select",
+          label: includedResult.label,
+          category: categoryByGroup.get(result.group) ?? null,
+          minimumUnits: includedResult.minimum,
+          maximumUnits: null,
+          earnedUnits: includedEarned,
+          prospectiveUnits: includedProspective,
+          isSatisfied: includedEarned >= includedResult.minimum,
+          isProspectivelySatisfied:
+            includedProspective >= includedResult.minimum,
+          courses: [...includedResult.courses, ...(includedResult.unknownCourses ?? [])],
+          isManualClassification: false,
+          ...(includedResult.unknownCourses ? { attributeEvaluation: {
+            status: status(includedEarned, unknownUnits),
+            prospectiveStatus: status(includedProspective, prospectiveUnknownUnits),
+            unknownUnits, prospectiveUnknownUnits,
+          } } : {}),
+        };
+      },
+    );
+    return [parent, ...included];
   });
 
 export const calculateGraduationProgress = (
   requirement: GradRequirement,
   compulsoryResults: CompulsoryResult[],
-  selectResults: SelectResult[]
+  selectResults: SelectResult[],
+  evaluationMode: "five-category" | "detailed" = "detailed",
 ): GraduationProgressResult => {
+  if (evaluationMode === "five-category") {
+    return calculateFiveCategoryProgress(requirement, compulsoryResults, selectResults);
+  }
   const { compulsorySumUnit, selectMinimumUnit, enforceSelectMinimums } =
     requirement.courses;
   const groups = listRequirementGroups(requirement);
@@ -142,6 +178,7 @@ export const calculateGraduationProgress = (
   const requirementItems = [
     ...compulsoryRequirementItems(compulsoryResults),
     ...selectRequirementItems(selectResults, categoriesByGroup),
+    ...courseCountRequirementItems(requirement, selectResults),
   ];
   const groupUnits = groups.map((group) => {
     const results = selectResults.filter(
@@ -186,6 +223,19 @@ export const calculateGraduationProgress = (
     return { ...group, earned: count(false), prospective: count(true) };
   });
 
+  for (const [index, constraint] of (requirement.courses.aggregateRequirements ?? []).entries()) {
+    const sourceGroups = groupUnits.filter((group) => constraint.sourceGroups.includes(group.groupNo));
+    const earned = sourceGroups.reduce((sum, group) => sum + group.earned, 0);
+    const prospective = sourceGroups.reduce((sum, group) => sum + group.prospective, 0);
+    requirementItems.push({
+      id: `aggregate-${index}`, kind: "select", label: constraint.label,
+      category: categoriesByGroup.get(constraint.group) ?? null,
+      minimumUnits: constraint.minimum, maximumUnits: null, earnedUnits: earned, prospectiveUnits: prospective,
+      isSatisfied: earned >= constraint.minimum, isProspectivelySatisfied: prospective >= constraint.minimum,
+      courses: selectResults.filter((result) => constraint.sourceGroups.includes(result.group)).flatMap((result) => result.courses),
+      isManualClassification: false,
+    });
+  }
   const compulsoryEarned = Math.min(
     countCompulsoryUnits(compulsoryResults, false),
     compulsorySumUnit
@@ -299,5 +349,56 @@ export const calculateGraduationProgress = (
     },
     requirementItems,
     unmappedGroupUnits,
+  };
+};
+
+/** 小区分の上下限・必修の個別消し込み・属性条件は5分類の進捗に混ぜない。 */
+const calculateFiveCategoryProgress = (
+  requirement: GradRequirement,
+  compulsoryResults: CompulsoryResult[],
+  selectResults: SelectResult[],
+): GraduationProgressResult => {
+  const groups = listRequirementGroups(requirement);
+  const categories = categoryOrder.map((category): CategoryResult => {
+    const categoryGroups = groups.filter((group) => group.category === category);
+    const required = category === "compulsory" ? requirement.courses.compulsorySumUnit
+      : categoryGroups.reduce((sum, group) => sum + group.minimum, 0);
+    const maximum = category === "compulsory" ? required
+      : categoryGroups.reduce((sum, group) => sum + group.maximum, 0);
+    const courses = [...new Set(category === "compulsory"
+      ? compulsoryResults.flatMap((result) => result.courses)
+      : selectResults.filter((result) => categoryGroups.some((group) => group.groupNo === result.group))
+        .flatMap((result) => result.courses))];
+    const earned = Math.min(sumUnits(courses, false), maximum);
+    const prospective = Math.min(sumUnits(courses, true), maximum);
+    return {
+      category, label: categoryLabels[category], maxUnits: maximum,
+      ...makeProgress(required, earned, prospective),
+      isSatisfied: earned >= required, isProspectivelySatisfied: prospective >= required,
+      unsatisfiedRequirementCount: 0, prospectivelyUnsatisfiedRequirementCount: 0,
+    };
+  });
+  const required = requirement.courses.compulsorySumUnit + requirement.courses.selectMinimumUnit;
+  const count = (prospective: boolean) => {
+    const field = prospective ? "prospectiveUnits" : "earnedUnits";
+    return categories[0][field] + Math.min(requirement.courses.selectMinimumUnit,
+      categories.slice(1).reduce((sum, category) => sum + category[field], 0));
+  };
+  const summary = makeProgress(required, count(false), count(true));
+  const shortage = (prospective: boolean) => Math.max(
+    required - count(prospective),
+    categories.reduce((sum, category) => sum + Math.max(category.requiredUnits -
+      (prospective ? category.prospectiveUnits : category.earnedUnits), 0), 0),
+  );
+  const detailed = calculateGraduationProgress(requirement, compulsoryResults, selectResults);
+  return {
+    categories,
+    summary: {
+      ...summary, shortageUnits: shortage(false), prospectiveShortageUnits: shortage(true),
+      isSatisfied: shortage(false) === 0, isProspectivelySatisfied: shortage(true) === 0,
+      unsatisfiedRequirementCount: 0, prospectivelyUnsatisfiedRequirementCount: 0,
+    },
+    requirementItems: detailed.requirementItems,
+    unmappedGroupUnits: detailed.unmappedGroupUnits,
   };
 };

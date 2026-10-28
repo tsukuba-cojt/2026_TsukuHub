@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2023,
+  "department": {
+    "key": "math",
+    "label": "数学類"
+  },
+  "major": {
+    "key": "math",
+    "label": "数学"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "math/math/2023",
+    "admissionYear": 2023,
+    "department": {
+      "key": "math",
+      "label": "数学類"
+    },
+    "major": {
+      "key": "math",
+      "label": "数学"
+    },
+    "requirementId": "math-23",
+    "ruleSemanticSha256": "f89f5d3641cf192c146da34a86f8cc2485a0e506d78542e5556759da609ecb90",
+    "snapshotSha256": "cc001e2f1ca84a1471e4ff585880077fa5c9d541042356be628f6623beb4291b",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-023"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "旧名称と数字科目の各組1単位上限、移行者の微積分1/2/3・線形代数1/2/3の認定条件を完全には表現できない",
+        "数学の教科指導法の正式な番号対応、学類長・他大学認定、第一外国語・超過振替、総合学域群所属時の取得条件、卒研履修開始時の前提、独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "数学類",
+        "major": "数学",
+        "enrollYear": 2023
+      },
+      "courses": {
+        "compulsory": [
+          "数学卒業研究::9",
+          "数学卒業予備研究::3",
+          "数学外書輪講II::2",
+          "微積分系::2//[\"微積分1\",\"微積分2\",\"微分積分A\",\"微積分I\",\"微積分II\",\"微積分Ⅰ\",\"微積分Ⅱ\"]",
+          "線形代数系::2//[\"線形代数1\",\"線形代数2\",\"線形代数A\",\"線形代数I\",\"線形代数II\",\"線形代数Ⅰ\",\"線形代数Ⅱ\"]",
+          "数学リテラシー1::1//['数学リテラシー1']",
+          "数学リテラシー2::1//['数学リテラシー2']",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 32,
+        "select": [
+          [
+            [
+              "FB12",
+              "FB13",
+              "FB14"
+            ],
+            46,
+            70,
+            false,
+            "数学専門科目",
+            0
+          ],
+          [
+            [
+              "FBA",
+              "FC",
+              "FE",
+              "EE"
+            ],
+            15,
+            47,
+            false,
+            "数学専門基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "微積分3",
+                "線形代数3",
+                "生物学序説",
+                "遺伝学概論",
+                "分子細胞生物学概論",
+                "系統分類・進化学概論",
+                "生態学概論",
+                "動物生理学概論",
+                "植物生理学概論"
+              ]
+            }
+          ],
+          [
+            [
+              "*総合科目"
+            ],
+            1,
+            17,
+            false,
+            "共通科目（学士基盤1を含む）",
+            2,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "*学士基盤科目"
+                  ],
+                  "minimum": 1,
+                  "label": "学士基盤科目1"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "FB12",
+              "FB13",
+              "FB14",
+              "FBA",
+              "FC",
+              "FE",
+              "EE",
+              "*総合科目",
+              "*教職に関する科目"
+            ],
+            6,
+            16,
+            true,
+            "専門・専門基礎・共通以外の科目（数学の教科指導法を含む）",
+            3,
+            {
+              "includeCourseNames": [
+                "微積分3",
+                "線形代数3",
+                "生物学序説",
+                "遺伝学概論",
+                "分子細胞生物学概論",
+                "系統分類・進化学概論",
+                "生態学概論",
+                "動物生理学概論",
+                "植物生理学概論"
+              ],
+              "excludeCodes": [
+                "9450101",
+                "9450201",
+                "9453001"
+              ]
+            }
+          ]
+        ],
+        "selectMinimumUnit": 92,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            46,
+            70,
+            "専門科目選択"
+          ],
+          [
+            1,
+            15,
+            47,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            17,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            16,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

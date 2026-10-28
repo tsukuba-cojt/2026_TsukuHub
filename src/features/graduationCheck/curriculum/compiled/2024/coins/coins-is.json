@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2024,
+  "department": {
+    "key": "coins",
+    "label": "情報科学類"
+  },
+  "major": {
+    "key": "coins-is",
+    "label": "情報システム主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "coins/coins-is/2024",
+    "admissionYear": 2024,
+    "department": {
+      "key": "coins",
+      "label": "情報科学類"
+    },
+    "major": {
+      "key": "coins-is",
+      "label": "情報システム主専攻"
+    },
+    "requirementId": "coins-is-23",
+    "ruleSemanticSha256": "6285379d16acccf1cd429d9f4d26aadc838e6062ce89e6cf2e09e296ebe6c2e7",
+    "snapshotSha256": "521c004fa46a42ba223457aea8461efbd11c20648a6c2c8964d958c849121c3a",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-018"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長の重複認定・単位互換、履修開始時の前提、語学・移行者読み替え・同名必修・超過配分・独立レビューが未完了。SS正規化と実行時の全条件比較はHR-019で継続"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "情報科学類",
+        "major": "情報システム",
+        "enrollYear": 2024
+      },
+      "courses": {
+        "compulsory": [
+          "情報システム実験A",
+          "情報システム実験B",
+          "情報科学卒業研究A::3",
+          "情報科学卒業研究B::3",
+          "情報科学専門語学A::2",
+          "情報科学専門語学B::2",
+          "線形代数A//['線形代数1', '線形代数2']",
+          "線形代数B",
+          "微分積分A//['微積分1', '微積分2']",
+          "微分積分B",
+          "情報数学A",
+          "専門英語基礎",
+          "プログラミング入門A",
+          "プログラミング入門B",
+          "コンピュータとプログラミング",
+          "データ構造とアルゴリズム",
+          "データ構造とアルゴリズム実験",
+          "論理回路",
+          "論理回路演習",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 54,
+        "select": [
+          [
+            [
+              "GB2",
+              "GB3",
+              "GB4",
+              "GA4",
+              "GB13312",
+              "GB13322",
+              "GB13332"
+            ],
+            34,
+            34,
+            false,
+            "情報科学類専門科目・特別演習",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "GB20",
+                    "GB30",
+                    "GB40"
+                  ],
+                  "minimum": 16,
+                  "label": "GB20・GB30・GB40から16単位"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "GB1"
+            ],
+            14,
+            26,
+            false,
+            "GB1専門基礎（指定8・英語2を含む）",
+            1,
+            {
+              "excludeCodes": [
+                "GB13312",
+                "GB13322",
+                "GB13332"
+              ],
+              "minimumIncludedUnits": [
+                {
+                  "courseNames": [
+                    "確率論",
+                    "統計学",
+                    "数値計算法",
+                    "論理と形式化",
+                    "論理システム",
+                    "論理システム演習"
+                  ],
+                  "minimum": 8,
+                  "label": "指定6科目から8単位"
+                },
+                {
+                  "courseNames": [
+                    "Computer Science in English A",
+                    "Computer Science in English B"
+                  ],
+                  "minimum": 2,
+                  "label": "Computer Science in English 2単位"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "GA1"
+            ],
+            8,
+            26,
+            false,
+            "GA1で始まる科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            5,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育"
+            ],
+            0,
+            4,
+            false,
+            "体育",
+            2
+          ],
+          [
+            [
+              "*外国語"
+            ],
+            0,
+            4,
+            false,
+            "外国語",
+            2
+          ],
+          [
+            [
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            4,
+            false,
+            "国語・芸術",
+            2
+          ],
+          [
+            [
+              "E",
+              "F",
+              "GC",
+              "GE",
+              "H"
+            ],
+            0,
+            4,
+            false,
+            "関連科目（上限4単位）",
+            3,
+            {
+              "excludeEquivalentCodes": [
+                "GB"
+              ]
+            }
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G",
+              "H",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*国語",
+              "*芸術",
+              "*情報",
+              "*教職に関する科目"
+            ],
+            6,
+            10,
+            true,
+            "その他の関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 71,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            34,
+            34,
+            "専門科目選択"
+          ],
+          [
+            1,
+            26,
+            26,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            5,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            10,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

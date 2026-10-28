@@ -1,0 +1,349 @@
+{
+  "schemaVersion": "annual-grad-requirement-index-2.0.0",
+  "admissionYear": 2025,
+  "entries": [
+    {
+      "snapshotId": "applied-science/applied-electron/2025",
+      "fileName": "applied-science/applied-electron.json",
+      "requirementId": "applied-electron-24",
+      "publishable": false,
+      "sha256": "79fd59dc57f304fabd1e4c301e4e3c41d065ac0babdf0f9bdc103e4c30be9968"
+    },
+    {
+      "snapshotId": "applied-science/applied-materials/2025",
+      "fileName": "applied-science/applied-materials.json",
+      "requirementId": "applied-materials-24",
+      "publishable": false,
+      "sha256": "22192dae1046e07ac31b8c6eafc2aca921ddaf843e696577ea6a21df7fa9924d"
+    },
+    {
+      "snapshotId": "applied-science/applied-molecule/2025",
+      "fileName": "applied-science/applied-molecule.json",
+      "requirementId": "applied-molecule-24",
+      "publishable": false,
+      "sha256": "0d3d0e29e696ec4dd0d106ca86d972716addaa577665b8747dd55748cffc06af"
+    },
+    {
+      "snapshotId": "applied-science/applied-physics/2025",
+      "fileName": "applied-science/applied-physics.json",
+      "requirementId": "applied-physics-24",
+      "publishable": false,
+      "sha256": "8908dcf49844f484fd29fc4fa7334624790e39f324973f205dc900b5c81b7f17"
+    },
+    {
+      "snapshotId": "art/art-studies/2025",
+      "fileName": "art/art-studies.json",
+      "requirementId": "art-studies-22",
+      "publishable": false,
+      "sha256": "3b9fead52f715a0dc9f3093726ce1283231f9844af4c70be995cb33fc3872ff8"
+    },
+    {
+      "snapshotId": "art/japanese-art/2025",
+      "fileName": "art/japanese-art.json",
+      "requirementId": "japanese-art-22",
+      "publishable": false,
+      "sha256": "507a040820098c725c41ffc3a6b6e6d8a0e5cf972a525b42f6a1e228a219a18e"
+    },
+    {
+      "snapshotId": "biology/biology/2025",
+      "fileName": "biology/biology.json",
+      "requirementId": "biology-24",
+      "publishable": false,
+      "sha256": "5d0fb24f40ce640c83acfd3c3adb26e4a369660a06a14db7de48b364e9a4ca18"
+    },
+    {
+      "snapshotId": "bioresources/bioresources-interdisciplinary/2025",
+      "fileName": "bioresources/bioresources-interdisciplinary.json",
+      "requirementId": "bioresources-interdisciplinary-25",
+      "publishable": false,
+      "sha256": "58b85b535ceb19bfe081565c553a56999565cf3a6c3b9131f1879655896fc7e3"
+    },
+    {
+      "snapshotId": "bioresources/bioresources/2025",
+      "fileName": "bioresources/bioresources.json",
+      "requirementId": "bioresources-25",
+      "publishable": false,
+      "sha256": "6d1fe8d20782e576082bd657c38efed28d4d256f246729efa9be7a84bfcba203"
+    },
+    {
+      "snapshotId": "chem/chem/2025",
+      "fileName": "chem/chem.json",
+      "requirementId": "chem-25",
+      "publishable": false,
+      "sha256": "32a6cbd6a09e79d384785fe7ca0799f787c79020131e52c2d1ff842adab824b4"
+    },
+    {
+      "snapshotId": "coins/coins-im/2025",
+      "fileName": "coins/coins-im.json",
+      "requirementId": "coins-im-23",
+      "publishable": false,
+      "sha256": "38d21233107865553ff4962b299f600df009387074ecc81d4d71e31309ea6a85"
+    },
+    {
+      "snapshotId": "coins/coins-is/2025",
+      "fileName": "coins/coins-is.json",
+      "requirementId": "coins-is-23",
+      "publishable": false,
+      "sha256": "8857c9ee165cb6a91928dde8bdb41e23a9a784a17a6b2811fad99c68e8a7e4e2"
+    },
+    {
+      "snapshotId": "coins/coins-ss/2025",
+      "fileName": "coins/coins-ss.json",
+      "requirementId": "coins-ss-23",
+      "publishable": false,
+      "sha256": "84385fbe9e57d79df6b750b2588d474c3c2b110ab49a8097c7babe8bdab97d44"
+    },
+    {
+      "snapshotId": "comparative-culture/comparative-culture/2025",
+      "fileName": "comparative-culture/comparative-culture.json",
+      "requirementId": "comparative-culture-23",
+      "publishable": false,
+      "sha256": "a0eae843a6f0ce526c095d359b2fc325f7969d64fa582fceb23a01ae86dd4924"
+    },
+    {
+      "snapshotId": "disability/disability/2025",
+      "fileName": "disability/disability.json",
+      "requirementId": "disability-23",
+      "publishable": false,
+      "sha256": "68527bb4c58b0b8cd0c56c1fe606f2607b793f749f2e379d2b9d5e00467f87cf"
+    },
+    {
+      "snapshotId": "earth/earth-environment/2025",
+      "fileName": "earth/earth-environment.json",
+      "requirementId": "earth-environment-25",
+      "publishable": false,
+      "sha256": "f221071f70cad406c7a22428c7d287305c1d436ec7ca4aea5b5da2fe5ab33917"
+    },
+    {
+      "snapshotId": "earth/earth-evolution/2025",
+      "fileName": "earth/earth-evolution.json",
+      "requirementId": "earth-evolution-26",
+      "publishable": false,
+      "sha256": "1d3e2db861bed7fce992e6a1149788b6bf473f8d0957889995baa8c9b883637b"
+    },
+    {
+      "snapshotId": "earth/earth-interdisciplinary/2025",
+      "fileName": "earth/earth-interdisciplinary.json",
+      "requirementId": "earth-interdisciplinary-24",
+      "publishable": false,
+      "sha256": "2f103db59b1166fde19f551c92e540eee196a0d19e761299b46f37067316446a"
+    },
+    {
+      "snapshotId": "education/education/2025",
+      "fileName": "education/education.json",
+      "requirementId": "education-23",
+      "publishable": false,
+      "sha256": "366e66ced0318bf9bb226ea340089e734dea2e3e66bc47dfa9e28f5995ad1f84"
+    },
+    {
+      "snapshotId": "esys/esys-eme/2025",
+      "fileName": "esys/esys-eme.json",
+      "requirementId": "esys-eme-24",
+      "publishable": false,
+      "sha256": "c8604151a19824127caa72da6d0c1ee7e3b4b5ff4445f29b7ab6a328cee23f13"
+    },
+    {
+      "snapshotId": "esys/esys-ies/2025",
+      "fileName": "esys/esys-ies.json",
+      "requirementId": "esys-ies-24",
+      "publishable": false,
+      "sha256": "e1a0fa7d429bfd0a490cdada0bfd24c6ba0d6a728d3cf3324b9f9fc8cf084859"
+    },
+    {
+      "snapshotId": "humanities/humanities-archaeology/2025",
+      "fileName": "humanities/humanities-archaeology.json",
+      "requirementId": "humanities-archaeology-25",
+      "publishable": false,
+      "sha256": "4bac94a2ad4c7e51f1bc3e951106321affe0545fac7a729d4af4578cd02a392f"
+    },
+    {
+      "snapshotId": "humanities/humanities-history/2025",
+      "fileName": "humanities/humanities-history.json",
+      "requirementId": "humanities-history-25",
+      "publishable": false,
+      "sha256": "17c7c6ddd9318bde2200ed14d287d5e0b55a9caba68b13969ee68ed290b72bd4"
+    },
+    {
+      "snapshotId": "humanities/humanities-linguistics/2025",
+      "fileName": "humanities/humanities-linguistics.json",
+      "requirementId": "humanities-linguistics-25",
+      "publishable": false,
+      "sha256": "edbeea531ba5cefbf0de21b3315513338e7c0b9c6cfa414553bcd64bc07893ca"
+    },
+    {
+      "snapshotId": "humanities/humanities-philosophy/2025",
+      "fileName": "humanities/humanities-philosophy.json",
+      "requirementId": "humanities-philosophy-25",
+      "publishable": false,
+      "sha256": "b84ccc852d885102b94c95117dd78fdbc91f9ca33252d498ee72113287dc75cc"
+    },
+    {
+      "snapshotId": "international/international-development/2025",
+      "fileName": "international/international-development.json",
+      "requirementId": "international-development-23",
+      "publishable": false,
+      "sha256": "39d38748f6e7b72c750bb9362ab1b2a38eadd71f5034b37009fd35c76b7e8276"
+    },
+    {
+      "snapshotId": "international/international-relations/2025",
+      "fileName": "international/international-relations.json",
+      "requirementId": "international-relations-23",
+      "publishable": false,
+      "sha256": "1612177c9058f6edd73d170e9ebcb05454f7de816047bbd11e24e5c0b58ee6c6"
+    },
+    {
+      "snapshotId": "japanese-culture/japanese-culture/2025",
+      "fileName": "japanese-culture/japanese-culture.json",
+      "requirementId": "japanese-culture-23",
+      "publishable": false,
+      "sha256": "d34a9cacff1c7cdfa2cb35fa7a567c5c00c0a4b308df2ba6c0e695f3c64fe054"
+    },
+    {
+      "snapshotId": "klis/klis-irm/2025",
+      "fileName": "klis/klis-irm.json",
+      "requirementId": "klis-irm-23",
+      "publishable": false,
+      "sha256": "b6746fd28735abd31118dfcde6e68dae4600638f345356943f3e324a74bc68ab"
+    },
+    {
+      "snapshotId": "klis/klis-kis/2025",
+      "fileName": "klis/klis-kis.json",
+      "requirementId": "klis-kis-23",
+      "publishable": false,
+      "sha256": "0886a75cb7a0f1c46a43f2a04d8b1caf40c2d85be6bf2f088035dcb39c8e76fd"
+    },
+    {
+      "snapshotId": "klis/klis-ksc/2025",
+      "fileName": "klis/klis-ksc.json",
+      "requirementId": "klis-ksc-23",
+      "publishable": false,
+      "sha256": "5da72c12b1a89b58fd475aeed556fa78179c7590162bf9793ffa46713191cc1f"
+    },
+    {
+      "snapshotId": "mast/mast/2025",
+      "fileName": "mast/mast.json",
+      "requirementId": "mast-25",
+      "publishable": false,
+      "sha256": "641a8ff8cfe6d76857b82870d93100d9146454a82480bc16b12b44e18b00150f"
+    },
+    {
+      "snapshotId": "math/math/2025",
+      "fileName": "math/math.json",
+      "requirementId": "math-24",
+      "publishable": false,
+      "sha256": "ac0cc2cac8fe1266880fec1a4916464cd94c939b6d57a14b7f89b237b9e81c14"
+    },
+    {
+      "snapshotId": "medical-science/international-medical-science/2025",
+      "fileName": "medical-science/international-medical-science.json",
+      "requirementId": "international-medical-science-25",
+      "publishable": false,
+      "sha256": "1054e4bda5651e09d7840eba8713e6bde357d6e738ec6b1a700174686ce0d8c3"
+    },
+    {
+      "snapshotId": "medical-science/medical-science/2025",
+      "fileName": "medical-science/medical-science.json",
+      "requirementId": "medical-science-25",
+      "publishable": false,
+      "sha256": "03af2a438957c02081056f57d4482991fb3cb753038f7fd9302eff49d7473a31"
+    },
+    {
+      "snapshotId": "medicine/medicine/2025",
+      "fileName": "medicine/medicine.json",
+      "requirementId": "medicine-22",
+      "publishable": false,
+      "sha256": "5f08dbadb7359e787977b28157962818a1ef44a3e9ce6d8a59f10ea14180316c"
+    },
+    {
+      "snapshotId": "medicine/new-medicine/2025",
+      "fileName": "medicine/new-medicine.json",
+      "requirementId": "new-medicine-22",
+      "publishable": false,
+      "sha256": "aef27cd921b88645f4a1b990e8524328d3825c33bcd13c1e00ada2f9595536ec"
+    },
+    {
+      "snapshotId": "nursing/nursing/2025",
+      "fileName": "nursing/nursing.json",
+      "requirementId": "nursing-25",
+      "publishable": false,
+      "sha256": "898191bcbce5a5e5a1711e97210cb4f230e892b9d0b782a9838a9dbd8ca63126"
+    },
+    {
+      "snapshotId": "nursing/public-health-nursing/2025",
+      "fileName": "nursing/public-health-nursing.json",
+      "requirementId": "public-health-nursing-25",
+      "publishable": false,
+      "sha256": "3bb6e08487970c6e7a77d06752e8cf8655d573ca79159555acb072457c7b9895"
+    },
+    {
+      "snapshotId": "physical-education/physical-education/2025",
+      "fileName": "physical-education/physical-education.json",
+      "requirementId": "physical-education-22",
+      "publishable": false,
+      "sha256": "59a3c806ac6785b229a1130d28e9dcab242a92132544c1af69e47f227ef9fcbf"
+    },
+    {
+      "snapshotId": "physics/physics/2025",
+      "fileName": "physics/physics.json",
+      "requirementId": "physics-25",
+      "publishable": false,
+      "sha256": "dadeb54dc06dda538d2947e0b2030636f02cac0d80a210e050ccc6485d3e6c50"
+    },
+    {
+      "snapshotId": "policy/policy-economics/2025",
+      "fileName": "policy/policy-economics.json",
+      "requirementId": "policy-economics-23",
+      "publishable": false,
+      "sha256": "264b2685c059f880bb91b222ffb0f8087b550306c565b24835e095ed7e142c43"
+    },
+    {
+      "snapshotId": "policy/policy-engineering/2025",
+      "fileName": "policy/policy-engineering.json",
+      "requirementId": "policy-engineering-23",
+      "publishable": false,
+      "sha256": "f4e335911f509f2db8d72a816937ba47b715ad61ab6b8f10b42cedd21064bd1a"
+    },
+    {
+      "snapshotId": "policy/policy-urban/2025",
+      "fileName": "policy/policy-urban.json",
+      "requirementId": "policy-urban-23",
+      "publishable": false,
+      "sha256": "223ec44576084bb3cfbd54608955eba73f4f6ed79b666f2fe25a332c721fa615"
+    },
+    {
+      "snapshotId": "psychology/psychology/2025",
+      "fileName": "psychology/psychology.json",
+      "requirementId": "psychology-23",
+      "publishable": false,
+      "sha256": "4b6faf6229e6440bb5e8fc856fe7b4fd9b2e4450cf5aae08b0de2d795ced5bf4"
+    },
+    {
+      "snapshotId": "social/social-economics/2025",
+      "fileName": "social/social-economics.json",
+      "requirementId": "social-economics-23",
+      "publishable": false,
+      "sha256": "4999efcd4ccfef13962a4b00940d113d05a79942156e91cec2c26dc630713e6d"
+    },
+    {
+      "snapshotId": "social/social-law/2025",
+      "fileName": "social/social-law.json",
+      "requirementId": "social-law-23",
+      "publishable": false,
+      "sha256": "14036a2704ae65b59ddcd67c7e125bb197cda78f9bdcfb9cac46fd61a96e3773"
+    },
+    {
+      "snapshotId": "social/social-politics/2025",
+      "fileName": "social/social-politics.json",
+      "requirementId": "social-politics-23",
+      "publishable": false,
+      "sha256": "4e3bde2f37e5b00911be95f2c5545f063f3f0e1d1d03e5b13f912e048a98e073"
+    },
+    {
+      "snapshotId": "social/social-sociology/2025",
+      "fileName": "social/social-sociology.json",
+      "requirementId": "social-sociology-23",
+      "publishable": false,
+      "sha256": "991fcf3c7b5c0a8b0b853b267eefbee52e6931afced113060f7a2d294b6f6813"
+    }
+  ]
+}

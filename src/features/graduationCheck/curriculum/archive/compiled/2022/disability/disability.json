@@ -1,0 +1,212 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "disability",
+    "label": "障害科学類"
+  },
+  "major": {
+    "key": "disability",
+    "label": "障害科学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "disability/disability/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "disability",
+      "label": "障害科学類"
+    },
+    "major": {
+      "key": "disability",
+      "label": "障害科学主専攻"
+    },
+    "requirementId": "disability-22",
+    "ruleSemanticSha256": "4517c67cde684b6d0127a661e1b20c2baf68be9d48121e49ec7bac916aea8867",
+    "snapshotSha256": "527bae3029cf466da1d481d7d5e346569c1a22340daeaf5c40788e80efe685e7",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-016"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "CEの短期留学生対象科目一覧、2022指定科目名・番号と関連補集合の解釈、第一・第二外国語・必修超過配分・二重開設、独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "障害科学類",
+        "major": "障害科学主専攻",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "卒業研究I",
+          "卒業研究II",
+          "人間学I",
+          "障害科学I",
+          "障害科学II",
+          "キャリアデザイン入門",
+          "Current Topics in Disability Sciences",
+          "教育科目::2//['教育基礎論', '学校の経営・制度・社会']",
+          "心理学類概論::2",
+          "障害科学実践入門",
+          "障害原理論I",
+          "障害者福祉論I",
+          "障害者福祉論II",
+          "障害科学セミナー",
+          "障害者教育基礎理論I",
+          "障害者教育基礎理論II",
+          "心理学統計法II",
+          "障害科学研究法入門",
+          "障害科学研究法実習",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::7",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 46,
+        "select": [
+          [
+            [
+              "CA"
+            ],
+            0,
+            10,
+            false,
+            "人間学群コア科目",
+            1
+          ],
+          [
+            [
+              "CE"
+            ],
+            32,
+            71,
+            false,
+            "障害科学類の専門科目",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "courseNames": [
+                    "視覚障害生理病理特講",
+                    "聴覚障害生理病理特講",
+                    "肢体不自由の生理病理",
+                    "病弱者の生理病理",
+                    "知的・発達障害生理病理特講",
+                    "医学概論I",
+                    "医学概論II",
+                    "保健医療論"
+                  ],
+                  "minimum": 4,
+                  "label": "生理・病理等の指定4単位（内数）"
+                },
+                {
+                  "courseNames": [
+                    "視覚障害心理",
+                    "聴覚障害心理",
+                    "運動障害と心理",
+                    "健康障害と心理",
+                    "知的・発達障害と心理",
+                    "相談援助の基盤と専門職I",
+                    "相談援助の基盤と専門職II",
+                    "相談援助の理論と方法I",
+                    "相談援助の理論と方法II"
+                  ],
+                  "minimum": 4,
+                  "label": "心理・相談等の指定4単位（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "CB",
+              "CC"
+            ],
+            0,
+            40,
+            false,
+            "教育学類・心理学類の専門科目",
+            0
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            40,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*国語",
+              "*芸術",
+              "*情報"
+            ],
+            0,
+            39,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "CA",
+              "CB",
+              "CC",
+              "CE"
+            ],
+            6,
+            45,
+            true,
+            "人間学群以外の関連科目（2022）",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 78,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            32,
+            71,
+            "専門科目選択"
+          ],
+          [
+            1,
+            0,
+            10,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            40,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            45,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

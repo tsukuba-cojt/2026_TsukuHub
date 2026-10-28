@@ -2,6 +2,7 @@ import { supabase } from "../lib/supabase";
 import { getCatalogCoursesByCodes } from "./courseCatalog";
 import {
   collectCategoryCourses,
+  listStudentCourseOptions,
   type Course,
   type GraduationCheckReport,
 } from "../features/graduationCheck";
@@ -163,6 +164,8 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
   ownerId?: string;
   universityId: string;
 }): Promise<TimetableHistory[]> => {
+  const selectedCourse = listStudentCourseOptions(report.requirement.id).find((option) => option.key === report.studentContext?.courseKey);
+  const trackLabel = selectedCourse ? `${major}・${selectedCourse.label}` : major || department;
   const allCourses = [
     ...report.details.compulsoryResults.flatMap((item) => item.courses),
     ...report.details.selectResults.flatMap((item) => item.courses),
@@ -211,13 +214,13 @@ export const buildTimetableHistoriesFromGraduationReport = async ({
       return {
         id: makeId(),
         ownerId,
-        displayName: `${major || department} ${label}`,
+        displayName: `${trackLabel} ${label}`,
         department,
         major,
         admissionYear,
         academicYear,
         studentYearLabel: label,
-        trackLabel: major || department,
+        trackLabel,
         earnedUnits,
         sharePublic,
         courses,

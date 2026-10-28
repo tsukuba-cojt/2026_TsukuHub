@@ -1,0 +1,271 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "chem",
+    "label": "化学類"
+  },
+  "major": {
+    "key": "chem",
+    "label": "化学"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "chem/chem/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "chem",
+      "label": "化学類"
+    },
+    "major": {
+      "key": "chem",
+      "label": "化学"
+    },
+    "requirementId": "chem-22",
+    "ruleSemanticSha256": "cbcd519d86f31f9eb8aca8aca118330ed50c6c82204805f8ee82d5e47d7df5f7",
+    "snapshotSha256": "3b85912df63ab4d5fa4ec61b92badfed6868fd59fb724b34ecdabffa0a4ba464",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "化学類",
+        "major": "化学",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "専門化学実験Ⅰ//['専門化学実験I']",
+          "専門化学実験Ⅱ//['専門化学実験II']",
+          "卒業研究",
+          "化学1",
+          "化学2",
+          "化学3",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 43,
+        "select": [
+          [
+            [],
+            6,
+            6,
+            false,
+            "分析化学・無機化学",
+            0,
+            {
+              "includeCourseNames": [
+                "分析化学",
+                "無機化学I",
+                "無機化学Ⅰ",
+                "無機化学II",
+                "無機化学Ⅱ",
+                "無機元素化学",
+                "放射化学"
+              ]
+            }
+          ],
+          [
+            [],
+            6,
+            6,
+            false,
+            "物理化学",
+            0,
+            {
+              "includeCourseNames": [
+                "物理化学I",
+                "物理化学Ⅰ",
+                "物理化学II",
+                "物理化学Ⅱ",
+                "物理化学III",
+                "物理化学Ⅲ",
+                "物理化学IV",
+                "物理化学Ⅳ"
+              ]
+            }
+          ],
+          [
+            [],
+            6,
+            6,
+            false,
+            "有機化学",
+            0,
+            {
+              "includeCourseNames": [
+                "有機化学I",
+                "有機化学Ⅰ",
+                "有機化学II",
+                "有機化学Ⅱ",
+                "有機化学III",
+                "有機化学Ⅲ",
+                "有機化学IV",
+                "有機化学Ⅳ"
+              ]
+            }
+          ],
+          [
+            [
+              "FE12",
+              "FE13",
+              "FE14"
+            ],
+            23,
+            33,
+            false,
+            "その他の化学専門科目",
+            0,
+            {
+              "excludeCourseNames": [
+                "化学基礎セミナー"
+              ]
+            }
+          ],
+          [
+            [],
+            12,
+            12,
+            false,
+            "数学・物理学の基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "微積分1",
+                "微積分2",
+                "微積分3",
+                "微分積分A",
+                "線形代数1",
+                "線形代数2",
+                "線形代数3",
+                "線形代数A",
+                "力学1",
+                "力学2",
+                "力学3",
+                "電磁気学1",
+                "電磁気学2",
+                "電磁気学3"
+              ]
+            }
+          ],
+          [
+            [
+              "FA",
+              "FB",
+              "FC",
+              "FE11",
+              "EB",
+              "EC",
+              "EE"
+            ],
+            5,
+            18,
+            false,
+            "その他の専門基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "化学基礎セミナー",
+                "化学序説",
+                "生物学序説",
+                "遺伝学概論",
+                "分子細胞生物学概論",
+                "系統分類・進化学概論",
+                "生態学概論",
+                "動物生理学概論",
+                "植物生理学概論",
+                "地球環境学1",
+                "地球環境学2",
+                "地球進化学1",
+                "地球進化学2"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            2,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "A",
+              "B"
+            ],
+            2,
+            2,
+            false,
+            "A・Bで始まる科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "B",
+              "FA",
+              "FB",
+              "FC",
+              "FE",
+              "EB",
+              "EC",
+              "EE",
+              "*総合科目",
+              "*教職に関する科目",
+              "*博物館に関する科目",
+              "*自由科目特設"
+            ],
+            7,
+            9,
+            true,
+            "その他の関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 81,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            41,
+            51,
+            "専門科目選択"
+          ],
+          [
+            1,
+            17,
+            30,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            2,
+            "共通科目選択"
+          ],
+          [
+            3,
+            9,
+            11,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

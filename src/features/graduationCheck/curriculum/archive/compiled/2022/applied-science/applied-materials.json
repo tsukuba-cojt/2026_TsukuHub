@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "applied-science",
+    "label": "応用理工学類"
+  },
+  "major": {
+    "key": "applied-materials",
+    "label": "物性工学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "applied-science/applied-materials/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "applied-science",
+      "label": "応用理工学類"
+    },
+    "major": {
+      "key": "applied-materials",
+      "label": "物性工学主専攻"
+    },
+    "requirementId": "applied-materials-22",
+    "ruleSemanticSha256": "4c0b06362c7273e43c0f8cef093164fa94a0b1b5619c0a71288aec9ecb057011",
+    "snapshotSha256": "0e0ca03811a926f40f1a21da765e9e4ef7e945b83dbc3a0644c991f2637559de",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "応用理工学類",
+        "major": "物性工学",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "基礎実験学",
+          "物性工学専攻実験A",
+          "物性工学専攻実験B",
+          "卒業研究A",
+          "卒業研究B",
+          "応用理工学概論",
+          "熱力学",
+          "解析学A",
+          "解析学B",
+          "解析学C",
+          "線形代数A",
+          "線形代数B",
+          "力学A",
+          "電磁気学A",
+          "電磁気学B",
+          "電磁気学C",
+          "化学A",
+          "化学B",
+          "応用理工物理学実験",
+          "応用理工化学実験",
+          "専門英語1",
+          "専門英語2",
+          "専門英語3",
+          "数学リテラシー1",
+          "数学リテラシー2",
+          "微積分1",
+          "微積分2",
+          "微積分3",
+          "線形代数1",
+          "線形代数2",
+          "線形代数3",
+          "力学1",
+          "力学2",
+          "力学3",
+          "電磁気学1",
+          "電磁気学2",
+          "電磁気学3",
+          "化学1",
+          "化学2",
+          "化学3",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::3",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 66,
+        "select": [
+          [
+            [
+              "FF45"
+            ],
+            12,
+            16,
+            false,
+            "物性工学の専門科目",
+            0
+          ],
+          [
+            [
+              "FF16",
+              "FF46"
+            ],
+            23,
+            27,
+            false,
+            "理工学群共通・主専攻関連科目",
+            0
+          ],
+          [
+            [
+              "FF",
+              "FA00"
+            ],
+            0,
+            4,
+            false,
+            "実習・輪講・他主専攻科目",
+            0,
+            {
+              "includeCourseNames": [
+                "インターンシップI",
+                "インターンシップII",
+                "応用理工学特別実習I",
+                "応用理工学特別実習II",
+                "物性工学輪講"
+              ],
+              "excludeCodes": [
+                "FF15"
+              ]
+            }
+          ],
+          [
+            [
+              "FF15"
+            ],
+            6,
+            9,
+            false,
+            "FF15で始まる専門基礎科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            1,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*外国語",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            4,
+            false,
+            "外国語・国語・芸術",
+            2
+          ],
+          [
+            [
+              "*体育"
+            ],
+            0,
+            1,
+            false,
+            "体育",
+            2
+          ],
+          [
+            [
+              "FF",
+              "FA00",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目",
+              "*博物館に関する科目",
+              "*自由科目特設"
+            ],
+            12,
+            16,
+            true,
+            "他学群・他学類の科目",
+            3
+          ],
+          [
+            [
+              "*教職に関する科目",
+              "*博物館に関する科目",
+              "*自由科目特設"
+            ],
+            0,
+            4,
+            false,
+            "教職・博物館・特設自由科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 58,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            35,
+            39,
+            "専門科目選択"
+          ],
+          [
+            1,
+            6,
+            9,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            5,
+            "共通科目選択"
+          ],
+          [
+            3,
+            12,
+            16,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

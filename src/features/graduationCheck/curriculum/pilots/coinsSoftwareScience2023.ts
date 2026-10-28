@@ -2,7 +2,7 @@ import {
   findCrossListedExclusions,
   tsukuba2023CatalogSnapshot,
 } from "../catalog";
-import { officialCurriculumSources } from "../officialSources";
+import { getOfficialCurriculumSource } from "../officialSources";
 import { coinsSoftwareScience2026Pilot } from "./coinsSoftwareScience2026";
 import type {
   AdditionalConstraint,
@@ -209,7 +209,7 @@ export const coinsSoftwareScience2023Pilot: NormalizedCurriculum = {
   schemaVersion: "normalized-curriculum-1.0.0",
   curriculumId: "tsukuba-inf-coins-software-science-2023-pilot",
   sourceDocuments: [
-    { ...officialCurriculumSources[0] },
+    { ...getOfficialCurriculumSource(2023) },
     { ...tsukuba2023CatalogSnapshot.sourceDocument },
   ],
   organization: structuredClone(coinsSoftwareScience2026Pilot.organization),
@@ -233,24 +233,6 @@ export const coinsSoftwareScience2023Pilot: NormalizedCurriculum = {
         sourceRefs: [noteRef(15)],
       })
     ),
-    {
-      id: "programming-introduction-a-transition",
-      target: { name: "プログラミング入門A" },
-      alternative: {
-        type: "all_courses",
-        courses: [{ name: "プログラミング入門I" }],
-      },
-      sourceRefs: [noteRef(15)],
-    },
-    {
-      id: "programming-introduction-b-transition",
-      target: { name: "プログラミング入門B" },
-      alternative: {
-        type: "all_courses",
-        courses: [{ name: "プログラミング入門II" }],
-      },
-      sourceRefs: [noteRef(15)],
-    },
   ],
   additionalConstraints,
   sourceCoverage: [
@@ -331,12 +313,8 @@ export const coinsSoftwareScience2023Pilot: NormalizedCurriculum = {
       "早期卒業の特別卒業研究",
       "通常の4年卒業判定のみを対象とするため、早期卒業制度は対象外。"
     ),
-    modeledNote(15, "旧科目の読み替え", [
-      "linear-algebra-transition",
-      "calculus-transition",
-      "programming-introduction-a-transition",
-      "programming-introduction-b-transition",
-    ]),
+    unresolvedNote(15, "総合学域群からの移行者の読み替え",
+      "数学の読み替えは学生属性の確認が必要。社会工学類開設の同名プログラミング入門A・Bの科目番号対応も未接続。I・IIの読み替えを示す注記ではない。"),
   ],
   allocationPolicy: {
     allowDoubleCounting: false,

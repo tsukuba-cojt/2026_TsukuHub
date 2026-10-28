@@ -1,0 +1,2927 @@
+{
+  "schemaVersion": "esys-architect-evidence-1.0.0",
+  "sources": [
+    {
+      "documentId": "tsukuba-qualification-guide-2023",
+      "fileName": "資格取得_2023.pdf",
+      "sourceUrl": "https://www.tsukuba.ac.jp/education/ug-courses-directory/2023/pdf/4.pdf",
+      "editionYear": 2023,
+      "pageCount": 93,
+      "sha256": "3203d223fe4d5934da842a20137b7365f9abd572575d900211b7554336a30f43",
+      "pdfPages": [
+        86,
+        87
+      ],
+      "rows": [
+        {
+          "name": "建築設計製図Ⅰ",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45876",
+              "name": "建築設計製図I",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45886",
+              "name": "建築設計製図II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅲ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45896",
+              "name": "建築設計製図III",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "施設設計演習",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45092",
+              "name": "施設設計演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "設計計画論",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG43811",
+              "name": "設計計画論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "空間デザイン論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46031",
+              "name": "空間デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "住環境計画概論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46021",
+              "name": "住環境計画概論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画の歴史",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45211",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63081",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4061",
+              "name": "建築計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3601",
+              "name": "建築設計論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築通史",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4041",
+              "name": "建築通史",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "世界建築史",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0411",
+              "name": "世界建築史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3811",
+              "name": "建築環境計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45901",
+              "name": "建築設備",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備計画演習",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3831",
+              "name": "建築設備計画演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "材料力学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG10864",
+              "name": "材料力学基礎",
+              "credits": 1.0
+            },
+            {
+              "code": "FG45554",
+              "name": "材料力学基礎",
+              "credits": 1.0
+            },
+            {
+              "code": "FG55554",
+              "name": "材料力学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅰ",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            },
+            {
+              "code": "FG55564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅰ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45434",
+              "name": "構造力学I",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55434",
+              "name": "構造力学I",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45721",
+              "name": "構造力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55721",
+              "name": "構造力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "振動工学",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45611",
+              "name": "振動工学",
+              "credits": 3.0
+            },
+            {
+              "code": "FG55611",
+              "name": "振動工学",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "土質力学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45451",
+              "name": "土質力学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "地盤工学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45831",
+              "name": "地盤工学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "構造計画",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ5021",
+              "name": "構造計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "鉄筋コンクリート構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45791",
+              "name": "鉄筋コンクリート構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "鋼構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45801",
+              "name": "鋼構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "防災工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45751",
+              "name": "防災工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4201",
+              "name": "建築構法論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論演習",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4202",
+              "name": "建築構法論演習",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "材料学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG12021",
+              "name": "材料学基礎",
+              "credits": 1.0
+            },
+            {
+              "code": "FG22301",
+              "name": "材料学基礎",
+              "credits": 1.0
+            },
+            {
+              "code": "FG32301",
+              "name": "材料学基礎",
+              "credits": 1.0
+            },
+            {
+              "code": "FG42261",
+              "name": "材料学基礎",
+              "credits": 1.0
+            },
+            {
+              "code": "FG52261",
+              "name": "材料学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42271",
+              "name": "応用材料学",
+              "credits": 1.0
+            },
+            {
+              "code": "FG52271",
+              "name": "応用材料学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "コンクリート工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42251",
+              "name": "コンクリート工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "複合材料学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42621",
+              "name": "複合材料学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG52621",
+              "name": "複合材料学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築材料論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0821",
+              "name": "建築材料論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築経済",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45061",
+              "name": "建築経済",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築生産",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45071",
+              "name": "建築生産",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築関連法規",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45051",
+              "name": "建築関連法規",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "工学者のための倫理",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG18101",
+              "name": "工学者のための倫理",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "エネルギー・メカニクス専門実験",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG49873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            },
+            {
+              "code": "FG59873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "ランドスケープデザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3401",
+              "name": "ランドスケープデザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "世界遺産学入門",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAX1601",
+              "name": "世界遺産学入門",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ａ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1411",
+              "name": "デザイン史概説A",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ｂ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1421",
+              "name": "デザイン史概説B",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "現代デザイン論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4051",
+              "name": "現代デザイン論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAQ1011",
+              "name": "建築デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "環境デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAP1011",
+              "name": "環境デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "都市デザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3301",
+              "name": "都市デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "社会のなかの建築デザイン（総合科目）",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": []
+        },
+        {
+          "name": "地域まちづくり論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP2831",
+              "name": "地域まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画原論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45201",
+              "name": "都市計画原論",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63071",
+              "name": "都市計画原論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市防災計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47041",
+              "name": "都市防災計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市緑地計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46041",
+              "name": "都市緑地計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "現代まちづくり論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46051",
+              "name": "現代まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "土地利用計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47021",
+              "name": "土地利用計画",
+              "credits": 2.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "documentId": "tsukuba-qualification-guide-2024",
+      "fileName": "資格取得_2024.pdf",
+      "sourceUrl": "https://www.tsukuba.ac.jp/education/ug-courses-directory/2024/pdf/4.pdf",
+      "editionYear": 2024,
+      "pageCount": 93,
+      "sha256": "ddfa2581579c5856258df4653f8a22887181825beca41fbd238b94a8b3c175bb",
+      "pdfPages": [
+        86,
+        87
+      ],
+      "rows": [
+        {
+          "name": "建築設計製図Ⅰ",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45876",
+              "name": "建築設計製図I",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45886",
+              "name": "建築設計製図II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅲ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45896",
+              "name": "建築設計製図III",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "施設設計演習",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45092",
+              "name": "施設設計演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "設計計画論",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG43811",
+              "name": "設計計画論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "空間デザイン論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46031",
+              "name": "空間デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "住環境計画概論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46021",
+              "name": "住環境計画概論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画の歴史",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45211",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63081",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4061",
+              "name": "建築計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3601",
+              "name": "建築設計論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築通史",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4041",
+              "name": "建築通史",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "世界建築史",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0411",
+              "name": "世界建築史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3811",
+              "name": "建築環境計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45901",
+              "name": "建築設備",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備計画演習",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3831",
+              "name": "建築設備計画演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "材料力学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG10864",
+              "name": "材料力学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅰ",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            },
+            {
+              "code": "FG55564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅰ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45434",
+              "name": "構造力学I",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55434",
+              "name": "構造力学I",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45721",
+              "name": "構造力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55721",
+              "name": "構造力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "振動工学",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45611",
+              "name": "振動工学",
+              "credits": 3.0
+            },
+            {
+              "code": "FG55611",
+              "name": "振動工学",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "土質力学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45451",
+              "name": "土質力学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "地盤工学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45831",
+              "name": "地盤工学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "構造計画",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ5021",
+              "name": "構造計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "鉄筋コンクリート構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45791",
+              "name": "鉄筋コンクリート構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "鋼構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45801",
+              "name": "鋼構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "防災工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45751",
+              "name": "防災工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4201",
+              "name": "建築構法論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論演習",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4202",
+              "name": "建築構法論演習",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "材料学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG12021",
+              "name": "材料学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42271",
+              "name": "応用材料学",
+              "credits": 1.0
+            },
+            {
+              "code": "FG52271",
+              "name": "応用材料学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "コンクリート工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42251",
+              "name": "コンクリート工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "複合材料学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42621",
+              "name": "複合材料学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG52621",
+              "name": "複合材料学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築材料論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0821",
+              "name": "建築材料論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築経済",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45061",
+              "name": "建築経済",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築生産",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45071",
+              "name": "建築生産",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築関連法規",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45051",
+              "name": "建築関連法規",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "工学者のための倫理",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG18101",
+              "name": "工学者のための倫理",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "エネルギー・メカニクス専門実験",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG49873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            },
+            {
+              "code": "FG59873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "ランドスケープデザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3401",
+              "name": "ランドスケープデザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "世界遺産学入門",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAX1601",
+              "name": "世界遺産学入門",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ａ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1411",
+              "name": "デザイン史概説A",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ｂ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1421",
+              "name": "デザイン史概説B",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "現代デザイン論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4051",
+              "name": "現代デザイン論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAQ1011",
+              "name": "建築デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "環境デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAP1011",
+              "name": "環境デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "都市デザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3301",
+              "name": "都市デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "社会のなかの建築デザイン（総合科目）",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": []
+        },
+        {
+          "name": "地域まちづくり論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP2831",
+              "name": "地域まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画原論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45201",
+              "name": "都市計画原論",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63071",
+              "name": "都市計画原論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市防災計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47041",
+              "name": "都市防災計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市緑地計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46041",
+              "name": "都市緑地計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "現代まちづくり論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46051",
+              "name": "現代まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "土地利用計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47021",
+              "name": "土地利用計画",
+              "credits": 2.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "documentId": "tsukuba-qualification-guide-2025",
+      "fileName": "資格取得_2025.pdf",
+      "sourceUrl": "https://www.tsukuba.ac.jp/education/ug-courses-directory/2025/pdf/4.pdf",
+      "editionYear": 2025,
+      "pageCount": 95,
+      "sha256": "2f351c8dd6abc7ad61135aa660de11f3f88fb11c8da73ffd64a69f3a51bc0901",
+      "pdfPages": [
+        86,
+        87
+      ],
+      "rows": [
+        {
+          "name": "建築設計製図Ⅰ",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45876",
+              "name": "建築設計製図I",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45886",
+              "name": "建築設計製図II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅲ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45896",
+              "name": "建築設計製図III",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "施設設計演習",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45092",
+              "name": "施設設計演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "設計計画論",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG43811",
+              "name": "設計計画論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "空間デザイン論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46031",
+              "name": "空間デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "住環境計画概論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46021",
+              "name": "住環境計画概論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画の歴史",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45211",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63081",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4061",
+              "name": "建築計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3601",
+              "name": "建築設計論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築通史",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4041",
+              "name": "建築通史",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "世界建築史",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0411",
+              "name": "世界建築史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3811",
+              "name": "建築環境計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45901",
+              "name": "建築設備",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備計画演習",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3831",
+              "name": "建築設備計画演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "材料力学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG10864",
+              "name": "材料力学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅰ",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            },
+            {
+              "code": "FG55564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅰ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45434",
+              "name": "構造力学I",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55434",
+              "name": "構造力学I",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45721",
+              "name": "構造力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55721",
+              "name": "構造力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "振動工学",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45611",
+              "name": "振動工学",
+              "credits": 3.0
+            },
+            {
+              "code": "FG55611",
+              "name": "振動工学",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "土質力学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45451",
+              "name": "土質力学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "地盤工学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45831",
+              "name": "地盤工学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "構造計画",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ5021",
+              "name": "構造計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "鉄筋コンクリート構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45791",
+              "name": "鉄筋コンクリート構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "鋼構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45801",
+              "name": "鋼構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "防災工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45751",
+              "name": "防災工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4201",
+              "name": "建築構法論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論演習",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4202",
+              "name": "建築構法論演習",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "材料学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG12021",
+              "name": "材料学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42271",
+              "name": "応用材料学",
+              "credits": 1.0
+            },
+            {
+              "code": "FG52271",
+              "name": "応用材料学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "コンクリート工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42251",
+              "name": "コンクリート工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "複合材料学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42621",
+              "name": "複合材料学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG52621",
+              "name": "複合材料学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築材料論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0821",
+              "name": "建築材料論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築経済",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45061",
+              "name": "建築経済",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築生産",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45071",
+              "name": "建築生産",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築関連法規",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45051",
+              "name": "建築関連法規",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "工学者のための倫理",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG18101",
+              "name": "工学者のための倫理",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "エネルギー・メカニクス専門実験",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG49873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            },
+            {
+              "code": "FG59873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "ランドスケープデザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3401",
+              "name": "ランドスケープデザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "世界遺産学入門",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAX1601",
+              "name": "世界遺産学入門",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ａ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1411",
+              "name": "デザイン史概説A",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ｂ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1421",
+              "name": "デザイン史概説B",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "現代デザイン論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4051",
+              "name": "現代デザイン論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAQ1011",
+              "name": "建築デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "環境デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAP1011",
+              "name": "環境デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "都市デザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3301",
+              "name": "都市デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "社会のなかの建築デザイン（総合科目）",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": []
+        },
+        {
+          "name": "地域まちづくり論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP2831",
+              "name": "地域まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画原論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45201",
+              "name": "都市計画原論",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63071",
+              "name": "都市計画原論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市防災計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47041",
+              "name": "都市防災計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市緑地計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46041",
+              "name": "都市緑地計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "現代まちづくり論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46051",
+              "name": "現代まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "土地利用計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47021",
+              "name": "土地利用計画",
+              "credits": 2.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "documentId": "tsukuba-qualification-guide-2026",
+      "fileName": "資格取得_2026.pdf",
+      "sourceUrl": "https://www.tsukuba.ac.jp/education/ug-courses-directory/2026/pdf/4.pdf",
+      "editionYear": 2026,
+      "pageCount": 94,
+      "sha256": "2d61139b67d25efcca4bb24eb64af499466a2ca205fed3b9d8d5cb5d391b5949",
+      "pdfPages": [
+        85,
+        86
+      ],
+      "rows": [
+        {
+          "name": "建築設計製図Ⅰ",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45876",
+              "name": "建築設計製図I",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45886",
+              "name": "建築設計製図II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計製図Ⅲ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45896",
+              "name": "建築設計製図III",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "施設設計演習",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45092",
+              "name": "施設設計演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "設計計画論",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG43811",
+              "name": "設計計画論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "空間デザイン論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46031",
+              "name": "空間デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "住環境計画概論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46021",
+              "name": "住環境計画概論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画の歴史",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45211",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63081",
+              "name": "都市計画の歴史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4061",
+              "name": "建築計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設計論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3601",
+              "name": "建築設計論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築通史",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4041",
+              "name": "建築通史",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "世界建築史",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0411",
+              "name": "世界建築史",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55911",
+              "name": "建築環境工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築環境計画論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3811",
+              "name": "建築環境計画論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45901",
+              "name": "建築設備",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築設備計画演習",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ3831",
+              "name": "建築設備計画演習",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "材料力学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG10864",
+              "name": "材料力学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅰ",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            },
+            {
+              "code": "FG55564",
+              "name": "応用材料力学I",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55604",
+              "name": "応用材料力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅰ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45434",
+              "name": "構造力学I",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55434",
+              "name": "構造力学I",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "構造力学Ⅱ",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45721",
+              "name": "構造力学II",
+              "credits": 2.0
+            },
+            {
+              "code": "FG55721",
+              "name": "構造力学II",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "振動工学",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45611",
+              "name": "振動工学",
+              "credits": 3.0
+            },
+            {
+              "code": "FG55611",
+              "name": "振動工学",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "土質力学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45451",
+              "name": "土質力学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "地盤工学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45831",
+              "name": "地盤工学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "構造計画",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ5021",
+              "name": "構造計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "鉄筋コンクリート構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45791",
+              "name": "鉄筋コンクリート構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "鋼構造学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45801",
+              "name": "鋼構造学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "防災工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG45751",
+              "name": "防災工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4201",
+              "name": "建築構法論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築構法論演習",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4202",
+              "name": "建築構法論演習",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "材料学基礎",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG12021",
+              "name": "材料学基礎",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "応用材料学",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42271",
+              "name": "応用材料学",
+              "credits": 1.0
+            },
+            {
+              "code": "FG52271",
+              "name": "応用材料学",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "コンクリート工学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42251",
+              "name": "コンクリート工学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "複合材料学",
+          "credits": 2.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG42621",
+              "name": "複合材料学",
+              "credits": 2.0
+            },
+            {
+              "code": "FG52621",
+              "name": "複合材料学",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築材料論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ0821",
+              "name": "建築材料論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "建築経済",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45061",
+              "name": "建築経済",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築生産",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45071",
+              "name": "建築生産",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築関連法規",
+          "credits": 1.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45051",
+              "name": "建築関連法規",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "工学者のための倫理",
+          "credits": 1.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG18101",
+              "name": "工学者のための倫理",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "エネルギー・メカニクス専門実験",
+          "credits": 3.0,
+          "faculty": "工学システム学類",
+          "catalogCandidates": [
+            {
+              "code": "FG49873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            },
+            {
+              "code": "FG59873",
+              "name": "エネルギー・メカニクス専門実験",
+              "credits": 3.0
+            }
+          ]
+        },
+        {
+          "name": "ランドスケープデザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3401",
+              "name": "ランドスケープデザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "世界遺産学入門",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAX1601",
+              "name": "世界遺産学入門",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ａ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1411",
+              "name": "デザイン史概説A",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "デザイン史概説Ｂ",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAZ1421",
+              "name": "デザイン史概説B",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "現代デザイン論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBQ4051",
+              "name": "現代デザイン論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "建築デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAQ1011",
+              "name": "建築デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "環境デザイン概論",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YAP1011",
+              "name": "環境デザイン概論",
+              "credits": 1.0
+            }
+          ]
+        },
+        {
+          "name": "都市デザイン論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP3301",
+              "name": "都市デザイン論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "社会のなかの建築デザイン（総合科目）",
+          "credits": 1.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": []
+        },
+        {
+          "name": "地域まちづくり論",
+          "credits": 2.0,
+          "faculty": "芸術専門学群",
+          "catalogCandidates": [
+            {
+              "code": "YBP2831",
+              "name": "地域まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市計画原論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH45201",
+              "name": "都市計画原論",
+              "credits": 2.0
+            },
+            {
+              "code": "FH63071",
+              "name": "都市計画原論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市防災計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47041",
+              "name": "都市防災計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "都市緑地計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46041",
+              "name": "都市緑地計画",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "現代まちづくり論",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH46051",
+              "name": "現代まちづくり論",
+              "credits": 2.0
+            }
+          ]
+        },
+        {
+          "name": "土地利用計画",
+          "credits": 2.0,
+          "faculty": "社会工学類",
+          "catalogCandidates": [
+            {
+              "code": "FH47021",
+              "name": "土地利用計画",
+              "credits": 2.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "physical-education",
+    "label": "体育専門学群"
+  },
+  "major": {
+    "key": "physical-education",
+    "label": "体育学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "physical-education/physical-education/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "physical-education",
+      "label": "体育専門学群"
+    },
+    "major": {
+      "key": "physical-education",
+      "label": "体育学主専攻"
+    },
+    "requirementId": "physical-education-22",
+    "ruleSemanticSha256": "6622cc1dda8c00176e9027e8f662e3ed0e6f3312f3e3442360521355f66be02c",
+    "snapshotSha256": "f6d5b79d67defb45aa76044aaa0f02ed7fc2cdaeddd064e4d2828b19b00cbece",
+    "review": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-011"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "科目群下限、関連欄の内訳、古い成績CSV名称の独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "体育専門学群",
+        "major": "体育学主専攻",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "体育専門語学B::2",
+          "卒業研究",
+          "保健体育科(体力づくり運動)指導法",
+          "種目別コーチング演習I～II::3//['種目別コーチング演習I', '種目別コーチング演習II']",
+          "スポーツキャリア形成I",
+          "スポーツキャリア形成II",
+          "スポーツキャリア形成III",
+          "体育専門語学A::1",
+          "体育専門基礎共通演習::1",
+          "体育科学シンポジウム",
+          "体育専門英語基礎演習::1",
+          "臨海実習",
+          "テーピング・マッサージ",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "外国語::4",
+          "情報::4",
+          "国語::2"
+        ],
+        "compulsorySumUnit": 33,
+        "select": [
+          [
+            [
+              "W1"
+            ],
+            28,
+            43,
+            false,
+            "体育専門学群の専門科目",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "W15"
+                  ],
+                  "minimum": 10,
+                  "label": "分野別専門科目"
+                },
+                {
+                  "codes": [
+                    "W16"
+                  ],
+                  "minimum": 7,
+                  "label": "キャリア支援科目"
+                },
+                {
+                  "codes": [
+                    "W18"
+                  ],
+                  "minimum": 6,
+                  "label": "卒業研究領域科目"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "W8",
+              "W9"
+            ],
+            31,
+            39,
+            false,
+            "体育専門学群の専門基礎科目",
+            1,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "W87"
+                  ],
+                  "minimum": 10,
+                  "label": "体育・スポーツ学領域科目"
+                },
+                {
+                  "codes": [
+                    "W88"
+                  ],
+                  "minimum": 4,
+                  "label": "コーチング学領域科目"
+                },
+                {
+                  "codes": [
+                    "W89"
+                  ],
+                  "minimum": 10,
+                  "label": "健康体力学領域科目"
+                },
+                {
+                  "codes": [
+                    "W91"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習A群"
+                },
+                {
+                  "codes": [
+                    "W92"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習B群"
+                },
+                {
+                  "codes": [
+                    "W93"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習C群"
+                },
+                {
+                  "codes": [
+                    "W94"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習D群"
+                },
+                {
+                  "codes": [
+                    "W95"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習E群"
+                },
+                {
+                  "codes": [
+                    "W96"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習F群"
+                },
+                {
+                  "codes": [
+                    "W97"
+                  ],
+                  "minimum": 1,
+                  "label": "実技理論・実習G群"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            10,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            10,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "W1",
+              "W8",
+              "W9",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            12,
+            25,
+            true,
+            "他学群・他学類等の関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 91,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            28,
+            43,
+            "専門科目選択"
+          ],
+          [
+            1,
+            31,
+            39,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            10,
+            "共通科目選択"
+          ],
+          [
+            3,
+            12,
+            25,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@ import {
   findCrossListedExclusions,
   tsukuba2024CatalogSnapshot,
 } from "../catalog";
-import { officialCurriculumSources } from "../officialSources";
+import { getOfficialCurriculumSource } from "../officialSources";
 import type {
   NormalizedCurriculum,
   SourceCoverageItem,
@@ -45,7 +45,7 @@ const crossListedRelatedExclusions = findCrossListedExclusions(
 const pilot = structuredClone(coinsSoftwareScience2023Pilot);
 pilot.curriculumId = "tsukuba-inf-coins-software-science-2024-pilot";
 pilot.sourceDocuments = [
-  { ...officialCurriculumSources[1] },
+  { ...getOfficialCurriculumSource(2024) },
   { ...tsukuba2024CatalogSnapshot.sourceDocument },
 ];
 pilot.applicability = {

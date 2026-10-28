@@ -1,6 +1,6 @@
 import type { GradRequirement, GradRequirementTable } from "../../types";
 
-type ChemistryRequirementId = "chem-22" | "chem-23" | "chem-25";
+type ChemistryRequirementId = "chem-22" | "chem-23" | "chem-24" | "chem-25" | "chem-26";
 
 const namedRule = (
   courseNames: string[],
@@ -208,7 +208,7 @@ const buildChemistryRequirement = ({
  * 2023年度に専門実験、2025年度に単位数と専門基礎科目の区分が変更されている。
  * https://www.tsukuba.ac.jp/education/ug-courses-directory/
  */
-export const chemistryRequirements = {
+const historicalChemistryRequirements = {
   "chem-22": buildChemistryRequirement({
     enrollYear: "2022",
     compulsory: [
@@ -259,4 +259,50 @@ export const chemistryRequirements = {
     commonMaximum: 1,
     includeSafetyCourse: true,
   }),
+};
+
+const buildAuditedChemistry = (year: 2023 | 2024 | 2025 | 2026): GradRequirement => {
+  const modern = year >= 2025;
+  const original = historicalChemistryRequirements[modern ? "chem-25" : "chem-23"];
+  const mathematics = [...mathAndPhysics, ...(!modern ? ["数学リテラシー1", "数学リテラシー2", "微積分演習S", "微積分演習F", "線形代数演習S", "線形代数演習F"] : []),
+    ...(year === 2023 ? ["微積分I", "微積分II", "微積分III", "微積分Ⅰ", "微積分Ⅱ", "微積分Ⅲ", "線形代数I", "線形代数II", "線形代数III", "線形代数Ⅰ", "線形代数Ⅱ", "線形代数Ⅲ"] : [])];
+  // 専門導入は固定DBの備考で照合した番号だけに限定する。EB・EC全体には広げない。
+  const foundation = ["FA", "FB", "FC", "FE11", "EE", "EB00001", "EB00011", "EB00021", "EB11131", "EB11221", "EB11311", "EB11611", "EB11721", "EB11811", "EC12201", "EC12301", "EC12401", "EC12501"];
+  return {
+    ...original,
+    header: { ...original.header, enrollYear: year },
+    courses: {
+      ...original.courses,
+      compulsory: [...["物理化学専門実験", "無機・分析化学専門実験", "有機化学専門実験"].map((name) => modern ? `${name}::4//['${name}']` : name), "化学卒業研究::14",
+        "化学基礎1::1", "化学基礎2::1", "化学基礎3::1", ...commonCompulsory.map((name) => name === "必修英語::4" ? "英語::4" : name),
+        ...(modern ? ["化学安全衛生::1"] : [])],
+      select: [
+        [["FE12", "FE13", "FE14"], 42, 52, false, "化学専門（3分野各6を含む）", 0, {
+          includeCourseNames: [...analysisAndInorganic, ...physicalChemistry, ...organicChemistry],
+          ...(year === 2026 ? { excludeCourseNames: ["化学基礎セミナー"] } : {}),
+          minimumIncludedUnits: [{ courseNames: analysisAndInorganic, minimum: 6, label: "分析・無機化学" },
+            { courseNames: physicalChemistry, minimum: 6, label: "物理化学" }, { courseNames: organicChemistry, minimum: 6, label: "有機化学" }],
+        }],
+        [foundation, 17, 30, false, "化学専門基礎（数学・物理を含む）", 1, {
+          includeCourseNames: mathematics,
+          minimumIncludedUnits: [{ courseNames: mathematics, minimum: modern ? 8 : 12, label: "数学・物理基礎" }],
+        }],
+        [["*学士基盤科目"], 1, modern ? 1 : 2, false, "学士基盤科目", 2],
+        [["A", "B"], 2, 2, false, "A・Bで始まる科目", 3],
+        [["A", "B", "FA", "FB", "FC", "FE12", "FE13", "FE14", ...foundation, "*総合科目", "8", "9"], 7, 9, true, "その他の関連科目", 3, {
+          includeCourseNames: [...mathematics, ...analysisAndInorganic, ...physicalChemistry, ...organicChemistry],
+          // 理科の指導法だけ再包含。正式な対応一覧の独立確認は必要。
+          excludeCodes: ["9454111", "9454121", "9454211", "9454221", "9455011", "9455021", "9456011", "9457031"],
+        }],
+      ],
+    },
+  };
+};
+
+export const chemistryRequirements = {
+  "chem-22": historicalChemistryRequirements["chem-22"],
+  "chem-23": buildAuditedChemistry(2023),
+  "chem-24": buildAuditedChemistry(2024),
+  "chem-25": buildAuditedChemistry(2025),
+  "chem-26": buildAuditedChemistry(2026),
 } satisfies Pick<GradRequirementTable, ChemistryRequirementId>;

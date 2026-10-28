@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2023,
+  "department": {
+    "key": "policy",
+    "label": "社会工学類"
+  },
+  "major": {
+    "key": "policy-engineering",
+    "label": "経営工学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "policy/policy-engineering/2023",
+    "admissionYear": 2023,
+    "department": {
+      "key": "policy",
+      "label": "社会工学類"
+    },
+    "major": {
+      "key": "policy-engineering",
+      "label": "経営工学主専攻"
+    },
+    "requirementId": "policy-engineering-23",
+    "ruleSemanticSha256": "c1dd43a29f1fdf7a65613c113a1f3261497f66fb5a433da17def032966a13ed7",
+    "snapshotSha256": "e21a72bd61f440c481679a972b239f01c814b99a77aded356e19ea01a5cb659e",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-024"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2023"
+      ],
+      "blockingIssues": [
+        "演習の正式番号一覧、学類長・他大学認定、早期卒業・移行者・語学・読み替え・超過配分・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "社会工学類",
+        "major": "経営工学",
+        "enrollYear": 2023
+      },
+      "courses": {
+        "compulsory": [
+          "問題発見と解決::2//['問題発見と解決']",
+          "社会工学卒業研究A::4",
+          "社会工学卒業研究B::4",
+          "社会工学演習::3//['社会工学演習']",
+          "社会工学英語::2//['社会工学英語']",
+          "プログラミング入門A::2//['プログラミング入門A']",
+          "プログラミング入門B::1//['プログラミング入門B']",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "英語::4",
+          "情報::4",
+          "体育::3"
+        ],
+        "compulsorySumUnit": 31,
+        "select": [
+          [
+            [
+              "FH32",
+              "FH33",
+              "FH34"
+            ],
+            16,
+            75,
+            false,
+            "経営工学主専攻科目",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "FH32012",
+                    "FH33012",
+                    "FH34012"
+                  ],
+                  "minimum": 2,
+                  "label": "主専攻科目内の演習"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "FH24",
+              "FH26",
+              "FH27",
+              "FH46",
+              "FH47",
+              "FH48"
+            ],
+            8,
+            75,
+            false,
+            "社会経済システム・都市計画科目",
+            0
+          ],
+          [
+            [
+              "FH2",
+              "FH3",
+              "FH4",
+              "FA00"
+            ],
+            0,
+            75,
+            false,
+            "その他の社会工学類専門科目",
+            0,
+            {
+              "excludeCodes": [
+                "FH24",
+                "FH26",
+                "FH27",
+                "FH32",
+                "FH33",
+                "FH34",
+                "FH46",
+                "FH47",
+                "FH48"
+              ]
+            }
+          ],
+          [
+            [
+              "FA011",
+              "FA012",
+              "FA013",
+              "FA014",
+              "FA015",
+              "FA016",
+              "FA017",
+              "FA018",
+              "FH608",
+              "FH61111",
+              "FH61121",
+              "FH61131",
+              "FH61141",
+              "FH61151",
+              "FH61161"
+            ],
+            11,
+            16,
+            false,
+            "社会工学専門基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "（共）数学リテラシー1",
+                "（共）数学リテラシー2",
+                "（共）線形代数1",
+                "（共）線形代数2",
+                "（共）線形代数3",
+                "（共）微積分1",
+                "（共）微積分2",
+                "（共）微積分3",
+                "（社工）統計学",
+                "経済学の数理",
+                "経済学の実証",
+                "会計と経営",
+                "社会と最適化",
+                "都市計画入門",
+                "都市数理"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            3,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            4,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "FA0",
+              "FA45",
+              "FH",
+              "8",
+              "9",
+              "*総合科目"
+            ],
+            6,
+            20,
+            true,
+            "他学群・他学類科目（資格等を除く）",
+            3,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "A",
+                    "B",
+                    "C"
+                  ],
+                  "minimum": 2,
+                  "label": "A・B・Cから2単位"
+                },
+                {
+                  "codes": [
+                    "E",
+                    "F",
+                    "G",
+                    "H"
+                  ],
+                  "minimum": 2,
+                  "label": "E・F・G・Hから2単位（FA0・FA45・FHを除く）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "8",
+              "9"
+            ],
+            0,
+            4,
+            false,
+            "教職・博物館・特設自由科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 93,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            50,
+            75,
+            "専門科目選択"
+          ],
+          [
+            1,
+            11,
+            16,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            7,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            20,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

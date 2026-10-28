@@ -1,0 +1,274 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2025,
+  "department": {
+    "key": "comparative-culture",
+    "label": "比較文化学類"
+  },
+  "major": {
+    "key": "comparative-culture",
+    "label": "比較文化主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "comparative-culture/comparative-culture/2025",
+    "admissionYear": 2025,
+    "department": {
+      "key": "comparative-culture",
+      "label": "比較文化学類"
+    },
+    "major": {
+      "key": "comparative-culture",
+      "label": "比較文化主専攻"
+    },
+    "requirementId": "comparative-culture-23",
+    "ruleSemanticSha256": "96323f49820a9cca8133757470b2ef18dc83dc6072e5626fb144e8374d604c08",
+    "snapshotSha256": "e11b14f96923768a2f74b6a059ff6076b786a6e7b8db89c3717db6e34ea98068",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-001"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "AC67の春AB・秋AB各1単位、演習・実習8単位、所属領域10単位、所属班対象科目を現行型で完全には表現できない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "比較文化学類",
+        "major": "比較文化主専攻",
+        "enrollYear": 2025
+      },
+      "courses": {
+        "compulsory": [
+          "卒業論文",
+          "卒業論文演習",
+          "比較文化第一専門外国語::2",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4",
+          "国語::2"
+        ],
+        "compulsorySumUnit": 29,
+        "select": [
+          [
+            [
+              "AC67"
+            ],
+            2,
+            2,
+            false,
+            "卒業論文基礎演習",
+            0
+          ],
+          [
+            [
+              "AC6",
+              "AB98A11",
+              "AB98A21",
+              "AB98B11",
+              "AB98B21",
+              "AB98F52",
+              "AB98G72",
+              "AB98G82",
+              "AB85A11",
+              "AB85A21",
+              "AB84E12",
+              "AB84E52",
+              "EE21301",
+              "EE21321",
+              "EE21411",
+              "EE21401",
+              "AB61",
+              "AB62",
+              "AB63",
+              "AE13G41"
+            ],
+            42,
+            74,
+            false,
+            "比較文化学類専門科目",
+            0,
+            {
+              "excludeCodes": [
+                "AC67",
+                "AB62K",
+                "AB63K"
+              ]
+            }
+          ],
+          [
+            [
+              "AC56"
+            ],
+            3,
+            6,
+            false,
+            "比較文化研究",
+            1
+          ],
+          [
+            [
+              "AC50"
+            ],
+            4,
+            24,
+            false,
+            "概論",
+            1
+          ],
+          [
+            [
+              "AC51"
+            ],
+            2,
+            17,
+            false,
+            "専門導入基礎演習",
+            1
+          ],
+          [
+            [
+              "AC53"
+            ],
+            1,
+            6,
+            false,
+            "第一専門外国語II",
+            1
+          ],
+          [
+            [
+              "AC54",
+              "AC55",
+              "AB98F42"
+            ],
+            1,
+            13,
+            false,
+            "第二専門外国語等",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            19,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            19,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "AA2",
+              "AB",
+              "AE",
+              "B",
+              "Y"
+            ],
+            4,
+            36,
+            false,
+            "指定関連科目（第1群）",
+            3
+          ],
+          [
+            [
+              "C",
+              "E",
+              "F",
+              "G",
+              "H",
+              "W"
+            ],
+            2,
+            34,
+            false,
+            "指定関連科目（第2群）",
+            3
+          ],
+          [
+            [
+              "AC",
+              "AA2",
+              "AB",
+              "AE",
+              "B",
+              "C",
+              "E",
+              "F",
+              "G",
+              "H",
+              "W",
+              "Y",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            32,
+            true,
+            "その他の関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 95,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            44,
+            76,
+            "専門科目選択"
+          ],
+          [
+            1,
+            11,
+            43,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            19,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            38,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}
