@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Bookmark,
   Calendar,
@@ -30,6 +30,7 @@ const facultyColors = ["#4fb8f5", "var(--color-label-club)", "#d9d9d9", "var(--c
 function CircleDetail() {
   const { path } = useUniversity();
   const { circleId } = useParams<{ circleId: string }>();
+  const navigate = useNavigate();
   const circle = mockCircles.find((item) => item.id === circleId);
 
   if (!circle) {
@@ -116,7 +117,11 @@ function CircleDetail() {
                 <Bookmark aria-hidden="true" />
                 ブックマーク
               </button>
-              <button type="button" className="classDetailActionBtn isPrimary">
+              <button
+                type="button"
+                className="classDetailActionBtn isPrimary"
+                onClick={() => navigate(path(`/circles/${circle.id}/review`))}
+              >
                 <SquarePen aria-hidden="true" />
                 口コミを投稿
               </button>
