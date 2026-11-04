@@ -1,7 +1,7 @@
 import {
   BookOpenCheck,
   BriefcaseBusiness,
-  MessageSquareQuote,
+  GraduationCap,
 } from "lucide-react";
 
 // 「就活・キャリア」トップの3カテゴリーとグローバルナビのメニューで共有する導線。
@@ -21,7 +21,7 @@ export const careerMenuItems = [
     colorClass: "isGreen",
   },
   {
-    icon: MessageSquareQuote,
+    icon: GraduationCap,
     label: "卒業生の体験記",
     linkLabel: "体験記を読む",
     path: "/career/alumni",

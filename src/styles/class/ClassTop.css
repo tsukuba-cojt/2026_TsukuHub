@@ -103,6 +103,16 @@
   color: var(--color-label-life);
 }
 
+.classTopFeatureCard.isPurple .classTopFeatureIcon {
+  background: #eee9ff; /* GlobalNav ドロップダウンの isPurple と同じ配色 */
+  color: #7557e8;
+}
+
+.classTopFeatureCard.isPurple .classTopFeatureTitle,
+.classTopFeatureCard.isPurple .classTopFeatureBtn {
+  color: #7557e8;
+}
+
 .classTopFeatureTitle {
   margin: 0;
   font-size: 19px;

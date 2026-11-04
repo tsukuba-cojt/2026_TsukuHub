@@ -73,9 +73,6 @@
 .alumniCard > div span, .alumniCard li, .alumniCardBody > div span, .tagRow span { padding: 5px 8px; border-radius: 6px; color: #5f4bd0; background: #efecff; font-size: 10px; font-weight: 800; }
 .alumniCard ul { margin: 16px 0 12px; padding: 0; list-style: none; }
 .alumniCard a, .alumniCard em { color: var(--color-primary-dark); font-weight: 800; font-style: normal; }
-.alumniPreviewMore { display: flex; justify-content: center; margin: 28px 0 0; }
-.alumniPreviewMore .careerPrimaryButton { gap: 8px; min-width: 240px; }
-.alumniPreviewMore .careerPrimaryButton svg { width: 16px; height: 16px; }
 
 .alumniSearchLayout,
 .listingSearchLayout { display: grid; grid-template-columns: 280px minmax(0, 1fr); align-items: start; gap: 40px; }
