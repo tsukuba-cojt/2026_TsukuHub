@@ -1,6 +1,19 @@
 /* 生活・便利情報トップページ（/life）
    レイアウト・カードは ClassTop.css をそのまま使い、
-   ここではイメージカラー（--color-label-life）の差し替えのみ行う。 */
+   ここではヒーローアイコンのイメージカラー（--color-label-life）と、
+   ClassTop.css にない isPink の配色のみ定義する。 */
 .lifeTopHero .classTopHeroTitle svg {
   color: var(--color-label-life);
+}
+
+/* 譲り合いカード用のピンク。ClassTop.css には isPink がないため、ここで定義する。
+   配色は GraduationCheckResult.css の .isPink と同じ（--color-label-event とその淡色）。 */
+.lifeCategories .classTopFeatureCard.isPink .classTopFeatureIcon {
+  background: #fce3ec;
+  color: var(--color-label-event);
+}
+
+.lifeCategories .classTopFeatureCard.isPink .classTopFeatureTitle,
+.lifeCategories .classTopFeatureCard.isPink .classTopFeatureBtn:not(.isComingSoon) {
+  color: var(--color-label-event);
 }

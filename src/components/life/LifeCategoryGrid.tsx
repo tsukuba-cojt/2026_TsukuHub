@@ -4,6 +4,7 @@ import { useUniversity } from "../university/universityContextValue";
 import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import "../../styles/utility/ComingSoon.css";
 import "../../styles/class/ClassTop.css";
+import "../../styles/life/Life.css";
 
 // 生活・便利情報の3機能カード（CareerCategoryGrid と同じ構造・スタイル）。
 // /life/cafeteria・/life/housing は未実装のため App.tsx に未登録。
@@ -17,6 +18,7 @@ const categories = [
     description: "食堂の場所・混雑・メニュー・口コミをチェック",
     to: "/life/cafeteria",
     ctaLabel: "学食情報を見る",
+    className: "isYellow",
   },
   {
     icon: House,
@@ -24,6 +26,7 @@ const categories = [
     description: "エリアの特徴や部屋探しのスケジュールを確認",
     to: "/life/housing",
     ctaLabel: "住まい情報を見る",
+    className: "isGreen",
   },
   {
     icon: HandHeart,
@@ -31,6 +34,7 @@ const categories = [
     description: "不要になったものを学生同士で譲り合い",
     to: "/life/sharing",
     ctaLabel: "譲り合いを見る",
+    className: "isPink",
   },
 ];
 
@@ -43,7 +47,7 @@ export default function LifeCategoryGrid() {
           const comingSoon = isUniversityComingSoon(item.to, isFeatureEnabled);
           return (
             <article
-              className={`classTopFeatureCard isYellow${comingSoon ? " isComingSoon" : ""}`}
+              className={`classTopFeatureCard ${item.className}${comingSoon ? " isComingSoon" : ""}`}
               key={item.to}
             >
               <span className="classTopFeatureIcon">
