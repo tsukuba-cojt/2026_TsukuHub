@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 import { circleCategories, circleTags, type CircleTag } from "./mockCircles";
 import peopleIcon from "../../assets/home/CategoryCard/People.svg";
 import "../../styles/class/ClassSearchPanel.css";
@@ -37,7 +37,7 @@ function CircleSearchPanel() {
           </div>
         </label>
 
-        <label className="circleSelect">
+        <label className="classField circleFieldSelect">
           <span>カテゴリ</span>
           <select defaultValue="all">
             <option value="all">すべて</option>
@@ -47,10 +47,9 @@ function CircleSearchPanel() {
               </option>
             ))}
           </select>
-          <ChevronDown aria-hidden="true" />
         </label>
 
-        <label className="circleSelect">
+        <label className="classField circleFieldSelect">
           <span>活動頻度</span>
           <select defaultValue="all">
             <option value="all">すべて</option>
@@ -60,7 +59,6 @@ function CircleSearchPanel() {
               </option>
             ))}
           </select>
-          <ChevronDown aria-hidden="true" />
         </label>
 
         <button className="classClearButton circleClearButton" type="button">

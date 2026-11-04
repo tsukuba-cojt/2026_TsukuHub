@@ -46,14 +46,20 @@ export type CircleDetail = {
   reviews: CircleReview[];
 };
 
+export type CircleOrganizationType = "公認" | "非公認";
+
 export type Circle = {
   id: string;
   name: string;
   category: CircleCategory;
+  // 団体区分（口コミ投稿ページの概要カードで使用。デモ値）
+  organizationType: CircleOrganizationType;
   description: string;
   tags: CircleTag[];
   frequency: string;
   members: string;
+  // 会費（口コミ投稿ページの概要カードで使用。デモ値）
+  fee: string;
   image?: string;
   detail: CircleDetail;
 };
@@ -78,6 +84,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎"],
     frequency: "週1回/火・金",
     members: "約15名",
+    organizationType: "公認",
+    fee: "年3,000円",
     detail: {
       activityDays: "毎週 火・金（週2回）",
       activityTime: "18:00 - 21:00",
@@ -211,6 +219,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎", "兼サー可能"],
     frequency: "週2〜3回/月・水・土",
     members: "約40名",
+    organizationType: "非公認",
+    fee: "月500円",
     detail: {
       activityDays: "毎週 月・水・土（週3回）",
       activityTime: "19:00 - 21:00",
@@ -278,6 +288,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎", "少人数"],
     frequency: "不定期",
     members: "約12名",
+    organizationType: "公認",
+    fee: "年2,000円",
     detail: {
       activityDays: "不定期（月2〜3回）",
       activityTime: "20:00 - 23:00",
@@ -328,6 +340,8 @@ export const mockCircles: Circle[] = [
     tags: ["兼サー可能"],
     frequency: "週1回/土",
     members: "約30名",
+    organizationType: "公認",
+    fee: "なし",
     detail: {
       activityDays: "毎週 土（週1回）",
       activityTime: "10:00 - 15:00",
@@ -410,6 +424,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎"],
     frequency: "週2〜3回/火・木",
     members: "約45名",
+    organizationType: "公認",
+    fee: "年6,000円",
     detail: {
       activityDays: "毎週 火・木（週2回）",
       activityTime: "18:30 - 21:00",
@@ -465,6 +481,8 @@ export const mockCircles: Circle[] = [
     tags: ["経験者優遇"],
     frequency: "週4回以上",
     members: "約50名",
+    organizationType: "公認",
+    fee: "年10,000円",
     detail: {
       activityDays: "毎週 月〜木（週4回）",
       activityTime: "16:30 - 19:30",
@@ -528,6 +546,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎", "兼サー可能"],
     frequency: "週1回/水",
     members: "約25名",
+    organizationType: "非公認",
+    fee: "なし",
     detail: {
       activityDays: "毎週 水（週1回）",
       activityTime: "18:00 - 20:00",
@@ -595,6 +615,8 @@ export const mockCircles: Circle[] = [
     tags: ["兼サー可能", "少人数"],
     frequency: "不定期",
     members: "約18名",
+    organizationType: "非公認",
+    fee: "年1,000円",
     detail: {
       activityDays: "不定期（月1〜2回）",
       activityTime: "10:00 - 16:00",
@@ -643,6 +665,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎"],
     frequency: "週2〜3回/月・木",
     members: "約35名",
+    organizationType: "公認",
+    fee: "月1,000円",
     detail: {
       activityDays: "毎週 月・木（週2回）",
       activityTime: "19:00 - 21:30",
@@ -698,6 +722,8 @@ export const mockCircles: Circle[] = [
     tags: ["少人数"],
     frequency: "週1回/金",
     members: "約14名",
+    organizationType: "非公認",
+    fee: "なし",
     detail: {
       activityDays: "毎週 金（週1回）",
       activityTime: "17:00 - 19:00",
@@ -749,6 +775,8 @@ export const mockCircles: Circle[] = [
     tags: ["経験者優遇", "少人数"],
     frequency: "週1回/火",
     members: "約10名",
+    organizationType: "非公認",
+    fee: "年2,000円",
     detail: {
       activityDays: "毎週 火（週1回）",
       activityTime: "18:30 - 20:30",
@@ -791,6 +819,8 @@ export const mockCircles: Circle[] = [
     tags: ["初心者歓迎", "兼サー可能"],
     frequency: "週2〜3回/水・土",
     members: "約60名",
+    organizationType: "公認",
+    fee: "年5,000円",
     detail: {
       activityDays: "毎週 水・土（週2回）",
       activityTime: "18:00 - 21:00",

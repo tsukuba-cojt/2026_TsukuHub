@@ -33,51 +33,9 @@
   stroke-width: 2.5;
 }
 
-.circleSelect {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
-  width: 136px;
-  height: 38px;
-  padding: 0 28px 0 8px;
-  border: 1px solid #dce5f4;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 6px 14px rgba(8, 28, 66, 0.08);
-  color: var(--color-text-primary);
-}
-
-.circleSelect span {
-  font-size: 8px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.circleSelect select {
-  width: 100%;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-primary);
-  font-size: 10px;
-  font-weight: 500;
-  line-height: 1.2;
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-}
-
-.circleSelect svg {
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  width: 14px;
-  height: 14px;
-  color: #878787;
-  transform: translateY(-50%);
-  pointer-events: none;
+/* プルダウンは授業検索と同じ .classField（ラベル上置き＋ネイティブ select）を使用し、幅のみ指定 */
+.circleFieldSelect {
+  width: 120px;
 }
 
 .circleClearButton {
@@ -179,7 +137,7 @@
   }
 
   .circleFieldText,
-  .circleSelect,
+  .circleFieldSelect,
   .circleClearButton {
     width: 100%;
   }
