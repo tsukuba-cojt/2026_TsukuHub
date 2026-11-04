@@ -1,0 +1,6 @@
+/* 生活・便利情報トップページ（/life）
+   レイアウト・カードは ClassTop.css をそのまま使い、
+   ここではイメージカラー（--color-label-life）の差し替えのみ行う。 */
+.lifeTopHero .classTopHeroTitle svg {
+  color: var(--color-label-life);
+}

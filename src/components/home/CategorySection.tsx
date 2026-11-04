@@ -35,7 +35,7 @@ const categories = [
     imageSrc: eatIcon,
     title: "生活・便利情報",
     text: "学食・住まい・交通など\nキャンパスライフに役立つ情報",
-    path: "/lifestyle",
+    path: "/life",
     textClass: "catTextLife",
   },
   {

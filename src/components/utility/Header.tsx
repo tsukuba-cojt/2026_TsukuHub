@@ -30,7 +30,7 @@ const mobileNavItems = [
   { icon: BriefcaseBusiness, label: "キャリア・インターン", path: "/career" },
   { icon: BookOpen, label: "講義・履修", path: "/class/top" },
   { icon: UsersRound, label: "サークル・課外活動", path: "/circles" },
-  { icon: Utensils, label: "生活・便利情報", path: "/lifestyle" },
+  { icon: Utensils, label: "生活・便利情報", path: "/life" },
   { icon: Globe, label: "留学・国際交流", path: "/global" },
 ];
 

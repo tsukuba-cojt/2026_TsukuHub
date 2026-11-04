@@ -41,6 +41,7 @@ import CareerInternshipDetail from "./pages/CareerInternshipDetail";
 import CareerAlumni from "./pages/CareerAlumni";
 import CareerAlumniDetail from "./pages/CareerAlumniDetail";
 import CareerArticleDetail from "./pages/CareerArticleDetail";
+import Life from "./pages/Life";
 import MyApplications from "./pages/MyApplications";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminInternships from "./pages/admin/AdminInternships";
@@ -86,6 +87,7 @@ const legacyRoots = [
   "career",
   "circles",
   "lifestyle",
+  "life",
   "events",
   "global",
 ];
@@ -130,6 +132,7 @@ function App() {
               <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
+              <Route path="life" element={<Life />} />
               <Route path="circles/search" element={<Circle />} />
               <Route path="circles/:circleId" element={<CircleDetail />} />
               <Route path="circles/:circleId/notices" element={<CircleNoticeList />} />
