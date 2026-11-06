@@ -25,6 +25,7 @@ import CircleDetail from "./pages/CircleDetail";
 import CircleNoticeList from "./pages/CircleNoticeList";
 import CircleReviewList from "./pages/CircleReviewList";
 import CircleReviewForm from "./pages/CircleReviewForm";
+import CircleEdit from "./pages/CircleEdit";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
@@ -135,6 +136,8 @@ function App() {
               <Route path="circles/:circleId/notices" element={<CircleNoticeList />} />
               <Route path="circles/:circleId/reviews" element={<CircleReviewList />} />
               <Route path="circles/:circleId/review" element={<CircleReviewForm />} />
+              {/* TODO: 団体責任者のみアクセス可（権限制御は後日実装） */}
+              <Route path="circles/:circleId/edit" element={<CircleEdit />} />
 
               <Route element={<FeatureGate feature="news" />}>
                 <Route path="news" element={<NewsList />} />

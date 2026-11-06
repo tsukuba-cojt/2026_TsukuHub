@@ -935,3 +935,10 @@ export const getCircleReviews = (circle: Circle): CircleReview[] => {
   }));
   return byNewest([...circle.detail.reviews, ...extras]);
 };
+
+// 編集ページ（/circles/:circleId/edit）からの保存。デモデータ用に配列内の要素を差し替えるだけで、型・構造は変えない。
+// メモリ上の更新なのでリロードすると初期値に戻る（Supabase 移行時はサービス層の保存処理へ置き換える）
+export const updateCircle = (circle: Circle) => {
+  const index = mockCircles.findIndex((item) => item.id === circle.id);
+  if (index >= 0) mockCircles[index] = circle;
+};
