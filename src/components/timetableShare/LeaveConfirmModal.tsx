@@ -5,9 +5,15 @@ import "../../styles/class/GraduationCheck.css";
 type Props = {
   onCancel: () => void;
   onConfirm: () => void;
+  /** 見出し下の補足文（未指定なら時間割登録用の文言） */
+  description?: string;
 };
 
-function LeaveConfirmModal({ onCancel, onConfirm }: Props) {
+function LeaveConfirmModal({
+  onCancel,
+  onConfirm,
+  description = "入力した共有設定やアップロードしたファイルは保存されません。",
+}: Props) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onCancel();
@@ -43,9 +49,7 @@ function LeaveConfirmModal({ onCancel, onConfirm }: Props) {
             <h2 className="gradCheckModalTitle" id="timetable-share-leave-title">
               現在の変更内容が失われますがよろしいですか？
             </h2>
-            <p className="gradCheckModalSub">
-              入力した共有設定やアップロードしたファイルは保存されません。
-            </p>
+            <p className="gradCheckModalSub">{description}</p>
           </div>
         </div>
 
