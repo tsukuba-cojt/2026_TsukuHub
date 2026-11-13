@@ -200,6 +200,8 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
 
       <p className="gradResultNotes" role="note">
         5分類ごとの科目一覧です。個別の必修科目や科目群の詳細条件は、履修細則でご自身でも確認してください。
+        ゲージの濃い色は取得済み単位、薄い色は取得見込み分（履修中）を表します。
+        割合は取得済み％（取得済み＋取得見込み％）です。
       </p>
       {report.categories.map((category) => {
         const level = category.isSatisfied
@@ -241,13 +243,18 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
                 </span>
               </p>
               <div className="gradDetailSectionBarCell">
-                <ProgressBar percent={category.percent} level={level} />
+                <ProgressBar
+                  percent={category.percent}
+                  prospectivePercent={category.prospectivePercent}
+                  level={level}
+                />
               </div>
               <p className="gradDetailSectionPct">
                 <span className="gradResultNumFont">
                   {formatPercent(category.percent)}
                 </span>{" "}
                 %
+                （<span className="gradResultNumFont">{formatPercent(category.prospectivePercent)}</span>%）
               </p>
             </div>
 

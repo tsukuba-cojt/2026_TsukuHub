@@ -86,6 +86,7 @@ function SummaryCard({
   meta?: {
     label: string;
     percent: number;
+    prospectivePercent?: number;
     barTone: "blue" | "purple";
     markerPercent?: number;
   };
@@ -116,10 +117,16 @@ function SummaryCard({
                 {formatPercent(meta.percent)}
               </span>{" "}
               %
+              {meta.prospectivePercent !== undefined && (
+                <>
+                  （<span className="gradResultNumFont">{formatPercent(meta.prospectivePercent)}</span>%）
+                </>
+              )}
             </span>
           </p>
           <ProgressBar
             percent={meta.percent}
+            prospectivePercent={meta.prospectivePercent}
             tone={meta.barTone}
             markerPercent={meta.markerPercent}
           />
@@ -165,11 +172,16 @@ function RequirementRow({
         <span className="gradResultReqUnitsSub">/ {item.requiredUnits} 単位</span>
       </p>
       <div className="gradResultReqBarCell">
-        <ProgressBar percent={item.percent} level={level} />
+        <ProgressBar
+          percent={item.percent}
+          prospectivePercent={item.prospectivePercent}
+          level={level}
+        />
       </div>
       <p className="gradResultReqPct">
         <span className="gradResultNumFont">{formatPercent(item.percent)}</span>{" "}
         %
+        （<span className="gradResultNumFont">{formatPercent(item.prospectivePercent)}</span>%）
       </p>
       <button
         type="button"
@@ -408,6 +420,7 @@ function GraduationCheckResult() {
                 meta={{
                   label: "進捗率",
                   percent: report.summary.percent,
+                  prospectivePercent: report.summary.prospectivePercent,
                   barTone: "blue",
                 }}
               />
@@ -440,6 +453,10 @@ function GraduationCheckResult() {
             <p className="gradResultNotes" role="note">
               この結果は5分類ごとの単位数の目安です。必修科目の内訳、所属コースの指定科目、
               実験・実習などの詳細条件は、入学年度の履修細則でご自身でも確認してください。
+            </p>
+            <p className="gradResultNotes" role="note">
+              ゲージの濃い色は取得済み単位、薄い色は取得見込み分（履修中）を表します。
+              割合は取得済み％（取得済み＋取得見込み％）です。
             </p>
             <section>
               <div className="gradResultReqHead">

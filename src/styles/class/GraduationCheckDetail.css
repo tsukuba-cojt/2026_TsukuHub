@@ -38,7 +38,7 @@
 /* 概要画面の要件項目リスト（.gradResultReqRow）と同じ列構成に合わせる */
 .gradDetailSectionHeader {
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr) 150px minmax(140px, 320px) 56px;
+  grid-template-columns: 26px minmax(0, 1fr) 150px minmax(140px, 320px) max-content;
   grid-template-areas: "badge name units bar pct";
   align-items: center;
   gap: 12px 18px;
