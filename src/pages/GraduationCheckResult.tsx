@@ -218,7 +218,6 @@ function GraduationCheckResult() {
   // 別ルートへ遷移すると、下の useEffect で history state を消しているぶん
   // 判定結果を引き継げず破棄されてしまうため。
   const [view, setView] = useState<"summary" | "detail" | "timetable">("summary");
-  const [focusCategory, setFocusCategory] = useState<CategoryKey | null>(null);
   const [selectedTimetable, setSelectedTimetable] = useState<TimetableHistory | null>(null);
   const [activeTimetableModule, setActiveTimetableModule] = useState<TimetableModuleKey>("springA");
   const unsupportedCatalogYears =
@@ -247,8 +246,7 @@ function GraduationCheckResult() {
     }
   }, [location.state, navigate, path]);
 
-  const openDetail = (category: CategoryKey) => {
-    setFocusCategory(category);
+  const openDetail = () => {
     setView("detail");
   };
 
@@ -345,7 +343,7 @@ function GraduationCheckResult() {
           <div className="gradCheckCard">
             <GraduationCheckDetailView
               report={report}
-              focusCategory={focusCategory}
+              disableDatabase={graduationCheckTestEnabled || result?.testMode === true}
               onBack={backToSummary}
             />
           </div>

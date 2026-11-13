@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowUpRight, Check, SquarePen } from "lucide-react";
 import GraduationCheckLeaveConfirmModal from "./GraduationCheckLeaveConfirmModal";
 import ProgressBar from "./GraduationProgressBar";
+import GraduationClassificationReportView from "./GraduationClassificationReportView";
 import { useReviewedCourseCodes } from "./useReviewedCourseCodes";
 import {
   formatPercent,
@@ -11,7 +12,6 @@ import {
 } from "./graduationProgressLevel";
 import { collectCategoryCourses } from "../../features/graduationCheck";
 import type {
-  CategoryKey,
   Course,
   Grade,
   GraduationCheckReport,
@@ -146,27 +146,24 @@ function CourseTable({
 }
 
 type Props = {
+  disableDatabase?: boolean;
   report: GraduationCheckReport;
-  /** 概要画面で押された区分（この区分が先頭に来るようスクロールする） */
-  focusCategory: CategoryKey | null;
   onBack: () => void;
 };
 
 // 卒業要件チェック 詳細画面（結果ページ内のビュー切替で表示）
 // 5区分と未分類を縦に並べ、判定済みの科目一覧を閲覧専用で出す。
-function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
+function GraduationCheckDetailView({ report, onBack, disableDatabase = false }: Props) {
   const navigate = useNavigate();
   const categoryCourses = useMemo(
     () => collectCategoryCourses(report),
     [report]
   );
-  const sectionRefs = useRef<Partial<Record<CategoryKey, HTMLElement | null>>>(
-    {}
-  );
   // 投稿済み講義は科目番号の集合としてマウント時に一括取得する（行ごとには引かない）
   const reviewedCodes = useReviewedCourseCodes();
   // 確認ダイアログで保留中の遷移先（null なら未表示）
   const [pendingPath, setPendingPath] = useState<string | null>(null);
+  const [isReporting, setIsReporting] = useState(false);
 
   // 新しいタブで開く。noopener,noreferrer 付きなので開いた側から
   // このタブ（＝判定結果を持つページ）を触られることはない。
@@ -178,21 +175,21 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
     setPendingPath(null);
   };
 
-  // 概要画面で押された区分を画面先頭に合わせる（未指定ならページ先頭）
-  useEffect(() => {
-    const target = focusCategory
-      ? sectionRefs.current[focusCategory]
-      : undefined;
-    if (target) {
-      target.scrollIntoView({ block: "start" });
-    } else {
-      window.scrollTo({ top: 0 });
-    }
-  }, [focusCategory]);
+  // 詳細・報告画面は、上部の操作ボタンが見えるようページ先頭から表示する。
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [isReporting]);
+
+  if (isReporting) {
+    return <GraduationClassificationReportView report={report} onBack={() => setIsReporting(false)} disableDatabase={disableDatabase} />;
+  }
 
   return (
     <>
       <div className="gradDetailHeaderRow">
+        <button type="button" className="gradDetailBackBtn" onClick={() => setIsReporting(true)}>
+          誤分類を報告
+        </button>
         <button type="button" className="gradDetailBackBtn" onClick={onBack}>
           概要に戻る
         </button>
@@ -222,9 +219,6 @@ function GraduationCheckDetailView({ report, focusCategory, onBack }: Props) {
           <section
             className="gradDetailSection"
             key={category.category}
-            ref={(element) => {
-              sectionRefs.current[category.category] = element;
-            }}
           >
             <div className={`gradDetailSectionHeader ${levelClass[level]}`}>
               <span
