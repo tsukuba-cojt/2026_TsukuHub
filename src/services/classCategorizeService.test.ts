@@ -94,9 +94,29 @@ describe("class_categorizeからの分類候補取得", () => {
 });
 
 describe("class_categorizeへの分類保存", () => {
-  test("授業名・分類先・入力者の学類を保存する", async () => {
+  test.each([null, undefined, "", " "])(
+    "科目番号が%jならclassnumberを含めず従来の分類情報を保存する",
+    async (classNumber) => {
+      await saveClassCategorize({
+        className: " 認定科目 ",
+        classNumber,
+        categorized: "specializedFoundation",
+        department: " 情報科学類 ",
+      });
+
+      expect(mocks.from).toHaveBeenCalledWith("class_categorize");
+      expect(mocks.insert).toHaveBeenCalledWith({
+        classname: "認定科目",
+        categorized: "specialized_foundation",
+        major: "情報科学類",
+      });
+    },
+  );
+
+  test("科目番号がある場合はclassnumberも保存する", async () => {
     await saveClassCategorize({
       className: " 認定科目 ",
+      classNumber: " GB12345 ",
       categorized: "specializedFoundation",
       department: " 情報科学類 ",
     });
@@ -104,6 +124,7 @@ describe("class_categorizeへの分類保存", () => {
     expect(mocks.from).toHaveBeenCalledWith("class_categorize");
     expect(mocks.insert).toHaveBeenCalledWith({
       classname: "認定科目",
+      classnumber: "GB12345",
       categorized: "specialized_foundation",
       major: "情報科学類",
     });

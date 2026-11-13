@@ -5,7 +5,7 @@
     "admissionYear": 2024
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "applied-electron-24",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 28,
+      "prospectiveUnits": 33,
+      "shortageUnits": 96,
+      "prospectiveShortageUnits": 91,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 49,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 35,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 14,
+        "prospectiveUnits": 18
       },
       "specializedFoundation": {
         "requiredUnits": 21,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
       },
       "related": {
         "requiredUnits": 12,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.1185185185185187,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 27,
+      "aRatePercent": 58.333333333333336
+    },
+    "compulsoryPassed": {
+      "基礎実験学": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "FF35901": "specialized",
       "FF35902": "specialized",
       "FF35903": "specialized",
       "FF15904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "基礎実験学": true
+      "": "uncounted",
+      "FF35111": "specialized",
+      "FF35121": "specialized",
+      "FF35131": "specialized",
+      "FF35141": "specialized",
+      "FF36241": "specialized",
+      "FF36261": "specialized",
+      "FF36291": "specialized",
+      "FF36301": "specialized",
+      "FF36311": "specialized",
+      "FF36361": "specialized",
+      "FF36381": "specialized",
+      "FF36391": "specialized",
+      "FF36411": "specialized",
+      "FF36421": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "art-studies-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 33,
+      "prospectiveUnits": 39,
+      "shortageUnits": 91,
+      "prospectiveShortageUnits": 85,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 28,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 50,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 19,
+        "prospectiveUnits": 24
       },
       "specializedFoundation": {
         "requiredUnits": 13,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
       },
       "related": {
         "requiredUnits": 6,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.078125,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 32,
+      "aRatePercent": 51.724137931034484
+    },
+    "compulsoryPassed": {
+      "卒業研究": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "YB00901": "specialized",
       "YB00902": "specialized",
       "YB00903": "specialized",
       "YAT0904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "卒業研究": true
+      "": "uncounted",
+      "YBA0512": "specialized",
+      "YBA0532": "specialized",
+      "YBA0632": "specialized",
+      "YBA0652": "specialized",
+      "YBB0411": "specialized",
+      "YBA0241": "specialized",
+      "YBA0261": "specialized",
+      "YBA0341": "specialized",
+      "YBA0361": "specialized",
+      "YBA0371": "specialized",
+      "YBA0381": "specialized",
+      "YBA0522": "specialized",
+      "YBA0542": "specialized",
+      "YBA0642": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

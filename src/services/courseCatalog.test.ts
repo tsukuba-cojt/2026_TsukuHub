@@ -32,6 +32,7 @@ describe("courseCatalog", () => {
     const fetchMock = vi.fn().mockResolvedValue({
       status: 200,
       ok: true,
+      headers: new Headers({ "Content-Type": "application/json" }),
       json: async () => ({ academic_year: 2024, courses }),
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -52,6 +53,7 @@ describe("courseCatalog", () => {
     const fetchMock = vi.fn().mockResolvedValue({
       status: 200,
       ok: true,
+      headers: new Headers({ "Content-Type": "application/json" }),
       json: async () => ({ courses: [] }),
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -66,6 +68,7 @@ describe("courseCatalog", () => {
     const fetchMock = vi.fn().mockResolvedValue({
       status: 200,
       ok: true,
+      headers: new Headers({ "Content-Type": "application/json" }),
       json: async () => ({ courses: [] }),
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -77,5 +80,33 @@ describe("courseCatalog", () => {
     await listCatalogCourses("cache-test", 2024);
 
     expect(fetchMock).toHaveBeenCalledTimes(4);
+  });
+
+  it.each([2021, 2022])("%i年度のJSONにSPAのHTMLが返ってもCSVの処理を妨げない", async (year) => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response("<!doctype html><html><body><div id='root'></div></body></html>", {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      }),
+    );
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(listCatalogCourses("spa-fallback-test", year)).resolves.toEqual([]);
+    await expect(getCatalogCourse("spa-fallback-test", "TEST001", year)).resolves.toBeNull();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(`/data/courses/spa-fallback-test-${year}.json`);
+  });
+
+  it("カタログが404の場合は科目情報なしとして扱う", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 404 })));
+
+    await expect(listCatalogCourses("missing-catalog-test", 2022)).resolves.toEqual([]);
+  });
+
+  it("サーバーエラーを未対応年度として握りつぶさない", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 500 })));
+
+    await expect(listCatalogCourses("failed-catalog-test", 2023)).rejects.toThrow(
+      "授業カタログの取得に失敗しました。",
+    );
   });
 });

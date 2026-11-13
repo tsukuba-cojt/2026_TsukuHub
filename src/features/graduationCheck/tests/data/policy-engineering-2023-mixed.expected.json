@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "policy-engineering-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 38,
+      "prospectiveUnits": 45,
+      "shortageUnits": 86,
+      "prospectiveShortageUnits": 79,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 31,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 50,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 24,
+        "prospectiveUnits": 30
       },
       "specializedFoundation": {
         "requiredUnits": 11,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0657894736842106,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 38,
+      "aRatePercent": 52.94117647058824
+    },
+    "compulsoryPassed": {
+      "問題発見と解決": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "FH00901": "specialized",
       "FH00902": "specialized",
       "FH00903": "specialized",
       "ZZ20904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "問題発見と解決": true
+      "": "uncounted",
+      "FH33021": "specialized",
+      "FH33051": "specialized",
+      "FH33061": "specialized",
+      "FH33071": "specialized",
+      "FH34031": "specialized",
+      "FH34091": "specialized",
+      "FH34101": "specialized",
+      "FH34111": "specialized",
+      "FH32012": "specialized",
+      "FH32013": "specialized",
+      "FH32031": "specialized",
+      "FH32041": "specialized",
+      "FH32091": "specialized",
+      "FH33012": "specialized"
     }
   }
 }

@@ -282,6 +282,7 @@ function GraduationCheckResult() {
       appliedSelections.map(({ course, classification }) =>
         saveClassCategorize({
           className: course.name,
+          classNumber: course.id,
           categorized: classification,
           department: report.requirement.department,
         }),

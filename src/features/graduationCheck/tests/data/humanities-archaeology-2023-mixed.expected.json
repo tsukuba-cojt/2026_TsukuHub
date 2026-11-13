@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "humanities-archaeology-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 27,
+      "prospectiveUnits": 32,
+      "shortageUnits": 97,
+      "prospectiveShortageUnits": 92,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 28,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 44,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 13,
+        "prospectiveUnits": 17
       },
       "specializedFoundation": {
         "requiredUnits": 11,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0846153846153848,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 26,
+      "aRatePercent": 56.52173913043478
+    },
+    "compulsoryPassed": {
+      "卒業論文（考古学・民俗学）": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "AB81901": "specialized",
       "AB81902": "specialized",
       "AB81903": "specialized",
       "AB50904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "卒業論文（考古学・民俗学）": true
+      "": "uncounted",
+      "AB81B21": "specialized",
+      "AB81B31": "specialized",
+      "AB81B41": "specialized",
+      "AB81B51": "specialized",
+      "AB81B61": "specialized",
+      "AB81B71": "specialized",
+      "AB81B81": "specialized",
+      "AB81H13": "specialized",
+      "AB81H23": "specialized",
+      "AB81H33": "specialized",
+      "AB81H43": "specialized",
+      "AB82B21": "specialized",
+      "AB82B31": "specialized",
+      "AB82B41": "specialized"
     }
   }
 }

@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "psychology-22",
@@ -21,18 +21,18 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 27,
+      "prospectiveUnits": 30,
+      "shortageUnits": 97,
+      "prospectiveShortageUnits": 94,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 59,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 9,
+        "prospectiveUnits": 10
       },
       "specialized": {
         "requiredUnits": 21,
@@ -41,13 +41,13 @@
       },
       "specializedFoundation": {
         "requiredUnits": 0,
-        "earnedUnits": 2,
-        "prospectiveUnits": 2
+        "earnedUnits": 13,
+        "prospectiveUnits": 13
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
       },
       "related": {
         "requiredUnits": 6,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 2.9857142857142858,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 31.5,
+      "aRatePercent": 52.72727272727272
+    },
+    "compulsoryPassed": {
+      "知覚・認知心理学": true
     },
     "assignments": {
+      "1226991": "compulsory",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "CC50901": "specialized",
       "CC50902": "specialized",
       "CC50903": "specialized",
       "CC10904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "知覚・認知心理学": true
+      "": "uncounted",
+      "CC21123": "specializedFoundation",
+      "CC21251": "specializedFoundation",
+      "CC21261": "specializedFoundation",
+      "CC24041": "specializedFoundation",
+      "CC21061": "specializedFoundation",
+      "CC21141": "specializedFoundation",
+      "CC21331": "specializedFoundation",
+      "CC21341": "specializedFoundation",
+      "CC21351": "specializedFoundation",
+      "CC21361": "specializedFoundation",
+      "CC21371": "specializedFoundation",
+      "CC21381": "specializedFoundation",
+      "CC21412": "specializedFoundation",
+      "CC21422": "specializedFoundation"
     }
   }
 }

@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "japanese-culture-22",
@@ -21,18 +21,18 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 27,
+      "prospectiveUnits": 32,
+      "shortageUnits": 97,
+      "prospectiveShortageUnits": 92,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 26,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 43,
@@ -41,8 +41,8 @@
       },
       "specializedFoundation": {
         "requiredUnits": 14,
-        "earnedUnits": 2,
-        "prospectiveUnits": 2
+        "earnedUnits": 13,
+        "prospectiveUnits": 15
       },
       "common": {
         "requiredUnits": 1,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0846153846153848,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 26,
+      "aRatePercent": 56.52173913043478
+    },
+    "compulsoryPassed": {
+      "卒業論文": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "AE20901": "specialized",
       "AE20902": "specialized",
       "AE20903": "specialized",
       "AE10904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "卒業論文": true
+      "": "uncounted",
+      "AE13A31": "specializedFoundation",
+      "AE13A32": "specializedFoundation",
+      "AE13A41": "specializedFoundation",
+      "AE13A51": "specializedFoundation",
+      "AE13A52": "specializedFoundation",
+      "AE13A61": "specializedFoundation",
+      "AE13A62": "specializedFoundation",
+      "AE13A71": "specializedFoundation",
+      "AE13A72": "specializedFoundation",
+      "AE13A81": "specializedFoundation",
+      "AE13A82": "specializedFoundation",
+      "AE13A91": "specializedFoundation",
+      "AE13A92": "specializedFoundation",
+      "AE13B11": "specializedFoundation"
     }
   }
 }

@@ -5,7 +5,7 @@
     "admissionYear": 2025
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "chem-25",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 37,
+      "prospectiveUnits": 41,
+      "shortageUnits": 87,
+      "prospectiveShortageUnits": 83,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 42,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 4,
+        "prospectiveUnits": 5
       },
       "specialized": {
         "requiredUnits": 42,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 28,
+        "prospectiveUnits": 31
       },
       "specializedFoundation": {
         "requiredUnits": 17,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
       },
       "related": {
         "requiredUnits": 9,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.088372093023256,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 43,
+      "aRatePercent": 57.89473684210527
+    },
+    "compulsoryPassed": {
+      "物理化学専門実験": false
     },
     "assignments": {
-      "ZZ0091": "compulsory",
+      "1226991": "compulsory",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "ZZ0091": "specialized",
       "FE12901": "specialized",
       "FE12902": "specialized",
       "FE12903": "specialized",
       "FA00904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "物理化学専門実験": true
+      "": "uncounted",
+      "FE12401": "specialized",
+      "FE12411": "specialized",
+      "FE12601": "specialized",
+      "FE12611": "specialized",
+      "FE12701": "specialized",
+      "FE12801": "specialized",
+      "FE13101": "specialized",
+      "FE13221": "specialized",
+      "FE13301": "specialized",
+      "FE13611": "specialized",
+      "FE13621": "specialized",
+      "FE13711": "specialized",
+      "FE14021": "specialized",
+      "FE14051": "specialized",
+      "32H1012": "uncounted",
+      "34H1012": "uncounted"
     }
   }
 }

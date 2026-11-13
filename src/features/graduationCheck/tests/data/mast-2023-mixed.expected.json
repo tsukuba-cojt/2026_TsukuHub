@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 13,
+    "courseCount": 33,
     "csvErrors": [],
     "requirement": {
       "id": "mast-22"
@@ -18,22 +18,22 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 18,
-      "prospectiveUnits": 20,
-      "shortageUnits": 106,
-      "prospectiveShortageUnits": 104,
+      "earnedUnits": 39,
+      "prospectiveUnits": 43,
+      "shortageUnits": 85,
+      "prospectiveShortageUnits": 81,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
-        "earnedUnits": 9,
-        "prospectiveUnits": 9,
+        "earnedUnits": 11,
+        "prospectiveUnits": 11,
         "requiredUnits": 50
       },
       "specialized": {
-        "earnedUnits": 2,
-        "prospectiveUnits": 4,
+        "earnedUnits": 19,
+        "prospectiveUnits": 23,
         "requiredUnits": 20
       },
       "specializedFoundation": {
@@ -42,8 +42,8 @@
         "requiredUnits": 32
       },
       "common": {
-        "earnedUnits": 1,
-        "prospectiveUnits": 1,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3,
         "requiredUnits": 1
       },
       "related": {
@@ -53,31 +53,51 @@
       }
     },
     "gpa": {
-      "value": 3.3590909090909093,
+      "value": 3.2333333333333334,
       "max": 4.3,
-      "targetUnits": 22,
-      "aRatePercent": 70
-    },
-    "assignments": {
-      "GC00001": "compulsory",
-      "Y1": "compulsory",
-      "Y2": "compulsory",
-      "6100101": "compulsory",
-      "6100202": "compulsory",
-      "6100303": "compulsory",
-      "GC51234": "specialized",
-      "GC59999": "specialized",
-      "GA12345": "specializedFoundation",
-      "1226011": "common",
-      "GB12345": "related",
-      "8001234": "related",
-      "GC00002": "compulsory"
+      "targetUnits": 45,
+      "aRatePercent": 60.97560975609756
     },
     "compulsoryPassed": {
       "卒業研究A": true,
       "微分積分A": true,
       "情報": true,
       "確率と統計": false
+    },
+    "assignments": {
+      "1226011": "common",
+      "6100101": "compulsory",
+      "6100202": "compulsory",
+      "6100303": "compulsory",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
+      "8001234": "related",
+      "GC00001": "compulsory",
+      "Y1": "compulsory",
+      "Y2": "compulsory",
+      "GC00002": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "GC51234": "specialized",
+      "GC59999": "specialized",
+      "GA12345": "specializedFoundation",
+      "GB12345": "related",
+      "GC52001": "specialized",
+      "GC52101": "specialized",
+      "GC52301": "specialized",
+      "GC52901": "specialized",
+      "GC53401": "specialized",
+      "GC53601": "specialized",
+      "GC53701": "specialized",
+      "GC53901": "specialized",
+      "GC54091": "specialized",
+      "GC54601": "specialized",
+      "GC55002": "specialized",
+      "GC55102": "specialized",
+      "GC51401": "specialized",
+      "GC52401": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

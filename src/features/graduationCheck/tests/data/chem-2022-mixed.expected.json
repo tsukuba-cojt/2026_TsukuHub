@@ -5,7 +5,7 @@
     "admissionYear": 2022
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "chem-22",
@@ -14,35 +14,37 @@
       "enrollYear": "2022"
     },
     "catalogVerification": {
-      "verifiedAcademicYears": [],
+      "verifiedAcademicYears": [
+        2023
+      ],
       "unsupportedAcademicYears": [
         2022
       ]
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 38,
+      "prospectiveUnits": 41,
+      "shortageUnits": 86,
+      "prospectiveShortageUnits": 83,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 43,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 41,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 28,
+        "prospectiveUnits": 30
       },
       "specializedFoundation": {
         "requiredUnits": 17,
-        "earnedUnits": 2,
-        "prospectiveUnits": 2
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
       },
       "common": {
         "requiredUnits": 1,
@@ -56,25 +58,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 2.9511363636363637,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
-    },
-    "assignments": {
-      "ZZ0091": "compulsory",
-      "FE12901": "specialized",
-      "FE12902": "specialized",
-      "FE12903": "specialized",
-      "FA00904": "specializedFoundation",
-      "1226991": "common",
-      "ZZ9091": "related",
-      "ZZ9092": "related",
-      "ZZ9093": "related",
-      "": "uncounted"
+      "targetUnits": 44,
+      "aRatePercent": 47.43589743589743
     },
     "compulsoryPassed": {
       "専門化学実験Ⅰ": true
+    },
+    "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
+      "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "FE12901": "specialized",
+      "FE12902": "specialized",
+      "FE12903": "specialized",
+      "FA00904": "specialized",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted",
+      "FE12311": "specialized",
+      "FE12331": "specialized",
+      "FE12351": "specialized",
+      "FE12401": "specialized",
+      "FE12411": "specialized",
+      "FE12601": "specialized",
+      "FE12611": "specialized",
+      "FE12701": "specialized",
+      "FE12801": "specialized",
+      "FE13101": "specialized",
+      "FE13131": "specialized",
+      "FE13221": "specialized",
+      "FE13231": "specialized",
+      "FE13301": "specialized",
+      "32H1012": "uncounted",
+      "34H1012": "uncounted"
     }
   }
 }

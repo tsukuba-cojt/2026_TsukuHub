@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "social-politics-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 126,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 115,
-      "prospectiveShortageUnits": 113,
+      "earnedUnits": 36,
+      "prospectiveUnits": 43,
+      "shortageUnits": 90,
+      "prospectiveShortageUnits": 83,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 20,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 61,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 22,
+        "prospectiveUnits": 28
       },
       "specializedFoundation": {
         "requiredUnits": 8,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0972222222222223,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 36,
+      "aRatePercent": 56.25
+    },
+    "compulsoryPassed": {
+      "政治学概論": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "BB10901": "specialized",
       "BB10902": "specialized",
       "BB10903": "specialized",
       "BA00904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "政治学概論": true
+      "": "uncounted",
+      "BB31231": "specialized",
+      "BB31241": "specialized",
+      "BB31341": "specialized",
+      "BB31102": "specialized",
+      "BB31171": "specialized",
+      "BB31321": "specialized",
+      "BB31371": "specialized",
+      "BB31451": "specialized",
+      "BB31461": "specialized",
+      "BB31471": "specialized",
+      "BB31481": "specialized",
+      "BB31491": "specialized",
+      "BB31501": "specialized",
+      "BB31502": "specialized"
     }
   }
 }

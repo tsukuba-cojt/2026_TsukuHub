@@ -5,7 +5,7 @@
     "admissionYear": 2026
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "coins-im-26",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 125,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 114,
-      "prospectiveShortageUnits": 112,
+      "earnedUnits": 34,
+      "prospectiveUnits": 39,
+      "shortageUnits": 91,
+      "prospectiveShortageUnits": 86,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 54,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 34,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 20,
+        "prospectiveUnits": 24
       },
       "specializedFoundation": {
         "requiredUnits": 26,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
       },
       "related": {
         "requiredUnits": 6,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.1029411764705883,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 34,
+      "aRatePercent": 56.666666666666664
+    },
+    "compulsoryPassed": {
+      "知能情報メディア実験A": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "GB40901": "specialized",
       "GB40902": "specialized",
       "GB40903": "specialized",
       "GB116904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "知能情報メディア実験A": true
+      "": "uncounted",
+      "GB40601": "specialized",
+      "GB41104": "specialized",
+      "GB41511": "specialized",
+      "GB41611": "specialized",
+      "GB41711": "specialized",
+      "GB42201": "specialized",
+      "GB20201": "specialized",
+      "GB20301": "specialized",
+      "GB20401": "specialized",
+      "GB20601": "specialized",
+      "GB21201": "specialized",
+      "GB22011": "specialized",
+      "GB22621": "specialized",
+      "GB30101": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

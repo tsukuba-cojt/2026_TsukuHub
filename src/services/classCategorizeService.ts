@@ -3,6 +3,7 @@ import type { CategoryKey } from "../features/graduationCheck";
 
 export type ClassCategorizeInput = {
   className: string;
+  classNumber?: string | null;
   categorized: CategoryKey;
   department: string;
 };
@@ -32,8 +33,10 @@ type ClassCategorizeRow = {
 export const saveClassCategorize = async (
   input: ClassCategorizeInput,
 ): Promise<void> => {
+  const classNumber = input.classNumber?.trim();
   const row = {
     classname: input.className.trim(),
+    ...(classNumber ? { classnumber: classNumber } : {}),
     categorized: databaseCategory[input.categorized],
     // DBの列名は major だが、現在の仕様では「入力した人の学類」を保存する。
     major: input.department.trim(),

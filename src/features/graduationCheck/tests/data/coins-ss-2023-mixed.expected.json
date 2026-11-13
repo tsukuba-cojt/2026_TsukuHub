@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 11,
+    "courseCount": 31,
     "csvErrors": [],
     "requirement": {
       "id": "coins-ss-22"
@@ -18,22 +18,22 @@
     },
     "summary": {
       "requiredUnits": 125,
-      "earnedUnits": 15,
-      "prospectiveUnits": 17,
-      "shortageUnits": 110,
-      "prospectiveShortageUnits": 108,
+      "earnedUnits": 36,
+      "prospectiveUnits": 39,
+      "shortageUnits": 89,
+      "prospectiveShortageUnits": 86,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
-        "earnedUnits": 0,
-        "prospectiveUnits": 0,
+        "earnedUnits": 3,
+        "prospectiveUnits": 4,
         "requiredUnits": 54
       },
       "specialized": {
-        "earnedUnits": 4,
-        "prospectiveUnits": 6,
+        "earnedUnits": 20,
+        "prospectiveUnits": 22,
         "requiredUnits": 34
       },
       "specializedFoundation": {
@@ -42,8 +42,8 @@
         "requiredUnits": 26
       },
       "common": {
-        "earnedUnits": 1,
-        "prospectiveUnits": 1,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3,
         "requiredUnits": 1
       },
       "related": {
@@ -53,27 +53,47 @@
       }
     },
     "gpa": {
-      "value": 3.4,
+      "value": 3.2488888888888887,
       "max": 4.3,
-      "targetUnits": 19,
-      "aRatePercent": 82.3529411764706
+      "targetUnits": 45,
+      "aRatePercent": 63.41463414634146
+    },
+    "compulsoryPassed": {
+      "卒業研究A": false,
+      "情報": false
     },
     "assignments": {
+      "1226011": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
+      "8000001": "related",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "GB20001": "specialized",
       "GB13312": "specialized",
       "GB11601": "specializedFoundation",
       "GB13614": "specializedFoundation",
       "GB15001": "specializedFoundation",
       "GA10001": "specializedFoundation",
-      "1226011": "common",
       "GC10001": "related",
-      "8000001": "related",
       "GB20002": "specialized",
-      "GB20003": "specialized"
-    },
-    "compulsoryPassed": {
-      "卒業研究A": false,
-      "情報": false
+      "GB20003": "specialized",
+      "GB22621": "specialized",
+      "GB30101": "specialized",
+      "GB30201": "specialized",
+      "GB30311": "specialized",
+      "GB30401": "specialized",
+      "GB30411": "specialized",
+      "GB30504": "specialized",
+      "GB30601": "specialized",
+      "GB31201": "specialized",
+      "GB31401": "specialized",
+      "GB31611": "specialized",
+      "GB31901": "specialized",
+      "GB32201": "specialized",
+      "GB40111": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

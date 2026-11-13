@@ -46,6 +46,9 @@ const loadCatalog = async (
   if (!response.ok) {
     throw new Error("授業カタログの取得に失敗しました。");
   }
+  // SPA配信では、存在しない年度のJSONにもindex.htmlが200で返る場合がある。
+  // カタログ未対応年度は404と同様に扱い、成績CSVの科目情報で処理を続ける。
+  if (response.headers.get("content-type")?.includes("text/html")) return [];
   const payload = (await response.json()) as CourseCatalogFile | CatalogCourse[];
   return Array.isArray(payload) ? payload : payload.courses ?? [];
 };

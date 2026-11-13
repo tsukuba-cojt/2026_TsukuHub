@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "medicine-22",
@@ -21,18 +21,18 @@
     },
     "summary": {
       "requiredUnits": 199,
-      "earnedUnits": 11,
-      "prospectiveUnits": 12,
-      "shortageUnits": 188,
-      "prospectiveShortageUnits": 187,
+      "earnedUnits": 18,
+      "prospectiveUnits": 20,
+      "shortageUnits": 181,
+      "prospectiveShortageUnits": 179,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 186,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 0,
@@ -51,30 +51,50 @@
       },
       "related": {
         "requiredUnits": 7,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 7,
+        "prospectiveUnits": 7
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.1166666666666667,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 30,
+      "aRatePercent": 51.85185185185185
+    },
+    "compulsoryPassed": {
+      "医学統計学": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "FA00901": "specializedFoundation",
       "FA00902": "specializedFoundation",
       "FA00903": "specializedFoundation",
       "FA00904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "医学統計学": true
+      "": "uncounted",
+      "HB21211": "related",
+      "HB33312": "related",
+      "HB36173": "related",
+      "HB21101": "related",
+      "HB21141": "related",
+      "HB21151": "related",
+      "HB21161": "related",
+      "HB21171": "related",
+      "HB21181": "related",
+      "HB21191": "related",
+      "HB21201": "related",
+      "HB21231": "related",
+      "HB21240": "related",
+      "HB31131": "related",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }
