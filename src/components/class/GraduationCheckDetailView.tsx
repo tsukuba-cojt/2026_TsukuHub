@@ -187,7 +187,7 @@ function GraduationCheckDetailView({ report, onBack, disableDatabase = false }: 
   return (
     <>
       <div className="gradDetailHeaderRow">
-        <button type="button" className="gradDetailBackBtn" onClick={() => setIsReporting(true)}>
+        <button type="button" className="gradDetailBackBtn gradDetailReportBtn" onClick={() => setIsReporting(true)}>
           誤分類を報告
         </button>
         <button type="button" className="gradDetailBackBtn" onClick={onBack}>

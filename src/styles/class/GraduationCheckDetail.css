@@ -79,6 +79,19 @@
   border-color: var(--color-primary);
 }
 
+.gradDetailReportBtn {
+  background: var(--color-main-gradient);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: none;
+  transition: opacity 0.2s ease;
+}
+
+.gradDetailReportBtn:hover {
+  border-color: transparent;
+  opacity: 0.9;
+}
+
 /* ── 区分ブロック ─────────────────── */
 .gradDetailSection {
   /* ヘッダーが sticky（main-header 96px + globalHeader 51px）なので、
