@@ -1,4 +1,5 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   Bookmark,
   Calendar,
@@ -8,6 +9,7 @@ import {
   Megaphone,
   MessageCircleMore,
   PenLine,
+  Pencil,
   Smile,
   Sparkle,
   SquareArrowOutUpRight,
@@ -18,6 +20,7 @@ import {
 import { useUniversity } from "../components/university/universityContextValue";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
+import Toast from "../components/utility/Toast";
 import RatingStars from "../components/class/RatingStars";
 import { circleCategoryClass, getCircleNotices, getCircleReviews, mockCircles } from "../components/circle/mockCircles";
 import "../styles/class/Class.css";
@@ -31,7 +34,20 @@ function CircleDetail() {
   const { path } = useUniversity();
   const { circleId } = useParams<{ circleId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const circle = mockCircles.find((item) => item.id === circleId);
+  // 編集ページ・口コミ投稿ページから router state で渡されるトーストメッセージ
+  const [toast, setToast] = useState<string | null>(() => {
+    const state = location.state as { toast?: string } | null;
+    return state?.toast ?? null;
+  });
+
+  useEffect(() => {
+    if ((location.state as { toast?: string } | null)?.toast) {
+      // リロードや戻る操作で再表示されないよう state をクリアする
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location, navigate]);
 
   if (!circle) {
     return (
@@ -58,6 +74,8 @@ function CircleDetail() {
   const reviews = getCircleReviews(circle);
   const reviewCount = reviews.length;
   const averageRating = reviewCount ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviewCount : 0;
+  // TODO: 団体責任者のみ表示（権限制御は後日実装）
+  const canEdit = true;
 
   return (
     <div className="classPage">
@@ -113,6 +131,16 @@ function CircleDetail() {
               </div>
             </div>
             <div className="classDetailActions">
+              {canEdit && (
+                <button
+                  type="button"
+                  className="classDetailActionBtn"
+                  onClick={() => navigate(path(`/circles/${circle.id}/edit`))}
+                >
+                  <Pencil aria-hidden="true" />
+                  編集
+                </button>
+              )}
               <button type="button" className="classDetailActionBtn">
                 <Bookmark aria-hidden="true" />
                 ブックマーク
@@ -311,6 +339,7 @@ function CircleDetail() {
         </div>
       </main>
       <Footer />
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
 }

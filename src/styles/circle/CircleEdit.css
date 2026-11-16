@@ -1,0 +1,233 @@
+/* サークル情報編集ページ（/circles/:circleId/edit）
+   注：編集ページ専用の Figma フレームが無いため、時間割登録ページ（TimetableShare.css）の
+   カード・フォーム部品・ボタンを流用し、ここでは不足分だけを定義する。
+   色・角丸は tokens.css と TimetableShare.css / ClassDetail.css の既存値に合わせている。 */
+
+.circleEditPanel {
+  margin-top: 28px;
+}
+
+.circleEditSections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* カード見出し直下の最初の項目は上余白を詰める */
+.circleEditFirstField {
+  margin-top: 0;
+}
+
+/* 必須バッジをラベル横に並べる */
+.circleEditPanel .ttShareFieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* テキスト入力（.ttShareTextarea と同じ見た目の1行版） */
+.circleEditInput {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.circleEditInput.circleNumber {
+  font-family: var(--font-family-logo);
+}
+
+.circleEditInput::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.circleEditInput:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+/* 必須項目の未入力 */
+.circleEditInput.isInvalid,
+.circleEditPanel .ttShareTextarea.isInvalid {
+  border-color: #e5484d; /* .reviewFormError と同じ赤 */
+}
+
+.circleEditHint {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.circleEditLead {
+  margin: -10px 0 14px;
+}
+
+.circleEditEmpty {
+  padding: 14px 8px 0;
+}
+
+.circleEditPanel .classDetailActionBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── 基本情報：画像 ── */
+.circleEditImageRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 詳細ページの画像枠と同じグレーの角丸 */
+.circleEditImage {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 6px;
+  background: #d9d9d9;
+  overflow: hidden;
+}
+
+.circleEditImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.circleEditImageActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.circleEditImageActions .circleEditHint {
+  flex-basis: 100%;
+}
+
+.circleEditFileInput {
+  display: none;
+}
+
+/* ── 活動情報 ── */
+.circleEditGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.circleEditMembers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+}
+
+.circleEditMembers svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+.circleEditMembers .circleEditInput {
+  width: 110px;
+}
+
+/* ── お知らせ ── */
+.circleEditCardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.circleEditCardHead .ttShareCardTitle {
+  margin-bottom: 16px;
+}
+
+/* 追加・編集フォーム（時間割登録の右カラムと同じ淡い青の面） */
+.circleEditNoticeForm {
+  margin-bottom: 8px;
+  border-radius: 10px;
+  padding: 20px 22px;
+  background: #f2f7ff;
+}
+
+.circleEditNoticeFormTitle {
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.circleEditNoticeFormGrid {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.circleEditNoticeFormActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.circleEditNotices li {
+  align-items: center;
+}
+
+.circleEditNotices li > div:nth-of-type(1) {
+  flex: 1;
+}
+
+/* 編集画面では本文を省略せず折り返す */
+.circleEditNotices p {
+  white-space: normal;
+}
+
+.circleEditNoticeActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.circleEditNoticeActions .classDetailActionBtn {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.circleEditSummaryError {
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .circleEditGrid,
+  .circleEditNoticeFormGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .circleEditCardHead,
+  .circleEditNotices li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .circleEditImageRow {
+    align-items: flex-start;
+  }
+
+  .circleEditImage {
+    width: 88px;
+    height: 88px;
+  }
+}
