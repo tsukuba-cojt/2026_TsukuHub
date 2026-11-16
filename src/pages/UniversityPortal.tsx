@@ -220,7 +220,7 @@ export default function UniversityPortal() {
         </section>
       </main>
 
-      <footer className="portalFooter"><Link to="/" className="portalBrand">TsukuHub</Link><p>大学生活の情報を、ひとつの場所に。</p><span>© 2026 TsukuHub</span></footer>
+      <footer className="portalFooter"><Link to="/" className="portalBrand">TsukuHub</Link><p>大学生活の情報を、ひとつの場所に。</p><Link to="/company/login">企業の方はこちら</Link><span>© 2026 TsukuHub</span></footer>
     </div>
   );
 }

@@ -21,7 +21,7 @@ export default function AlumniStoryCard({ story }: AlumniStoryCardProps) {
         />
         <div className="alumniCardBody">
           <div>
-            <span>{story.graduation_year}年度卒</span>
+            <span>{story.graduation_year ? `${story.graduation_year}年度卒` : "卒業年度非公開"}</span>
             <span>{story.faculty}</span>
           </div>
           <h2>{story.title}</h2>

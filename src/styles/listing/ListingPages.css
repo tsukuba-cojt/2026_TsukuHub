@@ -137,3 +137,10 @@
     grid-template-columns: 1fr;
   }
 }
+.newsArticleDetails { margin-top: 20px; line-height: 1.9; overflow-wrap: anywhere; }
+.newsArticleDetails summary { cursor: pointer; font-weight: 700; color: var(--color-primary, #1468ad); }
+.newsArticleDetails .articleMarkdown { margin-top: 20px; }
+.newsArticleDetails .articleMarkdown p { margin: 0 0 1.4em; white-space: pre-wrap; }
+.newsArticleDetails .articleMarkdown img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.newsArticleDetails .articleMarkdown figure { margin: 20px 0; }
+.listingCard:has(.newsArticleDetails[open]) { grid-column: 1 / -1; }

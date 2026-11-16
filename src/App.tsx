@@ -52,6 +52,10 @@ import AdminClassManagement from "./pages/admin/AdminClassManagement";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminUniversities from "./pages/admin/AdminUniversities";
 import AdminNews from "./pages/admin/AdminNews";
+import AdminCompanyAccess from "./pages/admin/AdminCompanyAccess";
+import CompanyLogin from "./pages/company/CompanyLogin";
+import CompanyDashboard from "./pages/company/CompanyDashboard";
+import CompanyApplicationDetail from "./pages/company/CompanyApplicationDetail";
 import "./styles/responsive.css";
 
 function UniversityLayout() {
@@ -98,11 +102,15 @@ function App() {
         <Routes>
           <Route path="/" element={<UniversityPortal />} />
           <Route path="/404" element={<Notfound404 />} />
+          <Route path="/company/login" element={<CompanyLogin />} />
+          <Route path="/company" element={<CompanyDashboard />} />
+          <Route path="/company/applications/:id" element={<CompanyApplicationDetail />} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedAdmin><AdminDashboard /></ProtectedAdmin>} />
           <Route path="/admin/universities" element={<ProtectedAdmin><AdminUniversities /></ProtectedAdmin>} />
           <Route path="/admin/news" element={<ProtectedAdmin><AdminNews /></ProtectedAdmin>} />
+          <Route path="/admin/company-access" element={<ProtectedAdmin><AdminCompanyAccess /></ProtectedAdmin>} />
           <Route path="/admin/internships" element={<ProtectedAdmin><AdminInternships /></ProtectedAdmin>} />
           <Route path="/admin/internships/new" element={<ProtectedAdmin><AdminInternshipForm /></ProtectedAdmin>} />
           <Route path="/admin/internships/:id/edit" element={<ProtectedAdmin><AdminInternshipForm /></ProtectedAdmin>} />

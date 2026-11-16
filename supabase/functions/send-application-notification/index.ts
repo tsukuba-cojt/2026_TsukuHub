@@ -65,6 +65,7 @@ export async function handleRequest(request: Request) {
   }
   if (!application || application.user_id !== userData.user.id) return response({ error: "application_not_found" }, 404);
 
+  const sendRecruiterNotification = async () => {
   const { data: previous, error: previousError } = await adminClient
     .from("application_email_notifications").select("resend_id").eq("application_id", applicationId).maybeSingle();
   if (previousError) return response({ error: "notification_lookup_failed" }, 500);
@@ -123,6 +124,48 @@ export async function handleRequest(request: Request) {
   const { error: saveError } = await adminClient.from("application_email_notifications")
     .upsert({ application_id: applicationId, resend_id: result.id });
   if (saveError) return response({ error: "notification_record_failed" }, 500);
+  return response({ notification_sent: true });
+  };
+
+  const sendApplicantConfirmation = async () => {
+    const { data: previous, error: lookupError } = await adminClient
+      .from("application_confirmation_emails").select("resend_id").eq("application_id", applicationId).maybeSingle();
+    if (lookupError) return response({ error: "confirmation_lookup_failed" }, 500);
+    if (previous) return response({ notification_sent: true });
+    const internship = Array.isArray(application.internship) ? application.internship[0] : application.internship;
+    if (!internship) return response({ error: "internship_not_found" }, 404);
+    const submittedAt = new Date(application.created_at).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+    const subject = `【TsukuHub】${textValue(internship.company_name)}への応募を受け付けました`;
+    const html = `<div><h1>応募受付のお知らせ</h1><p>${htmlEscape(application.applicant_name)}さん</p><p>以下の応募を受け付けました。</p><table>${field("企業名", internship.company_name)}${field("求人名", internship.title)}${field("応募日時（日本時間）", submittedAt)}${field("氏名", application.applicant_name)}${field("メールアドレス", application.email)}${field("所属学群・学類", application.faculty)}${field("卒業予定年", application.graduation_year)}${field("志望理由", application.motivation)}${field("経験・スキル", application.skills)}${field("ポートフォリオURL", application.portfolio_url)}${field("補足事項", application.additional_notes)}</table><p>応募状況はTsukuHubのマイページから確認できます。</p><p>このメールは応募受付の自動送信メールです。</p></div>`;
+    const text = `応募受付のお知らせ\n\n${textValue(application.applicant_name)}さん\n以下の応募を受け付けました。\n企業名: ${textValue(internship.company_name)}\n求人名: ${textValue(internship.title)}\n応募日時（日本時間）: ${submittedAt}\n志望理由: ${textValue(application.motivation)}\n経験・スキル: ${textValue(application.skills)}\nポートフォリオURL: ${textValue(application.portfolio_url)}\n補足事項: ${textValue(application.additional_notes)}\n応募状況はTsukuHubのマイページから確認できます。\nこのメールは応募受付の自動送信メールです。`;
+    try {
+      const delivery = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resendApiKey}`,
+          "Idempotency-Key": `application-${application.id}-confirmation`,
+        },
+        body: JSON.stringify({ from: resendFrom, to: [application.email], subject, html, text }),
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!delivery.ok) return response({ error: "confirmation_delivery_failed" }, 502);
+      const result = await delivery.json();
+      if (!result.id) return response({ error: "confirmation_delivery_failed" }, 502);
+      const { error } = await adminClient.from("application_confirmation_emails")
+        .upsert({ application_id: applicationId, resend_id: result.id });
+      if (error) return response({ error: "confirmation_record_failed" }, 500);
+      return response({ notification_sent: true });
+    } catch {
+      return response({ error: "confirmation_delivery_failed" }, 502);
+    }
+  };
+
+  const results = await Promise.allSettled([sendRecruiterNotification(), sendApplicantConfirmation()]);
+  for (const result of results) {
+    if (result.status === "rejected") return response({ error: "notification_delivery_failed" }, 502);
+    if (!result.value.ok) return result.value;
+  }
   return response({ notification_sent: true });
 }
 

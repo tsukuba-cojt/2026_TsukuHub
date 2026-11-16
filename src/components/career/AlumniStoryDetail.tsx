@@ -35,7 +35,7 @@ export default function AlumniStoryDetail({ story }: AlumniStoryDetailProps) {
         eyebrow="Graduate Interview"
         title={story.job_role}
         org={story.destination}
-        meta={`${story.faculty} ・ ${story.graduation_year}年度卒`}
+        meta={`${story.faculty} ・ ${story.graduation_year ? `${story.graduation_year}年度卒` : "卒業年度非公開"}`}
       />
 
       <h1 className="alumniArticleTitle">{story.title}</h1>

@@ -105,10 +105,10 @@ export default function CareerInternshipDetail() {
               <div className="applicationSuccess" role="status">
                 <h2>応募を受け付けました</h2>
                 {notificationSent ? (
-                  <p>募集者へ応募通知メールを送信しました。</p>
+                  <p>募集者への応募通知と、応募者への応募受付メールを送信しました。</p>
                 ) : (
                   <>
-                    <p>応募は保存されましたが、通知メールを送信できませんでした。応募し直す必要はありません。</p>
+                    <p>応募は保存されましたが、一部のメールを送信できませんでした。応募し直す必要はありません。</p>
                     <button type="button" disabled={retryingNotification} onClick={async () => {
                       setRetryingNotification(true);
                       try { setNotificationSent(await sendApplicationNotification(applicationId)); }
