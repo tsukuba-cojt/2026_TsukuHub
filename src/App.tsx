@@ -13,6 +13,7 @@ import RequireActiveUniversity from "./components/university/RequireActiveUniver
 import UniversityPortal from "./pages/UniversityPortal";
 import UniversityLanding from "./pages/UniversityLanding";
 import Login from "./pages/Login";
+import { RequestPasswordReset, ResetPassword } from "./pages/PasswordRecovery";
 import Signup from "./pages/Signup";
 import Class from "./pages/Class";
 import ClassTop from "./pages/ClassTop";
@@ -121,6 +122,9 @@ function App() {
           <Route path="/admin/applications/:id" element={<ProtectedAdmin><AdminApplicationDetail /></ProtectedAdmin>} />
           <Route path="/admin/career-content" element={<ProtectedAdmin><AdminCareerContent /></ProtectedAdmin>} />
           <Route path="/admin/class-management" element={<ProtectedAdmin><AdminClassManagement /></ProtectedAdmin>} />
+
+          <Route path="/:accountSlug/auth/forgot-password" element={<RequestPasswordReset />} />
+          <Route path="/:accountSlug/auth/reset-password" element={<ResetPassword />} />
 
           {legacyRoots.map((root) => (
             <Route path={`/${root}/*`} element={<Navigate to="/" replace />} key={root} />
