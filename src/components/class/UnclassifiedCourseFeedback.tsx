@@ -4,15 +4,70 @@ import type {
   Course,
   GraduationCheckReport,
 } from "../../features/graduationCheck";
+import { getClassCategorizeSuggestions } from "../../services/classCategorizeService";
 
-type Props = {
-  report: GraduationCheckReport;
-  onClassify: (course: Course, classification: CategoryKey) => void;
+export type ClassificationSelection = {
+  course: Course;
+  classification: CategoryKey;
 };
 
-function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
+type Props = {
+  disableDatabase?: boolean;
+  report: GraduationCheckReport;
+  onClassify: (selections: ClassificationSelection[]) => void;
+};
+
+function UnclassifiedCourseFeedback({ report, onClassify, disableDatabase = false }: Props) {
   const [answers, setAnswers] = useState<Map<Course, CategoryKey>>(new Map());
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
+  const [suggestionMessage, setSuggestionMessage] = useState<string | null>(null);
   const courses = report.details.uncountedCourses;
+  const selectedCourses = courses.flatMap((course) => {
+    const classification = answers.get(course);
+    return classification ? [{ course, classification }] : [];
+  });
+
+  const fillFromHistory = async () => {
+    if (disableDatabase) {
+      setSuggestionMessage("テストモードではDBの分類履歴を取得しません。");
+      return;
+    }
+    setIsLoadingSuggestions(true);
+    setSuggestionMessage(null);
+    try {
+      const suggestions = await getClassCategorizeSuggestions(
+        courses.map((course) => course.name),
+        report.requirement.department,
+      );
+      const suggestedCourses = courses.flatMap((course) => {
+        const suggestion = suggestions.get(course.name.trim());
+        return suggestion ? [{ course, suggestion }] : [];
+      });
+      setAnswers((current) => {
+        const next = new Map(current);
+        suggestedCourses.forEach(({ course, suggestion }) => {
+          next.set(course, suggestion);
+        });
+        return next;
+      });
+      setSuggestionMessage(
+        suggestedCourses.length > 0
+          ? `${suggestedCourses.length}件の分類候補を入力しました。内容を確認して一括分類してください。`
+          : "一致する分類履歴は見つかりませんでした。",
+      );
+    } catch (error: unknown) {
+      const detail =
+        typeof error === "object" &&
+        error !== null &&
+        "message" in error &&
+        typeof error.message === "string"
+          ? error.message
+          : "原因不明のエラー";
+      setSuggestionMessage(`分類履歴の取得に失敗しました: ${detail}`);
+    } finally {
+      setIsLoadingSuggestions(false);
+    }
+  };
 
   if (courses.length === 0) return null;
 
@@ -21,10 +76,21 @@ function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
       <div className="gradResultReqHead">
         <span>未分類科目の分類</span>
       </div>
-      <p className="gradClassificationLead">
-        未分類科目の区分を選択すると、この画面の判定結果と単位集計へ反映できます。
-        分類内容はDBへ保存されず、ページを離れると破棄されます。
-      </p>
+      <div className="gradClassificationToolbar">
+        <button
+          type="button"
+          className="gradClassificationAutoBtn"
+          disabled={isLoadingSuggestions}
+          onClick={() => void fillFromHistory()}
+        >
+          {isLoadingSuggestions ? "分類履歴を取得中…" : "自動入力"}
+        </button>
+        {suggestionMessage && (
+          <span className="gradClassificationStatus" role="status">
+            {suggestionMessage}
+          </span>
+        )}
+      </div>
       <div className="gradClassificationList">
         {courses.map((course, index) => {
           const classification = answers.get(course) ?? "";
@@ -69,7 +135,7 @@ function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
                 className="gradClassificationSaveBtn"
                 disabled={!classification}
                 onClick={() => {
-                  if (classification) onClassify(course, classification);
+                  if (classification) onClassify([{ course, classification }]);
                 }}
               >
                 分類
@@ -77,6 +143,16 @@ function UnclassifiedCourseFeedback({ report, onClassify }: Props) {
             </div>
           );
         })}
+      </div>
+      <div className="gradClassificationBatchActions">
+        <button
+          type="button"
+          className="gradClassificationBatchBtn"
+          disabled={selectedCourses.length === 0}
+          onClick={() => onClassify(selectedCourses)}
+        >
+          選択した{selectedCourses.length}件を一括分類
+        </button>
       </div>
     </section>
   );

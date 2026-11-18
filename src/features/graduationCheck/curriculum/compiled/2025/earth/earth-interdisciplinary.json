@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2025,
+  "department": {
+    "key": "earth",
+    "label": "地球学類"
+  },
+  "major": {
+    "key": "earth-interdisciplinary",
+    "label": "生命環境学際主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "earth/earth-interdisciplinary/2025",
+    "admissionYear": 2025,
+    "department": {
+      "key": "earth",
+      "label": "地球学類"
+    },
+    "major": {
+      "key": "earth-interdisciplinary",
+      "label": "生命環境学際主専攻"
+    },
+    "requirementId": "earth-interdisciplinary-24",
+    "ruleSemanticSha256": "814b42d9c464f8fabc59c659edec402073bff84dcde3f20bf7c7c3b55039a545",
+    "snapshotSha256": "608386881ddd79f7edebb0bd03d110230dc5553f8854c62ab8d4ccc8b8241451",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-017"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "学類長特認・特別指定一覧、履修前提・同時履修、言語特例・超過配分・読み替え、独立レビューが未完了。論文作成等の固定DB番号と2023選択・自由の詳細配分も未確認"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "地球学類",
+        "major": "生命環境学際",
+        "enrollYear": 2025
+      },
+      "courses": {
+        "compulsory": [
+          "地球学際研究演習::3",
+          "地球学演習A",
+          "地球学演習B",
+          "地球学際卒業研究::12",
+          "論文作成",
+          "地球と生命の進化",
+          "地球環境学入門",
+          "地球学基礎実験",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "外国語::4",
+          "情報::4",
+          "芸術::1"
+        ],
+        "compulsorySumUnit": 41.5,
+        "selectMinimumUnit": 82.5,
+        "enforceSelectMinimums": true,
+        "select": [
+          [
+            [],
+            6,
+            19,
+            false,
+            "地球環境学・地球進化学野外実験",
+            0,
+            {
+              "includeCourseNames": [
+                "地球環境学野外実験I",
+                "地球環境学野外実験II",
+                "地球環境学野外実験III",
+                "地球環境学野外実験IV",
+                "地球環境学野外実験V",
+                "地球環境学野外実験VI",
+                "地球進化学野外実験A",
+                "地球進化学野外実験B",
+                "地球進化学野外実験C",
+                "地球進化学野外実験D",
+                "地球進化学野外実験E",
+                "地球進化学野外実験F"
+              ]
+            }
+          ],
+          [
+            [
+              "EG6",
+              "EG9",
+              "EB5",
+              "EB6",
+              "EB7",
+              "EB8",
+              "EC2",
+              "EC3",
+              "EC4",
+              "EE2",
+              "EE3"
+            ],
+            41,
+            55,
+            false,
+            "その他専門（EG9内数11）",
+            0,
+            {
+              "excludeCodes": [
+                "EG02",
+                "EG5",
+                "EE1",
+                "EB11251",
+                "EB11151",
+                "EB11351",
+                "EB11651",
+                "EB11751",
+                "EB11851"
+              ],
+              "excludeCourseNames": [
+                "地球環境学野外実験I",
+                "地球環境学野外実験II",
+                "地球環境学野外実験III",
+                "地球環境学野外実験IV",
+                "地球環境学野外実験V",
+                "地球環境学野外実験VI",
+                "地球進化学野外実験A",
+                "地球進化学野外実験B",
+                "地球進化学野外実験C",
+                "地球進化学野外実験D",
+                "地球進化学野外実験E",
+                "地球進化学野外実験F"
+              ],
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "EG9"
+                  ],
+                  "minimum": 11,
+                  "label": "野外実験を除くEG9"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "EG02",
+              "EG5",
+              "EE1",
+              "EB11251",
+              "EB11151",
+              "EB11351",
+              "EB11651",
+              "EB11751",
+              "EB11851"
+            ],
+            11.5,
+            25.5,
+            false,
+            "学際専門基礎科目",
+            1
+          ],
+          [
+            [
+              "*総合科目"
+            ],
+            1,
+            1,
+            false,
+            "必修を除く総合科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*芸術",
+              "*外国語"
+            ],
+            0,
+            15,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "EA",
+              "EB",
+              "EC",
+              "EE",
+              "EG",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            9,
+            23,
+            true,
+            "関連科目",
+            3
+          ]
+        ],
+        "groups": [
+          [
+            0,
+            47,
+            61,
+            "専門科目選択"
+          ],
+          [
+            1,
+            11.5,
+            25.5,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            15,
+            "共通科目選択"
+          ],
+          [
+            3,
+            9,
+            23,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

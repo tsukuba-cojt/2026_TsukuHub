@@ -1,0 +1,199 @@
+{
+  "schemaVersion": "annual-rule-review-1.0.0",
+  "defaultStatus": "needs_review",
+  "defaultBlockingIssue": "年度別公式表の全行・注記に対する証拠表の確認が完了していない",
+  "reviews": {
+    "disability/disability/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-016"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "CEの短期留学生対象科目一覧、2022指定科目名・番号と関連補集合の解釈、第一・第二外国語・必修超過配分・二重開設、独立レビューが未完了"
+      ]
+    },
+    "psychology/psychology/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-015"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "第一・第二外国語と留学生特例、必修超過の配分・二重開設、2022科目番号と旧CSV表記、独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-philosophy/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、2022カタログ・旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-history/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、2022カタログ・旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-archaeology/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、2022カタログ・旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "humanities/humanities-linguistics/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、2022カタログ・旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "bioresources/bioresources/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-003"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "bioresources/bioresources-interdisciplinary/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-004"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "biology/biology/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-002"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "実験・実習の固定分類表の独立承認、2022カタログ、旧コース指定・他学類専門指定、関連小区分・横断上限・言語属性の対応が未完了"
+      ]
+    },
+    "art/art-studies/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・2022科目番号と独立レビューが未完了"
+      ]
+    },
+    "art/japanese-art/2022": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-012"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "芸術基礎演習の読み替え、日本芸術のインターンシップ・Japan-Expert指定一覧、言語選択・必修超過配分・2022科目番号と独立レビューが未完了"
+      ]
+    },
+    "nursing/nursing/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "関連選択のAB61〜63・AC65対応と履修前提の独立レビューが未完了"
+      ]
+    },
+    "nursing/public-health-nursing/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-009"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "保健師科目、関連選択のAB61〜63・AC65対応、履修前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/medical-science/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "全必修行、専門選択表、学類長指定科目、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "medical-science/international-medical-science/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-010"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "主専攻必修名、専門・専門基礎選択群、国際研修名称、臨床実習前提の独立レビューが未完了"
+      ]
+    },
+    "physical-education/physical-education/2022": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-011"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2022"
+      ],
+      "blockingIssues": [
+        "科目群下限、関連欄の内訳、古い成績CSV名称の独立レビューが未完了"
+      ]
+    }
+  }
+}

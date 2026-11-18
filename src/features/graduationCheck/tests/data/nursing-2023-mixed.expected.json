@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "nursing-22",
@@ -21,18 +21,18 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 8,
-      "prospectiveUnits": 8,
-      "shortageUnits": 116,
-      "prospectiveShortageUnits": 116,
+      "earnedUnits": 12,
+      "prospectiveUnits": 13,
+      "shortageUnits": 112,
+      "prospectiveShortageUnits": 111,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 118,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 0,
@@ -51,30 +51,50 @@
       },
       "related": {
         "requiredUnits": 4,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 4,
+        "prospectiveUnits": 4
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 2.9379310344827587,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 29,
+      "aRatePercent": 52
+    },
+    "compulsoryPassed": {
+      "基礎看護学概論": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "HE00901": "specializedFoundation",
       "HE00902": "specializedFoundation",
       "HE00903": "specializedFoundation",
       "HE00904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "基礎看護学概論": true
+      "": "uncounted",
+      "HC22151": "related",
+      "HC22231": "uncounted",
+      "HC22241": "related",
+      "HC22251": "related",
+      "HC30171": "related",
+      "HC30183": "related",
+      "HC30193": "related",
+      "HC31111": "related",
+      "HC32083": "related",
+      "HC32093": "related",
+      "HC33011": "related",
+      "HC33023": "related",
+      "HC33051": "related",
+      "HC34001": "related",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

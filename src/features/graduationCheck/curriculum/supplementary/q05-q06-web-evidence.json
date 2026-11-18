@@ -1,0 +1,464 @@
+{
+  "schemaVersion": "supplementary-web-evidence-1.0.0",
+  "retrievedAt": "2026-10-28",
+  "purpose": "Q05/Q06の公開資料調査。候補照合と正式な卒業要件指定、開講年度と入学年度を区別する。",
+  "sources": [
+    {
+      "documentId": "tsukuba-je-common-list-retrieved-20261028",
+      "fileName": "JapanExpert_共通科目表_取得20261028.pdf",
+      "kind": "other",
+      "pageCount": 1,
+      "sha256": "4e641c943dded7f7ba9c5dd699b805f9c926f97be2aff9a95d6714bc41204c00",
+      "sourceUrl": "https://jp-ex.tsukuba.ac.jp/jp/wp-content/uploads/2025/05/8c8616d34792571af67a0dd107015d9d.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "適用入学年度・改訂日は本文に明記なし。2025/05はURLの年月で、適用年度の証明ではない。"
+    },
+    {
+      "documentId": "tsukuba-je-art-model-retrieved-20261028",
+      "fileName": "日本芸術_カリキュラムモデル_取得20261028.pdf",
+      "kind": "other",
+      "pageCount": 1,
+      "sha256": "4f72f4253ef5ba2cb9cebf4cee56a553f4efb1a4aa3c17b320f46d54387098ff",
+      "sourceUrl": "https://jp-ex.tsukuba.ac.jp/jp/wp-content/uploads/2025/04/e3362df8f8abe3b2f638f84f44f98bac.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "ビジュアルデザイン領域の履修例。卒業要件表・年度別指定一覧の代用にしない。"
+    },
+    {
+      "documentId": "tsukuba-humanities-guide-2023",
+      "fileName": "人文_履修の手引2023.pdf",
+      "kind": "other",
+      "pageCount": 46,
+      "sha256": "82056393a931c99491ddf3d699008ae27fa2b86afa94f374a2084d07cfadca94",
+      "sourceUrl": "https://www.jinbun.tsukuba.ac.jp/wp-content/uploads/sites/2/2026/07/2023-guide.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "2023年度入学者用。URLの2026/07と対象入学年度を区別。変更はTWINS掲示で確認する。",
+      "editionYear": 2023
+    },
+    {
+      "documentId": "tsukuba-humanities-guide-2024",
+      "fileName": "人文_履修の手引2024.pdf",
+      "kind": "other",
+      "pageCount": 46,
+      "sha256": "eb1be25a13eea9bbedf774e87f0658fbdc59d003350235fa0f8dfa420b9acf44",
+      "sourceUrl": "https://www.jinbun.tsukuba.ac.jp/wp-content/uploads/sites/2/2026/07/2024-guide.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "2024年度入学者用。URLの2026/07と対象入学年度を区別。変更はTWINS掲示で確認する。",
+      "editionYear": 2024
+    },
+    {
+      "documentId": "tsukuba-humanities-guide-2025",
+      "fileName": "人文_履修の手引2025.pdf",
+      "kind": "other",
+      "pageCount": 46,
+      "sha256": "5e00259ec815ee11354a4b4a6a156e0390664cd279f26a1914942c58e724f0e2",
+      "sourceUrl": "https://www.jinbun.tsukuba.ac.jp/wp-content/uploads/sites/2/2026/07/2025-guide.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "2025年度入学者用。URLの2026/07と対象入学年度を区別。変更はTWINS掲示で確認する。",
+      "editionYear": 2025
+    },
+    {
+      "documentId": "tsukuba-humanities-guide-2026",
+      "fileName": "人文_履修の手引2026.pdf",
+      "kind": "other",
+      "pageCount": 46,
+      "sha256": "dc1fc3922ffaea330803beb61283b9c43754d265dea2847626a41b06c9204929",
+      "sourceUrl": "https://www.jinbun.tsukuba.ac.jp/wp-content/uploads/sites/2/2026/07/2026-guide.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "2026年度入学者用。URLの2026/07と対象入学年度を区別。変更はTWINS掲示で確認する。",
+      "editionYear": 2026
+    },
+    {
+      "documentId": "tsukuba-social-guide-2024",
+      "fileName": "社会_履修の手引2024.pdf",
+      "kind": "other",
+      "pageCount": 37,
+      "sha256": "a883cf0b754eb81ef4c1b1a025f87328a07a0c134575b90a53b927cf0f4c50a0",
+      "sourceUrl": "https://shakai.tsukuba.ac.jp/wp-content/uploads/sites/42/2024/03/23c5ce02a8d0d095da9962b95327fdab.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "PDF33頁の経済学履修ガイドはBC/FHを別途掲示指定としている。",
+      "editionYear": 2024
+    },
+    {
+      "documentId": "tsukuba-social-guide-2026",
+      "fileName": "社会_履修の手引2026.pdf",
+      "kind": "other",
+      "pageCount": 30,
+      "sha256": "ddd89f55bda8efc5019f5585be622189cea278e1f23df3a8887247ad60bb75d2",
+      "sourceUrl": "https://shakai.tsukuba.ac.jp/wp-content/uploads/sites/42/2026/03/c68447558683da2c96b9519bb57a1934.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "PDF27頁でもBC/FHを別途掲示指定。全番号一覧は本冊子では確定しない。",
+      "editionYear": 2026
+    },
+    {
+      "documentId": "tsukuba-international-guide-2026",
+      "fileName": "国際総合_履修ガイド2026.pdf",
+      "kind": "other",
+      "pageCount": 36,
+      "sha256": "fb13e9327eeae0c406e0b5f10639e110ffe21229220b6e9b76c7e175f1e205f3",
+      "sourceUrl": "https://www.kokusai.tsukuba.ac.jp/curriculum/pdf/r08guide.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "開設区分・履修案内の補足。2023〜2025入学者への遡及適用は未確認。",
+      "editionYear": 2026
+    },
+    {
+      "documentId": "tsukuba-art-offered-courses-2025",
+      "fileName": "芸術_開設授業科目2025.pdf",
+      "kind": "other",
+      "pageCount": 31,
+      "sha256": "a0132e85f2e4b0e3a1021abfad2c9d7546108d18a19e6084e98bacfd8033bb8b",
+      "sourceUrl": "https://www.tsukuba.ac.jp/education/ug-courses-openclass/2025/pdf/art-design.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "開講年度の番号・名称・単位を確認する資料。適用入学年度の要件は別途卒業細則による。",
+      "editionYear": 2025
+    },
+    {
+      "documentId": "tsukuba-art-offered-courses-2026",
+      "fileName": "芸術_開設授業科目2026.pdf",
+      "kind": "other",
+      "pageCount": 34,
+      "sha256": "fae6ea4cd334274e317cc7130f1c3094218f0d6c00013cfee3a9a774b1679416",
+      "sourceUrl": "https://www.tsukuba.ac.jp/education/ug-courses-openclass/2026/pdf/art-design.pdf",
+      "retrievedAt": "2026-10-28",
+      "provenanceNote": "開講年度の番号・名称・単位を確認する資料。適用入学年度の要件は別途卒業細則による。",
+      "editionYear": 2026
+    }
+  ],
+  "japanExpertNonArtCandidates": [
+    {
+      "name": "共生のための日本語教育",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "AE56A21",
+            "name": "共生のための日本語教育",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "AE56A21",
+            "name": "共生のための日本語教育",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "AE56A21",
+            "name": "共生のための日本語教育",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "AE56A21",
+            "name": "共生のための日本語教育",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "共生のための人類学",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "AE56A31",
+            "name": "共生のための人類学",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "AE56A31",
+            "name": "共生のための人類学",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "AE56A31",
+            "name": "共生のための人類学",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "AE56A31",
+            "name": "共生のための人類学",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "共生のための歴史学",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "AE56A41",
+            "name": "共生のための歴史学",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "AE56A41",
+            "name": "共生のための歴史学",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "AE56A41",
+            "name": "共生のための歴史学",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "AE56A41",
+            "name": "共生のための歴史学",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "共生のための社会言語学",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "AE56A11",
+            "name": "共生のための社会言語学",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "AE56A11",
+            "name": "共生のための社会言語学",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "AE56A11",
+            "name": "共生のための社会言語学",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "AE56A11",
+            "name": "共生のための社会言語学",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "日本文学と文化",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "AE56A61",
+            "name": "日本文学と文化",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "AE56A61",
+            "name": "日本文学と文化",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "AE56A61",
+            "name": "日本文学と文化",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "AE56A61",
+            "name": "日本文学と文化",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "生物資源学にみる食品科学・技術の最前線",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "EC12201",
+            "name": "生物資源学にみる食品科学・技術の最前線",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "EC12201",
+            "name": "生物資源学にみる食品科学・技術の最前線",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "EC12201",
+            "name": "生物資源学にみる食品科学・技術の最前線",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "EC12201",
+            "name": "生物資源学にみる食品科学・技術の最前線",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "生物資源の開発・生産と持続利用",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "EC12301",
+            "name": "生物資源の開発・生産と持続利用",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "EC12301",
+            "name": "生物資源の開発・生産と持続利用",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "EC12301",
+            "name": "生物資源の開発・生産と持続利用",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "EC12301",
+            "name": "生物資源の開発・生産と持続利用",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "生物資源としての遺伝子とゲノム",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "EC12501",
+            "name": "生物資源としての遺伝子とゲノム",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "EC12501",
+            "name": "生物資源としての遺伝子とゲノム",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "EC12501",
+            "name": "生物資源としての遺伝子とゲノム",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "EC12501",
+            "name": "生物資源としての遺伝子とゲノム",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "生物資源と環境",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "EC12401",
+            "name": "生物資源と環境",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "EC12401",
+            "name": "生物資源と環境",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "EC12401",
+            "name": "生物資源と環境",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "EC12401",
+            "name": "生物資源と環境",
+            "credits": "1.0"
+          }
+        ]
+      }
+    },
+    {
+      "name": "看護生命倫理",
+      "catalogCandidates": {
+        "2023": [
+          {
+            "code": "HC30071",
+            "name": "看護生命倫理",
+            "credits": "1.0"
+          }
+        ],
+        "2024": [
+          {
+            "code": "HC30071",
+            "name": "看護生命倫理",
+            "credits": "1.0"
+          }
+        ],
+        "2025": [
+          {
+            "code": "HC30071",
+            "name": "看護生命倫理",
+            "credits": "1.0"
+          }
+        ],
+        "2026": [
+          {
+            "code": "HC30071",
+            "name": "看護生命倫理",
+            "credits": "1.0"
+          }
+        ]
+      }
+    }
+  ],
+  "unresolved": [
+    "JE共通科目表の2023〜2026年度入学者への適用履歴",
+    "障害科学CE00011の年度別除外適用と網羅性",
+    "人文コース表の年度別番号照合と変更掲示",
+    "社会経済BC/FH別途掲示一覧"
+  ]
+}

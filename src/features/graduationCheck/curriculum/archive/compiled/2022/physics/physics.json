@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "physics",
+    "label": "物理学類"
+  },
+  "major": {
+    "key": "physics",
+    "label": "物理学"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "physics/physics/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "physics",
+      "label": "物理学類"
+    },
+    "major": {
+      "key": "physics",
+      "label": "物理学"
+    },
+    "requirementId": "physics-22",
+    "ruleSemanticSha256": "094e37175432af47bc759be20045db4c997924fabc390bc4f556b129db90c7da",
+    "snapshotSha256": "1ebaba756810bc4a31acb7d56525538940c7947b1e824065f7649d490127420a",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "物理学類",
+        "major": "物理学",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "物理学実験I",
+          "物理学実験II",
+          "卒業研究",
+          "物理学入門",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 33,
+        "select": [
+          [
+            [],
+            5,
+            11,
+            false,
+            "量子力学",
+            0,
+            {
+              "includeCourseNames": [
+                "量子力学序論",
+                "量子力学I",
+                "量子力学II",
+                "量子力学III"
+              ]
+            }
+          ],
+          [
+            [],
+            5,
+            8,
+            false,
+            "熱・統計力学",
+            0,
+            {
+              "includeCourseNames": [
+                "熱物理学",
+                "統計力学I",
+                "統計力学II"
+              ]
+            }
+          ],
+          [
+            [],
+            2,
+            6,
+            false,
+            "専門電磁気学",
+            0,
+            {
+              "includeCourseNames": [
+                "専門電磁気学I",
+                "専門電磁気学II",
+                "専門電磁気学III"
+              ]
+            }
+          ],
+          [
+            [
+              "FCC2",
+              "FCC3",
+              "FCC4"
+            ],
+            23,
+            47,
+            false,
+            "FCC2〜FCC4",
+            0
+          ],
+          [
+            [],
+            5,
+            7,
+            false,
+            "物理基礎",
+            1,
+            {
+              "includeCourseNames": [
+                "力学1",
+                "力学2",
+                "力学3",
+                "電磁気学1",
+                "電磁気学2",
+                "電磁気学3",
+                "物理学概論"
+              ]
+            }
+          ],
+          [
+            [],
+            4,
+            8,
+            false,
+            "数学基礎",
+            1,
+            {
+              "includeCourseNames": [
+                "微積分1",
+                "微積分2",
+                "微分積分A",
+                "微積分3",
+                "線形代数1",
+                "線形代数2",
+                "線形代数A",
+                "線形代数3",
+                "数学リテラシー1",
+                "数学リテラシー2"
+              ]
+            }
+          ],
+          [
+            [
+              "FA",
+              "FB",
+              "FC",
+              "FE",
+              "EE"
+            ],
+            16,
+            34,
+            false,
+            "理工系基礎",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            6,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            18,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C"
+            ],
+            6,
+            8,
+            false,
+            "A・B・Cで始まる科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C",
+              "FA",
+              "FB",
+              "FC",
+              "FE",
+              "EE",
+              "*総合科目",
+              "*教職に関する科目"
+            ],
+            0,
+            18,
+            true,
+            "その他の関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 91,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            35,
+            59,
+            "専門科目選択"
+          ],
+          [
+            1,
+            25,
+            49,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            24,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            24,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

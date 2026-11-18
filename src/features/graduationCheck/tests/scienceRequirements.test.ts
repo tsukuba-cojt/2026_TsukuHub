@@ -3,6 +3,54 @@ import { checkGraduation } from "../checkGraduation";
 import type { RequirementId } from "../types";
 import { course } from "./helpers";
 
+describe("数学類・物理学類の卒業要件", () => {
+  test("数学類は公式表の区分下限と選択科目全体92単位を別々に保持する", () => {
+    const report = checkGraduation([], "math-22");
+
+    expect(report.requirement).toMatchObject({
+      department: "数学類",
+      major: "数学",
+      enrollYear: "2022~2026",
+    });
+
+    expect(report.categories.map((category) => category.requiredUnits)).toEqual([
+      32,
+      46,
+      15,
+      1,
+      6,
+    ]);
+    expect(report.summary.requiredUnits).toBe(124);
+    expect(
+      report.details.requirementItems
+        .filter((item) => item.kind === "select")
+        .map((item) => item.minimumUnits),
+    ).toEqual([46, 15, 1, 0, 6]);
+  });
+
+  test.each([
+    ["physics-24", [5, 5, 2]],
+    ["physics-25", [6, 5, 2]],
+  ] satisfies [RequirementId, number[]][])(
+    "%s は公式表の区分下限と専門小区分を保持する",
+    (requirementId, specializedMinimums) => {
+      const report = checkGraduation([], requirementId);
+
+      expect(report.categories.map((category) => category.requiredUnits)).toEqual([
+        33,
+        35,
+        25,
+        1,
+        6,
+      ]);
+      expect(report.summary.requiredUnits).toBe(124);
+      expect(
+        report.details.selectResults[0].minimumIncludedResults?.map((item) => item.minimum),
+      ).toEqual(specializedMinimums);
+    },
+  );
+});
+
 describe("化学類の卒業要件", () => {
   test.each([
     ["chem-22", 43, 81, [43, 41, 17, 1, 9]],
@@ -21,10 +69,10 @@ describe("化学類の卒業要件", () => {
     }
   );
 
-  test("2025年度の化学基礎セミナーは専門ではなく専門基礎へ数える", () => {
+  test("2026年度の化学基礎セミナーは専門ではなく専門基礎へ数える", () => {
     const report = checkGraduation(
-      [course("FE12001", "化学基礎セミナー", 1)],
-      "chem-25"
+      [course("FE11012", "化学基礎セミナー", 1)],
+      "chem-26"
     );
     const [, specialized, foundation] = report.categories;
 

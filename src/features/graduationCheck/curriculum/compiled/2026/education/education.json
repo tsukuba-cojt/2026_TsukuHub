@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "education",
+    "label": "教育学類"
+  },
+  "major": {
+    "key": "education",
+    "label": "教育学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "education/education/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "education",
+      "label": "教育学類"
+    },
+    "major": {
+      "key": "education",
+      "label": "教育学主専攻"
+    },
+    "requirementId": "education-23",
+    "ruleSemanticSha256": "e2cdddbd0dfac392fc5eeaa26211deaa9bf4ed46e44a1ba7a295d9ebe11a9b99",
+    "snapshotSha256": "7d15d6ed85362adcd623ca80d4fee9b06c434d535a3ea33789fd75f30f5cf8f2",
+    "review": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-005"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済みの末尾2内数条件とCC・CE専門分類について独立した人手レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "教育学類",
+        "major": "教育学主専攻",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "卒業研究",
+          "人間学I",
+          "教育基礎論",
+          "学校の経営・制度・社会",
+          "心理学概論",
+          "障害科学::2//['障害科学I', '障害科学II']",
+          "キャリアデザイン入門",
+          "教育学研究法A",
+          "教育学研究法B",
+          "教育インターンシップ基礎論",
+          "教育インターンシップ実践演習",
+          "教育学実践演習",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::7",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 38,
+        "select": [
+          [
+            [
+              "CB2"
+            ],
+            42,
+            79,
+            false,
+            "教育学類の専門科目",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "courseIdSuffixes": [
+                    "2"
+                  ],
+                  "minimum": 4,
+                  "label": "演習・探究科目（科目番号末尾2、内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "CC",
+              "CE"
+            ],
+            0,
+            37,
+            false,
+            "心理学類・障害科学類の専門科目",
+            0
+          ],
+          [
+            [
+              "CA",
+              "CB1"
+            ],
+            0,
+            20,
+            false,
+            "人間学群コア・学類共通科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            38,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            38,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "A",
+              "B",
+              "E",
+              "F",
+              "G",
+              "H",
+              "V",
+              "W",
+              "Y"
+            ],
+            6,
+            43,
+            false,
+            "他学群が開設する関連科目",
+            3
+          ],
+          [
+            [
+              "*自由科目特設",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            0,
+            43,
+            false,
+            "特設自由・教職・博物館科目",
+            3,
+            {
+              "excludeCourseNames": []
+            }
+          ]
+        ],
+        "selectMinimumUnit": 86,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            42,
+            79,
+            "専門科目選択"
+          ],
+          [
+            1,
+            0,
+            20,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            38,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            43,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

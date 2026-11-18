@@ -79,6 +79,26 @@ for (const academicYear of ACADEMIC_YEARS) {
     throw new Error(`${inputPath}の年度・出典情報が一致しません。`);
   }
   const groups = buildGroups(catalog.courses ?? []);
+  const bioresourcesNames = JSON.parse(await readFile(resolve(scriptDirectory,
+    "../features/graduationCheck/data/bioresourcesFoundationCourses.json"), "utf8"));
+  const foundationNameSet = new Set([...bioresourcesNames.introductions, ...bioresourcesNames.foundation]);
+  // EB15〜EB99のみ。授業方法3/6だけでは実験・実習を区別できないため、
+  // 固定カタログの科目名も併用する。不整合・名称だけでは特定できない科目はnull。
+  const instructionMethods = Object.fromEntries((catalog.courses ?? [])
+    .filter((course) => /^EB(?:1[5-9]|[2-9])/.test(course.course_number) || /^EC[23]/.test(course.course_number) || foundationNameSet.has(course.course_name))
+    .map((course) => {
+      const method = String(course.method ?? "").trim();
+      const name = course.course_name.normalize("NFKC");
+      let classification = null;
+      if (["3", "6"].includes(method)) {
+        if (name.includes("実習")) classification = "practicum";
+        else if (name.includes("実験")) classification = "experiment";
+      } else if (["1", "2", "4"].includes(method) && !/実験|実習/.test(name)) {
+        classification = /^EB(?:1[5-9]|[2-9])/.test(course.course_number)
+          ? "other" : method === "1" ? "lecture" : method === "2" ? "seminar" : null;
+      }
+      return [course.course_number, classification];
+    }));
   const payload = {
     schema_version: "graduation-cross-listings-1.0.0",
     university: UNIVERSITY,
@@ -87,6 +107,11 @@ for (const academicYear of ACADEMIC_YEARS) {
     source_sha256: catalog.source_sha256,
     source_url: catalog.source_url,
     repository_commit: catalog.repository_commit,
+    instruction_method_policy: "biology-name-and-method-v1",
+    instruction_methods: instructionMethods,
+    bioresources_method_policy: "bioresources-name-and-method-v1",
+    bioresources_core_courses: (catalog.courses ?? []).filter((course) =>
+      /^EC2/.test(course.course_number) && /基幹科目/.test(course.remarks ?? "")).map((course) => course.course_number).sort(),
     groups,
   };
   const outputPath = resolve(

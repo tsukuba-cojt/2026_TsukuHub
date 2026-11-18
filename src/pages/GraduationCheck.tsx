@@ -153,7 +153,7 @@ function GraduationCheck() {
       const report = await checkGraduationWithCatalog(
         courses,
         requirementId,
-        university?.slug ?? "tsukuba"
+        university?.slug ?? "tsukuba",
       );
       const departmentLabel = department?.label ?? "";
       const majorLabel = major?.label ?? departmentLabel;
@@ -231,7 +231,7 @@ function GraduationCheck() {
             <span className="gradCheckBetaBadge">β版</span>
           </h1>
           <p className="gradCheckLead">
-            TWINSの成績csvをアップロードすると、卒業要件の充足状況を確認できます
+            TWINSの成績csvをアップロードすると、5分類ごとの単位取得状況を確認できます
           </p>
         </div>
 

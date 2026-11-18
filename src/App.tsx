@@ -27,6 +27,8 @@ import CircleReviewList from "./pages/CircleReviewList";
 import CircleReviewForm from "./pages/CircleReviewForm";
 import CircleEdit from "./pages/CircleEdit";
 import GraduationCheck from "./pages/GraduationCheck";
+import GraduationCheckTest from "./pages/GraduationCheckTest";
+import { graduationCheckTestEnabled } from "./features/graduationCheck/testMode";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
 import TimetableShare from "./pages/TimetableShare";
@@ -175,7 +177,7 @@ function App() {
                 <Route path="class/:courseCode/review" element={<ClassReviewForm />} />
               </Route>
               <Route element={<FeatureGate feature="graduation_checker" />}>
-                <Route path="graduation-checker" element={<GraduationCheck />} />
+                <Route path="graduation-checker" element={graduationCheckTestEnabled ? <GraduationCheckTest /> : <GraduationCheck />} />
                 <Route path="graduation-checker/result" element={<GraduationCheckResult />} />
               </Route>
               <Route element={<FeatureGate feature="timetable" />}>

@@ -6,6 +6,73 @@ import type { RequirementId } from "../types";
 import { course } from "./helpers";
 
 describe("2024年度公式要件の基準値", () => {
+  test.each([
+    ["esys-ies-22", "知的・機能工学システム", [6, 1, 1, 16]],
+    ["esys-eme-22", "エネルギー・メカニクス", [1, 1, 1, 23]],
+  ] as const)(
+    "工学システム学類 %s の区分合計と専門小区分を保持する",
+    (requirementId, major, specializedMinimums) => {
+      const requirement = gradRequirementData[requirementId];
+      const report = checkGraduation([], requirementId);
+
+      expect(requirement.header).toMatchObject({
+        department: "工学システム学類",
+        major,
+        enrollYear: "2022~2026",
+      });
+      expect(requirement.courses.compulsorySumUnit).toBe(69);
+      expect(requirement.courses.selectMinimumUnit).toBe(56);
+      expect(requirement.courses.groups).toEqual([
+        [0, 40, 49, "専門科目選択"],
+        [1, 0, 0, "専門基礎科目選択"],
+        [2, 1, 10, "共通科目選択"],
+        [3, 6, 15, "関連科目選択"],
+      ]);
+      expect(report.categories.map((category) => category.requiredUnits)).toEqual([
+        69,
+        40,
+        0,
+        1,
+        6,
+      ]);
+      expect(report.summary.requiredUnits).toBe(125);
+      expect(
+        report.details.requirementItems
+          .filter((item) => item.category === "specialized")
+          .slice(0, 4)
+          .map((item) => item.minimumUnits),
+      ).toEqual(specializedMinimums);
+    },
+  );
+
+  test.each(["esys-ies-22", "esys-eme-22"] as const)(
+    "工学システム学類 %s は代表科目と卒業要件外科目を正しく分ける",
+    (requirementId) => {
+      const common = course("1226011", "学士基盤科目", 1, "A");
+      const related = course("GE00001", "他学類の授業科目", 2, "A");
+      const excludedByNote9 = course("FBA1461", "関連科目に含めない科目", 1, "A");
+      const explicitlyExcluded = course(
+        "FA45124",
+        "解析学(微積分)基礎",
+        1,
+        "P",
+      );
+
+      const report = checkGraduation(
+        [common, related, excludedByNote9, explicitlyExcluded],
+        requirementId,
+      );
+      const categories = collectCategoryCourses(report);
+
+      expect(categories.common).toContain(common);
+      expect(categories.related).toContain(related);
+      expect(report.details.uncountedCourses).toEqual([
+        excludedByNote9,
+        explicitlyExcluded,
+      ]);
+    },
+  );
+
   test("情報メディア創成学類の区分別単位数を保持する", () => {
     const requirement = gradRequirementData["mast-22"];
 

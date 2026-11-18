@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "klis",
+    "label": "知識情報・図書館学類"
+  },
+  "major": {
+    "key": "klis-kis",
+    "label": "知識情報システム主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "klis/klis-kis/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "klis",
+      "label": "知識情報・図書館学類"
+    },
+    "major": {
+      "key": "klis-kis",
+      "label": "知識情報システム主専攻"
+    },
+    "requirementId": "klis-kis-26",
+    "ruleSemanticSha256": "db0d712a4e483caee9488735025ec8fe121111aa686bfad2b6792179ae6a528f",
+    "snapshotSha256": "42f36054f5da1b03459ea33a3d65da748c29eba77753632ec27345339d99013a",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-021"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "利用者指定で必修43・選択81を採用。卒業論文の正式番号、共通開設・同一授業・認定・言語・配分・移行者特例・履修開始時点・独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "知識情報・図書館学類",
+        "major": "知識情報システム",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "知識卒業研究A::3",
+          "知識卒業研究B::3",
+          "卒業論文（番号確認待ち）::2//[]",
+          "専門英語B-2::1//['専門英語B-2']",
+          "専門英語C-2::1//['専門英語C-2']",
+          "知識情報システム実習A::1//['知識情報システム実習A']",
+          "知識情報システム実習B::1//['知識情報システム実習B']",
+          "知識情報概論::1//['知識情報概論']",
+          "アカデミックスキルズ::1//['アカデミックスキルズ']",
+          "プログラミング入門B::1//['プログラミング入門B']",
+          "専門英語A1::1//['専門英語A1']",
+          "専門英語A2::1//['専門英語A2']",
+          "プログラミング入門A::2//['プログラミング入門A']",
+          "情報数学A::2//['情報数学A']",
+          "統計::2//['統計']",
+          "哲学::2//['哲学']",
+          "知識情報演習I::2",
+          "知識情報演習II::2",
+          "知識情報演習III::2",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "情報::4",
+          "体育::2",
+          "必修英語::4"
+        ],
+        "compulsorySumUnit": 43,
+        "selectMinimumUnit": 81,
+        "enforceSelectMinimums": true,
+        "select": [
+          [
+            [
+              "GE7"
+            ],
+            16,
+            44,
+            false,
+            "自主専攻科目",
+            0
+          ],
+          [
+            [
+              "GA4",
+              "GE4",
+              "GE6",
+              "GE8"
+            ],
+            8,
+            44,
+            false,
+            "その他指定専門科目",
+            0,
+            {
+              "excludeEquivalentCodes": [
+                "GE7"
+              ]
+            }
+          ],
+          [
+            [
+              "GA1",
+              "GE2",
+              "GE3"
+            ],
+            30,
+            50,
+            false,
+            "GA1, GE2, GE3",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            21,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            21,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "GB",
+              "GC"
+            ],
+            0,
+            26,
+            false,
+            "GB, GC",
+            3
+          ],
+          [
+            [
+              "GA",
+              "GB",
+              "GC",
+              "GE",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目"
+            ],
+            6,
+            26,
+            true,
+            "他学群の授業科目",
+            3
+          ]
+        ],
+        "groups": [
+          [
+            0,
+            24,
+            44,
+            "専門科目選択"
+          ],
+          [
+            1,
+            30,
+            50,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            21,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            26,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

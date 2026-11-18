@@ -10,6 +10,10 @@ Supabase Dashboard の SQL Editor で、`migrations` 内のSQLをファイル名
 
 最後のmigrationは、筑波大学・大阪大学、大学別機能、掲載対象、全体管理者許可リスト、大学別RLSを作成し、既存データを筑波大学へ移行します。
 
+誤分類報告の保存で `42501` が発生する場合は、既存の `class_miscategorized_report` テーブルに対して
+`migrations/20261113193000_class_miscategorized_report_insert_policy.sql` をSQL Editorで実行します。
+ログインユーザー本人の登録メールによるINSERTを許可します。
+
 ## Auth Hook
 
 本番では Supabase Dashboard の **Authentication → Hooks → Before User Created** に、Postgres関数 `public.hook_restrict_signup_by_university` を設定してください。クライアントから改ざんされた大学スラッグ、登録停止中の大学、許可外メールドメインをユーザー作成前に拒否します。

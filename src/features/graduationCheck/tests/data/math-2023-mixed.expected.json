@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 9,
+    "courseCount": 29,
     "csvErrors": [],
     "requirement": {
       "id": "math-22"
@@ -18,22 +18,22 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 34,
+      "prospectiveUnits": 41.5,
+      "shortageUnits": 90,
+      "prospectiveShortageUnits": 82.5,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
-        "earnedUnits": 4,
-        "prospectiveUnits": 4,
+        "earnedUnits": 7,
+        "prospectiveUnits": 8,
         "requiredUnits": 32
       },
       "specialized": {
-        "earnedUnits": 2,
-        "prospectiveUnits": 4,
+        "earnedUnits": 20,
+        "prospectiveUnits": 26.5,
         "requiredUnits": 46
       },
       "specializedFoundation": {
@@ -42,8 +42,8 @@
         "requiredUnits": 15
       },
       "common": {
-        "earnedUnits": 1,
-        "prospectiveUnits": 1,
+        "earnedUnits": 3,
+        "prospectiveUnits": 3,
         "requiredUnits": 1
       },
       "related": {
@@ -53,26 +53,46 @@
       }
     },
     "gpa": {
-      "value": 3.0461538461538464,
+      "value": 3.06986301369863,
       "max": 4.3,
-      "targetUnits": 13,
-      "aRatePercent": 63.63636363636363
-    },
-    "assignments": {
-      "FA00001": "compulsory",
-      "FA00002": "compulsory",
-      "FA00003": "compulsory",
-      "FB12001": "specialized",
-      "FB13001": "specialized",
-      "FBA0001": "specializedFoundation",
-      "1226011": "common",
-      "GC10001": "related",
-      "FB14001": "specialized"
+      "targetUnits": 36.5,
+      "aRatePercent": 53.03030303030303
     },
     "compulsoryPassed": {
       "微積分系": true,
       "線形代数系": true,
       "卒業研究": false
+    },
+    "assignments": {
+      "1226011": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
+      "FA00001": "compulsory",
+      "FA00002": "compulsory",
+      "FA00003": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "FB12001": "specialized",
+      "FB13001": "specialized",
+      "FBA0001": "specializedFoundation",
+      "GC10001": "related",
+      "FB14001": "specialized",
+      "FB12531": "specialized",
+      "FB12721": "specialized",
+      "FB12732": "specialized",
+      "FB12801": "specialized",
+      "FB12901": "specialized",
+      "FB12931": "specialized",
+      "FB13061": "specialized",
+      "FB13141": "specialized",
+      "FB13241": "specialized",
+      "FB13261": "specialized",
+      "FB13271": "specialized",
+      "FB13371": "specialized",
+      "FB13441": "specialized",
+      "FB13451": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

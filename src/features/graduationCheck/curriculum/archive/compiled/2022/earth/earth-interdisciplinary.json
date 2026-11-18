@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "earth",
+    "label": "地球学類"
+  },
+  "major": {
+    "key": "earth-interdisciplinary",
+    "label": "生命環境学際主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "earth/earth-interdisciplinary/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "earth",
+      "label": "地球学類"
+    },
+    "major": {
+      "key": "earth-interdisciplinary",
+      "label": "生命環境学際主専攻"
+    },
+    "requirementId": "earth-interdisciplinary-22",
+    "ruleSemanticSha256": "86781db15ed94733e659c99fa6c1fcbb6f07c93f00796416189116f05356ed34",
+    "snapshotSha256": "04e0b4f8888b1cc54bccf0a28ba48a6e4ce917dfc08f8792157f7148d14c4877",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "地球学類",
+        "major": "生命環境学際",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "研究演習A",
+          "研究演習B",
+          "地球科学演習A",
+          "地球科学演習B",
+          "卒業研究A",
+          "卒業研究B",
+          "論文作成",
+          "地球と生命の進化",
+          "地球環境学入門",
+          "地球学基礎実験",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "外国語::4",
+          "情報::4",
+          "芸術::1"
+        ],
+        "compulsorySumUnit": 43,
+        "select": [
+          [
+            [
+              "EG9",
+              "EC2",
+              "EC3",
+              "EC4",
+              "EB",
+              "EE"
+            ],
+            47,
+            69,
+            false,
+            "地球学専門科目",
+            0
+          ],
+          [
+            [
+              "EE1",
+              "EB11",
+              "EG02",
+              "EG5"
+            ],
+            10,
+            44,
+            false,
+            "地球学専門基礎科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            29,
+            false,
+            "共通科目",
+            2
+          ],
+          [
+            [
+              "EA",
+              "EB",
+              "EC",
+              "EE",
+              "EG",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            13,
+            34,
+            true,
+            "関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 81,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            47,
+            69,
+            "専門科目選択"
+          ],
+          [
+            1,
+            10,
+            44,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            29,
+            "共通科目選択"
+          ],
+          [
+            3,
+            13,
+            34,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

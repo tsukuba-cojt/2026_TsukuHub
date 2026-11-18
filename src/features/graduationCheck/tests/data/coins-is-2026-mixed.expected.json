@@ -5,7 +5,7 @@
     "admissionYear": 2026
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "coins-is-26",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 125,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 114,
-      "prospectiveShortageUnits": 112,
+      "earnedUnits": 35,
+      "prospectiveUnits": 41,
+      "shortageUnits": 90,
+      "prospectiveShortageUnits": 84,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 54,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 34,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 21,
+        "prospectiveUnits": 26
       },
       "specializedFoundation": {
         "requiredUnits": 26,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
       },
       "related": {
         "requiredUnits": 6,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0714285714285716,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 35,
+      "aRatePercent": 54.83870967741935
+    },
+    "compulsoryPassed": {
+      "情報システム実験A": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "GB30901": "specialized",
       "GB30902": "specialized",
       "GB30903": "specialized",
       "GB116904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "情報システム実験A": true
+      "": "uncounted",
+      "GB30504": "specialized",
+      "GB30601": "specialized",
+      "GB31201": "specialized",
+      "GB31401": "specialized",
+      "GB31611": "specialized",
+      "GB31901": "specialized",
+      "GB32201": "specialized",
+      "GB20201": "specialized",
+      "GB20301": "specialized",
+      "GB20401": "specialized",
+      "GB20601": "specialized",
+      "GB21201": "specialized",
+      "GB22011": "specialized",
+      "GB22621": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

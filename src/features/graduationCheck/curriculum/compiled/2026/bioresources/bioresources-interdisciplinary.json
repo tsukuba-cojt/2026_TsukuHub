@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "bioresources",
+    "label": "生物資源学類"
+  },
+  "major": {
+    "key": "bioresources-interdisciplinary",
+    "label": "生命環境学際主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "bioresources/bioresources-interdisciplinary/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "bioresources",
+      "label": "生物資源学類"
+    },
+    "major": {
+      "key": "bioresources-interdisciplinary",
+      "label": "生命環境学際主専攻"
+    },
+    "requirementId": "bioresources-interdisciplinary-25",
+    "ruleSemanticSha256": "8573c05469cffc650b3ab9e3e9f66c3af6fec5570172b1fe75384996e2b57e17",
+    "snapshotSha256": "8998811c132bcf879d7c7b304b1fc006b36d1f4d60beae0b8e7c5c256dc2a194",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-004"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "所属コース・授業形態・基幹対応表の独立承認、基幹上限と配分、旧CSVの読み替え、教職上限・言語・学類長指定・組合せ制限が未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "生物資源学類",
+        "major": "生命環境学際",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "研究演習I::2//['研究演習I', '研究演習Ⅰ']",
+          "研究演習II::2//['研究演習II', '研究演習Ⅱ']",
+          "生物資源卒業研究I::5//['卒業研究I', '卒業研究Ⅰ']",
+          "生物資源卒業研究II::5//['卒業研究II', '卒業研究Ⅱ']",
+          "生物資源科学演習",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "日本語::4",
+          "情報::4",
+          "芸術::1"
+        ],
+        "compulsorySumUnit": 28,
+        "selectMinimumUnit": 96,
+        "select": [
+          [
+            [
+              "EG02",
+              "EG5",
+              "EG7",
+              "EB11151",
+              "EB11351",
+              "EB11651",
+              "EB11751",
+              "EB11851",
+              "EB09113",
+              "BE21861"
+            ],
+            15,
+            28,
+            false,
+            "学際専門基礎科目",
+            1
+          ],
+          [
+            [
+              "EG6"
+            ],
+            25,
+            32,
+            false,
+            "EG6専門科目",
+            0
+          ],
+          [
+            [
+              "EG9",
+              "EC2",
+              "EC3",
+              "EC4",
+              "BB",
+              "EB",
+              "EE",
+              "FF",
+              "FH",
+              "BE22231"
+            ],
+            20,
+            27,
+            false,
+            "学際のその他専門科目",
+            0,
+            {
+              "excludeCodes": [
+                "EG02",
+                "EG5",
+                "EG7",
+                "EB11151",
+                "EB11351",
+                "EB11651",
+                "EB11751",
+                "EB11851",
+                "EB09113",
+                "BE21861"
+              ],
+              "excludeEquivalentCodes": [
+                "EG4",
+                "EG5",
+                "EG6",
+                "EG02",
+                "EG5",
+                "EG7",
+                "EB11151",
+                "EB11351",
+                "EB11651",
+                "EB11751",
+                "EB11851",
+                "EB09113",
+                "BE21861"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            3,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*芸術"
+            ],
+            0,
+            6,
+            false,
+            "その他の共通科目",
+            2,
+            {
+              "excludeCodes": [
+                "39"
+              ]
+            }
+          ],
+          [
+            [
+              "EC",
+              "EB",
+              "EE",
+              "EG",
+              "EZA",
+              "BB",
+              "FF",
+              "FH",
+              "1",
+              "2",
+              "3",
+              "4",
+              "6",
+              "BE21861",
+              "BE22231",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            13,
+            21,
+            true,
+            "関連科目",
+            3
+          ]
+        ],
+        "enforceSelectMinimums": true,
+        "aggregateRequirements": [
+          {
+            "group": 3,
+            "sourceGroups": [
+              2,
+              3
+            ],
+            "minimum": 22,
+            "label": "学際の共通・関連選択合計22単位"
+          }
+        ],
+        "groups": [
+          [
+            0,
+            45,
+            59,
+            "専門科目選択"
+          ],
+          [
+            1,
+            15,
+            28,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            9,
+            "共通科目選択"
+          ],
+          [
+            3,
+            13,
+            21,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

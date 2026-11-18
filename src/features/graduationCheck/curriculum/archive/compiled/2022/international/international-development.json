@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "international",
+    "label": "国際総合学類"
+  },
+  "major": {
+    "key": "international-development",
+    "label": "国際開発学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "international/international-development/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "international",
+      "label": "国際総合学類"
+    },
+    "major": {
+      "key": "international-development",
+      "label": "国際開発学主専攻"
+    },
+    "requirementId": "international-development-22",
+    "ruleSemanticSha256": "d6570810b3a4dd5fee9abf809859441a60f8ca250703b821ebff67b2676467c1",
+    "snapshotSha256": "ec928aef283ce237ae6b2d76af14d7e2efcf5d03a5f8d5e88a4c628a404ea1e3",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "国際総合学類",
+        "major": "国際開発学主専攻",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "卒業論文",
+          "国際学I",
+          "国際学II",
+          "国際学III",
+          "国際学IV",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 26,
+        "select": [
+          [
+            [
+              "BC11",
+              "BC12",
+              "BC16",
+              "BE22"
+            ],
+            32,
+            70,
+            false,
+            "国際専門科目（BC11・BC12・BC16・BE22）",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "BC12"
+                  ],
+                  "minimum": 14,
+                  "label": "国際開発学の指定専門科目（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "BC13"
+            ],
+            6,
+            9,
+            false,
+            "国際専門科目（BC13）",
+            0
+          ],
+          [
+            [
+              "BC15"
+            ],
+            0,
+            4,
+            false,
+            "国際専門科目（BC15）",
+            0
+          ],
+          [
+            [
+              "BC51",
+              "BE21"
+            ],
+            10,
+            28,
+            false,
+            "国際専門基礎科目（BC51・BE21）",
+            1
+          ],
+          [
+            [
+              "EDS",
+              "ED"
+            ],
+            4,
+            4,
+            false,
+            "英語による討論科目",
+            1
+          ],
+          [
+            [
+              "BB050",
+              "FH611",
+              "FG10641",
+              "GA12",
+              "BA92"
+            ],
+            0,
+            14,
+            false,
+            "その他の指定専門基礎科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            15,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            15,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "BA",
+              "*自由科目特設",
+              "*博物館に関する科目"
+            ],
+            0,
+            5,
+            false,
+            "社会・国際学群共通・特設自由・博物館科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "BB",
+              "C"
+            ],
+            3,
+            20,
+            false,
+            "A・BB・Cで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G",
+              "H",
+              "W",
+              "Y"
+            ],
+            3,
+            20,
+            false,
+            "E・F・G・H・W・Yで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "*教職に関する科目"
+            ],
+            0,
+            12,
+            false,
+            "教職に関する科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 100,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            38,
+            83,
+            "専門科目選択"
+          ],
+          [
+            1,
+            14,
+            46,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            15,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            35,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

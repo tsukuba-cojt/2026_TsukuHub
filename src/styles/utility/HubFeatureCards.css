@@ -1,0 +1,141 @@
+.hubFeatureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.hubFeatureCard {
+  --card-accent: #1578fd;
+  --card-accent-soft: #e9f2ff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 30px;
+  border: 1px solid rgba(148, 172, 209, 0.2);
+  border-top: 5px solid var(--card-accent);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hubFeatureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(109, 136, 180, 0.2);
+}
+
+.hubFeatureCard.isComingSoon {
+  opacity: 0.72;
+}
+
+.hubFeatureCard.isComingSoon:hover {
+  transform: none;
+  box-shadow: var(--shadow-card);
+}
+
+.hubFeatureCard.isBlue {
+  --card-accent: #1578fd;
+  --card-accent-soft: #e9f2ff;
+}
+
+.hubFeatureCard.isGreen {
+  --card-accent: #23b87b;
+  --card-accent-soft: #e6f8f1;
+}
+
+.hubFeatureCard.isYellow {
+  --card-accent: #e59a00;
+  --card-accent-soft: #fff4dc;
+}
+
+.hubFeatureCard.isPurple {
+  --card-accent: #7557e8;
+  --card-accent-soft: #f0edff;
+}
+
+.hubFeatureIcon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  place-items: center;
+  border-radius: 16px;
+  color: var(--card-accent);
+  background: var(--card-accent-soft);
+}
+
+.hubFeatureIcon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.hubFeatureTitle {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.4;
+}
+
+.hubFeatureDesc {
+  flex: 1;
+  margin: 10px 0 20px;
+  color: #40506d;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.hubFeatureBtn {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: var(--radius-btn);
+  color: #fff;
+  background: var(--card-accent);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hubFeatureBtn.isComingSoon {
+  color: #65758a;
+  background: #e8edf4;
+}
+
+.hubFeatureBtn.isComingSoon .comingSoonTip {
+  right: 50%;
+  bottom: calc(100% + 9px);
+  transform: translateX(50%);
+}
+
+.hubFeatureBtn.isComingSoon:hover .comingSoonTip,
+.hubFeatureBtn.isComingSoon:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hubFeatureBtn svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.2s ease;
+}
+
+.hubFeatureBtn:hover svg {
+  transform: translateX(3px);
+}
+
+@media (max-width: 900px) {
+  .hubFeatureGrid {
+    grid-template-columns: 1fr;
+  }
+}

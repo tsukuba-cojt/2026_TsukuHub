@@ -1,0 +1,230 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2024,
+  "department": {
+    "key": "humanities",
+    "label": "人文学類"
+  },
+  "major": {
+    "key": "humanities-philosophy",
+    "label": "哲学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "humanities/humanities-philosophy/2024",
+    "admissionYear": 2024,
+    "department": {
+      "key": "humanities",
+      "label": "人文学類"
+    },
+    "major": {
+      "key": "humanities-philosophy",
+      "label": "哲学主専攻"
+    },
+    "requirementId": "humanities-philosophy-24",
+    "ruleSemanticSha256": "99c9293d9c0444059acd44e3a2f5e707ba6f6fe1ae2f75689ad5a2f582188dec",
+    "snapshotSha256": "2b997b2827e692ae3efb0e6e52288790cb34725a153bfb93d655189ccf173433",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-013"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "学類長指定一覧、必修の同一領域組合せ、第一・第二外国語、専門基礎と余剰の配分、旧CSV表記と独立レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "人文学類",
+        "major": "哲学主専攻",
+        "enrollYear": 2024
+      },
+      "courses": {
+        "compulsory": [
+          "卒業論文（指定候補）::6//[\"卒業論文(哲学・倫理学)\",\"卒業論文（哲学・倫理学）\",\"卒業論文(宗教学)\",\"卒業論文（宗教学）\"]",
+          "研究-a（指定候補）::2//[\"哲学・倫理学研究-a\",\"宗教学研究-a\"]",
+          "研究-b（指定候補）::2//[\"哲学・倫理学研究-b\",\"宗教学研究-b\"]",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4",
+          "国語::2"
+        ],
+        "compulsorySumUnit": 28,
+        "selectMinimumUnit": 96,
+        "enforceSelectMinimums": true,
+        "select": [
+          [
+            [
+              "AB5",
+              "AB60",
+              "AC50"
+            ],
+            0,
+            15,
+            false,
+            "主専攻の専門基礎指定候補",
+            1
+          ],
+          [
+            [
+              "AB6",
+              "AB7",
+              "AB8",
+              "AB9",
+              "AC5",
+              "AC6",
+              "EE21",
+              "AB61",
+              "AB62",
+              "AB63",
+              "AC54",
+              "AC55"
+            ],
+            44,
+            78,
+            false,
+            "人文学の専門指定候補",
+            0,
+            {
+              "excludeCodes": [
+                "AB5",
+                "AB60",
+                "AC50"
+              ],
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "AB61",
+                    "AB62",
+                    "AB63",
+                    "AC54",
+                    "AC55"
+                  ],
+                  "minimum": 20,
+                  "label": "主専攻の専門指定候補（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            3,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*芸術"
+            ],
+            0,
+            14,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "AA2",
+              "AC",
+              "AE",
+              "B",
+              "Y"
+            ],
+            4,
+            32,
+            false,
+            "人文・文化学群等の指定関連科目",
+            3
+          ],
+          [
+            [
+              "C",
+              "E",
+              "F",
+              "G",
+              "H",
+              "W"
+            ],
+            2,
+            30,
+            false,
+            "他学群の指定関連科目",
+            3
+          ],
+          [
+            [
+              "8"
+            ],
+            0,
+            10,
+            false,
+            "特設自由科目",
+            3
+          ],
+          [
+            [
+              "*教職に関する科目"
+            ],
+            0,
+            10,
+            false,
+            "教職科目",
+            3
+          ],
+          [
+            [
+              "*博物館に関する科目"
+            ],
+            0,
+            10,
+            false,
+            "博物館科目",
+            3
+          ]
+        ],
+        "groups": [
+          [
+            0,
+            44,
+            78,
+            "専門科目選択"
+          ],
+          [
+            1,
+            11,
+            15,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            17,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            34,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

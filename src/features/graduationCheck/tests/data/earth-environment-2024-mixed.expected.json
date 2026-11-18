@@ -5,7 +5,7 @@
     "admissionYear": 2024
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "earth-environment-24",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 28,
+      "prospectiveUnits": 33,
+      "shortageUnits": 96,
+      "prospectiveShortageUnits": 91,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 28,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 45,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 14,
+        "prospectiveUnits": 18
       },
       "specializedFoundation": {
         "requiredUnits": 15,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0814814814814815,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 27,
+      "aRatePercent": 54.166666666666664
+    },
+    "compulsoryPassed": {
+      "卒業研究": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "EE20901": "specialized",
       "EE20902": "specialized",
       "EE20903": "specialized",
       "EE10904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "卒業研究": true
+      "": "uncounted",
+      "EE21401": "specialized",
+      "EE21411": "specialized",
+      "EE21691": "specialized",
+      "EE21751": "specialized",
+      "EE21761": "specialized",
+      "EE21791": "specialized",
+      "EE22113": "specialized",
+      "EE22131": "specialized",
+      "EE22221": "specialized",
+      "EE22223": "specialized",
+      "EE22351": "specialized",
+      "EE22353": "specialized",
+      "EE22401": "specialized",
+      "EE22411": "specialized"
     }
   }
 }

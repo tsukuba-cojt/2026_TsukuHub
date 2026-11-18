@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2024,
+  "department": {
+    "key": "biology",
+    "label": "生物学類"
+  },
+  "major": {
+    "key": "biology",
+    "label": "生物学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "biology/biology/2024",
+    "admissionYear": 2024,
+    "department": {
+      "key": "biology",
+      "label": "生物学類"
+    },
+    "major": {
+      "key": "biology",
+      "label": "生物学主専攻"
+    },
+    "requirementId": "biology-24",
+    "ruleSemanticSha256": "c5a6d33cfedbcf48b98dc5c5ef91f5e0f52b069895aaa9ea6dd8c250ad8dbf47",
+    "snapshotSha256": "f0ca9676f302be9459ef39789257a29fb88a5e815328c33e48c802b42b704fab",
+    "review": {
+      "status": "unsupported",
+      "humanReviewIds": [
+        "HR-002"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2024"
+      ],
+      "blockingIssues": [
+        "実験・実習の固定分類表の独立承認、旧コース指定・他学類専門指定、関連小区分・横断上限・言語属性の対応が未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "生物学類",
+        "major": "生物学",
+        "enrollYear": 2024
+      },
+      "courses": {
+        "compulsory": [
+          "専門語学(英語)BI",
+          "専門語学(英語)BII",
+          "専門語学(英語)BIII",
+          "科学コミュニケーション",
+          "専門語学(英語)DI",
+          "専門語学(英語)DII",
+          "専門語学(英語)DIII",
+          "生物学演習",
+          "生物学研究法",
+          "卒業研究",
+          "論文作成・プレゼンテーション",
+          "系統分類・進化学概論",
+          "分子細胞生物学概論",
+          "遺伝学概論",
+          "生態学概論",
+          "動物生理学概論",
+          "植物生理学概論",
+          "基礎生物学実験::3//['基礎生物学実験I', '基礎生物学実験II', '基礎生物学実験III']",
+          "専門語学(英語)AI",
+          "専門語学(英語)AII",
+          "クラスセミナー",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 40,
+        "select": [
+          [
+            [
+              "EB15",
+              "EB16",
+              "EB17",
+              "EB18",
+              "EB19",
+              "EB2",
+              "EB3",
+              "EB4",
+              "EB5",
+              "EB6",
+              "EB7",
+              "EB8",
+              "EB9"
+            ],
+            40,
+            62,
+            false,
+            "生物学専門科目",
+            0,
+            {
+              "maximumIncludedCourses": [
+                {
+                  "codes": [
+                    "EB169"
+                  ],
+                  "maximum": 1
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            5,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            28,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "EB",
+              "EC",
+              "EE",
+              "FA",
+              "FB",
+              "FC",
+              "FE",
+              "FF",
+              "FG",
+              "FJ",
+              "G",
+              "HB",
+              "HE",
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            21,
+            43,
+            true,
+            "関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 84,
+        "enforceSelectMinimums": true,
+        "courseCountRequirements": [
+          {
+            "label": "実験・実習4科目以上",
+            "group": 0,
+            "codes": [
+              "EB15",
+              "EB16",
+              "EB17",
+              "EB18",
+              "EB19",
+              "EB2",
+              "EB3",
+              "EB4",
+              "EB5",
+              "EB6",
+              "EB7",
+              "EB8",
+              "EB9"
+            ],
+            "instructionMethods": [
+              "experiment",
+              "practicum"
+            ],
+            "minimum": 4
+          },
+          {
+            "label": "実習1科目以上",
+            "group": 0,
+            "codes": [
+              "EB15",
+              "EB16",
+              "EB17",
+              "EB18",
+              "EB19",
+              "EB2",
+              "EB3",
+              "EB4",
+              "EB5",
+              "EB6",
+              "EB7",
+              "EB8",
+              "EB9"
+            ],
+            "instructionMethods": [
+              "practicum"
+            ],
+            "minimum": 1
+          }
+        ],
+        "groups": [
+          [
+            0,
+            40,
+            62,
+            "専門科目選択"
+          ],
+          [
+            1,
+            0,
+            0,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            29,
+            "共通科目選択"
+          ],
+          [
+            3,
+            21,
+            43,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -28,6 +28,16 @@ export type CreditConstraint = {
   displayText?: string;
 };
 
+/** 履修した科目の件数に対する制約。単位数とは独立して数える。 */
+export type CountConstraint = {
+  /** 固定値。指定時は minimum / maximum と併用しない */
+  exact?: number;
+  minimum?: number;
+  maximum?: number;
+  /** 公式資料上の表記。判定には使用しない */
+  displayText?: string;
+};
+
 export type SourceReference = {
   documentId: string;
   /** PDFファイル先頭を1としたページ番号。冊子に印刷されたページ番号とは別物。 */
@@ -113,6 +123,18 @@ export type SubjectMatcher =
     }
   | { type: "course_tag"; values: string[]; resolution?: MatcherResolution }
   | {
+      /** 講義・演習・実験・実習・実技など、固定科目カタログ由来の授業形態。 */
+      type: "instruction_method";
+      values: ("lecture" | "seminar" | "experiment" | "practicum" | "skills" | "other")[];
+      resolution?: MatcherResolution;
+    }
+  | {
+      /** 春AB・秋ABなど、固定科目カタログ由来の開講学期。 */
+      type: "term";
+      values: string[];
+      resolution?: MatcherResolution;
+    }
+  | {
       type: "offering_organization";
       operator: "inside" | "outside";
       schoolIds?: string[];
@@ -134,6 +156,12 @@ export type FulfillmentRule =
       type: "credits_from";
       matcher: SubjectMatcher;
       credits: CreditConstraint;
+    }
+  | {
+      /** matcher に該当し合格した科目の件数。単位数条件とは別に評価する。 */
+      type: "course_count_from";
+      matcher: SubjectMatcher;
+      count: CountConstraint;
     }
   | {
       type: "all_courses";
@@ -160,12 +188,26 @@ export type RequirementPlacement = {
   kind: RequirementKind;
 };
 
+/** 学生本人の選択内容により適用規則が分かれる場合の条件。 */
+export type StudentScope = {
+  dimensionId: string;
+  values: string[];
+};
+
+export type StudentContextDimension = {
+  id: string;
+  label: string;
+  required: boolean;
+  options: { value: string; label: string }[];
+};
+
 export type RequirementRule = {
   id: string;
   label: string;
   placement: RequirementPlacement;
   fulfillment: FulfillmentRule;
   applicability?: Partial<CurriculumApplicability>;
+  studentScope?: StudentScope;
   allocation?: {
     priority?: number;
     allowDoubleCounting?: boolean;
@@ -181,6 +223,7 @@ export type AggregateConstraint = {
   targetRequirementIds: string[];
   credits: CreditConstraint;
   applicability?: Partial<CurriculumApplicability>;
+  studentScope?: StudentScope;
   sourceRefs: SourceReference[];
 };
 
@@ -228,7 +271,13 @@ export type SourceCoverageItem = {
         /** Requirement / Aggregate / Equivalence / AdditionalConstraint のID。 */
         targetIds?: string[];
         /** applicabilityやtotalCreditsなど、IDを持たない項目への参照。 */
-        targetPaths?: ("applicability" | "totalCredits" | "allocationPolicy")[];
+        targetPaths?: (
+          | "applicability"
+          | "studentContextDimensions"
+          | "totalCredits"
+          | "allocationPolicy"
+          | "evaluationPolicy"
+        )[];
       }
     | {
         type: "not_applicable";
@@ -242,7 +291,8 @@ export type SourceCoverageItem = {
 };
 
 export type NormalizedCurriculum = {
-  schemaVersion: "normalized-curriculum-1.0.0";
+  /** 1.1.0 は科目数・授業形態・学期・学生属性条件を追加した後方互換版。 */
+  schemaVersion: "normalized-curriculum-1.0.0" | "normalized-curriculum-1.1.0";
   curriculumId: string;
   sourceDocuments: SourceDocument[];
   organization: {
@@ -255,6 +305,8 @@ export type NormalizedCurriculum = {
     programName: string | null;
   };
   applicability: CurriculumApplicability;
+  /** 分野・コース等、要件適用に必要な学生側の選択項目。 */
+  studentContextDimensions?: StudentContextDimension[];
   totalCredits: CreditConstraint;
   requirements: RequirementRule[];
   aggregateConstraints: AggregateConstraint[];
@@ -266,6 +318,11 @@ export type NormalizedCurriculum = {
     allowDoubleCounting: boolean;
     onMultipleMatch: "ambiguous" | "priority";
     onNoMatch: "unclassified";
+  };
+  /** 入力データだけで評価できない時に、誤って充足扱いしないための規約。 */
+  evaluationPolicy?: {
+    onMissingCatalogAttribute: "unknown";
+    onMissingStudentContext: "unknown";
   };
   notes: string[];
   review: {

@@ -1,0 +1,341 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2026,
+  "department": {
+    "key": "japanese-culture",
+    "label": "日本語・日本文化学類"
+  },
+  "major": {
+    "key": "japanese-culture",
+    "label": "日本語・日本文化主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "japanese-culture/japanese-culture/2026",
+    "admissionYear": 2026,
+    "department": {
+      "key": "japanese-culture",
+      "label": "日本語・日本文化学類"
+    },
+    "major": {
+      "key": "japanese-culture",
+      "label": "日本語・日本文化主専攻"
+    },
+    "requirementId": "japanese-culture-26",
+    "ruleSemanticSha256": "7ee924820a6062f568da5b310a7d0cda61e23d663120ce7ad9940869294210bd",
+    "snapshotSha256": "aa1f9018cc16eed02c7bed9d9958806b7283b81322f4dd22ef35132b199c4419",
+    "review": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-014"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2026"
+      ],
+      "blockingIssues": [
+        "実装済みの全行・AE14内数条件・年度差について独立した人手レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "日本語・日本文化学類",
+        "major": "日本語・日本文化主専攻",
+        "enrollYear": 2026
+      },
+      "courses": {
+        "compulsory": [
+          "卒業論文",
+          "日本語・日本文化研究法",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "外国語::8",
+          "情報::4",
+          "国語::2"
+        ],
+        "compulsorySumUnit": 26,
+        "select": [
+          [
+            [
+              "AE13",
+              "AE14"
+            ],
+            30,
+            55,
+            false,
+            "日本語・日本文化専門科目（AE13・AE14）",
+            0,
+            {
+              "minimumIncludedUnits": [
+                {
+                  "codes": [
+                    "AE14"
+                  ],
+                  "minimum": 1,
+                  "label": "AE14で始まる専門科目（内数）"
+                }
+              ]
+            }
+          ],
+          [
+            [
+              "AE10A"
+            ],
+            1,
+            1,
+            false,
+            "AE10A",
+            0
+          ],
+          [
+            [
+              "AE10B"
+            ],
+            3,
+            3,
+            false,
+            "AE10B",
+            0
+          ],
+          [
+            [
+              "AE10C"
+            ],
+            3,
+            3,
+            false,
+            "AE10C",
+            0
+          ],
+          [
+            [
+              "AE10D"
+            ],
+            3,
+            3,
+            false,
+            "AE10D",
+            0
+          ],
+          [
+            [
+              "AE10E"
+            ],
+            3,
+            3,
+            false,
+            "AE10E",
+            0
+          ],
+          [
+            [
+              "AB61",
+              "AB62",
+              "AB63",
+              "AB64",
+              "AB65",
+              "AB66",
+              "AB67",
+              "AB68",
+              "AB69",
+              "AB71",
+              "AB72",
+              "AB73",
+              "AB74",
+              "AB75",
+              "AB76",
+              "AB77",
+              "AB78",
+              "AB79",
+              "AB81",
+              "AB82",
+              "AB83",
+              "AB84",
+              "AB85",
+              "AB86",
+              "AB87",
+              "AB88",
+              "AB89",
+              "AB91",
+              "AB92",
+              "AB93",
+              "AB94",
+              "AB95",
+              "AB96",
+              "AB97",
+              "AB98",
+              "AB99",
+              "AC60",
+              "AC61",
+              "AC62",
+              "AC63",
+              "AC64",
+              "AC65",
+              "AC66",
+              "BB111",
+              "BB112",
+              "BB113",
+              "BB114",
+              "BB115",
+              "BB116",
+              "BB117",
+              "BB118",
+              "BB119",
+              "BB16",
+              "BB19"
+            ],
+            0,
+            20,
+            false,
+            "他学類開設の指定専門科目",
+            0
+          ],
+          [
+            [
+              "AE56"
+            ],
+            2,
+            2,
+            false,
+            "AE56",
+            1
+          ],
+          [
+            [
+              "AE53"
+            ],
+            3,
+            3,
+            false,
+            "AE53",
+            1
+          ],
+          [
+            [
+              "AE54"
+            ],
+            3,
+            3,
+            false,
+            "AE54",
+            1
+          ],
+          [
+            [
+              "AE5",
+              "AB50",
+              "AB60",
+              "AB70",
+              "AB80",
+              "AB90",
+              "AC50",
+              "AC56",
+              "BB110"
+            ],
+            6,
+            20,
+            false,
+            "指定専門基礎科目",
+            1
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            11,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            11,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C",
+              "W",
+              "Y"
+            ],
+            4,
+            32,
+            false,
+            "A・B・C・W・Yで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "E",
+              "F",
+              "G",
+              "H"
+            ],
+            2,
+            30,
+            false,
+            "E・F・G・Hで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "*自由科目特設",
+              "*教職に関する科目",
+              "*博物館に関する科目"
+            ],
+            0,
+            14,
+            false,
+            "8・9で始まる関連科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 98,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            43,
+            75,
+            "専門科目選択"
+          ],
+          [
+            1,
+            14,
+            28,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            11,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            34,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "international-relations-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 126,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 115,
-      "prospectiveShortageUnits": 113,
+      "earnedUnits": 41,
+      "prospectiveUnits": 48,
+      "shortageUnits": 85,
+      "prospectiveShortageUnits": 78,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 26,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 38,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 27,
+        "prospectiveUnits": 33
       },
       "specializedFoundation": {
         "requiredUnits": 14,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.0609756097560976,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 41,
+      "aRatePercent": 51.35135135135135
+    },
+    "compulsoryPassed": {
+      "卒業論文": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "BC11901": "specialized",
       "BC11902": "specialized",
       "BC11903": "specialized",
       "BC51904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "卒業論文": true
+      "": "uncounted",
+      "BC11551": "specialized",
+      "BC11651": "specialized",
+      "BC11711": "specialized",
+      "BC11721": "specialized",
+      "BC11821": "specialized",
+      "BC11851": "specialized",
+      "BC11861": "specialized",
+      "BC11871": "specialized",
+      "BC11981": "specialized",
+      "BC13114": "specialized",
+      "BC13124": "specialized",
+      "BC13312": "specialized",
+      "BC15103": "specialized",
+      "BC11021": "specialized"
     }
   }
 }

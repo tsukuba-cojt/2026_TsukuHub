@@ -13,10 +13,13 @@ type CoinsMajor = {
 
 type CoinsRequirementId =
   | "coins-ss-22"
+  | "coins-ss-23"
   | "coins-ss-26"
   | "coins-is-22"
+  | "coins-is-23"
   | "coins-is-26"
   | "coins-im-22"
+  | "coins-im-23"
   | "coins-im-26";
 
 /**
@@ -161,23 +164,64 @@ const coinsIntelligentMedia: CoinsMajor = {
   coursePrefix: "GB40",
 };
 
+/** 2023〜2026の全12表を画像照合。根拠・未表現条件は curriculum/audits/coins.md。 */
+const buildAuditedCoinsRequirement = (major: CoinsMajor, revised: boolean): GradRequirement => {
+  const requirement = buildCoinsRequirement(major, revised ? 2026 : "2022~2025", revised ? "2026" : "2022~2025");
+  requirement.header.enrollYear = revised ? 2026 : "2023~2025";
+  const scopedRequired: Record<string, string> = {
+    卒業研究A: "情報科学卒業研究A::3",
+    卒業研究B: "情報科学卒業研究B::3",
+    専門語学A: "情報科学専門語学A::2",
+    専門語学B: "情報科学専門語学B::2",
+  };
+  requirement.courses.compulsory = requirement.courses.compulsory.map((name) => scopedRequired[name] ?? name);
+  const seminars = ["GB13312", "GB13322", "GB13332"];
+  const designated = ["確率論", "統計学", "数値計算法", "論理と形式化", "論理システム", "論理システム演習"];
+  const common = ["*総合科目", "*体育", "*外国語", "*国語", "*芸術", "*情報"];
+  requirement.courses.select = [
+    // 16は所属主専攻に限定されない。余剰をその他専門へ配分しても同じ単位は二重加算しない。
+    [["GB2", "GB3", "GB4", "GA4", ...seminars], 34, 34, false, "情報科学類専門科目・特別演習", 0, {
+      minimumIncludedUnits: [{ codes: ["GB20", "GB30", "GB40"], minimum: 16, label: "GB20・GB30・GB40から16単位" }],
+    }],
+    // 指定8＋英語2＋その他GB1 4。指定・英語の余剰もGB1の4へ使える。
+    [["GB1"], 14, 26, false, "GB1専門基礎（指定8・英語2を含む）", 1, {
+      excludeCodes: seminars,
+      minimumIncludedUnits: [{ courseNames: designated, minimum: 8, label: "指定6科目から8単位" },
+        { courseNames: ["Computer Science in English A", "Computer Science in English B"], minimum: 2, label: "Computer Science in English 2単位" }],
+    }],
+    [["GA1"], 8, 26, false, "GA1で始まる科目", 1],
+    [["*学士基盤科目"], 1, 5, false, "学士基盤科目", 2],
+    [["*体育"], 0, 4, false, "体育", 2],
+    [["*外国語"], 0, 4, false, "外国語", 2],
+    [["*国語", "*芸術"], 0, 4, false, "国語・芸術", 2],
+    [revised ? ["GC", "GE"] : ["E", "F", "GC", "GE", "H"], 0, 4, false, "関連科目（上限4単位）", 3,
+      { excludeEquivalentCodes: ["GB"] }],
+    [[...(revised ? ["GA", "GB", "GC", "GE"] : ["E", "F", "G", "H"]), ...common, "*教職に関する科目"],
+      6, 10, true, "その他の関連科目", 3],
+  ];
+  return requirement;
+};
+
 export const coinsRequirements = {
   "coins-ss-22": buildCoinsRequirement(
     coinsSoftwareScience,
     "2022~2025",
     "2022~2025"
   ),
-  "coins-ss-26": buildCoinsRequirement(coinsSoftwareScience, 2026, "2026"),
+  "coins-ss-23": buildAuditedCoinsRequirement(coinsSoftwareScience, false),
+  "coins-ss-26": buildAuditedCoinsRequirement(coinsSoftwareScience, true),
   "coins-is-22": buildCoinsRequirement(
     coinsInformationSystems,
     "2022~2025",
     "2022~2025"
   ),
-  "coins-is-26": buildCoinsRequirement(coinsInformationSystems, 2026, "2026"),
+  "coins-is-23": buildAuditedCoinsRequirement(coinsInformationSystems, false),
+  "coins-is-26": buildAuditedCoinsRequirement(coinsInformationSystems, true),
   "coins-im-22": buildCoinsRequirement(
     coinsIntelligentMedia,
     "2022~2025",
     "2022~2025"
   ),
-  "coins-im-26": buildCoinsRequirement(coinsIntelligentMedia, 2026, "2026"),
+  "coins-im-23": buildAuditedCoinsRequirement(coinsIntelligentMedia, false),
+  "coins-im-26": buildAuditedCoinsRequirement(coinsIntelligentMedia, true),
 } satisfies Pick<GradRequirementTable, CoinsRequirementId>;
