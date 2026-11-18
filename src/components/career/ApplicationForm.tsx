@@ -12,7 +12,7 @@ import {
   type ApplicationFormState,
 } from "./applicationFormState";
 
-type Props = { internshipId: string; onSuccess: () => void };
+type Props = { internshipId: string; onSuccess: (notificationSent: boolean, applicationId: string) => void };
 
 export default function ApplicationForm({ internshipId, onSuccess }: Props) {
   const { user } = useAuth();
@@ -71,6 +71,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
     setForm((current) => ({ ...current, [key]: value }));
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (submitting) return;
     setError("");
     const validationError = validateApplicationForm(form);
     if (validationError) {
@@ -79,7 +80,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
     }
     setSubmitting(true);
     try {
-      await createApplication({
+      const result = await createApplication({
         internship_id: internshipId,
         user_id: user.id,
         university_id: university?.id ?? "",
@@ -93,7 +94,7 @@ export default function ApplicationForm({ internshipId, onSuccess }: Props) {
         additional_notes: form.additional_notes.trim() || null,
       });
       setAlreadyApplied(true);
-      onSuccess();
+      onSuccess(result.notificationSent, result.id);
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : "";
       setError(message.includes("duplicate") || message.includes("unique") ? "この求人にはすでに応募済みです。" : "応募を送信できませんでした。入力内容と募集状況を確認してください。");

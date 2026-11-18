@@ -5,16 +5,19 @@ import { useAuth } from "../../components/auth/authContextValue";
 import {
   createInternship,
   getInternship,
+  getRecruiterEmail,
   getInternshipTargetUniversityIds,
   removeCompanyLogo,
   updateInternship,
   uploadCompanyLogo,
 } from "../../services/careerService";
 import { listUniversities } from "../../services/universityService";
+import { uploadArticleImage } from "../../services/contentService";
 import type { University } from "../../types/university";
 import type { InternshipInput, InternshipStatus } from "../../types/career";
 
 const emptyForm: InternshipInput = {
+  recruiter_email: "",
   company_name: "", company_logo_url: null, cover_image_url: null, title: "", summary: "", company_description: "",
   job_category: "エンジニア", location: "", work_style: "ハイブリッド", is_remote: false,
   work_conditions: "", compensation: "", description: "", requirements: "", preferred_skills: "",
@@ -33,6 +36,7 @@ export default function AdminInternshipForm() {
   const [loading, setLoading] = useState(isEdit);
   const [submitting, setSubmitting] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingBanner, setUploadingBanner] = useState(false);
   const [removingLogo, setRemovingLogo] = useState(false);
   const [error, setError] = useState("");
   const [universities, setUniversities] = useState<University[]>([]);
@@ -47,11 +51,11 @@ export default function AdminInternshipForm() {
 
   useEffect(() => {
     if (!id) return;
-    void Promise.all([getInternship(id), getInternshipTargetUniversityIds(id)]).then(([item, targets]) => {
+    void Promise.all([getInternship(id), getInternshipTargetUniversityIds(id), getRecruiterEmail(id)]).then(([item, targets, recruiterEmail]) => {
       if (!item) throw new Error();
       const { id: itemId, created_at: createdAt, updated_at: updatedAt, created_by: createdBy, ...input } = item;
       void itemId; void createdAt; void updatedAt; void createdBy;
-      setForm({ ...input, deadline: toLocalDateTime(input.deadline) });
+      setForm({ ...input, recruiter_email: recruiterEmail, deadline: toLocalDateTime(input.deadline) });
       setTags(input.tags.join(", "));
       setTargetUniversityIds(targets);
     }).catch(() => setError("求人を取得できませんでした。"))
@@ -74,6 +78,18 @@ export default function AdminInternshipForm() {
     finally { setUploading(false); }
   };
 
+  const uploadBanner = async (file: File) => {
+    if (!user) return;
+    if (!file.type.startsWith("image/") || file.size > 2 * 1024 * 1024) {
+      setError("バナーは2MB以下の画像ファイルを選択してください。");
+      return;
+    }
+    setUploadingBanner(true); setError("");
+    try { update("cover_image_url", await uploadArticleImage(file, user.id)); }
+    catch { setError("バナーをアップロードできませんでした。"); }
+    finally { setUploadingBanner(false); }
+  };
+
   const removeLogo = async () => {
     if (!form.company_logo_url) return;
     setRemovingLogo(true); setError("");
@@ -83,11 +99,14 @@ export default function AdminInternshipForm() {
   };
 
   const submit = async (event: React.FormEvent) => {
-    event.preventDefault(); setError("");
+    event.preventDefault();
+    if (submitting || uploading || uploadingBanner || removingLogo) return;
+    setError("");
     const required = [form.company_name, form.title, form.summary, form.company_description, form.job_category,
       form.location, form.work_style, form.work_conditions, form.compensation, form.description,
       form.requirements, form.selection_process, form.deadline];
     if (required.some((value) => !value.trim()) || targetUniversityIds.length === 0) { setError("必須項目と掲載対象大学を入力してください。"); return; }
+    if (form.status === "published" && !form.recruiter_email?.trim()) { setError("公開する求人には募集者メールアドレスを入力してください。"); return; }
     setSubmitting(true);
     try {
       const input = { ...form, deadline: new Date(form.deadline).toISOString(), tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean) };
@@ -102,18 +121,23 @@ export default function AdminInternshipForm() {
   return <AdminLayout title={isEdit ? "求人を編集" : "求人を登録"}>
     <form className="careerForm adminJobForm" onSubmit={submit}>
       <div className="formSection"><h2>企業・求人の基本情報</h2>
+        <label>募集者メールアドレス（管理者のみ閲覧可）<input type="email" value={form.recruiter_email ?? ""} maxLength={254} onChange={(event) => update("recruiter_email", event.target.value)} placeholder="recruit@example.com" /></label>
         <div className="formGrid">
           <label>企業名 <span>*</span><input value={form.company_name} maxLength={120} onChange={(event) => update("company_name", event.target.value)} /></label>
           <label>職種 <span>*</span><select value={form.job_category} onChange={(event) => update("job_category", event.target.value)}><option>エンジニア</option><option>営業・ビジネス</option><option>マーケティング</option><option>企画</option><option>デザイン</option></select></label>
         </div>
         <label>企業ロゴ<input type="file" accept="image/*" disabled={uploading || removingLogo} onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file); }} /></label>
         {form.company_logo_url && <div className="logoPreview"><img src={form.company_logo_url} alt="アップロード済み企業ロゴ" /><button type="button" disabled={removingLogo} onClick={() => void removeLogo()}>{removingLogo ? "削除中..." : "削除"}</button></div>}
+        <label>求人バナー画像（2MB以下）<input type="file" accept="image/*" disabled={uploadingBanner || submitting} onChange={(event) => { const file = event.target.files?.[0]; if (file) void uploadBanner(file); event.currentTarget.value = ""; }} /></label>
+        <p>求人一覧と詳細ページの上部に表示します。画像の変更後は保存してください。</p>
+        {uploadingBanner && <p role="status">バナーをアップロードしています...</p>}
+        {form.cover_image_url && <div className="logoPreview bannerPreview"><img src={form.cover_image_url} alt="登録する求人バナー" /><button type="button" disabled={uploadingBanner || submitting} onClick={() => update("cover_image_url", null)}>バナーを外す</button></div>}
         <label>求人タイトル <span>*</span><input value={form.title} maxLength={160} onChange={(event) => update("title", event.target.value)} /></label>
         <label>一言説明 <span>*</span><textarea rows={3} value={form.summary} maxLength={300} onChange={(event) => update("summary", event.target.value)} /></label>
         <label>企業紹介 <span>*</span><textarea rows={5} value={form.company_description} maxLength={3000} onChange={(event) => update("company_description", event.target.value)} /></label>
       </div>
       <div className="formSection"><h2>勤務条件</h2><div className="formGrid">
-        <label>勤務地 <span>*</span><input value={form.location} onChange={(event) => update("location", event.target.value)} /></label>
+        <label>最寄り駅 <span>*</span><input value={form.location} onChange={(event) => update("location", event.target.value)} /></label>
         <label>勤務形態 <span>*</span><input value={form.work_style} onChange={(event) => update("work_style", event.target.value)} /></label>
         <label>稼働条件 <span>*</span><input value={form.work_conditions} onChange={(event) => update("work_conditions", event.target.value)} /></label>
         <label>報酬 <span>*</span><input value={form.compensation} onChange={(event) => update("compensation", event.target.value)} /></label>
@@ -134,7 +158,7 @@ export default function AdminInternshipForm() {
         <label className="checkboxLabel"><input type="checkbox" checked={form.is_featured} onChange={(event) => update("is_featured", event.target.checked)} />おすすめ求人として表示</label>
       </div></div>
       {error && <p className="formError" role="alert">{error}</p>}
-      <div className="formActions"><Link to="/admin/internships">キャンセル</Link><button className="careerPrimaryButton" disabled={submitting || uploading || removingLogo}>{submitting ? "保存しています..." : isEdit ? "変更を保存" : "求人を登録"}</button></div>
+      <div className="formActions"><Link to="/admin/internships">キャンセル</Link><button className="careerPrimaryButton" disabled={submitting || uploading || uploadingBanner || removingLogo}>{submitting ? "保存しています..." : isEdit ? "変更を保存" : "求人を登録"}</button></div>
     </form>
   </AdminLayout>;
 }

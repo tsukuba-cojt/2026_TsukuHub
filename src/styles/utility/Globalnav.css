@@ -267,36 +267,10 @@
 }
 
 .navDropdownDesc {
-  margin: 0 0 14px;
+  margin: 0;
   color: var(--color-text-primary);
   font-size: 12px;
   line-height: 1.7;
-}
-
-.navDropdownLogo {
-  display: flex;
-  width: 120px;
-  height: 96px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-  color: var(--color-text-primary);
-}
-
-.navDropdownLogo img {
-  width: 28px;
-  height: 54px;
-  object-fit: contain;
-}
-
-.navDropdownLogo span {
-  font-family: var(--font-family-logo);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1;
-  text-shadow: 0 0 4px rgba(27, 73, 104, 0.1);
-  -webkit-text-stroke: 0.25px var(--color-text-primary);
 }
 
 /* 右の3カラム */

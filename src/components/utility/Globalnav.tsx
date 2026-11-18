@@ -22,13 +22,12 @@ import {
   fallbackNavBasePath,
   isNavBasePath,
 } from "../../lib/pageBack";
-import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 
 const navItems = [
   { icon: House, label: "ホーム", path: "/" },
   { icon: BriefcaseBusiness, label: "キャリア・インターン", path: "/career" },
   { icon: BookOpen, label: "講義・履修", path: "/class/top" },
-  { icon: UsersRound, label: "サークル・課外活動", path: "/circles" },
+  { icon: UsersRound, label: "サークル・課外活動", path: "/circles/search" },
   { icon: Utensils, label: "生活・便利情報", path: "/lifestyle" },
   { icon: Globe, label: "留学・国際交流", path: "/global" },
 ];
@@ -183,10 +182,6 @@ function Globalnav() {
                       <p className="navDropdownDesc">
                         {dropdown.description.replace("筑波大", university?.short_name ?? "大学")}
                       </p>
-                      <div className="navDropdownLogo" role="img" aria-label="TsukuHub">
-                        <img src={logoBlue} alt="" aria-hidden="true" />
-                        <span>TsukuHub</span>
-                      </div>
                     </div>
                     <ul className="navDropdownColumns">
                       {dropdown.items.map((menu) => {

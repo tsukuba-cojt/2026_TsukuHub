@@ -28,7 +28,7 @@ const categories = [
     imageSrc: peopleIcon,
     title: "サークル・課外活動",
     text: "サークルや団体別の情報を\nジャンル別に検索",
-    path: "/circles",
+    path: "/circles/search",
     textClass: "catTextClub",
   },
   {

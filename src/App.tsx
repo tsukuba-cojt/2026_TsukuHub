@@ -20,6 +20,12 @@ import ClassGuideList from "./pages/ClassGuideList";
 import ClassGuideDetail from "./pages/ClassGuideDetail";
 import ClassDetail from "./pages/ClassDetail";
 import ClassReviewForm from "./pages/ClassReviewForm";
+import Circle from "./pages/Circle";
+import CircleDetail from "./pages/CircleDetail";
+import CircleNoticeList from "./pages/CircleNoticeList";
+import CircleReviewList from "./pages/CircleReviewList";
+import CircleReviewForm from "./pages/CircleReviewForm";
+import CircleEdit from "./pages/CircleEdit";
 import GraduationCheck from "./pages/GraduationCheck";
 import GraduationCheckTest from "./pages/GraduationCheckTest";
 import { graduationCheckTestEnabled } from "./features/graduationCheck/testMode";
@@ -49,6 +55,10 @@ import AdminClassManagement from "./pages/admin/AdminClassManagement";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminUniversities from "./pages/admin/AdminUniversities";
 import AdminNews from "./pages/admin/AdminNews";
+import AdminCompanyAccess from "./pages/admin/AdminCompanyAccess";
+import CompanyLogin from "./pages/company/CompanyLogin";
+import CompanyDashboard from "./pages/company/CompanyDashboard";
+import CompanyApplicationDetail from "./pages/company/CompanyApplicationDetail";
 import "./styles/responsive.css";
 
 function UniversityLayout() {
@@ -95,11 +105,15 @@ function App() {
         <Routes>
           <Route path="/" element={<UniversityPortal />} />
           <Route path="/404" element={<Notfound404 />} />
+          <Route path="/company/login" element={<CompanyLogin />} />
+          <Route path="/company" element={<CompanyDashboard />} />
+          <Route path="/company/applications/:id" element={<CompanyApplicationDetail />} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedAdmin><AdminDashboard /></ProtectedAdmin>} />
           <Route path="/admin/universities" element={<ProtectedAdmin><AdminUniversities /></ProtectedAdmin>} />
           <Route path="/admin/news" element={<ProtectedAdmin><AdminNews /></ProtectedAdmin>} />
+          <Route path="/admin/company-access" element={<ProtectedAdmin><AdminCompanyAccess /></ProtectedAdmin>} />
           <Route path="/admin/internships" element={<ProtectedAdmin><AdminInternships /></ProtectedAdmin>} />
           <Route path="/admin/internships/new" element={<ProtectedAdmin><AdminInternshipForm /></ProtectedAdmin>} />
           <Route path="/admin/internships/:id/edit" element={<ProtectedAdmin><AdminInternshipForm /></ProtectedAdmin>} />
@@ -127,6 +141,13 @@ function App() {
               <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
+              <Route path="circles/search" element={<Circle />} />
+              <Route path="circles/:circleId" element={<CircleDetail />} />
+              <Route path="circles/:circleId/notices" element={<CircleNoticeList />} />
+              <Route path="circles/:circleId/reviews" element={<CircleReviewList />} />
+              <Route path="circles/:circleId/review" element={<CircleReviewForm />} />
+              {/* TODO: 団体責任者のみアクセス可（権限制御は後日実装） */}
+              <Route path="circles/:circleId/edit" element={<CircleEdit />} />
 
               <Route element={<FeatureGate feature="news" />}>
                 <Route path="news" element={<NewsList />} />

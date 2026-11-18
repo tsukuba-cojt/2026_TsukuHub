@@ -1,0 +1,12 @@
+/* サークル口コミ投稿ページ（/circles/:circleId/review）
+   レイアウト・値は授業側 ClassReviewForm.css をそのまま流用し、ここでは差分のみ定義する。
+   注：Figma はトークン失効で取得不可のため、授業側の実装値に合わせている。 */
+
+/* 「4 / 5」の数値は LINE Seed JP（共通の RatingStarsInput.css は変更せず、このページ内で適用） */
+.circleReviewFormPage .ratingStarsInputValue {
+  font-family: var(--font-family-logo);
+}
+
+.circleReviewFormPage .ratingStarsInputUnset {
+  font-family: var(--font-family-base, "Noto Sans JP", sans-serif);
+}

@@ -263,7 +263,7 @@ function AlumniManager({ items, universities, onReload }: { items: AlumniStoryRe
       <div className="adminPanelHeader"><h2>{editingId ? "体験記を編集" : "体験記を新規登録"}</h2>{editingId && <button className="adminTextButton" type="button" onClick={reset}>編集をキャンセル</button>}</div>
       <div className="formGrid">
         <label>大学 <span>*</span><select required value={form.university_id} onChange={(event) => update("university_id", event.target.value)}><option value="">選択する</option>{universities.map((university) => <option value={university.id} key={university.id}>{university.name}</option>)}</select></label>
-        <label>卒業年度 <span>*</span><input required type="number" min={1950} max={2100} value={form.graduation_year} onChange={(event) => update("graduation_year", Number(event.target.value))} /></label>
+        <label>卒業年度（空欄は非公開）<input type="number" min={1950} max={2100} value={form.graduation_year ?? ""} onChange={(event) => update("graduation_year", event.target.value ? Number(event.target.value) : null)} /></label>
         <label>学群・学類 <span>*</span><input required value={form.faculty} onChange={(event) => update("faculty", event.target.value)} /></label>
         <label>進路・業界 <span>*</span><input required value={form.destination} onChange={(event) => update("destination", event.target.value)} /></label>
         <label>職種 <span>*</span><input required value={form.job_role} onChange={(event) => update("job_role", event.target.value)} /></label>
@@ -288,7 +288,7 @@ function AlumniManager({ items, universities, onReload }: { items: AlumniStoryRe
 function ContentTable<T extends CareerArticleRecord | AlumniStoryRecord>({ items, onEdit, onRemove, onStatus }: { items: T[]; onEdit: (item: T) => void; onRemove: (item: T) => void; onStatus: (id: string, status: PublishStatus) => void }) {
   if (!items.length) return <div className="careerState">登録されたコンテンツはありません。</div>;
   return <div className="adminTableWrap"><table className="adminTable"><thead><tr><th>タイトル</th><th>公開状態</th><th>更新日</th><th>操作</th></tr></thead><tbody>{items.map((item) => <tr key={item.id}>
-    <td><strong>{item.title}</strong><span>{"category" in item ? item.category : `${item.graduation_year}年度卒・${item.job_role}`}</span></td>
+    <td><strong>{item.title}</strong><span>{"category" in item ? item.category : `${item.graduation_year ? `${item.graduation_year}年度卒` : "卒業年度非公開"}・${item.job_role}`}</span></td>
     <td><select aria-label={`${item.title}の公開状態`} value={item.status} onChange={(event) => onStatus(item.id, event.target.value as PublishStatus)}>{Object.entries(publishStatusLabels).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></td>
     <td>{new Intl.DateTimeFormat("ja-JP").format(new Date(item.updated_at))}</td>
     <td><div className="tableActions"><button onClick={() => onEdit(item)}>編集</button><button onClick={() => onRemove(item)}>削除</button></div></td>

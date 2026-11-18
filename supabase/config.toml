@@ -1,0 +1,3 @@
+[functions.send-application-notification]
+# The handler verifies the user's JWT with auth.getUser, including signing-key JWTs.
+verify_jwt = false

@@ -26,7 +26,23 @@ export default function InternshipListingCard({ internship }: InternshipListingC
             {internship.is_featured && <span>おすすめ</span>}
           </div>
           <h2>{internship.title}</h2>
+          <div className="internshipCardCompany">
+            {internship.company_logo_url ? (
+              <img src={internship.company_logo_url} alt={`${internship.company_name}のロゴ`} loading="lazy" />
+            ) : null}
+            <p>{internship.company_name}</p>
+          </div>
           <p>{internship.summary}</p>
+          <dl className="careerMiniJobDetails">
+            <div>
+              <dt>報酬</dt>
+              <dd>{internship.compensation?.trim() || "未記載"}</dd>
+            </div>
+            <div>
+              <dt>最寄り駅</dt>
+              <dd>{internship.location?.trim() || "未記載"}</dd>
+            </div>
+          </dl>
           <ul>
             {internship.tags.slice(0, 4).map((tag) => (
               <li key={tag}>{tag}</li>

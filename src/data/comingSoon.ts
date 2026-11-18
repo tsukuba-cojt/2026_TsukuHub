@@ -17,7 +17,7 @@ export const COMING_SOON_NOTICE = "準備中です";
 
 /** 未実装のためリンクを無効化するパス */
 const COMING_SOON_PATHS: ReadonlySet<string> = new Set([
-  "/circles", // サークル・課外活動（グロナビ・カテゴリカード）
+  "/circles", // サークル・課外活動（スマホ用メニュー）
   "/lifestyle", // 生活・便利情報（グロナビ・カテゴリカード）
   "/global", // 留学・国際交流（グロナビ・カテゴリカード）
 ]);
@@ -77,6 +77,7 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
   "/career/internships",
   "/career/alumni",
   "/career/stories",
+  "/circles/search",
   "/admin",
   "/admin/internships",
   "/admin/internships/new",
@@ -93,6 +94,9 @@ const KNOWN_DYNAMIC_PATHS: readonly RegExp[] = [
   /^\/career\/articles\/[^/]+$/,
   /^\/career\/internships\/[^/]+$/,
   /^\/career\/alumni\/[^/]+$/,
+  /^\/circles\/[^/]+$/,
+  /^\/circles\/[^/]+\/notices$/,
+  /^\/circles\/[^/]+\/reviews$/,
   /^\/admin\/internships\/[^/]+\/edit$/,
   /^\/admin\/applications\/[^/]+$/,
 ];

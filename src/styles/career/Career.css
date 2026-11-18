@@ -289,7 +289,6 @@
 }
 
 @media (max-width: 420px) {
-  .hubFeatureCard,
   .careerArticleCard {
     padding: 24px 20px;
   }
