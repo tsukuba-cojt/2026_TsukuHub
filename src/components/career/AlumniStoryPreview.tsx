@@ -40,7 +40,7 @@ export default function AlumniStoryPreview() {
               </div>
               <div className="careerMiniCardBody">
                 <h3>{story.title}</h3>
-                <p>{story.destination}・{story.job_role}</p>
+                <p>{story.destination}・部署：{story.job_role}</p>
                 <strong>
                   詳しく読む <ArrowRight aria-hidden="true" />
                 </strong>

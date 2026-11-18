@@ -33,8 +33,8 @@ export default function AlumniStoryDetail({ story }: AlumniStoryDetailProps) {
         variant="article"
         imageUrl={story.cover_image_url}
         eyebrow="Graduate Interview"
-        title={story.job_role}
-        org={story.destination}
+        title={story.destination}
+        org={`部署：${story.job_role}`}
         meta={`${story.faculty} ・ ${story.graduation_year ? `${story.graduation_year}年度卒` : "卒業年度非公開"}`}
       />
 
