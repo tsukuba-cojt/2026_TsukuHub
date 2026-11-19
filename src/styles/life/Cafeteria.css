@@ -1,0 +1,861 @@
+.cafeteriaHero {
+  margin-bottom: 20px;
+}
+
+.cafeteriaTitle {
+  gap: 8px;
+}
+
+.cafeteriaTitle svg {
+  stroke: url(#cafeteriaTitleGradient);
+}
+
+.cafeteriaTitle span {
+  background: var(--color-main-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.cafeteriaDesc {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.cafeteriaNumber {
+  font-family: var(--font-family-logo);
+}
+
+.cafeteriaFilterBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+  padding: 16px 32px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow-card);
+}
+
+.cafeteriaFilterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.circleTagChip.cafeteriaFilterChip {
+  justify-content: center;
+  min-width: 76px;
+  height: 38px;
+  padding: 0 24px;
+  border-color: transparent;
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  box-shadow: var(--shadow-btn-soft);
+}
+
+.circleTagChip.cafeteriaFilterChip:hover {
+  border-color: var(--color-primary);
+}
+
+.circleTagChip.cafeteriaFilterChip.isSelected {
+  border-color: transparent;
+  background: var(--color-primary-gradient);
+  color: #fff;
+  font-weight: 700;
+}
+
+.cafeteriaFilterDivider {
+  align-self: stretch;
+  width: 1px;
+  min-height: 38px;
+  background: #d3deef;
+}
+
+.cafeteriaOpenToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px;
+  border: none;
+  background: none;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cafeteriaOpenToggle svg {
+  width: 18px;
+  height: 18px;
+  color: #c4cfdf;
+}
+
+.cafeteriaOpenToggle.isActive svg {
+  color: #fff;
+  fill: var(--color-label-club);
+}
+
+.cafeteriaFilterSelect {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cafeteriaFilterSelect select {
+  min-width: 116px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #d3deef;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--shadow-btn-soft);
+  cursor: pointer;
+}
+
+.cafeteriaMain {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 38px;
+  margin-top: 34px;
+}
+
+.cafeteriaMap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  border: 1px solid #c9c9c9;
+  border-radius: 20px;
+  background: #d9d9d9;
+  color: #fff;
+  font-family: var(--font-family-logo);
+  font-size: 48px;
+}
+
+.cafeteriaDetail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 32px 28px 24px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.cafeteriaDetail.isEmpty {
+  align-items: center;
+  justify-content: center;
+}
+
+.cafeteriaSvgDefs {
+  position: absolute;
+  overflow: hidden;
+}
+
+.cafeteriaEmpty {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.cafeteriaDetailHeader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.cafeteriaDetailPin {
+  width: 44px;
+  height: 44px;
+  fill: url(#cafeteriaPinGradient);
+  stroke: var(--color-label-event);
+}
+
+.cafeteriaDetailPin circle {
+  fill: #fff;
+}
+
+.cafeteriaDetailHeading h2 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.cafeteriaDetailMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.cafeteriaDetailMeta p {
+  margin: 0;
+}
+
+.cafeteriaDetailScore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-text-secondary);
+}
+
+.cafeteriaDetailScoreLabel {
+  font-size: 9px;
+}
+
+.cafeteriaDetailScoreValue {
+  color: var(--color-text-primary);
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.cafeteriaDetailScore .ratingStars {
+  font-size: 13px;
+}
+
+.cafeteriaDetailScoreCount {
+  font-size: 12px;
+}
+
+.cafeteriaDetailTags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  padding-left: 54px;
+}
+
+.tag.cafeteriaCategoryBadge {
+  flex-shrink: 0;
+  padding: 2px 14px;
+  border-radius: 999px;
+}
+
+.cafeteriaCategoryBadge.isDining {
+  background: var(--color-label-event);
+}
+
+.cafeteriaCategoryBadge.isBread {
+  background: var(--color-label-life);
+}
+
+.cafeteriaCategoryBadge.isBento {
+  background: var(--color-label-club);
+}
+
+.cafeteriaCategoryBadge.isOther {
+  background: var(--color-text-muted);
+}
+
+.cafeteriaPayments {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cafeteriaPayment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 20px;
+  color: var(--color-text-secondary);
+  outline: none;
+}
+
+.cafeteriaPayment svg {
+  width: 24px;
+  height: 20px;
+}
+
+.cafeteriaPayment img {
+  width: 16px;
+  height: 16px;
+}
+
+.cafeteriaPayment.isUnavailable svg,
+.cafeteriaPayment.isUnavailable img {
+  opacity: 0.35;
+}
+
+.cafeteriaPayment.isUnavailable::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: 1.5px;
+  background: var(--color-text-secondary);
+  transform: rotate(-35deg);
+  pointer-events: none;
+}
+
+.cafeteriaPayment:focus-visible {
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.cafeteriaPayment .comingSoonTip {
+  bottom: calc(100% + 6px);
+  left: 50%;
+  padding: 3px 8px;
+  font-size: 10px;
+  transform: translateX(-50%);
+}
+
+.cafeteriaPayment:hover .comingSoonTip,
+.cafeteriaPayment:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cafeteriaCaution {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #c58a00;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--color-label-life);
+  text-underline-offset: 3px;
+}
+
+.cafeteriaCaution svg {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  color: var(--color-label-life);
+}
+
+.cafeteriaChart {
+  position: relative;
+  margin: 4px 0 0 54px;
+  max-width: 420px;
+  padding-bottom: 18px;
+}
+
+.cafeteriaChartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 64px;
+  border-bottom: 1px solid #c4cfdf;
+}
+
+.cafeteriaChartSlot {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.cafeteriaChartBar {
+  width: 100%;
+  min-height: 4px;
+  border-radius: 2px 2px 0 0;
+}
+
+.cafeteriaChartBar.isLow {
+  background: #a9e6cf;
+}
+
+.cafeteriaChartBar.isMid {
+  background: #fde49a;
+}
+
+.cafeteriaChartBar.isHigh {
+  background: #f9a3bf;
+}
+
+.cafeteriaChartBar.isLow.isCurrent {
+  background: var(--color-label-club);
+}
+
+.cafeteriaChartBar.isMid.isCurrent {
+  background: var(--color-label-life);
+}
+
+.cafeteriaChartBar.isHigh.isCurrent {
+  background: var(--color-label-event);
+}
+
+.cafeteriaChartAxis {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 14px;
+}
+
+.cafeteriaChartAxis span {
+  position: absolute;
+  top: 2px;
+  color: var(--color-text-secondary);
+  font-size: 9px;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.cafeteriaAccordion summary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+
+.cafeteriaAccordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.cafeteriaAccordion summary::before {
+  content: "▶";
+  font-size: 8px;
+}
+
+.cafeteriaAccordion[open] > summary::before {
+  content: "▼";
+}
+
+.cafeteriaAccordion summary:hover {
+  color: var(--color-primary);
+}
+
+.cafeteriaAccordionText {
+  margin: 8px 0 4px 14px;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.cafeteriaAccordionText p {
+  margin: 0;
+}
+
+.cafeteriaMenu {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cafeteriaMainMenu {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 150px;
+  border-radius: 4px;
+  background: #d9d9d9;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cafeteriaMainMenu.hasList {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 190px;
+  padding: 8px 10px;
+  overflow-y: auto;
+  border: 1px solid #e3eaf5;
+  background: #f8f9fd;
+  color: var(--color-text-primary);
+}
+
+.cafeteriaMainMenuTitle {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cafeteriaMainMenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cafeteriaMainMenu li {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.cafeteriaMainMenu li .cafeteriaNumber {
+  flex-shrink: 0;
+  font-family: var(--font-family-base);
+  font-weight: 700;
+}
+
+.cafeteriaMenuPhotosWrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.cafeteriaMenuPhotosWrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 48px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%);
+  pointer-events: none;
+}
+
+.cafeteriaMenuPhotos {
+  display: grid;
+  grid-auto-columns: 44px;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, 44px);
+  gap: 9px;
+  height: 150px;
+  padding-right: 48px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.cafeteriaMenuPhotos img {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.cafeteriaReviews {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 4px 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.cafeteriaReviews li {
+  padding: 10px 12px;
+  border: 1px solid #e3eaf5;
+  border-radius: 8px;
+}
+
+.cafeteriaReviewMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+}
+
+.cafeteriaReviewMeta time {
+  margin-left: auto;
+}
+
+.cafeteriaReviews p {
+  margin: 6px 0 0;
+  color: var(--color-text-primary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.cafeteriaNotes {
+  margin: 0 0 6px;
+  padding-left: 18px;
+}
+
+.cafeteriaSourceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-primary);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.cafeteriaSourceLink:hover {
+  text-decoration: underline;
+}
+
+.cafeteriaSourceLink svg {
+  width: 12px;
+  height: 12px;
+}
+
+.cafeteriaResults {
+  margin: 26px 0 0;
+  padding-bottom: 40px;
+}
+
+.cafeteriaResultsEmpty {
+  padding: 48px 16px;
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow-card);
+}
+
+.cafeteriaCarousel {
+  position: relative;
+}
+
+.cafeteriaCardScroller {
+  position: relative;
+  display: flex;
+  gap: 26px;
+  padding: 6px 2px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cafeteriaCardScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.cafeteriaCard {
+  position: relative;
+  display: flex;
+  flex: 0 0 302px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 176px;
+  padding: 20px 28px 18px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.cafeteriaCard:hover {
+  border-color: #e3eaf5;
+}
+
+.cafeteriaCard.isSelected {
+  border-color: #e0e0e0;
+  background: #f5f5f5;
+}
+
+.cafeteriaCard:has(.cafeteriaCardSelect:focus-visible) {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.cafeteriaCardHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.cafeteriaCardHead h3 {
+  min-width: 0;
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cafeteriaCardHead .cafeteriaCategoryBadge {
+  margin-top: 4px;
+}
+
+.cafeteriaCardSelect {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.cafeteriaCardSelect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.cafeteriaCard .ratingStars {
+  font-size: 13px;
+}
+
+.cafeteriaCardLocation,
+.cafeteriaCardHours p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.cafeteriaCardHours {
+  margin-top: -4px;
+}
+
+.cafeteriaCard .cafeteriaPayments {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.cafeteriaCarouselArrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.cafeteriaCarouselArrow:hover {
+  color: var(--color-primary);
+}
+
+.cafeteriaCarouselArrow.isPrev {
+  left: -10px;
+}
+
+.cafeteriaCarouselArrow.isNext {
+  right: -10px;
+}
+
+.cafeteriaCarouselArrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cafeteriaScrollIndicator {
+  position: relative;
+  height: 4px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: rgba(196, 207, 223, 0.35);
+  overflow: hidden;
+}
+
+.cafeteriaScrollIndicator span {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: #b8c3d4;
+  transition: left 0.1s linear, width 0.2s ease;
+}
+
+@media (max-width: 1100px) {
+  .cafeteriaMain {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .cafeteriaMap {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 760px) {
+  .cafeteriaFilterBar {
+    gap: 14px;
+    padding: 16px 18px;
+  }
+
+  .cafeteriaFilterChips {
+    gap: 8px;
+  }
+
+  .circleTagChip.cafeteriaFilterChip {
+    min-width: 0;
+    height: 34px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  .cafeteriaFilterDivider {
+    display: none;
+  }
+
+  .cafeteriaFilterSelect {
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .cafeteriaDetail {
+    padding: 24px 18px 20px;
+  }
+
+  .cafeteriaDetailHeader {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .cafeteriaDetailScore {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
+    padding-left: 54px;
+  }
+
+  .cafeteriaDetailTags,
+  .cafeteriaChart {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .cafeteriaMainMenu.hasList {
+    width: 160px;
+  }
+
+  .cafeteriaCard {
+    flex-basis: 260px;
+    padding: 18px 20px 16px;
+  }
+
+  .cafeteriaCardHead h3 {
+    font-size: 17px;
+  }
+}
