@@ -7,7 +7,7 @@ import "../../styles/class/ClassTop.css";
 import "../../styles/life/Life.css";
 
 // 生活・便利情報の3機能カード（CareerCategoryGrid と同じ構造・スタイル）。
-// /life/cafeteria・/life/housing は未実装のため App.tsx に未登録。
+// /life/housing は未実装のため App.tsx に未登録。
 // クリック時は InternalLinkGuard が遷移を止め「準備中」トーストを出す。
 // ページ実装時に App.tsx と comingSoon.ts の KNOWN_STATIC_PATHS へ登録すれば導線が有効になる。
 // 譲り合い（/life/sharing）は comingSoon.ts の COMING_SOON_PATHS で準備中扱い。

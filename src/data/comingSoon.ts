@@ -79,6 +79,7 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
   "/career/stories",
   "/circles/search",
   "/life",
+  "/life/cafeteria",
   "/admin",
   "/admin/internships",
   "/admin/internships/new",

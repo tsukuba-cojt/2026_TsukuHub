@@ -2,7 +2,7 @@ import { CookingPot, HandHeart, House } from "lucide-react";
 
 // 「生活・便利情報」のグローバルナビ用ドロップダウンの項目。
 // 色・遷移先は /life ハブページの機能カード（LifeCategoryGrid.tsx）と揃えている。
-// /life/cafeteria・/life/housing は未実装のため App.tsx に未登録で、
+// /life/housing は未実装のため App.tsx に未登録で、
 // クリック時は InternalLinkGuard が遷移を止め「準備中」トーストを出す。
 // /life/sharing は comingSoon.ts の COMING_SOON_PATHS で準備中扱い。
 export const lifeMenuItems = [
