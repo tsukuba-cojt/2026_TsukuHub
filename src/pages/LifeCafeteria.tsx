@@ -45,10 +45,6 @@ function LifeCafeteria() {
             <stop offset="0%" stopColor="#1578FD" />
             <stop offset="100%" stopColor="#5E2CFC" />
           </linearGradient>
-          <linearGradient id="cafeteriaPinGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#FF5689" />
-            <stop offset="100%" stopColor="#F32865" />
-          </linearGradient>
         </defs>
       </svg>
       <main className="classPageLayout">

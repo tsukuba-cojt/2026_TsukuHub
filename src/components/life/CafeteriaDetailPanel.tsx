@@ -1,4 +1,5 @@
-import { ExternalLink, Info, MapPin } from "lucide-react";
+import { ExternalLink, Info } from "lucide-react";
+import mapPinIcon from "../../assets/utility/Map.svg";
 import RatingStars from "../class/RatingStars";
 import { CafeteriaCategoryBadge, PaymentIcons } from "./CafeteriaTags";
 import {
@@ -141,12 +142,12 @@ function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
   return (
     <section className="cafeteriaDetail" aria-label={`${cafeteria.name}の詳細`}>
       <div className="cafeteriaDetailHeader">
-        <MapPin className="cafeteriaDetailPin" aria-hidden="true" />
+        <img className="cafeteriaDetailPin" src={mapPinIcon} alt="" />
         <div className="cafeteriaDetailHeading">
           <h2>{cafeteria.name}</h2>
           <div className="cafeteriaDetailMeta">
             <div>
-              <p>{cafeteria.location}</p>
+              <p className="cafeteriaDetailLocation">{cafeteria.location}</p>
               {cafeteria.phone && <p className="cafeteriaNumber">{cafeteria.phone}</p>}
             </div>
             <div>
