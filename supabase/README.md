@@ -20,6 +20,32 @@ Supabase Dashboard の SQL Editor で、`migrations` 内のSQLをファイル名
 
 ローカル環境とAuth APIの直接呼び出しにも同じ制限を適用するため、migrationは `auth.users` に検証トリガーも作成します。
 
+## パスワード再設定
+
+大学別・企業向け・管理者のログイン画面にある「パスワードをお忘れの方」から、Supabase Auth の再設定メールを送信できます。この機能のセットアップは Supabase Dashboard とフロントエンドのデプロイで完了します。
+
+1. **Authentication → URL Configuration** で **Site URL** を本番の TsukuHub の URL に設定します。**Redirect URLs** に以下を追加し、`https://app.example.com` は実際の本番オリジンに置き換えます。大学を追加した場合は、大学のスラッグに対応する URL も追加します。開発用には、使用するオリジンで同じパスを登録します。Vite の標準オリジンは `http://localhost:5173` です。 [Supabase の Redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls)
+
+   ```text
+   https://app.example.com/tsukuba/auth/reset-password
+   https://app.example.com/osaka/auth/reset-password
+   https://app.example.com/company/auth/reset-password
+   https://app.example.com/admin/auth/reset-password
+   ```
+
+2. **Authentication → Email → Templates → Reset password** を確認します。Supabase 標準の `{{ .ConfirmationURL }}` を含むテンプレートを利用できます。大学や企業のメールサービスがリンクを先に開いて失効させる場合は、下記のテンプレートに変更すると、利用者が画面で新しいパスワードを送信した時点でリンクを検証します。メール配信サービス側でリンクのクリック計測を無効にしてください。 [メールテンプレート](https://supabase.com/docs/guides/auth/auth-email-templates)・[メールリンクの有効性](https://supabase.com/docs/guides/deployment/going-into-prod#email-link-validity)
+
+   ```html
+   <h2>TsukuHubのパスワード再設定</h2>
+   <p>以下のリンクから新しいパスワードを設定してください。</p>
+   <p><a href="{{ .RedirectTo }}#token_hash={{ .TokenHash }}">パスワードを再設定する</a></p>
+   <p>心当たりがない場合は、このメールを破棄してください。</p>
+   ```
+
+3. 一般利用者に送るには、**Authentication → Email → SMTP Settings** の **Enable custom SMTP** を有効にし、送信元アドレス・名前・SMTP 接続情報を保存します。たとえば既存のメール基盤と同じ Resend を使う場合は、認証済みドメインの送信元アドレス、ホスト `smtp.resend.com`、ポート `465`、ユーザー名 `resend`、パスワード欄に Resend API キーを入力します。応募通知の Edge Function と Auth の SMTP は個別に設定します。Supabase 標準の送信サービスはプロジェクトチームのメールアドレス宛に限られます。 [Supabase の Custom SMTP](https://supabase.com/docs/guides/auth/auth-smtp)・[Resend の設定手順](https://resend.com/docs/send-with-supabase-smtp)
+
+4. フロントエンドをデプロイし、登録済みのテストアカウントで再設定メールを送ります。メール内のリンクから新しいパスワードを保存し、ログイン画面で新しいパスワードが使えることを確認してください。有効期限切れや使用済みのメールリンクでは、新しい再設定メールを送信できます。
+
 ## 初期大学設定
 
 - 筑波大学: `/tsukuba`、`u.tsukuba.ac.jp`、一般登録可、全機能公開

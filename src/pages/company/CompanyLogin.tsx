@@ -37,5 +37,7 @@ export default function CompanyLogin() {
     {error && <p className="auth-error" role="alert">{error}</p>}{message && <p role="status">{message}</p>}
     <button className="primary-button login-gradient-button" disabled={busy}>{busy ? "処理中..." : signup ? "登録する" : "ログイン"}</button>
     <button type="button" disabled={busy} onClick={() => { setSignup(!signup); setError(""); setMessage(""); }}>{signup ? "ログインに戻る" : "初めての方：アカウントを登録"}</button>
-  </form><Link to="/" className="back-link">TsukuHubトップへ</Link></section></main>;
+  </form>
+    {!signup && <p className="forgot-password-text"><Link to="/company/auth/forgot-password" state={{ email }}>パスワードをお忘れの方</Link></p>}
+    <Link to="/" className="back-link">TsukuHubトップへ</Link></section></main>;
 }
