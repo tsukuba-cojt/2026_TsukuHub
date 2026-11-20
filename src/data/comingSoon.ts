@@ -99,6 +99,7 @@ const KNOWN_DYNAMIC_PATHS: readonly RegExp[] = [
   /^\/circles\/[^/]+$/,
   /^\/circles\/[^/]+\/notices$/,
   /^\/circles\/[^/]+\/reviews$/,
+  /^\/life\/cafeteria\/[^/]+\/review$/,
   /^\/admin\/internships\/[^/]+\/edit$/,
   /^\/admin\/applications\/[^/]+$/,
 ];

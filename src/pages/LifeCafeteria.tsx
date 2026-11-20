@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CookingPot } from "lucide-react";
 import { useUniversity } from "../components/university/universityContextValue";
 import Globalnav from "../components/utility/Globalnav";
@@ -25,7 +25,11 @@ const CLOCK_INTERVAL_MS = 60_000;
 function LifeCafeteria() {
   const { path } = useUniversity();
   const [filters, setFilters] = useState<CafeteriaFilters>(DEFAULT_FILTERS);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const location = useLocation();
+  // 口コミ投稿ページのパンくずから戻ったときは、その施設を選択した状態で開く
+  const [selectedId, setSelectedId] = useState<string | null>(
+    () => (location.state as { cafeteriaId?: string } | null)?.cafeteriaId ?? null,
+  );
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {

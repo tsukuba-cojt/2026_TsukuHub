@@ -1,6 +1,8 @@
 import { ExternalLink, Info, SquarePen } from "lucide-react";
 import mapPinIcon from "../../assets/utility/Map.svg";
+import { Link } from "react-router-dom";
 import RatingStars from "../class/RatingStars";
+import { useUniversity } from "../university/universityContextValue";
 import { CafeteriaCategoryBadge, PaymentIcons } from "./CafeteriaTags";
 import {
   CONGESTION_SLOT_MINUTES,
@@ -150,6 +152,7 @@ type CafeteriaDetailPanelProps = {
 };
 
 function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
+  const { path } = useUniversity();
   if (!cafeteria) {
     return (
       <section className="cafeteriaDetail isEmpty" aria-label="施設の詳細">
@@ -187,13 +190,16 @@ function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
           <span className="cafeteriaDetailScoreCount">
             （<span className="cafeteriaNumber">{cafeteria.reviewCount}</span>件）
           </span>
-          {/* 口コミ投稿ページは未実装のため、現時点ではクリックしても遷移しない */}
-          <button type="button" className="cafeteriaReviewPostBtn" aria-label="口コミを投稿する">
+          <Link
+            to={path(`/life/cafeteria/${cafeteria.id}/review`)}
+            className="cafeteriaReviewPostBtn"
+            aria-label="口コミを投稿する"
+          >
             <SquarePen aria-hidden="true" />
             <span className="comingSoonTip" aria-hidden="true">
               口コミを投稿する
             </span>
-          </button>
+          </Link>
         </div>
       </div>
 
