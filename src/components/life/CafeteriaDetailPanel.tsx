@@ -16,6 +16,8 @@ import "../../styles/life/Cafeteria.css";
 
 const AXIS_HOURS = [8, 10, 12, 14, 16];
 const PHOTO_TILE_COUNT = 27;
+// 混雑状況（現在の状況テキスト＋グラフ）の表示切り替え。true に戻せば再表示される
+const SHOW_CONGESTION = false;
 const PHOTO_PLACEHOLDER =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'><rect width='1' height='1' fill='%23d9d9d9'/></svg>";
 
@@ -214,8 +216,12 @@ function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
         ))}
       </div>
 
-      <p className="cafeteriaChartStatus">現在：{currentCongestionText(cafeteria, now)}</p>
-      <CongestionChart cafeteria={cafeteria} now={now} />
+      {SHOW_CONGESTION && (
+        <>
+          <p className="cafeteriaChartStatus">現在：{currentCongestionText(cafeteria, now)}</p>
+          <CongestionChart cafeteria={cafeteria} now={now} />
+        </>
+      )}
 
       <details className="cafeteriaAccordion" open>
         <summary>メニュー</summary>
