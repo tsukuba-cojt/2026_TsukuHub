@@ -7,6 +7,7 @@ import Footer from "../components/utility/Footer";
 import CafeteriaFilterBar from "../components/life/CafeteriaFilterBar";
 import CafeteriaDetailPanel from "../components/life/CafeteriaDetailPanel";
 import CafeteriaCardList from "../components/life/CafeteriaCardList";
+import CafeteriaMap from "../components/life/CafeteriaMap";
 import { mockCafeterias } from "../components/life/mockCafeterias";
 import { searchCafeterias, type CafeteriaFilters } from "../lib/cafeteriaSearch";
 import "../styles/class/Class.css";
@@ -78,9 +79,7 @@ function LifeCafeteria() {
         <CafeteriaFilterBar filters={filters} onChange={setFilters} />
 
         <div className="cafeteriaMain">
-          <div className="cafeteriaMap" role="img" aria-label="キャンパスマップ（準備中）">
-            <span aria-hidden="true">map</span>
-          </div>
+          <CafeteriaMap cafeterias={results} selected={selected} onSelect={setSelectedId} />
           <CafeteriaDetailPanel key={selected?.id ?? "empty"} cafeteria={selected} now={now} />
         </div>
 

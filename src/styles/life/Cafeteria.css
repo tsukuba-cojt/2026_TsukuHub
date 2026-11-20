@@ -134,16 +134,93 @@
 }
 
 .cafeteriaMap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   min-height: 360px;
+  overflow: hidden;
   border: 1px solid #c9c9c9;
   border-radius: 20px;
   background: #d9d9d9;
+  isolation: isolate;
+}
+
+.cafeteriaMapCanvas {
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-family-base);
+}
+
+.cafeteriaMapPin {
+  position: relative;
+  background: none;
+  border: none;
+}
+
+.cafeteriaMapPin img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 3px rgba(8, 28, 66, 0.3));
+}
+
+.cafeteriaMapPinCount {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--color-text-primary);
   color: #fff;
   font-family: var(--font-family-logo);
-  font-size: 48px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.cafeteriaMapPopup .leaflet-popup-content {
+  margin: 10px 12px;
+}
+
+.cafeteriaMapPopupList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cafeteriaMapPopupItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cafeteriaMapPopupItem:hover,
+.cafeteriaMapPopupItem.isSelected {
+  background: #eef5ff;
+}
+
+.cafeteriaMapPopupItem:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
 }
 
 .cafeteriaDetail {
