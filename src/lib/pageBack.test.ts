@@ -11,7 +11,7 @@ describe("isNavBasePath", () => {
     expect(isNavBasePath("/career")).toBe(true);
     expect(isNavBasePath("/class/top")).toBe(true);
     expect(isNavBasePath("/circles")).toBe(true);
-    expect(isNavBasePath("/lifestyle")).toBe(true);
+    expect(isNavBasePath("/life")).toBe(true);
     expect(isNavBasePath("/global")).toBe(true);
   });
 

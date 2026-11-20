@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { classMenuItems } from "./classMenuItems";
 import { careerMenuItems } from "./careerMenuItems";
+import { lifeMenuItems } from "./lifeMenuItems";
 import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import { useUniversity } from "../university/universityContextValue";
 import { resolveTenantPath } from "../../lib/tenantNavigation";
@@ -28,7 +29,7 @@ const navItems = [
   { icon: BriefcaseBusiness, label: "キャリア・インターン", path: "/career" },
   { icon: BookOpen, label: "講義・履修", path: "/class/top" },
   { icon: UsersRound, label: "サークル・課外活動", path: "/circles/search" },
-  { icon: Utensils, label: "生活・便利情報", path: "/lifestyle" },
+  { icon: Utensils, label: "生活・便利情報", path: "/life" },
   { icon: Globe, label: "留学・国際交流", path: "/global" },
 ];
 
@@ -44,6 +45,12 @@ const dropdownMenus = {
     description:
       "授業の検索や履修計画、卒業要件の確認まで。筑波大生の学びをサポートする機能がそろっています。",
     items: classMenuItems,
+  },
+  "/life": {
+    title: "生活・便利情報",
+    description:
+      "学食や住まいなど、筑波での生活に役立つ情報をまとめています。キャンパスライフをもっと快適に。",
+    items: lifeMenuItems,
   },
 } as const;
 
@@ -156,7 +163,7 @@ function Globalnav() {
               <div
                 className={`navDropdownWrap${
                   item.path === "/career" ? " isCareerDropdown" : ""
-                }`}
+                }${item.path === "/life" ? " isLifeDropdown" : ""}`}
                 key={item.label}
                 onMouseEnter={() => setOpenMenu(item.path as DropdownPath)}
                 onMouseLeave={() => setOpenMenu(null)}
@@ -202,8 +209,10 @@ function Globalnav() {
                               aria-hidden="true"
                             />
                             <span className="navDropdownCardLink">
-                              {menu.linkLabel}
-                              <ChevronRight aria-hidden="true" />
+                              {menuComingSoon ? "準備中" : <>
+                                {menu.linkLabel}
+                                <ChevronRight aria-hidden="true" />
+                              </>}
                             </span>
                             <ChevronRight
                               className="navDropdownRowChevron"

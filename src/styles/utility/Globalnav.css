@@ -215,6 +215,18 @@
   left: 42%;
 }
 
+/* 右から2番目の「生活・便利情報」は中央基準だとメニュー右端が画面外へ出るため、
+   就活・キャリアと左右対称に、ナビ項目1つ分だけ左へ配置を補正する */
+.navDropdownWrap.isLifeDropdown .navDropdown {
+  left: auto;
+  right: -100%;
+  transform: none;
+}
+
+.navDropdownWrap.isLifeDropdown .navDropdownTail {
+  left: 58%;
+}
+
 /* フル画面版：3カラムのメガメニュー */
 .navDropdown {
   position: absolute;
@@ -335,6 +347,11 @@
   text-decoration: none;
 }
 
+/* 準備中カードの「準備中」表示はリンク色を打ち消してグレーにする */
+.navDropdownCard.isComingSoon .navDropdownCardLink {
+  color: inherit;
+}
+
 .navDropdownIconCircle {
   display: flex;
   align-items: center;
@@ -369,6 +386,12 @@
   color: #7557e8;
 }
 
+/* GraduationCheckResult.css / Life.css の isPink と同じ配色 */
+.navDropdownIconCircle.isPink {
+  background: #fce3ec; /* #F32865（--color-label-event）の薄いティント */
+  color: var(--color-label-event);
+}
+
 .navDropdownCardLabel {
   font-size: 14px;
   font-weight: 800;
@@ -388,6 +411,10 @@
 
 .navDropdownCardLabel.isPurple {
   color: #7557e8;
+}
+
+.navDropdownCardLabel.isPink {
+  color: var(--color-label-event);
 }
 
 .navDropdownCardDivider {
@@ -439,6 +466,16 @@
     left: 50%;
   }
 
+  .navDropdownWrap.isLifeDropdown .navDropdown {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .navDropdownWrap.isLifeDropdown .navDropdownTail {
+    left: 50%;
+  }
+
   .navDropdownIntro {
     display: none;
   }
@@ -475,7 +512,8 @@
   .navDropdownCardLabel.isBlue,
   .navDropdownCardLabel.isGreen,
   .navDropdownCardLabel.isYellow,
-  .navDropdownCardLabel.isPurple {
+  .navDropdownCardLabel.isPurple,
+  .navDropdownCardLabel.isPink {
     color: var(--color-text-primary);
     font-size: 13px;
   }
