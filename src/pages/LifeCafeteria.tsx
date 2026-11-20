@@ -44,14 +44,6 @@ function LifeCafeteria() {
   return (
     <div className="classPage">
       <Globalnav />
-      <svg width="0" height="0" aria-hidden="true" focusable="false" className="cafeteriaSvgDefs">
-        <defs>
-          <linearGradient id="cafeteriaTitleGradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="24" y2="0">
-            <stop offset="0%" stopColor="#1578FD" />
-            <stop offset="100%" stopColor="#5E2CFC" />
-          </linearGradient>
-        </defs>
-      </svg>
       <main className="classPageLayout">
         <p className="classBreadcrumb">
           <Link to={path()} className="classBreadcrumbLink">

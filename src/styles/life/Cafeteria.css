@@ -7,7 +7,7 @@
 }
 
 .cafeteriaTitle svg {
-  stroke: url(#cafeteriaTitleGradient);
+  color: var(--color-primary);
 }
 
 .cafeteriaTitle span {
@@ -238,11 +238,6 @@
 .cafeteriaDetail.isEmpty {
   align-items: center;
   justify-content: center;
-}
-
-.cafeteriaSvgDefs {
-  position: absolute;
-  overflow: hidden;
 }
 
 .cafeteriaEmpty {
