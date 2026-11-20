@@ -1,4 +1,4 @@
-import { ExternalLink, Info } from "lucide-react";
+import { ExternalLink, Info, SquarePen } from "lucide-react";
 import mapPinIcon from "../../assets/utility/Map.svg";
 import RatingStars from "../class/RatingStars";
 import { CafeteriaCategoryBadge, PaymentIcons } from "./CafeteriaTags";
@@ -8,7 +8,8 @@ import {
   mockCafeteriaReviews,
   type Cafeteria,
 } from "./mockCafeterias";
-import { toMinutes } from "../../lib/cafeteriaSearch";
+import { isOpenNow, toMinutes } from "../../lib/cafeteriaSearch";
+import "../../styles/utility/ComingSoon.css";
 import "../../styles/life/Cafeteria.css";
 
 const AXIS_HOURS = [8, 10, 12, 14, 16];
@@ -29,6 +30,17 @@ const congestionLabel: Record<CongestionLevel, string> = {
 
 const formatSlot = (minutes: number) =>
   `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, "0")}`;
+
+/** 現在時刻の混雑状況の文言。営業時間外なら「営業時間外」 */
+function currentCongestionText(cafeteria: Cafeteria, now: Date): string {
+  if (!isOpenNow(cafeteria, now)) return "営業時間外";
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const index = Math.floor((nowMinutes - CONGESTION_START_HOUR * 60) / CONGESTION_SLOT_MINUTES);
+  const value = cafeteria.congestion[index];
+  // 営業中だがグラフの範囲外（夕方以降など）は混雑データがない
+  if (index < 0 || value === undefined) return "混雑データなし";
+  return `${congestionLabel[congestionLevel(value)]} の可能性`;
+}
 
 function CongestionChart({ cafeteria, now }: { cafeteria: Cafeteria; now: Date }) {
   const today = now.getDay();
@@ -63,11 +75,20 @@ function CongestionChart({ cafeteria, now }: { cafeteria: Cafeteria; now: Date }
         {bars.map((bar) => (
           <span className="cafeteriaChartSlot" key={bar.start}>
             {bar.open && (
-              <span
-                className={`cafeteriaChartBar ${bar.level}${bar.isCurrent ? " isCurrent" : ""}`}
-                style={{ height: `${bar.value}%` }}
-                title={`${formatSlot(bar.start)} ${congestionLabel[bar.level]}`}
-              />
+              <>
+                <span
+                  className={`cafeteriaChartBar ${bar.level}${bar.isCurrent ? " isCurrent" : ""}`}
+                  style={{ height: `${bar.value}%` }}
+                />
+                <span
+                  className="comingSoonTip cafeteriaChartTip"
+                  style={{ bottom: `calc(${bar.value}% + 6px)` }}
+                  aria-hidden="true"
+                >
+                  {formatSlot(bar.start)}-{formatSlot(bar.start + CONGESTION_SLOT_MINUTES)}{" "}
+                  {congestionLabel[bar.level]}
+                </span>
+              </>
             )}
           </span>
         ))}
@@ -148,7 +169,7 @@ function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
           <div className="cafeteriaDetailMeta">
             <div>
               <p className="cafeteriaDetailLocation">{cafeteria.location}</p>
-              {cafeteria.phone && <p className="cafeteriaNumber">{cafeteria.phone}</p>}
+              {cafeteria.phone && <p>{cafeteria.phone}</p>}
             </div>
             <div>
               {cafeteria.hours.lines.map((line) => (
@@ -166,6 +187,13 @@ function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
           <span className="cafeteriaDetailScoreCount">
             （<span className="cafeteriaNumber">{cafeteria.reviewCount}</span>件）
           </span>
+          {/* 口コミ投稿ページは未実装のため、現時点ではクリックしても遷移しない */}
+          <button type="button" className="cafeteriaReviewPostBtn" aria-label="口コミを投稿する">
+            <SquarePen aria-hidden="true" />
+            <span className="comingSoonTip" aria-hidden="true">
+              口コミを投稿する
+            </span>
+          </button>
         </div>
       </div>
 
@@ -180,6 +208,7 @@ function CafeteriaDetailPanel({ cafeteria, now }: CafeteriaDetailPanelProps) {
         ))}
       </div>
 
+      <p className="cafeteriaChartStatus">現在：{currentCongestionText(cafeteria, now)}</p>
       <CongestionChart cafeteria={cafeteria} now={now} />
 
       <details className="cafeteriaAccordion" open>

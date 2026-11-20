@@ -216,6 +216,7 @@
 }
 
 .cafeteriaDetailScore {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -241,12 +242,60 @@
   font-size: 12px;
 }
 
+/* ボタンはおすすめ度の下に重ねて配置し、レイアウトの高さには含めない
+   （決済手段・混雑グラフの位置を下げないため） */
+.cafeteriaReviewPostBtn {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-main-gradient);
+  color: #fff;
+  box-shadow: var(--shadow-btn-soft);
+  cursor: pointer;
+  transform: translateX(-50%);
+  transition: transform 0.15s ease;
+}
+
+.cafeteriaReviewPostBtn:hover {
+  transform: translate(-50%, -1px);
+}
+
+.cafeteriaReviewPostBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.cafeteriaReviewPostBtn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.cafeteriaReviewPostBtn .comingSoonTip {
+  bottom: calc(100% - 6px);
+  left: calc(100% - 10px);
+}
+
+.cafeteriaReviewPostBtn:hover .comingSoonTip,
+.cafeteriaReviewPostBtn:focus-visible .comingSoonTip {
+  opacity: 1;
+  visibility: visible;
+}
+
 .cafeteriaDetailTags {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 20px;
-  padding-left: 54px;
+  /* 右側はおすすめ度下の口コミ投稿ボタンと重ならないよう空ける */
+  padding: 0 72px 0 54px;
 }
 
 .tag.cafeteriaCategoryBadge {
@@ -353,6 +402,13 @@
   color: var(--color-label-life);
 }
 
+.cafeteriaChartStatus {
+  margin: 4px 0 0 54px;
+  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: 500;
+}
+
 .cafeteriaChart {
   position: relative;
   margin: 4px 0 0 54px;
@@ -369,6 +425,7 @@
 }
 
 .cafeteriaChartSlot {
+  position: relative;
   display: flex;
   flex: 1;
   align-items: flex-end;
@@ -403,6 +460,20 @@
 
 .cafeteriaChartBar.isHigh.isCurrent {
   background: var(--color-label-event);
+}
+
+/* bottom はバーの高さに合わせて CafeteriaDetailPanel.tsx でインライン指定 */
+.cafeteriaChartTip {
+  left: 50%;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  transform: translateX(-50%);
+}
+
+.cafeteriaChartSlot:hover .cafeteriaChartTip {
+  opacity: 1;
+  visibility: visible;
 }
 
 .cafeteriaChartAxis {
@@ -839,14 +910,37 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    align-items: center;
     gap: 8px;
     padding-left: 54px;
   }
 
+  .cafeteriaReviewPostBtn {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-left: auto;
+    transform: none;
+  }
+
+  .cafeteriaReviewPostBtn:hover {
+    transform: translateY(-1px);
+  }
+
+  .cafeteriaReviewPostBtn .comingSoonTip {
+    right: 0;
+    left: auto;
+  }
+
   .cafeteriaDetailTags,
+  .cafeteriaChartStatus,
   .cafeteriaChart {
     padding-left: 0;
     margin-left: 0;
+  }
+
+  .cafeteriaDetailTags {
+    padding-right: 0;
   }
 
   .cafeteriaMainMenu.hasList {
