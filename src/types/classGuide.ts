@@ -18,4 +18,7 @@ export type ClassGuideArticleRecord = {
   status: PublishStatus;
   created_at: string;
   updated_at: string;
+  university_ids?: string[];
 };
+
+export type ClassGuideArticleInput = Omit<ClassGuideArticleRecord, "id" | "created_at" | "updated_at" | "university_ids">;

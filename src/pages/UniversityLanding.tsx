@@ -14,7 +14,7 @@ export default function UniversityLanding() {
 
   if (loading || authLoading) return <main className="careerState">読み込んでいます...</main>;
   if (error) return <main className="careerState isError">{error}</main>;
-  if (!university) return <main className="careerState"><h1>大学が見つかりません</h1><Link to="/">大学を選び直す</Link></main>;
+  if (!university) return <main className="careerState"><h1>大学が見つかりません</h1><Link to="/">トップへ戻る</Link></main>;
 
   const active = getActiveUniversitySlug() === university.slug;
   const canAccess = canAccessUniversitySite({
@@ -38,7 +38,7 @@ export default function UniversityLanding() {
   return (
     <main className="universityIntro">
       <section className="universityIntroHero">
-        <Link to="/" className="universityIntroBack">大学選択に戻る</Link>
+        <Link to="/" className="universityIntroBack">トップへ戻る</Link>
         <p>TSUKUHUB FOR {university.slug.toUpperCase()}</p>
         <h1>{university.name}</h1>
         <h2>現在サービスを停止しています</h2>

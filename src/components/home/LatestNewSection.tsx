@@ -22,7 +22,7 @@ function LatestNewsSection({ newsItems }: { newsItems: NewsItemRecord[] }) {
       <div className="panelTitle">
         {/* icon-bell.svg — replace when asset arrives */}
         <img src={bellIcon} alt="" />
-        <h2>新着情報</h2>
+        <h2>注目トピック</h2>
       </div>
 
       <div className="tabList">
@@ -39,7 +39,7 @@ function LatestNewsSection({ newsItems }: { newsItems: NewsItemRecord[] }) {
 
       <div className="latestList">
         {filtered.length === 0 && (
-          <p className="latestEmpty">まだ掲載されている新着情報はありません。</p>
+          <p className="latestEmpty">まだ掲載されている注目トピックはありません。</p>
         )}
         {filtered.map((news) => {
           const presentation = newsPresentation(news.category);
@@ -50,15 +50,15 @@ function LatestNewsSection({ newsItems }: { newsItems: NewsItemRecord[] }) {
                 <NewsIcon aria-hidden="true" />
               </span>
               <span className={`tag ${presentation.tagClass}`}>{news.category}</span>
-              <h3>{news.title}</h3>
+              <h3>{news.source_path ? <Link to={path(news.source_path)} style={{ color: "inherit", textDecoration: "none" }}>{news.title}</Link> : news.title}</h3>
               <time>{news.published_at.replaceAll("-", "/")}</time>
             </article>
           );
         })}
       </div>
 
-      <Link className="panelLink" to={path("/news")}>
-        新着情報一覧へ
+      <Link className="panelLink" to={path("/topics")}>
+        注目トピック一覧へ
       </Link>
     </section>
   );

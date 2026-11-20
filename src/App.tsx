@@ -9,7 +9,6 @@ import Confirm from "./components/auth/Confirm";
 import FeatureGate from "./components/university/FeatureGate";
 import UniversityProvider from "./components/university/UniversityProvider";
 import RequireActiveUniversity from "./components/university/RequireActiveUniversity";
-import UniversityPortal from "./pages/UniversityPortal";
 import UniversityLanding from "./pages/UniversityLanding";
 import Login from "./pages/Login";
 import { RequestPasswordReset, ResetPassword } from "./pages/PasswordRecovery";
@@ -52,6 +51,7 @@ import AdminApplications from "./pages/admin/AdminApplications";
 import AdminApplicationDetail from "./pages/admin/AdminApplicationDetail";
 import AdminCareerContent from "./pages/admin/AdminCareerContent";
 import AdminClassManagement from "./pages/admin/AdminClassManagement";
+import AdminClassGuides from "./pages/admin/AdminClassGuides";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminUniversities from "./pages/admin/AdminUniversities";
 import AdminNews from "./pages/admin/AdminNews";
@@ -103,7 +103,7 @@ function App() {
       <ScrollToTop />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<UniversityPortal />} />
+          <Route path="/" element={<Navigate to="/tsukuba" replace />} />
           <Route path="/404" element={<Notfound404 />} />
           <Route path="/company/login" element={<CompanyLogin />} />
           <Route path="/company" element={<CompanyDashboard />} />
@@ -121,6 +121,7 @@ function App() {
           <Route path="/admin/applications/:id" element={<ProtectedAdmin><AdminApplicationDetail /></ProtectedAdmin>} />
           <Route path="/admin/career-content" element={<ProtectedAdmin><AdminCareerContent /></ProtectedAdmin>} />
           <Route path="/admin/class-management" element={<ProtectedAdmin><AdminClassManagement /></ProtectedAdmin>} />
+          <Route path="/admin/class-guides" element={<ProtectedAdmin><AdminClassGuides /></ProtectedAdmin>} />
 
           <Route path="/:accountSlug/auth/forgot-password" element={<RequestPasswordReset />} />
           <Route path="/:accountSlug/auth/reset-password" element={<ResetPassword />} />

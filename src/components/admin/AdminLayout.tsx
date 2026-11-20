@@ -24,18 +24,19 @@ export default function AdminLayout({ title, children }: { title: string; childr
 
   return (
     <div className="careerPlatform adminPlatform">
-      <header className="portalHeader adminTopbar"><Link className="portalBrand" to="/admin">TsukuHub Admin</Link><div><Link to="/">大学選択を表示</Link><button type="button" onClick={() => void logout()}><LogOut aria-hidden="true" />ログアウト</button></div></header>
+      <header className="portalHeader adminTopbar"><Link className="portalBrand" to="/admin">TsukuHub Admin</Link><div><Link to="/">サイトを表示</Link><button type="button" onClick={() => void logout()}><LogOut aria-hidden="true" />ログアウト</button></div></header>
       <div className="adminShell">
         <aside className="adminSidebar">
           <p>TSUKUHUB ADMIN</p>
           <nav>
             <NavLink end to="/admin"><LayoutDashboard />ダッシュボード</NavLink>
             <NavLink to="/admin/universities"><Building2 />大学管理</NavLink>
-            <NavLink to="/admin/news"><BellRing />ニュース管理</NavLink>
+            <NavLink to="/admin/news"><BellRing />注目トピック</NavLink>
             <NavLink to="/admin/internships"><BriefcaseBusiness />求人管理</NavLink>
             <NavLink to="/admin/applications"><ClipboardList />応募者管理</NavLink>
             <NavLink to="/admin/company-access"><Building2 />企業担当者管理</NavLink>
             <NavLink to="/admin/career-content"><GraduationCap />就活コンテンツ</NavLink>
+            <NavLink to="/admin/class-guides"><BookOpenCheck />履修戦略・授業選び</NavLink>
             <NavLink to="/admin/class-management"><BookOpenCheck />履修・通報管理</NavLink>
           </nav>
         </aside>
