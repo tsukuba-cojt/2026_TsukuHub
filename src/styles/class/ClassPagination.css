@@ -1,5 +1,6 @@
 .classPagination {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -7,14 +8,41 @@
 }
 
 .classPagination button {
-  width: 26px;
-  height: 26px;
-  border: 1px solid #cbd8eb;
-  border-radius: 2px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #d8e3f4;
+  border-radius: 8px;
   background: #fff;
   color: var(--color-text-primary);
   font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(8, 28, 66, 0.08);
   cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.classPagination button:hover:not(:disabled):not(.isActive) {
+  border-color: #9ab1d8;
+  background: #dcebff;
+}
+
+.classPagination button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.classPagination button:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+  cursor: default;
 }
 
 .classPagination button.isActive {
