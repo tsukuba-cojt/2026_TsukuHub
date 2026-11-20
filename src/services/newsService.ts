@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabase";
 import type { NewsItemInput, NewsItemKind, NewsItemRecord } from "../types/news";
 
-const columns = "id, kind, category, title, description, published_at, status, created_at, updated_at";
+const columns = "id, kind, category, title, description, published_at, status, created_at, updated_at, source_path";
 
 export async function listPublishedNews(
   universityId: string,
