@@ -278,9 +278,10 @@
   height: 22px;
 }
 
+/* ボタンは詳細パネルの右端にあるため、ポップアップは左上に出して画面外へはみ出さないようにする */
 .cafeteriaReviewPostBtn .comingSoonTip {
+  right: calc(100% - 10px);
   bottom: calc(100% - 6px);
-  left: calc(100% - 10px);
 }
 
 .cafeteriaReviewPostBtn:hover .comingSoonTip,
