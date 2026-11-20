@@ -52,6 +52,7 @@ import AdminApplications from "./pages/admin/AdminApplications";
 import AdminApplicationDetail from "./pages/admin/AdminApplicationDetail";
 import AdminCareerContent from "./pages/admin/AdminCareerContent";
 import AdminClassManagement from "./pages/admin/AdminClassManagement";
+import AdminClassGuides from "./pages/admin/AdminClassGuides";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminUniversities from "./pages/admin/AdminUniversities";
 import AdminNews from "./pages/admin/AdminNews";
@@ -121,6 +122,7 @@ function App() {
           <Route path="/admin/applications/:id" element={<ProtectedAdmin><AdminApplicationDetail /></ProtectedAdmin>} />
           <Route path="/admin/career-content" element={<ProtectedAdmin><AdminCareerContent /></ProtectedAdmin>} />
           <Route path="/admin/class-management" element={<ProtectedAdmin><AdminClassManagement /></ProtectedAdmin>} />
+          <Route path="/admin/class-guides" element={<ProtectedAdmin><AdminClassGuides /></ProtectedAdmin>} />
 
           {legacyRoots.map((root) => (
             <Route path={`/${root}/*`} element={<Navigate to="/" replace />} key={root} />

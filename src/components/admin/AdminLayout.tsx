@@ -36,6 +36,7 @@ export default function AdminLayout({ title, children }: { title: string; childr
             <NavLink to="/admin/applications"><ClipboardList />応募者管理</NavLink>
             <NavLink to="/admin/company-access"><Building2 />企業担当者管理</NavLink>
             <NavLink to="/admin/career-content"><GraduationCap />就活コンテンツ</NavLink>
+            <NavLink to="/admin/class-guides"><BookOpenCheck />履修戦略・授業選び</NavLink>
             <NavLink to="/admin/class-management"><BookOpenCheck />履修・通報管理</NavLink>
           </nav>
         </aside>
