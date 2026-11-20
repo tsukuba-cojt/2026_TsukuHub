@@ -24,7 +24,7 @@ export default function AdminLayout({ title, children }: { title: string; childr
 
   return (
     <div className="careerPlatform adminPlatform">
-      <header className="portalHeader adminTopbar"><Link className="portalBrand" to="/admin">TsukuHub Admin</Link><div><Link to="/">大学選択を表示</Link><button type="button" onClick={() => void logout()}><LogOut aria-hidden="true" />ログアウト</button></div></header>
+      <header className="portalHeader adminTopbar"><Link className="portalBrand" to="/admin">TsukuHub Admin</Link><div><Link to="/">サイトを表示</Link><button type="button" onClick={() => void logout()}><LogOut aria-hidden="true" />ログアウト</button></div></header>
       <div className="adminShell">
         <aside className="adminSidebar">
           <p>TSUKUHUB ADMIN</p>

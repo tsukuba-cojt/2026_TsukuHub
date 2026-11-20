@@ -10,7 +10,6 @@ import Confirm from "./components/auth/Confirm";
 import FeatureGate from "./components/university/FeatureGate";
 import UniversityProvider from "./components/university/UniversityProvider";
 import RequireActiveUniversity from "./components/university/RequireActiveUniversity";
-import UniversityPortal from "./pages/UniversityPortal";
 import UniversityLanding from "./pages/UniversityLanding";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -104,7 +103,7 @@ function App() {
       <ScrollToTop />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<UniversityPortal />} />
+          <Route path="/" element={<Navigate to="/tsukuba" replace />} />
           <Route path="/404" element={<Notfound404 />} />
           <Route path="/company/login" element={<CompanyLogin />} />
           <Route path="/company" element={<CompanyDashboard />} />

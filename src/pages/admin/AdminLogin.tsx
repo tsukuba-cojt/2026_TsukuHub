@@ -41,7 +41,7 @@ export default function AdminLogin() {
           {error && <p className="auth-error">{error}</p>}
           <button className="primary-button login-gradient-button" disabled={loading}>{loading ? "ログイン中..." : "ログイン"}</button>
         </form>
-        <Link className="back-link" to="/">大学選択に戻る</Link>
+        <Link className="back-link" to="/">トップへ戻る</Link>
       </section>
     </main>
   );
