@@ -20,6 +20,7 @@ import { listUniversities } from "../../services/universityService";
 import type { University } from "../../types/university";
 import { COMING_SOON_NOTICE, isUniversityComingSoon } from "../../data/comingSoon";
 import UserInfoModal from "./UserInfoModal";
+import UserAvatar from "./UserAvatar";
 import "../../styles/utility/Header.css";
 import logoBlue from "../../assets/utility/header_footer/logo-blue.svg";
 import sparkleIcon from "../../assets/utility/header_footer/icon-sparkle.svg";
@@ -42,7 +43,7 @@ export default function Header() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, avatarColor } = useAuth();
   const { university, path, isFeatureEnabled } = useUniversity();
   const [universities, setUniversities] = useState<University[]>([]);
 
@@ -260,11 +261,7 @@ export default function Header() {
                   onClick={() => setMenuOpen((v) => !v)}
                 >
                   <span className="mypage-avatar">
-                    <img
-                      src="/src/assets/utility/header_footer/People.svg"
-                      alt=""
-                      aria-hidden="true"
-                    />
+                    <UserAvatar color={avatarColor} size={28} />
                   </span>
                   <span className="mypage-label">マイページ</span>
                   <svg
