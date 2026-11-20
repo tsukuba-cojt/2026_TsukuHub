@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import { resolveUniversityLanding } from "./resolveUniversityLanding";
 
 describe("resolveUniversityLanding", () => {
-  it("未ログインなら大学別ログインへ進む", () => {
+  it("未ログインなら大学ホームを表示する", () => {
     expect(resolveUniversityLanding({
       universityStatus: "active",
       isAuthenticated: false,
       isActiveUniversity: false,
       canAccessUniversity: false,
-    })).toBe("login");
+    })).toBe("home");
   });
 
   it("対象大学でログイン済みなら大学ホームを表示する", () => {

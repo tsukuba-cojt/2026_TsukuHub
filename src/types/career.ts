@@ -37,6 +37,24 @@ export type Internship = {
   university_ids?: string[];
 };
 
+export type InternshipSummary = Pick<Internship,
+  | "id"
+  | "company_name"
+  | "company_logo_url"
+  | "cover_image_url"
+  | "title"
+  | "summary"
+  | "job_category"
+  | "location"
+  | "work_style"
+  | "is_remote"
+  | "compensation"
+  | "tags"
+  | "deadline"
+  | "is_featured"
+  | "created_at"
+> & { description?: string };
+
 export type InternshipInput = Omit<
   Internship,
   "id" | "created_by" | "created_at" | "updated_at"

@@ -1,10 +1,10 @@
 import { ArrowRight, BriefcaseBusiness, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { Internship } from "../../types/career";
+import type { InternshipSummary } from "../../types/career";
 import { useUniversity } from "../university/universityContextValue";
 
 type FeaturedInternshipsProps = {
-  items: Internship[];
+  items: InternshipSummary[];
 };
 
 // 講義・履修トップの履修ガイド（classGuidePanel）と同じ見た目にそろえる。
