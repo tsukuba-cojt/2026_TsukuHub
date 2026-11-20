@@ -4,7 +4,6 @@ import InternalLinkGuard from "./components/utility/InternalLinkGuard";
 import ScrollToTop from "./components/utility/ScrollToTop";
 import { AuthProvider } from "./components/auth/AuthContext";
 import RequireAdmin from "./components/auth/RequireAdmin";
-import RequireAuth from "./components/auth/RequireAuth";
 import RequireUniversityAccess from "./components/auth/RequireUniversityAccess";
 import Confirm from "./components/auth/Confirm";
 import FeatureGate from "./components/university/FeatureGate";
@@ -141,7 +140,7 @@ function App() {
               <Route path="privacy" element={<LegalDocument type="privacy" />} />
             </Route>
 
-            <Route element={<RequireUniversityAccess />}>
+            <Route element={<RequireUniversityAccess allowGuest />}>
               <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
@@ -163,7 +162,6 @@ function App() {
               </Route>
               <Route element={<FeatureGate feature="internships" />}>
                 <Route path="career/internships" element={<CareerInternships />} />
-                <Route path="career/internships/:internshipId" element={<CareerInternshipDetail />} />
               </Route>
               <Route element={<FeatureGate feature="alumni_stories" />}>
                 <Route path="career/alumni" element={<CareerAlumni />} />
@@ -180,20 +178,19 @@ function App() {
               <Route element={<FeatureGate feature="class_reviews" />}>
                 <Route path="class/:courseCode/review" element={<ClassReviewForm />} />
               </Route>
+            </Route>
+
+            <Route element={<RequireUniversityAccess />}>
+              <Route element={<FeatureGate feature="internships" />}>
+                <Route path="career/internships/:internshipId" element={<CareerInternshipDetail />} />
+              </Route>
               <Route element={<FeatureGate feature="graduation_checker" />}>
                 <Route path="graduation-checker" element={graduationCheckTestEnabled ? <GraduationCheckTest /> : <GraduationCheck />} />
                 <Route path="graduation-checker/result" element={<GraduationCheckResult />} />
               </Route>
               <Route element={<FeatureGate feature="timetable" />}>
                 <Route path="timetable" element={<Timetable />} />
-                <Route
-                  path="timetable/share"
-                  element={
-                    <RequireAuth>
-                      <TimetableShare />
-                    </RequireAuth>
-                  }
-                />
+                <Route path="timetable/share" element={<TimetableShare />} />
               </Route>
             </Route>
             <Route path="*" element={<Notfound404 />} />

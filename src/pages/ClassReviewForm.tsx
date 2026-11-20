@@ -14,6 +14,7 @@ import {
   User,
   UsersRound,
 } from "lucide-react";
+import { useAuth } from "../components/auth/authContextValue";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
 import RatingStarsInput from "../components/class/RatingStarsInput";
@@ -68,6 +69,7 @@ type ReviewDraft = {
 };
 
 function ClassReviewForm() {
+  const { user } = useAuth();
   const { university, path } = useUniversity();
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
@@ -397,15 +399,21 @@ function ClassReviewForm() {
                   >
                     下書き保存
                   </button>
-                  <button
-                    type="button"
-                    className="reviewFormSubmitBtn"
-                    disabled={rating === 0 || submitting || commentTooLong}
-                    onClick={() => void handleSubmit()}
-                  >
-                    <Send aria-hidden="true" />
-                    {submitting ? "投稿中..." : "口コミを投稿する"}
-                  </button>
+                  {user ? (
+                    <button
+                      type="button"
+                      className="reviewFormSubmitBtn"
+                      disabled={rating === 0 || submitting || commentTooLong}
+                      onClick={() => void handleSubmit()}
+                    >
+                      <Send aria-hidden="true" />
+                      {submitting ? "投稿中..." : "口コミを投稿する"}
+                    </button>
+                  ) : (
+                    <Link className="reviewFormSubmitBtn" to={path("/login")} state={{ from: location.pathname + location.search }}>
+                      ログインして投稿する
+                    </Link>
+                  )}
                 </div>
               </div>
             </section>

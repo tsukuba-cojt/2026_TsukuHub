@@ -114,7 +114,7 @@ export default function UniversityPortal() {
           <div className="portalSectionHeading">
             <span>SELECT YOUR UNIVERSITY</span>
             <h2 id="university-heading">所属する大学を選んでください</h2>
-            <p>大学ごとのページからログインすると、あなたの大学専用の情報が表示されます。</p>
+            <p>大学を選ぶと、その大学の授業やキャリア情報を閲覧できます。</p>
           </div>
           {loading ? (
             <p className="portalState">読み込んでいます...</p>

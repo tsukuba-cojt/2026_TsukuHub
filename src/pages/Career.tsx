@@ -9,7 +9,7 @@ import Globalnav from "../components/utility/Globalnav";
 import { isInternalCareerArticle } from "../lib/articleMarkdown";
 import { listPublishedInternships } from "../services/careerService";
 import { listPublishedCareerArticles } from "../services/contentService";
-import type { Internship } from "../types/career";
+import type { InternshipSummary } from "../types/career";
 import type { CareerArticleRecord } from "../types/content";
 import { useUniversity } from "../components/university/universityContextValue";
 import "../styles/career/Career.css";
@@ -18,7 +18,7 @@ import "../styles/class/ClassGuide.css";
 
 export default function Career() {
   const { university } = useUniversity();
-  const [featured, setFeatured] = useState<Internship[]>([]);
+  const [featured, setFeatured] = useState<InternshipSummary[]>([]);
   const [articles, setArticles] = useState<CareerArticleRecord[]>([]);
 
   useEffect(() => {

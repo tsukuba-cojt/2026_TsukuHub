@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import type { Internship } from "../../types/career";
+import type { InternshipSummary } from "../../types/career";
 import { useUniversity } from "../university/universityContextValue";
 import ContentCover from "./ContentCover";
 
 type InternshipListingCardProps = {
-  internship: Internship;
+  internship: InternshipSummary;
 };
 
 export default function InternshipListingCard({ internship }: InternshipListingCardProps) {

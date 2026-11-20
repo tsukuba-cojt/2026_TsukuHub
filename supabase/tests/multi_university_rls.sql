@@ -61,6 +61,30 @@ begin
 end;
 $$;
 
+set local role anon;
+do $$
+begin
+  if not exists (
+    select 1 from public.news_items n
+    join public.news_item_universities t on t.news_item_id = n.id
+    where n.id = '20000000-0000-4000-8000-000000000001'
+      and t.university_id = '00000000-0000-4000-8000-000000000001'
+  ) then
+    raise exception 'Guest cannot read a published university news item';
+  end if;
+  if not has_column_privilege('public.internships', 'summary', 'select')
+     or has_column_privilege('public.internships', 'description', 'select')
+     or has_column_privilege('public.internships', 'requirements', 'select') then
+    raise exception 'Unexpected guest access to internship columns';
+  end if;
+  if has_any_column_privilege('public.applications', 'select')
+     or has_any_column_privilege('public.timetable_histories', 'select') then
+    raise exception 'Guest can read private records';
+  end if;
+end;
+$$;
+
+reset role;
 set local role authenticated;
 select set_config('request.jwt.claim.sub', '10000000-0000-4000-8000-000000000001', true);
 select set_config('request.jwt.claims', '{"sub":"10000000-0000-4000-8000-000000000001","role":"authenticated"}', true);

@@ -14,8 +14,8 @@ export function resolveUniversityLanding({
   isAdmin?: boolean;
 }): UniversityLandingDestination {
   if (universityStatus === "suspended") return "suspended";
+  if (!isAuthenticated) return "home";
   if (
-    isAuthenticated &&
     canAccessUniversity &&
     (isActiveUniversity || isAdmin)
   ) {

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../components/auth/authContextValue";
 import CareerPageHeader from "../components/career/CareerPageHeader";
 import InternshipListingCard from "../components/career/InternshipListingCard";
 import ListingPagination from "../components/career/ListingPagination";
@@ -15,7 +16,7 @@ import {
   type InternshipSortKey,
 } from "../lib/internshipSearch";
 import { listPublishedInternships } from "../services/careerService";
-import type { Internship } from "../types/career";
+import type { InternshipSummary } from "../types/career";
 import { useUniversity } from "../components/university/universityContextValue";
 import "../styles/career/CareerPlatform.css";
 
@@ -36,8 +37,9 @@ const sortOptions: { key: InternshipSortKey; label: string }[] = [
 ];
 
 export default function CareerInternships() {
+  const { user } = useAuth();
   const { university } = useUniversity();
-  const [items, setItems] = useState<Internship[]>([]);
+  const [items, setItems] = useState<InternshipSummary[]>([]);
   const [draftQuery, setDraftQuery] = useState("");
   const [filters, setFilters] = useState<InternshipSearchQuery>(emptyFilters);
   const [page, setPage] = useState(1);
@@ -48,7 +50,7 @@ export default function CareerInternships() {
     if (!university) return;
     setLoading(true);
     setError("");
-    void listPublishedInternships(university.id)
+    void listPublishedInternships(university.id, Boolean(user))
       .then(setItems)
       .catch(() =>
         setError("求人情報を取得できませんでした。時間をおいて再度お試しください。"),
@@ -58,7 +60,7 @@ export default function CareerInternships() {
 
   useEffect(() => {
     load();
-  }, [university]);
+  }, [university, user]);
 
   const facets = useMemo(() => collectInternshipFacets(items), [items]);
   const filtered = useMemo(() => filterInternships(items, filters), [filters, items]);

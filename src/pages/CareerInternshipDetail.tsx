@@ -9,7 +9,7 @@ import InternshipDetailContent, {
 import Footer from "../components/utility/Footer";
 import Globalnav from "../components/utility/Globalnav";
 import { getInternship, listPublishedInternships, sendApplicationNotification } from "../services/careerService";
-import type { Internship } from "../types/career";
+import type { Internship, InternshipSummary } from "../types/career";
 import { useUniversity } from "../components/university/universityContextValue";
 import "../styles/career/CareerPlatform.css";
 import "../styles/career/CareerInternshipDetail.css";
@@ -18,7 +18,7 @@ export default function CareerInternshipDetail() {
   const { university, path } = useUniversity();
   const { internshipId = "" } = useParams();
   const [item, setItem] = useState<Internship | null>(null);
-  const [related, setRelated] = useState<Internship[]>([]);
+  const [related, setRelated] = useState<InternshipSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);

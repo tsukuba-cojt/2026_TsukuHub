@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { canNavigateBackInApp } from "../../lib/pageBack";
 import { useOptionalUniversity } from "../university/universityContextValue";
 import "../../styles/auth/Unauthorized.css";
 
@@ -40,32 +42,64 @@ function KeyIcon() {
   );
 }
 
-// Figma: 401 Unauthorized #2351:1159
-// 未ログインで保護ページを開いたときに、ページ本体の上へ重ねるオーバーレイ
 export default function Unauthorized() {
   const universityContext = useOptionalUniversity();
   const path = universityContext?.path ?? ((pathname = "") => pathname || "/");
+  const signupEnabled = universityContext?.university?.signup_enabled ?? true;
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.pathname + location.search + location.hash;
+  const canGoBack = canNavigateBackInApp();
+
+  const handleReturn = () => {
+    if (canGoBack) {
+      navigate(-1);
+      return;
+    }
+    navigate(path(), { replace: true });
+  };
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    dialog.showModal();
+    return () => dialog.close();
+  }, []);
+
   return (
-    <div className="unauthorized-overlay" role="dialog" aria-modal="true">
+    <dialog
+      ref={dialogRef}
+      className="unauthorized-dialog"
+      aria-labelledby="unauthorized-heading"
+      aria-describedby="unauthorized-description"
+      onCancel={(event) => {
+        event.preventDefault();
+        handleReturn();
+      }}
+    >
       <div className="unauthorized-content">
         <KeyIcon />
-        <h2 className="unauthorized-heading">
-          情報の閲覧には
-          <span className="unauthorized-highlight">ログイン</span>
-          が必要です
-        </h2>
+        <h2 id="unauthorized-heading">ログインが必要です</h2>
+        <p id="unauthorized-description">
+          {signupEnabled
+            ? "このページを利用するには、ログインまたは新規登録をしてください。"
+            : "このページを利用するには、大学のアカウントでログインしてください。"}
+        </p>
         <div className="unauthorized-actions">
-          <Link to={path("/login")} className="unauthorized-btn unauthorized-btn-login">
+          <Link to={path("/login")} replace state={{ from }} className="btn btn-login">
             ログイン
           </Link>
-          <Link to={path("/signup")} className="unauthorized-btn unauthorized-btn-register">
-            新規登録
-          </Link>
+          {signupEnabled && (
+            <Link to={path("/signup")} replace className="btn btn-register">
+              新規登録
+            </Link>
+          )}
         </div>
-        <Link to={path()} className="unauthorized-btn-return">
-          <span className="unauthorized-btn-return-label">← トップページへ戻る</span>
-        </Link>
+        <button type="button" onClick={handleReturn} className="unauthorized-return">
+          {canGoBack ? "前の画面に戻る" : "大学トップへ戻る"}
+        </button>
       </div>
-    </div>
+    </dialog>
   );
 }
