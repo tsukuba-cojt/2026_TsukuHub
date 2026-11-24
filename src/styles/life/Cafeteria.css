@@ -1,6 +1,31 @@
 .cafeteriaHero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
+
+.cafeteriaStaffLink {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid #1f6bff;
+  border-radius: 12px;
+  background: white;
+  color: #1f6bff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cafeteriaStaffLink:hover { background: #edf4ff; }
+.cafeteriaStaffLink:focus-visible { outline: 3px solid #1f6bff; outline-offset: 3px; }
 
 .cafeteriaTitle {
   gap: 8px;

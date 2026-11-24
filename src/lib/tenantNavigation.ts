@@ -14,5 +14,5 @@ export function resolveTenantPath(pathname: string, universitySlug: string) {
 
 export function isPlatformPath(pathname: string) {
   const normalizedPath = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  return normalizedPath === "/admin" || normalizedPath.startsWith("/admin/");
+  return normalizedPath === "/admin" || normalizedPath.startsWith("/admin/") || normalizedPath === "/cafeteria-staff";
 }

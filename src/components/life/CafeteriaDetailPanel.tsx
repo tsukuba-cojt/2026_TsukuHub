@@ -110,6 +110,11 @@ function CongestionChart({ cafeteria, now }: { cafeteria: Cafeteria; now: Date }
 }
 
 function MenuSection({ cafeteria }: { cafeteria: Cafeteria }) {
+  if (cafeteria.menuPhotoUrl) return <div className="cafeteriaMenu">
+    <p className="cafeteriaMainMenuTitle">本日のメニュー</p>
+    {cafeteria.menuUpdatedAt && <p>更新：{new Intl.DateTimeFormat("ja-JP", { timeZone: "Asia/Tokyo", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(cafeteria.menuUpdatedAt))}</p>}
+    <a href={cafeteria.menuPhotoUrl} target="_blank" rel="noreferrer" aria-label={`${cafeteria.name}のメニュー写真を拡大`}><img src={cafeteria.menuPhotoUrl} alt={`${cafeteria.name}の本日のメニュー`} style={{ display: "block", width: "100%", height: "auto", borderRadius: 12 }} /></a>
+  </div>;
   const photoNames = Array.from({ length: PHOTO_TILE_COUNT }, (_, index) =>
     cafeteria.mainMenu
       ? cafeteria.mainMenu[index % cafeteria.mainMenu.length].name
@@ -121,11 +126,12 @@ function MenuSection({ cafeteria }: { cafeteria: Cafeteria }) {
       <div className={`cafeteriaMainMenu${cafeteria.mainMenu ? " hasList" : ""}`}>
         {cafeteria.mainMenu ? (
           <>
-            <p className="cafeteriaMainMenuTitle">メインメニュー</p>
+            <p className="cafeteriaMainMenuTitle">{cafeteria.menuUpdatedAt ? "本日のメニュー" : "メインメニュー"}</p>
+            {cafeteria.menuUpdatedAt && <p>更新：{new Intl.DateTimeFormat("ja-JP", { timeZone: "Asia/Tokyo", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(cafeteria.menuUpdatedAt))}</p>}
             <ul>
               {cafeteria.mainMenu.map((item) => (
                 <li key={item.name}>
-                  <span>{item.name}</span>
+                  <span>{item.name}{item.sold_out && "（売り切れ）"}</span>
                   <span className="cafeteriaNumber">{item.price}</span>
                 </li>
               ))}

@@ -9,6 +9,8 @@ import CafeteriaDetailPanel from "../components/life/CafeteriaDetailPanel";
 import CafeteriaCardList from "../components/life/CafeteriaCardList";
 import CafeteriaMap from "../components/life/CafeteriaMap";
 import { mockCafeterias } from "../components/life/mockCafeterias";
+import { listMenuPhotos, type MenuPhoto } from "../services/cafeteriaMenuService";
+import { japanMenuDate } from "../lib/cafeteriaMenu";
 import { searchCafeterias, type CafeteriaFilters } from "../lib/cafeteriaSearch";
 import "../styles/class/Class.css";
 import "../styles/class/ClassTop.css";
@@ -24,7 +26,22 @@ const DEFAULT_FILTERS: CafeteriaFilters = {
 const CLOCK_INTERVAL_MS = 60_000;
 
 function LifeCafeteria() {
-  const { path } = useUniversity();
+  const { path, university } = useUniversity();
+  const [menuData, setMenuData] = useState<{ universityId: string; date: string; menus: MenuPhoto[] } | null>(null);
+  const [menuError, setMenuError] = useState(false);
+  const menuDate = japanMenuDate();
+  useEffect(() => {
+    if (!university) return;
+    let active = true;
+    const refresh = () => void listMenuPhotos(university.id, menuDate).then((menus) => {
+      if (active) { setMenuData({ universityId: university.id, date: menuDate, menus }); setMenuError(false); }
+    }).catch(() => { if (active) setMenuError(true); });
+    refresh();
+    const timer = window.setInterval(refresh, 30_000);
+    const focus = () => { if (document.visibilityState === "visible") refresh(); };
+    document.addEventListener("visibilitychange", focus);
+    return () => { active = false; window.clearInterval(timer); document.removeEventListener("visibilitychange", focus); };
+  }, [university, menuDate]);
   const [filters, setFilters] = useState<CafeteriaFilters>(DEFAULT_FILTERS);
   const location = useLocation();
   // 口コミ投稿ページのパンくずから戻ったときは、その施設を選択した状態で開く
@@ -38,7 +55,12 @@ function LifeCafeteria() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const results = useMemo(() => searchCafeterias(mockCafeterias, filters, now), [filters, now]);
+  const cafeterias = useMemo(() => mockCafeterias.map((cafeteria) => {
+    const menu = menuData?.universityId === university?.id && menuData?.date === menuDate
+      ? menuData.menus.find((item) => item.cafeteria_id === cafeteria.id) : null;
+    return menu ? { ...cafeteria, menuPhotoUrl: menu.url, menuUpdatedAt: menu.updated_at } : cafeteria;
+  }), [menuData, university, menuDate]);
+  const results = useMemo(() => searchCafeterias(cafeterias, filters, now), [cafeterias, filters, now]);
   const selected = results.find((cafeteria) => cafeteria.id === selectedId) ?? results[0] ?? null;
 
   return (
@@ -66,9 +88,11 @@ function LifeCafeteria() {
               キャンパス内の食堂をエリアごとにチェック。混雑の傾向や口コミから快適なランチタイムを
             </p>
           </div>
+          <Link to="/cafeteria-staff" className="cafeteriaStaffLink">学食スタッフ</Link>
         </section>
 
         <CafeteriaFilterBar filters={filters} onChange={setFilters} />
+        {menuError && <p role="status">最新メニューを取得できませんでした。表示内容は最新でない場合があります。</p>}
 
         <div className="cafeteriaMain">
           <CafeteriaMap cafeterias={results} selected={selected} onSelect={setSelectedId} />

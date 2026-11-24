@@ -44,6 +44,8 @@ import CareerArticleDetail from "./pages/CareerArticleDetail";
 import Life from "./pages/Life";
 import LifeCafeteria from "./pages/LifeCafeteria";
 import CafeteriaReviewForm from "./pages/CafeteriaReviewForm";
+import CafeteriaStaff from "./pages/CafeteriaStaff";
+import AdminCafeteriaStaff from "./pages/admin/AdminCafeteriaStaff";
 import MyApplications from "./pages/MyApplications";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminInternships from "./pages/admin/AdminInternships";
@@ -102,6 +104,8 @@ function App() {
         <Routes>
           <Route path="/" element={<UniversityPortal />} />
           <Route path="/404" element={<Notfound404 />} />
+          <Route path="/cafeteria-staff" element={<CafeteriaStaff />} />
+          <Route path="/admin/cafeteria-staff" element={<ProtectedAdmin><AdminCafeteriaStaff /></ProtectedAdmin>} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedAdmin><AdminDashboard /></ProtectedAdmin>} />

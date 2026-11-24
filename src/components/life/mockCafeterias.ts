@@ -16,6 +16,7 @@ export type CafeteriaHours = {
 export type CafeteriaMenuItem = {
   name: string;
   price: string;
+  sold_out?: boolean;
 };
 
 export type CafeteriaNote = {
@@ -46,6 +47,8 @@ export type Cafeteria = {
   reviewCount: number;
   congestion: number[];
   mainMenu?: CafeteriaMenuItem[];
+  menuUpdatedAt?: string;
+  menuPhotoUrl?: string;
   notes?: CafeteriaNote[];
   sourceUrl: string;
 };
