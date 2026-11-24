@@ -3,7 +3,7 @@ export const NAV_BASE_PATHS = [
   "/career",
   "/class/top",
   "/circles",
-  "/lifestyle",
+  "/life",
   "/global",
 ] as const;
 
@@ -30,7 +30,7 @@ export const fallbackNavBasePath = (path: string) => {
   }
   if (isUnder(relativePath, "/career")) return "/career";
   if (isUnder(relativePath, "/circles")) return "/circles";
-  if (isUnder(relativePath, "/lifestyle")) return "/lifestyle";
+  if (isUnder(relativePath, "/life")) return "/life";
   if (isUnder(relativePath, "/global")) return "/global";
   return "/";
 };

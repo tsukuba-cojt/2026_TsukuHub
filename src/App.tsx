@@ -49,6 +49,9 @@ import CareerInternshipDetail from "./pages/CareerInternshipDetail";
 import CareerAlumni from "./pages/CareerAlumni";
 import CareerAlumniDetail from "./pages/CareerAlumniDetail";
 import CareerArticleDetail from "./pages/CareerArticleDetail";
+import Life from "./pages/Life";
+import LifeCafeteria from "./pages/LifeCafeteria";
+import CafeteriaReviewForm from "./pages/CafeteriaReviewForm";
 import MyApplications from "./pages/MyApplications";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminInternships from "./pages/admin/AdminInternships";
@@ -87,6 +90,27 @@ function UniversityLayout() {
 function ProtectedAdmin({ children }: { children: React.ReactNode }) {
   return <RequireAdmin>{children}</RequireAdmin>;
 }
+
+const legacyRoots = [
+  "login",
+  "signup",
+  "auth",
+  "class",
+  "graduation-checker",
+  "timetable",
+  "mypage",
+  "contact",
+  "terms",
+  "privacy",
+  "news",
+  "topics",
+  "career",
+  "circles",
+  "lifestyle",
+  "life",
+  "events",
+  "global",
+];
 
 function App() {
   return (
@@ -137,6 +161,9 @@ function App() {
               <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
+              <Route path="life" element={<Life />} />
+              <Route path="life/cafeteria" element={<LifeCafeteria />} />
+              <Route path="life/cafeteria/:cafeteriaId/review" element={<CafeteriaReviewForm />} />
               <Route path="circles/search" element={<Circle />} />
               <Route path="circles/:circleId" element={<CircleDetail />} />
               <Route path="circles/:circleId/notices" element={<CircleNoticeList />} />

@@ -66,9 +66,9 @@ function Home() {
       <CategorySection />
       <NewsBar title={news[0]?.title} />
 
-      <main 
-        className="homepageLayout" 
-        style={{ 
+      <main
+        className="homepageLayout"
+        style={{
           height: '500px',          /* ① 高さをここで決める（minHeightでも可） */
           width: '100%',            /* ① 横幅をここで決める（minWidthでも可） */
           display: 'flex',          /* ② Flexboxを有効にする */
