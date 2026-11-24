@@ -1,3 +1,4 @@
+import { catalogYear } from "../seo/catalog";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useUniversity } from "../components/university/universityContextValue";
@@ -74,14 +75,7 @@ function ClassReviewForm() {
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
   const location = useLocation();
-  const requestedAcademicYear = Number(
-    new URLSearchParams(location.search).get("year")
-  );
-  const academicYear = [2023, 2024, 2025, 2026].includes(
-    requestedAcademicYear
-  )
-    ? requestedAcademicYear
-    : undefined;
+  const academicYear = catalogYear(new URLSearchParams(location.search));
 
   const [course, setCourse] = useState<CatalogCourse | null>(null);
   const [loading, setLoading] = useState(true);

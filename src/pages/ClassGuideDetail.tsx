@@ -1,3 +1,5 @@
+import { PageSeo } from "../seo/PageSeo";
+import { guideMetadata } from "../seo/metadata";
 import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
@@ -23,15 +25,18 @@ export default function ClassGuideDetail() {
   const { university, path } = useUniversity();
   const [article, setArticle] = useState<ClassGuideArticleRecord | null>(null);
   const [related, setRelated] = useState<ClassGuideArticleRecord[]>([]);
-  const [loading, setLoading] = useState(true);
+  const requestKey = university && id ? university.id + "/" + id : "";
+  const [loadedKey, setLoadedKey] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id || !university) return;
+    let active = true;
     void Promise.all([
       getPublishedClassGuide(id, university.id),
       listPublishedClassGuides(university.id),
     ])
       .then(([item, articles]) => {
+        if (!active) return;
         setArticle(item);
         setRelated(
           articles
@@ -40,13 +45,15 @@ export default function ClassGuideDetail() {
         );
       })
       .catch(() => {
+        if (!active) return;
         setArticle(null);
         setRelated([]);
       })
-      .finally(() => setLoading(false));
-  }, [id, university]);
+      .finally(() => { if (active) setLoadedKey(requestKey); });
+    return () => { active = false; };
+  }, [id, university, requestKey]);
 
-  if (loading) {
+  if (loadedKey !== requestKey) {
     return (
       <div className="classPage">
         <Globalnav />
@@ -76,6 +83,7 @@ export default function ClassGuideDetail() {
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout classGuideDetailPage">
+        {university && article.id === id && <PageSeo {...guideMetadata(university.slug, university.name, article)} />}
         <nav className="careerBreadcrumb" aria-label="パンくずリスト">
           <Link to={path("/class/top")}>授業・履修</Link>
           <ChevronRight aria-hidden="true" />

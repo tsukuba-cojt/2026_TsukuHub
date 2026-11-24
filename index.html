@@ -6,6 +6,18 @@
     <link rel="shortcut icon" type="image/png" href="/tsukuhub-app-icon.png" />
     <link rel="apple-touch-icon" href="/tsukuhub-app-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .landingLoading {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: #f8f7ff;
+        font-family: system-ui, sans-serif;
+      }
+    </style>
+    <noscript><style>.landingLoading { display: none; }</style></noscript>
+    <!--page-meta-->
     <meta
       name="description"
       content="授業、サークル、就活、生活情報まで。大学生に必要な情報をまとめて見つけられるキャンパス情報ポータル。"
@@ -30,6 +42,7 @@
       content="授業、サークル、就活、生活情報まで。大学生に必要な情報をまとめて見つけられます。"
     />
     <title>TsukuHub｜大学生のためのキャンパス情報ポータル</title>
+    <!--/page-meta-->
   </head>
   <body>
     <div id="root"></div>

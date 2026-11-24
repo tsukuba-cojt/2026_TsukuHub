@@ -19,15 +19,15 @@ import {
   getClassFormats,
   getMethodLabel,
 } from "../components/class/courseBadges";
-import {
-  mockRelatedCourses,
-} from "../components/class/mockReviews";
+import { catalogYear, coursePath } from "../seo/catalog";
+import { PageSeo } from "../seo/PageSeo";
+import { courseMetadata } from "../seo/metadata";
 import {
   fetchClassReviews,
   fetchCourseInsightStats,
   type CourseInsightStats,
 } from "../services/classReviewService";
-import { getCatalogCourse } from "../services/courseCatalog";
+import { getCourseDetails } from "../services/courseCatalog";
 import type { CatalogCourse } from "../types/courseCatalog";
 import "../styles/class/Class.css";
 import "../styles/class/ClassDetail.css";
@@ -45,14 +45,7 @@ function ClassDetail() {
   const { courseCode } = useParams<{ courseCode: string }>();
   const navigate = useNavigate();
   const location = useLocation();
-  const requestedAcademicYear = Number(
-    new URLSearchParams(location.search).get("year")
-  );
-  const academicYear = [2023, 2024, 2025, 2026].includes(
-    requestedAcademicYear
-  )
-    ? requestedAcademicYear
-    : undefined;
+  const academicYear = catalogYear(new URLSearchParams(location.search));
   // 口コミ投稿ページから router state で渡されるトーストメッセージ
   const [toast, setToast] = useState<string | null>(() => {
     const state = location.state as { toast?: string } | null;
@@ -62,11 +55,12 @@ function ClassDetail() {
   useEffect(() => {
     if ((location.state as { toast?: string } | null)?.toast) {
       // リロードや戻る操作で再表示されないよう state をクリアする
-      navigate(location.pathname, { replace: true, state: null });
+      navigate(location.pathname + location.search, { replace: true, state: null });
     }
   }, [location, navigate]);
 
   const [course, setCourse] = useState<CatalogCourse | null>(null);
+  const [relatedCourses, setRelatedCourses] = useState<CatalogCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"reviews" | "syllabus">("reviews");
@@ -78,26 +72,30 @@ function ClassDetail() {
   const [bookmarked, setBookmarked] = useState(false);
 
   useEffect(() => {
+    let active = true;
     const fetchCourse = async () => {
-      if (!university) return;
+      if (!university || !courseCode) return;
       setLoading(true);
       setError(null);
 
       try {
-        const nextCourse = await getCatalogCourse(
+        const details = await getCourseDetails(
           university.slug,
           courseCode,
           academicYear
         );
-        setCourse(nextCourse);
+        if (!active) return;
+        setCourse(details.course);
+        setRelatedCourses(details.related);
       } catch {
-        setError("講義情報の取得に失敗しました。");
+        if (active) setError("講義情報の取得に失敗しました。");
       } finally {
-        setLoading(false);
+        if (active) setLoading(false);
       }
     };
 
     void fetchCourse();
+    return () => { active = false; };
   }, [academicYear, courseCode, university]);
 
   useEffect(() => {
@@ -215,11 +213,14 @@ function ClassDetail() {
 
         {!loading && !error && course && (
           <div className="classDetailPanel">
+            {university && course.course_number === courseCode && course.academic_year === academicYear && (
+              <PageSeo {...courseMetadata(university.slug, university.name, course, academicYear)} />
+            )}
             {/* 授業情報カード */}
             <section className="classDetailInfoCard">
               <div className="classDetailInfoMain">
                 <h1 className="classDetailTitle">{course.course_name}</h1>
-                <p className="classDetailCode">{course.course_number}</p>
+                <p className="classDetailCode">{academicYear}年度・{course.course_number}</p>
                 <p className="classDetailTeacher">
                   <UserRound aria-hidden="true" />
                   <span>{course.instructor}</span>
@@ -262,6 +263,13 @@ function ClassDetail() {
                 </button>
               </div>
             </section>
+
+            {syllabusSummary && (
+              <section className="classDetailSyllabusSummary">
+                <h2>講義概要</h2>
+                <p>{syllabusSummary}</p>
+              </section>
+            )}
 
             {/* タブ（口コミ / シラバス） */}
             <div className="classDetailTabs" role="tablist">
@@ -381,19 +389,19 @@ function ClassDetail() {
                     </div>
                   </section>
 
-                  <section className="sidebarCard">
+                  {relatedCourses.length > 0 && university && <section className="sidebarCard">
                     <h2>関連授業</h2>
                     <ul className="sidebarRelated">
-                      {mockRelatedCourses.map((related) => (
-                        <li key={related.code}>
-                          <Link to={path(`/class/${related.code}`)}>
-                            {related.title}
+                      {relatedCourses.map((related) => (
+                        <li key={related.course_number}>
+                          <Link to={coursePath(university.slug, related.course_number, academicYear)}>
+                            {related.course_name}
                           </Link>
-                          <span>{related.code}</span>
+                          <span>{related.course_number}</span>
                         </li>
                       ))}
                     </ul>
-                  </section>
+                  </section>}
                 </aside>
               </div>
             ) : (
@@ -408,12 +416,6 @@ function ClassDetail() {
 
                   {syllabusUrl ? (
                     <>
-                      {syllabusSummary && (
-                        <div className="classDetailSyllabusSummary">
-                          <h3>講義概要</h3>
-                          <p>{syllabusSummary}</p>
-                        </div>
-                      )}
                       <iframe
                         src={syllabusUrl}
                         title={`${course?.course_name ?? "講義"} のシラバス`}
@@ -424,7 +426,6 @@ function ClassDetail() {
                   ) : (
                     <div className="classDetailSyllabusPlaceholder">
                       <p>シラバス情報を取得できませんでした。</p>
-                      {syllabusSummary && <p>{syllabusSummary}</p>}
                     </div>
                   )}
                 </div>

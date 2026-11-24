@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import "../../styles/class/ClassPagination.css";
 
 type Props = {
   currentPage: number;
   totalPages: number;
-  onChangePage: (page: number) => void;
-};
+} & ({ pageUrl: (page: number) => string; onChangePage?: never }
+  | { pageUrl?: never; onChangePage: (page: number) => void });
 
 function getPageList(currentPage: number, totalPages: number) {
   const pages: Array<number | "..."> = [];
@@ -37,42 +38,26 @@ function getPageList(currentPage: number, totalPages: number) {
   return pages;
 }
 
-function ClassPagination({ currentPage, totalPages, onChangePage }: Props) {
-  const pages = getPageList(currentPage, totalPages);
+function ClassPagination({ currentPage, totalPages, onChangePage, pageUrl }: Props) {
+  function control(page: number, text: string, label?: string, disabled = false) {
+    const current = !label && page === currentPage;
+    const attrs = {
+      className: current ? "isActive" : undefined,
+      "aria-label": label,
+      "aria-current": current ? "page" as const : undefined,
+    };
+    if (pageUrl && !disabled) return <Link key={label ?? page} to={pageUrl(page)} {...attrs}>{text}</Link>;
+    return <button type="button" key={label ?? page} disabled={disabled} {...attrs}
+      onClick={() => onChangePage?.(page)}>{text}</button>;
+  }
 
   return (
     <nav className="classPagination" aria-label="講義一覧のページ">
-      <button
-        type="button"
-        aria-label="前のページ"
-        disabled={currentPage <= 1}
-        onClick={() => onChangePage(Math.max(1, currentPage - 1))}
-      >
-        ‹
-      </button>
-      {pages.map((page, index) =>
-        page === "..." ? (
-          <span key={`ellipsis-${index}`}>...</span>
-        ) : (
-          <button
-            type="button"
-            key={page}
-            className={page === currentPage ? "isActive" : ""}
-            onClick={() => onChangePage(page)}
-            aria-current={page === currentPage ? "page" : undefined}
-          >
-            {page}
-          </button>
-        )
+      {control(currentPage - 1, "‹", "前のページ", currentPage <= 1)}
+      {getPageList(currentPage, totalPages).map((page, index) =>
+        page === "..." ? <span key={`ellipsis-${index}`}>...</span> : control(page, String(page))
       )}
-      <button
-        type="button"
-        aria-label="次のページ"
-        disabled={currentPage >= totalPages}
-        onClick={() => onChangePage(Math.min(totalPages, currentPage + 1))}
-      >
-        ›
-      </button>
+      {control(currentPage + 1, "›", "次のページ", currentPage >= totalPages)}
     </nav>
   );
 }

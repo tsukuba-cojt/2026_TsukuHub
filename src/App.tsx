@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { legacyRoots } from "./lib/legacyRoutes";
+import { BrowserRouter, Navigate, Outlet, Route, Routes, useMatch } from "react-router-dom";
+import { defaultUniversityPath } from "./lib/tenantNavigation";
+import LandingLoading from "./components/university/LandingLoading";
+import { useUniversity } from "./components/university/universityContextValue";
+import { useAuth } from "./components/auth/authContextValue";
+import { SeoNavigation } from "./seo/PageSeo";
 import Header from "./components/utility/Header";
 import InternalLinkGuard from "./components/utility/InternalLinkGuard";
 import ScrollToTop from "./components/utility/ScrollToTop";
@@ -65,14 +71,19 @@ import CompanyApplicationDetail from "./pages/company/CompanyApplicationDetail";
 import "./styles/responsive.css";
 
 function UniversityLayout() {
+  const isDefaultLanding = useMatch(defaultUniversityPath);
+  const { loading: universityLoading } = useUniversity();
+  const { loading: authLoading } = useAuth();
+
+  if (isDefaultLanding && (universityLoading || authLoading)) {
+    return <main><LandingLoading /></main>;
+  }
   return (
-    <UniversityProvider>
-      <div className="universityAppShell">
-        <InternalLinkGuard />
-        <Header />
-        <Outlet />
-      </div>
-    </UniversityProvider>
+    <div className="universityAppShell">
+      <InternalLinkGuard />
+      <Header />
+      <Outlet />
+    </div>
   );
 }
 
@@ -80,34 +91,14 @@ function ProtectedAdmin({ children }: { children: React.ReactNode }) {
   return <RequireAdmin>{children}</RequireAdmin>;
 }
 
-const legacyRoots = [
-  "login",
-  "signup",
-  "auth",
-  "class",
-  "graduation-checker",
-  "timetable",
-  "mypage",
-  "contact",
-  "terms",
-  "privacy",
-  "news",
-  "topics",
-  "career",
-  "circles",
-  "lifestyle",
-  "life",
-  "events",
-  "global",
-];
-
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <SeoNavigation />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/tsukuba" replace />} />
+          <Route path="/" element={<><LandingLoading /><Navigate to={defaultUniversityPath} replace /></>} />
           <Route path="/404" element={<Notfound404 />} />
           <Route path="/company/login" element={<CompanyLogin />} />
           <Route path="/company" element={<CompanyDashboard />} />
@@ -134,7 +125,7 @@ function App() {
             <Route path={`/${root}/*`} element={<Navigate to="/" replace />} key={root} />
           ))}
 
-          <Route path="/:universitySlug" element={<UniversityLayout />}>
+          <Route path="/:universitySlug" element={<UniversityProvider><UniversityLayout /></UniversityProvider>}>
             <Route index element={<UniversityLanding />} />
             <Route element={<RequireActiveUniversity />}>
               <Route path="login" element={<Login />} />
@@ -174,7 +165,7 @@ function App() {
               <Route element={<FeatureGate feature="alumni_stories" />}>
                 <Route path="career/alumni" element={<CareerAlumni />} />
                 <Route path="career/alumni/:id" element={<CareerAlumniDetail />} />
-                <Route path="career/stories" element={<CareerAlumni />} />
+                <Route path="career/stories" element={<Navigate to="../career/alumni" replace />} />
               </Route>
               <Route element={<FeatureGate feature="courses" />}>
                 <Route path="class" element={<Class />} />

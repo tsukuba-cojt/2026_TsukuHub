@@ -1,7 +1,7 @@
+import { catalogYears, courseBucket, courseDetails, currentYear } from "../seo/catalog";
 import type { CatalogCourse, CourseCatalogFile } from "../types/courseCatalog";
 
 const TSUKUBA_UNIVERSITY_ID = "00000000-0000-4000-8000-000000000001";
-const CURRENT_CATALOG_ACADEMIC_YEAR = 2026;
 const MAX_CACHED_CATALOGS = 2;
 
 const slugByUniversityId: Record<string, string> = {
@@ -14,10 +14,10 @@ const courseIndexCache = new Map<string, Promise<Map<string, CatalogCourse>>>();
 const emptyCatalog = async (): Promise<CatalogCourse[]> => [];
 
 const catalogKey = (slug: string, academicYear?: number) =>
-  `${slug}:${academicYear ?? CURRENT_CATALOG_ACADEMIC_YEAR}`;
+  `${slug}:${academicYear ?? currentYear}`;
 
 const catalogPath = (slug: string, academicYear?: number) =>
-  `/data/courses/${slug}-${academicYear ?? CURRENT_CATALOG_ACADEMIC_YEAR}.json`;
+  `/data/courses/${slug}-${academicYear ?? currentYear}.json`;
 
 const touchCatalogCache = (
   key: string,
@@ -94,13 +94,25 @@ const courseIndex = (
   return request;
 };
 
+export async function getCourseDetails(slug: string, code: string, year: number) {
+  const cached = catalogCache.get(catalogKey(slug, year));
+  if (cached) return courseDetails(await cached, code);
+  if (slug !== "tsukuba" || !catalogYears.includes(year)) {
+    return courseDetails(await listCatalogCourses(slug, year), code);
+  }
+  const response = await fetch(`/data/course-pages/tsukuba/${year}/${courseBucket(code)}.json`);
+  if (!response.ok) throw new Error("授業情報の取得に失敗しました。");
+  return courseDetails(await response.json() as CatalogCourse[], code);
+}
+
 export const getCatalogCourse = async (
   universitySlug: string | null | undefined,
   courseNumber: string | null | undefined,
   academicYear?: number
 ) => {
-  if (!courseNumber) return null;
-  return (await courseIndex(universitySlug, academicYear)).get(courseNumber) ?? null;
+  const slug = universitySlug?.trim();
+  if (!slug || !courseNumber) return null;
+  return (await getCourseDetails(slug, courseNumber, academicYear ?? currentYear)).course;
 };
 
 export const getCatalogCoursesByCodes = async (

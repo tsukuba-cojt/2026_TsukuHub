@@ -1,3 +1,5 @@
+export const defaultUniversityPath = "/tsukuba";
+
 export function resolveTenantPath(pathname: string, universitySlug: string) {
   const tenantPrefix = `/${universitySlug}`;
   if (pathname === tenantPrefix || pathname === `${tenantPrefix}/`) {
