@@ -5,6 +5,8 @@ import { classGuideCategories, classGuideCategoryFromSlug } from "../data/classG
 import { isKnownAppPath } from "../data/comingSoon";
 import { defaultFilters, pageSize, readSearch, searchQuery } from "../lib/courseSearch";
 import { legacyRoots } from "../lib/legacyRoutes";
+import { defaultUniversityPath } from "../lib/tenantNavigation";
+import LandingLoading from "../components/university/LandingLoading";
 import type { CatalogCourse } from "../types/courseCatalog";
 import { catalogYear, courseBucket, courseDetails, coursePath } from "./catalog";
 import { classTopMetadata, courseMetadata, guideMetadata, homeMetadata, listMetadata, type PageMetadata } from "./metadata";
@@ -32,8 +34,11 @@ async function documentResponse(assets: Assets, url: URL, status = 200, meta?: P
     </>);
     html = html.replace(/<!--page-meta-->[\s\S]*?<!--\/page-meta-->/, () => head);
   }
-  if (body) {
-    const content = renderToStaticMarkup(<main>{body}</main>);
+  const isDefaultLanding = url.pathname.replace(/\/+$/, "") === defaultUniversityPath;
+  if (body || isDefaultLanding) {
+    const content = renderToStaticMarkup(<main>{isDefaultLanding ? (
+      <><LandingLoading />{body && <noscript>{body}</noscript>}</>
+    ) : body}</main>);
     html = html.replace('<div id="root"></div>', () => `<div id="root">${content}</div>`);
   }
   const headers = new Headers({ "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-cache" });
@@ -53,7 +58,7 @@ async function route(request: Request, assets: Assets) {
     try { return await sitemap(url, assets); }
     catch { return new Response("サイトマップを取得できませんでした。", { status: 503, headers: { "Retry-After": "60" } }); }
   }
-  if (pathname === "/") return Response.redirect(new URL("/tsukuba" + url.search, origin), 308);
+  if (pathname === "/") return Response.redirect(new URL(defaultUniversityPath + url.search, origin), 308);
   const app = (noindex = false) => documentResponse(assets, url, 200, undefined, undefined, noindex);
   const missing = () => documentResponse(assets, url, 404, undefined, <h1>ページが見つかりません</h1>);
   const [, slug, ...segments] = pathname.replace(/\/+$/, "").split("/");

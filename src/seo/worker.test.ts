@@ -44,6 +44,21 @@ beforeEach(() => {
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
 describe("公開ページの配信", () => {
+  it("ルートからの転送先では最初にLoadingだけを表示し、JavaScript無効時は案内を表示する", async () => {
+    const redirect = await open("/?from=campus");
+    expect(redirect.status).toBe(308);
+    expect(redirect.headers.get("Location")).toBe(origin + "/tsukuba?from=campus");
+
+    const response = await worker.fetch(new Request(redirect.headers.get("Location")!), { ASSETS: assets });
+    const html = await response.text();
+    expect(response.status).toBe(200);
+    expect(html).toContain(`rel="canonical" href="${origin}/tsukuba"`);
+    const root = html.split('<div id="root">')[1].split("</main>")[0];
+    expect(root).toMatch(/<noscript><h1>筑波大学のキャンパス情報<\/h1>[\s\S]*href="\/tsukuba\/class\/top"/);
+    const visibleText = root.replace(/<noscript>[\s\S]*?<\/noscript>/g, "").replace(/<[^>]*>/g, "");
+    expect(visibleText).toBe("Loading...");
+  });
+
   it("年度別の本文と正規URLを最初のHTMLに一度だけ出力する", async () => {
     const path = "/tsukuba/class/AB1001?year=2025";
     const response = await open(path + "&utm_source=test");
