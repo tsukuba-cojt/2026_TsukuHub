@@ -4,26 +4,32 @@ import {
   Activity,
   ChevronDown,
   ImagePlus,
+  Link as LinkIcon,
   Megaphone,
   Pencil,
   Plus,
+  Smile,
   Tags,
   Trash2,
   UserRound,
 } from "lucide-react";
 import CircleSubPage from "../components/circle/CircleSubPage";
+import CircleTagInput from "../components/circle/CircleTagInput";
+import { addCircleTags } from "../components/circle/circleTagUtils";
 import LeaveConfirmModal from "../components/timetableShare/LeaveConfirmModal";
 import { useLeaveConfirm } from "../components/timetableShare/useLeaveConfirm";
 import { useUniversity } from "../components/university/universityContextValue";
+import { getCircleAcademicGroups } from "../data/circleAcademicOptions";
 import {
   circleCategories,
-  circleTags,
   mockCircles,
   updateCircle,
   type Circle,
   type CircleCategory,
   type CircleNotice,
   type CircleTag,
+  type CircleGradeMembers,
+  type CircleFacultyRatio,
 } from "../components/circle/mockCircles";
 import "../styles/class/GraduationCheck.css";
 import "../styles/class/TimetableShare.css";
@@ -39,9 +45,15 @@ type CircleEditForm = {
   name: string;
   description: string;
   tags: CircleTag[];
+  atmosphereTags: string[];
+  atmosphereDescription: string;
   activityDays: string;
+  activityTime: string;
   activityPlace: string;
   membersCount: string;
+  gradeMembers: { grade: CircleGradeMembers["grade"]; program: "undergraduate" | "graduate"; count: string }[];
+  facultyRatios: { name: string; percent: string; program: NonNullable<CircleFacultyRatio["program"]> }[];
+  links: { label: string; url: string; text: string }[];
   notices: CircleNotice[];
 };
 
@@ -53,7 +65,7 @@ type NoticeDraft = {
   body: string;
 };
 
-type FormErrors = Partial<Record<"name" | "description" | "membersCount" | "image" | "notice", string>>;
+type FormErrors = Partial<Record<"name" | "description" | "membersCount" | "image" | "notice" | "distribution" | "links" | "tags" | "atmosphereTags", string>>;
 type NoticeErrors = Partial<Record<"date" | "title", string>>;
 
 // 所属人数は「約15名」の文字列なので、数値部分だけを編集し前後の文字は保存時に戻す
@@ -68,9 +80,21 @@ const toForm = (circle: Circle): CircleEditForm => ({
   name: circle.name,
   description: circle.description,
   tags: [...circle.tags],
+  atmosphereTags: [...circle.detail.atmosphereTags],
+  atmosphereDescription: circle.detail.atmosphereDescription,
   activityDays: circle.detail.activityDays,
+  activityTime: circle.detail.activityTime,
   activityPlace: circle.detail.activityPlace,
   membersCount: splitMembers(circle.members).count,
+  gradeMembers: (["undergraduate", "graduate"] as const).flatMap((program) =>
+    Array.from({ length: program === "undergraduate" ? 6 : 4 }, (_, index) => {
+      const grade = (index + 1) as CircleGradeMembers["grade"];
+      const existing = circle.detail.gradeMembers.find((item) => item.grade === grade && (item.program ?? "undergraduate") === program);
+      return { grade, program, count: existing ? String(existing.count) : "0" };
+    }),
+  ),
+  facultyRatios: circle.detail.facultyRatios.map((item) => ({ ...item, percent: String(item.percent), program: item.program ?? "undergraduate" })),
+  links: circle.detail.links.map((item) => ({ ...item })),
   notices: circle.detail.notices.map((notice) => ({ ...notice })),
 });
 
@@ -87,7 +111,7 @@ const todayInputDate = () => {
 const byNewest = (notices: CircleNotice[]) => [...notices].sort((a, b) => b.date.localeCompare(a.date));
 
 function CircleEdit() {
-  const { path } = useUniversity();
+  const { path, university } = useUniversity();
   const { circleId } = useParams<{ circleId: string }>();
   const navigate = useNavigate();
   const leave = useLeaveConfirm();
@@ -95,12 +119,14 @@ function CircleEdit() {
 
   const [initialForm] = useState(() => (circle ? toForm(circle) : null));
   const [form, setForm] = useState(initialForm);
+  const [tagDraft, setTagDraft] = useState("");
+  const [atmosphereTagDraft, setAtmosphereTagDraft] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [noticeDraft, setNoticeDraft] = useState<NoticeDraft | null>(null);
   const [noticeErrors, setNoticeErrors] = useState<NoticeErrors>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const isDirty = noticeDraft !== null || JSON.stringify(form) !== JSON.stringify(initialForm);
+  const isDirty = noticeDraft !== null || Boolean(tagDraft || atmosphereTagDraft) || JSON.stringify(form) !== JSON.stringify(initialForm);
   const detailPath = path(`/circles/${circleId}`);
 
   // 未保存の変更があるときは、ページ内リンク（パンくず・戻る・グローバルナビ）とリロード/タブを閉じる操作で確認する
@@ -166,13 +192,6 @@ function CircleEdit() {
     reader.readAsDataURL(file);
   };
 
-  const toggleTag = (tag: CircleTag) => {
-    const next = form.tags.includes(tag)
-      ? form.tags.filter((item) => item !== tag)
-      : circleTags.filter((item) => form.tags.includes(item) || item === tag);
-    update({ tags: next });
-  };
-
   const openNoticeDraft = (index: number | null) => {
     const notice = index === null ? null : form.notices[index];
     setNoticeDraft({
@@ -218,11 +237,28 @@ function CircleEdit() {
 
   const handleSave = () => {
     const nextErrors: FormErrors = {};
+    const tagsResult = addCircleTags(form.tags, tagDraft);
+    const atmosphereTagsResult = addCircleTags(form.atmosphereTags, atmosphereTagDraft);
+    if (tagsResult.error) nextErrors.tags = tagsResult.error;
+    if (atmosphereTagsResult.error) nextErrors.atmosphereTags = atmosphereTagsResult.error;
     if (!form.name.trim()) nextErrors.name = "サークル名を入力してください";
     if (!form.description.trim()) nextErrors.description = "紹介文を入力してください";
-    if (form.membersCount !== "" && !/^\d+$/.test(form.membersCount)) {
+    if (!form.membersCount.trim()) nextErrors.membersCount = "所属人数を入力してください";
+    else if (!/^\d+$/.test(form.membersCount) || !Number.isSafeInteger(Number(form.membersCount))) {
       nextErrors.membersCount = "所属人数は0以上の整数で入力してください";
     }
+    if (form.gradeMembers.some((item) => item.count !== "" && (!/^\d+$/.test(item.count) || !Number.isSafeInteger(Number(item.count)))) ||
+        form.facultyRatios.some((item) => (item.name.trim() || item.percent !== "") &&
+          (!item.name.trim() || item.percent === "" || !Number.isFinite(Number(item.percent)) || Number(item.percent) < 0 || Number(item.percent) > 100)) ||
+        form.facultyRatios.reduce((sum, item) => sum + Number(item.percent), 0) > 100) {
+      nextErrors.distribution = "学年の人数は0以上の整数、学類・院のコースは名称と割合（0〜100%）を入力してください。割合の合計は100%以下にしてください。";
+    }
+    if (form.links.some((item) => {
+      if (!item.label.trim() && !item.url.trim()) return false;
+      try {
+        return !item.label.trim() || !["https:", "http:"].includes(new URL(item.url.trim()).protocol);
+      } catch { return true; }
+    })) nextErrors.links = "リンク名と、http:// または https:// で始まる有効なURLを入力してください";
     if (noticeDraft) nextErrors.notice = "編集中のお知らせを「確定」するか「取り消す」を押してください";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -233,13 +269,19 @@ function CircleEdit() {
       name: form.name.trim(),
       category: form.category,
       description: form.description.trim(),
-      tags: form.tags,
+      tags: tagsResult.tags,
       image: form.image || undefined,
       members: form.membersCount === "" ? circle.members : `${prefix}${form.membersCount}${suffix}`,
       detail: {
         ...circle.detail,
+        atmosphereTags: atmosphereTagsResult.tags,
+        atmosphereDescription: form.atmosphereDescription.trim(),
         activityDays: form.activityDays.trim(),
+        activityTime: form.activityTime.trim(),
         activityPlace: form.activityPlace.trim(),
+        gradeMembers: form.gradeMembers.map((item) => ({ ...item, count: Number(item.count || "0") })),
+        facultyRatios: form.facultyRatios.filter((item) => item.name.trim()).map((item) => ({ ...item, name: item.name.trim(), percent: Number(item.percent) })),
+        links: form.links.filter((item) => item.label.trim() && item.url.trim()).map((item) => ({ label: item.label.trim(), url: item.url.trim(), text: item.url.trim() === circle.detail.links.find((link) => link.url === item.url.trim())?.url ? item.text : item.url.trim() })),
         notices: form.notices,
       },
     });
@@ -358,22 +400,27 @@ function CircleEdit() {
               <Tags aria-hidden="true" />
               タグ
             </h2>
-            <p className="circleEditHint circleEditLead">表示したいタグを選択してください（複数選択可）</p>
-            <div className="ttShareChips">
-              {circleTags.map((tag) => {
-                const selected = form.tags.includes(tag);
-                return (
-                  <button
-                    type="button"
-                    key={tag}
-                    className={`ttShareChip${selected ? " isSelected" : ""}`}
-                    aria-pressed={selected}
-                    onClick={() => toggleTag(tag)}
-                  >
-                    {tag}
-                  </button>
-                );
-              })}
+            <p className="circleEditHint circleEditLead">サークルの特徴を表すタグを自由に入力できます。例：初心者歓迎、兼サー可能</p>
+            <CircleTagInput id="circleEditTags" label="サークルのタグ" tags={form.tags} draft={tagDraft}
+              error={errors.tags} onChange={(tags) => update({ tags })} onDraftChange={setTagDraft}
+              onError={(error) => setErrors((prev) => ({ ...prev, tags: error }))} />
+          </section>
+
+          <section className="ttShareCard">
+            <h2 className="ttShareCardTitle"><Smile aria-hidden="true" />サークルの雰囲気</h2>
+            <CircleTagInput id="circleEditAtmosphereTags" label="雰囲気のタグ" tags={form.atmosphereTags}
+              draft={atmosphereTagDraft} error={errors.atmosphereTags}
+              onChange={(atmosphereTags) => update({ atmosphereTags })} onDraftChange={setAtmosphereTagDraft}
+              onError={(error) => setErrors((prev) => ({ ...prev, atmosphereTags: error }))} />
+            <div className="ttShareField">
+              <label className="ttShareFieldLabel" htmlFor="circleEditAtmosphereDescription">
+                雰囲気の説明 <span className="circleEditOptional">任意</span>
+              </label>
+              <textarea id="circleEditAtmosphereDescription" className="ttShareTextarea" rows={4} maxLength={500}
+                placeholder="例：学年を問わず仲が良く、初心者も気軽に参加できる雰囲気です。"
+                value={form.atmosphereDescription} onChange={(e) => update({ atmosphereDescription: e.target.value })}
+                aria-describedby="circleEditAtmosphereDescriptionHint" />
+              <p id="circleEditAtmosphereDescriptionHint" className="circleEditHint">普段の様子やメンバー同士の関わり方などを紹介してください（500文字まで）。</p>
             </div>
           </section>
 
@@ -399,6 +446,15 @@ function CircleEdit() {
                 />
               </div>
               <div className="ttShareField circleEditFirstField">
+                <label className="ttShareFieldLabel" htmlFor="circleEditTime">
+                  活動時間 <span className="circleEditOptional">任意</span>
+                </label>
+                <input id="circleEditTime" type="text" className="circleEditInput" maxLength={100}
+                  placeholder="例：18:00〜21:00" value={form.activityTime}
+                  onChange={(e) => update({ activityTime: e.target.value })} aria-describedby="circleEditTimeHint" />
+                <p id="circleEditTimeHint" className="circleEditHint">活動時間が決まっている場合のみ入力してください。未定の場合は空欄で提出できます。</p>
+              </div>
+              <div className="ttShareField circleEditFirstField">
                 <label className="ttShareFieldLabel" htmlFor="circleEditPlace">
                   主な活動場所
                 </label>
@@ -413,9 +469,14 @@ function CircleEdit() {
                 />
               </div>
             </div>
-            <div className="ttShareField">
+          </section>
+
+          <section className="ttShareCard">
+            <h2 className="ttShareCardTitle"><UserRound aria-hidden="true" />所属人数・分布</h2>
+            <div className="ttShareField circleEditFirstField">
               <label className="ttShareFieldLabel" htmlFor="circleEditMembers">
                 所属人数
+                <span className="reviewFormRequired">必須</span>
               </label>
               <div className="circleEditMembers">
                 <UserRound aria-hidden="true" />
@@ -426,6 +487,8 @@ function CircleEdit() {
                   inputMode="numeric"
                   min={0}
                   step={1}
+                  required
+                  aria-invalid={Boolean(errors.membersCount)}
                   className={`circleEditInput circleNumber${errors.membersCount ? " isInvalid" : ""}`}
                   value={form.membersCount}
                   onChange={(e) => {
@@ -437,6 +500,83 @@ function CircleEdit() {
               </div>
               {errors.membersCount && <p className="reviewFormError">{errors.membersCount}</p>}
             </div>
+            <fieldset className="circleEditDistribution">
+              <legend>学年分布 <span className="circleEditOptional">任意</span></legend>
+              <p className="circleEditHint">各学年の人数を入力してください。空欄は0人として保存されます。</p>
+              <div className="circleEditGradeGrid">
+                {form.gradeMembers.map((item, index) => (
+                  <div key={`${item.program}-${item.grade}`}>
+                    <label className="ttShareFieldLabel" htmlFor={`circleEditGrade${index}`}>{item.program === "graduate" ? "院" : "学類"}{item.grade}年</label>
+                    <div className="circleEditNumberUnit">
+                      <input id={`circleEditGrade${index}`} type="number" min={0} step={1} inputMode="numeric" className="circleEditInput"
+                        value={item.count} onChange={(e) => { update({ gradeMembers: form.gradeMembers.map((row, i) => i === index ? { ...row, count: e.target.value } : row) }); clearError("distribution"); }}
+                        onBlur={() => { if (item.count === "") update({ gradeMembers: form.gradeMembers.map((row, i) => i === index ? { ...row, count: "0" } : row) }); }} />
+                      <span>名</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset className="circleEditDistribution">
+              <legend>所属学類・院のコース分布 <span className="circleEditOptional">任意</span></legend>
+              <p className="circleEditHint">学類や院のコースごとの割合を入力してください。未入力の行は保存されません。</p>
+              <div className="circleEditRows">
+                {form.facultyRatios.map((item, index) => {
+                  const groups = getCircleAcademicGroups(university?.slug ?? "tsukuba", item.program);
+                  const isListed = groups.some((group) => group.options.includes(item.name));
+                  return (
+                  <div className="circleEditRatioRow" key={index}>
+                    <label><span className="ttShareFieldLabel">区分</span>
+                      <div className="gradCheckSelectWrap"><select className="gradCheckSelect" value={item.program} onChange={(e) => {
+                        update({ facultyRatios: form.facultyRatios.map((row, i) => i === index ? { ...row, name: "", program: e.target.value as "undergraduate" | "graduate" } : row) });
+                        clearError("distribution");
+                      }}>
+                        <option value="undergraduate">学類</option><option value="graduate">院のコース</option>
+                      </select><ChevronDown className="gradCheckSelectChevron" aria-hidden="true" /></div>
+                    </label>
+                    <label><span className="ttShareFieldLabel">{item.program === "graduate" ? "学位プログラム・専攻名" : "学類・学群名"}</span>
+                      <div className="gradCheckSelectWrap">
+                        <select className="gradCheckSelect" value={item.name} onChange={(e) => {
+                          update({ facultyRatios: form.facultyRatios.map((row, i) => i === index ? { ...row, name: e.target.value } : row) });
+                          clearError("distribution");
+                        }}>
+                          <option value="">選択してください</option>
+                          {item.name && !isListed && item.name !== "その他" && <option value={item.name}>{item.name}（登録済み）</option>}
+                          {groups.map((group) => <optgroup key={group.label} label={group.label}>
+                            {group.options.map((name) => <option key={name} value={name}>{name}</option>)}
+                          </optgroup>)}
+                          <option value="その他">その他</option>
+                        </select>
+                        <ChevronDown className="gradCheckSelectChevron" aria-hidden="true" />
+                      </div>
+                    </label>
+                    <label><span className="ttShareFieldLabel">割合</span><div className="circleEditNumberUnit">
+                      <input className="circleEditInput" type="number" min={0} max={100} step="any" value={item.percent} onChange={(e) => { update({ facultyRatios: form.facultyRatios.map((row, i) => i === index ? { ...row, percent: e.target.value } : row) }); clearError("distribution"); }} /><span>%</span>
+                    </div></label>
+                    <button type="button" className="classDetailActionBtn" aria-label={`${index + 1}行目の学類・コースを削除`} onClick={() => { update({ facultyRatios: form.facultyRatios.filter((_, i) => i !== index) }); clearError("distribution"); }}><Trash2 aria-hidden="true" />削除</button>
+                  </div>
+                  );
+                })}
+              </div>
+              <button type="button" className="classDetailActionBtn" onClick={() => update({ facultyRatios: [...form.facultyRatios, { name: "", percent: "", program: "undergraduate" }] })}><Plus aria-hidden="true" />学類・コースを追加</button>
+            </fieldset>
+            {errors.distribution && <p className="reviewFormError" role="alert">{errors.distribution}</p>}
+          </section>
+
+          <section className="ttShareCard">
+            <h2 className="ttShareCardTitle"><LinkIcon aria-hidden="true" />外部リンク・SNS <span className="circleEditOptional">任意</span></h2>
+            <p className="circleEditHint circleEditLead">公式サイトやSNSのリンク名とURLを入力してください。</p>
+            <div className="circleEditRows">
+              {form.links.map((item, index) => (
+                <div className="circleEditLinkRow" key={index}>
+                  <label><span className="ttShareFieldLabel">リンク名</span><input className="circleEditInput" type="text" maxLength={100} placeholder="例：公式サイト、Instagram" value={item.label} onChange={(e) => { update({ links: form.links.map((row, i) => i === index ? { ...row, label: e.target.value } : row) }); clearError("links"); }} /></label>
+                  <label><span className="ttShareFieldLabel">URL</span><input className="circleEditInput" type="url" placeholder="https://example.com/" value={item.url} onChange={(e) => { update({ links: form.links.map((row, i) => i === index ? { ...row, url: e.target.value } : row) }); clearError("links"); }} /></label>
+                  <button type="button" className="classDetailActionBtn" aria-label={`${index + 1}行目のリンクを削除`} onClick={() => { update({ links: form.links.filter((_, i) => i !== index) }); clearError("links"); }}><Trash2 aria-hidden="true" />削除</button>
+                </div>
+              ))}
+            </div>
+            <button type="button" className="classDetailActionBtn" onClick={() => update({ links: [...form.links, { label: "", url: "", text: "" }] })}><Plus aria-hidden="true" />リンクを追加</button>
+            {errors.links && <p className="reviewFormError" role="alert">{errors.links}</p>}
           </section>
 
           {/* ── お知らせ ── */}
