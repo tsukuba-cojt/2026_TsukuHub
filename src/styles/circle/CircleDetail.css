@@ -202,6 +202,10 @@
   border-left: 1px solid #e3eaf5;
 }
 
+.circleDetailBlock:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .circleDetailBlock h3,
 .circleDetailExtra h3 {
   display: flex;
@@ -285,6 +289,8 @@
 
 .circleDetailLegend {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
   margin: 6px 0 0;
   padding: 0;
   list-style: none;
@@ -301,11 +307,9 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  overflow: hidden;
   color: var(--color-text-secondary);
   font-size: 9px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 
 .circleDetailLegend i {
@@ -332,6 +336,8 @@
 }
 
 .circleDetailMoodText {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   margin: 12px 0 0;
   color: var(--color-text-primary);
   font-size: 11px;
