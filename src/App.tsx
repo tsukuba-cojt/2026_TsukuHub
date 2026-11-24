@@ -1,4 +1,6 @@
+import { legacyRoots } from "./lib/legacyRoutes";
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { SeoNavigation } from "./seo/PageSeo";
 import Header from "./components/utility/Header";
 import InternalLinkGuard from "./components/utility/InternalLinkGuard";
 import ScrollToTop from "./components/utility/ScrollToTop";
@@ -77,30 +79,11 @@ function ProtectedAdmin({ children }: { children: React.ReactNode }) {
   return <RequireAdmin>{children}</RequireAdmin>;
 }
 
-const legacyRoots = [
-  "login",
-  "signup",
-  "auth",
-  "class",
-  "graduation-checker",
-  "timetable",
-  "mypage",
-  "contact",
-  "terms",
-  "privacy",
-  "news",
-  "topics",
-  "career",
-  "circles",
-  "lifestyle",
-  "events",
-  "global",
-];
-
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <SeoNavigation />
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Navigate to="/tsukuba" replace />} />
@@ -167,7 +150,7 @@ function App() {
               <Route element={<FeatureGate feature="alumni_stories" />}>
                 <Route path="career/alumni" element={<CareerAlumni />} />
                 <Route path="career/alumni/:id" element={<CareerAlumniDetail />} />
-                <Route path="career/stories" element={<CareerAlumni />} />
+                <Route path="career/stories" element={<Navigate to="../career/alumni" replace />} />
               </Route>
               <Route element={<FeatureGate feature="courses" />}>
                 <Route path="class" element={<Class />} />

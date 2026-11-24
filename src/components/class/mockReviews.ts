@@ -73,14 +73,3 @@ export const mockReviews: Review[] = [
     tags: ["実践的", "楽しい"],
   },
 ];
-
-// 関連授業のモック（DB に関連情報が入り次第差し替える）
-export type RelatedCourse = {
-  title: string;
-  code: string;
-};
-
-export const mockRelatedCourses: RelatedCourse[] = [
-  { title: "データサイエンス基礎", code: "AB2006" },
-  { title: "統計学入門", code: "AB0311" },
-];

@@ -1,4 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { filterCourses, pageSize, readSearch, searchQuery } from "../lib/courseSearch";
+import { PageSeo } from "../seo/PageSeo";
+import { listMetadata } from "../seo/metadata";
 import { useUniversity } from "../components/university/universityContextValue";
 import Globalnav from "../components/utility/Globalnav";
 import Footer from "../components/utility/Footer";
@@ -10,37 +14,15 @@ import { listCatalogCourses } from "../services/courseCatalog";
 import type { CatalogCourse } from "../types/courseCatalog";
 import "../styles/class/Class.css";
 
-type FiltersState = {
-  academicYear: number;
-  text: string;
-  code: string;
-  moduleRangeStart: number;
-  moduleRangeEnd: number;
-  classType: "normal" | "intensive" | "consultation" | "anytime" | "nt";
-  schedule: string;
-  scheduleDay: string;
-  schedulePeriod: string;
-};
-
 function Class() {
-  const { university } = useUniversity();
-  const [courses, setCourses] = useState<ClassCourse[]>([]);
+  const { university, path } = useUniversity();
+  const [courses, setCourses] = useState<CatalogCourse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [filters, setFilters] = useState<FiltersState>({
-    academicYear: 2026,
-    text: "",
-    code: "",
-    moduleRangeStart: 1,
-    moduleRangeEnd: 6,
-    classType: "normal",
-    schedule: "all",
-    scheduleDay: "all",
-    schedulePeriod: "all",
-  });
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
-
+  const { search } = useLocation();
+  const navigate = useNavigate();
+  const { filters, page: currentPage } = useMemo(() => readSearch(new URLSearchParams(search)), [search]);
+  const year = filters.academicYear;
   const toClassCourse = (r: CatalogCourse): ClassCourse => ({
     id: r.course_number,
     academicYear: r.academic_year ?? filters.academicYear,
@@ -55,6 +37,7 @@ function Class() {
   });
 
   useEffect(() => {
+    let active = true;
     const fetchCourses = async () => {
       if (!university) return;
       setLoading(true);
@@ -62,158 +45,50 @@ function Class() {
       try {
         const rows = await listCatalogCourses(
           university.slug,
-          filters.academicYear
+          year
         );
-        setCourses(rows.map(toClassCourse));
+        if (active) setCourses(rows);
       } catch {
-        setError("履修一覧の取得に失敗しました。");
+        if (active) setError("履修一覧の取得に失敗しました。");
       } finally {
-        setLoading(false);
+        if (active) setLoading(false);
       }
     };
 
     void fetchCourses();
-  }, [filters.academicYear, university]);
+    return () => { active = false; };
+  }, [year, university]);
 
-  // フィルタを適用した配列をメモ化
-  const filteredCourses = useMemo(() => {
-    const text = filters.text.trim().toLowerCase();
-    const code = filters.code.trim().toLowerCase();
-
-    // モジュールと数値のマッピング
-    const moduleMap: { [key: string]: number } = {
-      "春A": 1,
-      "春B": 2,
-      "春C": 3,
-      "秋A": 4,
-      "秋B": 5,
-      "秋C": 6,
-    };
-
-    const moduleLabels = Object.keys(moduleMap);
-
-    const getAllowedTermModules = (start: number, end: number) => {
-      return Object.entries(moduleMap)
-        .filter(([, num]) => num >= start && num <= end)
-        .map(([label]) => label);
-    };
-
-    const getTermModules = (term: string) => {
-      return moduleLabels.filter((label) => term.includes(label));
-    };
-
-    return courses.filter((c) => {
-      // text: タイトル・教員名を検索
-      if (text) {
-        const hay = `${c.title} ${c.teacher}`.toLowerCase();
-        if (!hay.includes(text)) return false;
-      }
-
-      // code: コード部分を部分一致
-      if (code) {
-        if (!c.code.toLowerCase().includes(code)) return false;
-      }
-
-      // module: 範囲指定で判定
-      const term = (c.term || "");
-      const allowedModules = getAllowedTermModules(filters.moduleRangeStart, filters.moduleRangeEnd);
-      const termModules = getTermModules(term);
-
-      if (term.includes("通年")) {
-        // 通年科目は、モジュール範囲が 1〜6 全選択のときのみ表示する
-        if (filters.moduleRangeStart !== 1 || filters.moduleRangeEnd !== 6) {
-          return false;
-        }
-      } else if (term.includes("集中講義")) {
-        // 集中講義は範囲指定にかかわらず残す
-      } else {
-        if (termModules.length === 0) {
-          return false;
-        }
-
-        // 範囲内のモジュールが1つも含まれていない場合は除外
-        if (!termModules.some((moduleLabel) => allowedModules.includes(moduleLabel))) {
-          return false;
-        }
-
-        // 範囲外のモジュールが含まれていれば除外
-        if (termModules.some((moduleLabel) => !allowedModules.includes(moduleLabel))) {
-          return false;
-        }
-      }
-
-      // schedule 判定:
-      // - 通年かつモジュールが全選択(1..6) の場合は schedule フィルターを無視する
-      // - filters.classType !== 'normal' の場合は DB の schedule に種別キーワードが含まれるかで判定
-      // - normal の場合は曜日/時限で判定（split モード：scheduleDay/schedulePeriod、combined モード：schedule）
-      const schedRaw = (c.period || "");
-      if (term.includes("通年") && filters.moduleRangeStart === 1 && filters.moduleRangeEnd === 6) {
-        // 通年かつモジュール全選択：schedule 条件を適用しない
-      } else if (filters.classType && filters.classType !== "normal") {
-        const classTypeMap: { [key: string]: string[] } = {
-          intensive: ["集中", "集中講義"],
-          consultation: ["応談", "応相談", "応談可"],
-          anytime: ["随時"],
-          nt: ["NT", "ＮＴ"],
-        };
-        const keywords = classTypeMap[filters.classType] || [];
-        const lowerSched = schedRaw.toLowerCase();
-        if (!keywords.some((k) => lowerSched.includes(k.toLowerCase()))) return false;
-      } else {
-        // normal の場合
-        const DAY_JP: { [key: string]: string } = {
-          mon: "月",
-          tue: "火",
-          wed: "水",
-          thu: "木",
-          fri: "金",
-        };
-
-        if (filters.schedule && filters.schedule !== "all") {
-          // combined モード（例: "mon-2" を "mon 2" に変換して検索）
-          const schedSearch = filters.schedule.replace("-", " ");
-          if (!schedRaw.toLowerCase().includes(schedSearch.toLowerCase())) return false;
-        } else if (filters.scheduleDay && filters.scheduleDay !== "all") {
-          const day = DAY_JP[filters.scheduleDay] || filters.scheduleDay;
-          const searchValue =
-            filters.schedulePeriod && filters.schedulePeriod !== "all"
-              ? `${day}${filters.schedulePeriod}`
-              : `${day}`;
-          if (!schedRaw.toLowerCase().includes(searchValue.toLowerCase())) return false;
-        }
-      }
-
-      return true;
-    });
-  }, [courses, filters]);
+  const filteredCourses = useMemo(() => filterCourses(courses, filters), [courses, filters]);
 
   const totalPages = Math.max(1, Math.ceil(filteredCourses.length / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
   const currentPageCourses = useMemo(() => {
     const offset = (safeCurrentPage - 1) * pageSize;
     return filteredCourses.slice(offset, offset + pageSize);
-  }, [filteredCourses, safeCurrentPage, pageSize]);
+  }, [filteredCourses, safeCurrentPage]);
 
   return (
     <div className="classPage">
       <Globalnav />
       <main className="classPageLayout">
+        {university && <PageSeo {...listMetadata(university.slug, university.name, filters, currentPage)} />}
         <ClassSearchPanel
           filters={filters}
-          onChange={(next: Partial<FiltersState>) => {
-            setFilters((prev) => ({ ...prev, ...next }));
-            setCurrentPage(1);
-          }}
+          onChange={(next) => navigate(path("/class") + searchQuery({ ...filters, ...next }, 1), { replace: true })}
         />
         <ClassSortBar currentPage={safeCurrentPage} totalCount={filteredCourses.length} />
 
         {loading && <p className="classStatus">読み込み中...</p>}
         {error && <p className="classStatus classStatusError">{error}</p>}
 
-        {!loading && !error && (
+        {!loading && !error && currentPage > totalPages && (
+          <p className="classStatus">指定したページに授業はありません。</p>
+        )}
+        {!loading && !error && currentPage <= totalPages && (
           <div className="classCourseList">
             {currentPageCourses.map((course) => (
-              <ClassCard course={course} key={course.id} />
+              <ClassCard course={toClassCourse(course)} key={course.course_number} />
             ))}
           </div>
         )}
@@ -221,7 +96,7 @@ function Class() {
         <ClassPagination
           currentPage={safeCurrentPage}
           totalPages={totalPages}
-          onChangePage={setCurrentPage}
+          pageUrl={(page) => path("/class") + searchQuery(filters, page)}
         />
       </main>
       <Footer />

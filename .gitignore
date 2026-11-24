@@ -35,3 +35,6 @@ supabase/.temp/
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Derived from the tracked annual course catalogs by Vite.
+public/data/course-pages/

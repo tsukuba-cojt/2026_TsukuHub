@@ -1,3 +1,5 @@
+import { PageSeo } from "../seo/PageSeo";
+import { homeMetadata } from "../seo/metadata";
 import { useEffect, useState } from "react";
 import Globalnav from "../components/utility/Globalnav";
 import Hero from "../components/home/Hero";
@@ -14,7 +16,7 @@ import { useAuth } from "../components/auth/authContextValue";
 import { useUniversity } from "../components/university/universityContextValue";
 import { listPublishedNews } from "../services/newsService";
 import { listPublishedInternships } from "../services/careerService";
-import type { Internship } from "../types/career";
+import type { InternshipSummary } from "../types/career";
 import type { NewsItemRecord } from "../types/news";
 
 function Home() {
@@ -22,20 +24,23 @@ function Home() {
   const { university } = useUniversity();
   const [news, setNews] = useState<NewsItemRecord[]>([]);
   const [topics, setTopics] = useState<NewsItemRecord[]>([]);
-  const [internships, setInternships] = useState<Internship[]>([]);
-  const [internshipsLoading, setInternshipsLoading] = useState(true);
-  const [internshipsError, setInternshipsError] = useState(false);
+  const [internshipResult, setInternshipResult] = useState<{
+    universityId: string;
+    items: InternshipSummary[];
+    error: boolean;
+  } | null>(null);
+  const result = internshipResult?.universityId === university?.id ? internshipResult : null;
 
   useEffect(() => {
     if (!university) return;
     let active = true;
-    setInternships([]);
-    setInternshipsLoading(true);
-    setInternshipsError(false);
     void listPublishedInternships(university.id)
-      .then((items) => { if (active) setInternships(items); })
-      .catch(() => { if (active) setInternshipsError(true); })
-      .finally(() => { if (active) setInternshipsLoading(false); });
+      .then((items) => {
+        if (active) setInternshipResult({ universityId: university.id, items, error: false });
+      })
+      .catch(() => {
+        if (active) setInternshipResult({ universityId: university.id, items: [], error: true });
+      });
     return () => { active = false; };
   }, [university]);
 
@@ -55,6 +60,7 @@ function Home() {
 
   return (
     <div className="homepage">
+      {university && <PageSeo {...homeMetadata(university.slug, university.name)} />}
       <Globalnav />
       <Hero />
       <CategorySection />
@@ -70,7 +76,7 @@ function Home() {
           gap: '24px'               /* ④ コンポーネント間の隙間（お好みの数値に） */
         }}
       >
-        <TopicSection internships={internships} loading={internshipsLoading} error={internshipsError} />
+        <TopicSection internships={result?.items ?? []} loading={!result} error={result?.error ?? false} />
         <LatestNewsSection newsItems={topics} />
         <RankingSection />
       </main>

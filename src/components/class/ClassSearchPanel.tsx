@@ -1,3 +1,5 @@
+import { defaultFilters, type CourseFilters as Filters } from "../../lib/courseSearch";
+import { catalogYears } from "../../seo/catalog";
 import React from "react";
 import "../../styles/class/ClassSearchPanel.css";
 import "rc-slider/assets/index.css";
@@ -26,18 +28,6 @@ function SlidersIcon() {
   );
 }
 
-type Filters = {
-  academicYear: number;
-  text: string;
-  code: string;
-  moduleRangeStart: number;
-  moduleRangeEnd: number;
-  classType: "normal" | "intensive" | "consultation" | "anytime" | "nt";
-  schedule: string;
-  scheduleDay: string;
-  schedulePeriod: string;
-};
-
 type Props = {
   filters: Filters;
   onChange: (next: Partial<Filters>) => void;
@@ -59,22 +49,11 @@ const CLASS_TYPE_OPTIONS = [
   { label: "オンデマンド", value: "anytime" },
   { label: "その他", value: "nt" },
 ];
-const ACADEMIC_YEAR_OPTIONS = [2026, 2025, 2024, 2023];
 
 export default function ClassSearchPanel({ filters, onChange }: Props) {
   const handleReset = (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
-    onChange({
-      academicYear: 2026,
-      text: "",
-      code: "",
-      moduleRangeStart: 1,
-      moduleRangeEnd: 6,
-      classType: "normal",
-      schedule: "all",
-      scheduleDay: "all",
-      schedulePeriod: "all",
-    });
+    onChange(defaultFilters);
   };
 
   return (
@@ -115,7 +94,7 @@ export default function ClassSearchPanel({ filters, onChange }: Props) {
             value={filters.academicYear}
             onChange={(e) => onChange({ academicYear: Number(e.target.value) })}
           >
-            {ACADEMIC_YEAR_OPTIONS.map((year) => (
+            {catalogYears.map((year) => (
               <option key={year} value={year}>
                 {year}年度
               </option>

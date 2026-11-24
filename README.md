@@ -2,12 +2,16 @@
 
 ## マルチ大学URL
 
-- `/`: サービス説明・大学選択
+- `/`: 筑波大学版へ転送
 - `/tsukuba`: 筑波大学版
 - `/osaka`: 大阪大学版
 - `/admin`: 全大学共通管理画面
 
 従来の `/career`、`/class`、`/login` など大学名のないURLは `/` に転送されます。DB移行とAuth Hookの設定は [`supabase/README.md`](supabase/README.md) を参照してください。
+
+## 公開ページの配信
+
+`npm run build` は、年度別の授業カタログから科目詳細用の分割データを生成し、フロントエンドとCloudflare Workerをビルドします。Workerは既存のSupabase公開キーで大学の公開設定を確認し、大学トップ・授業・履修ガイドのHTMLと `/sitemap.xml` を配信します。サイトマップと正規URLのドメインにはリクエストのオリジンを使います。
 
 ## Supabase・就活機能のセットアップ
 

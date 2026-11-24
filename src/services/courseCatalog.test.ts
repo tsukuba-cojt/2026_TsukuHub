@@ -1,5 +1,6 @@
+import { courseBucket } from "../seo/catalog";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getCatalogCourse, listCatalogCourses } from "./courseCatalog";
+import { getCatalogCourse, getCourseDetails, listCatalogCourses } from "./courseCatalog";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -47,6 +48,18 @@ describe("courseCatalog", () => {
     expect(fetchMock).toHaveBeenCalledWith(
       "/data/courses/test-university-2024.json"
     );
+  });
+
+  it("個別科目は小さい分割ファイルから同年度の関連科目と一緒に取得する", async () => {
+    const rows = ["01KA051", "01KA052", "02AB123"].map((code) => ({
+      academic_year: 2024, course_number: code, course_name: code,
+    }));
+    const fetchMock = vi.fn().mockResolvedValue(Response.json(rows));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await getCourseDetails("tsukuba", "01KA051", 2024);
+    expect(result).toEqual({ course: rows[0], related: [rows[1]] });
+    expect(fetchMock.mock.calls).toEqual([[`/data/course-pages/tsukuba/2024/${courseBucket("01KA051")}.json`]]);
   });
 
   it("2026年度も年度付きファイルを使用する", async () => {
