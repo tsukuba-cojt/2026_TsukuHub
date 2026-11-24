@@ -14,6 +14,7 @@ export const legacyRoots = [
   "career",
   "circles",
   "lifestyle",
+  "life",
   "events",
   "global",
 ];

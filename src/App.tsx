@@ -91,27 +91,6 @@ function ProtectedAdmin({ children }: { children: React.ReactNode }) {
   return <RequireAdmin>{children}</RequireAdmin>;
 }
 
-const legacyRoots = [
-  "login",
-  "signup",
-  "auth",
-  "class",
-  "graduation-checker",
-  "timetable",
-  "mypage",
-  "contact",
-  "terms",
-  "privacy",
-  "news",
-  "topics",
-  "career",
-  "circles",
-  "lifestyle",
-  "life",
-  "events",
-  "global",
-];
-
 function App() {
   return (
     <BrowserRouter>
