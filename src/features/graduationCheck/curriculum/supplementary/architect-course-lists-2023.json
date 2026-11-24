@@ -1,0 +1,3539 @@
+{
+  "schemaVersion": "architect-course-evidence-1.0.0",
+  "purpose": "資料転記と科目DB照合候補。卒業要件の自動算入・建築士受験資格判定には直接使わない。",
+  "sources": [
+    {
+      "documentId": "tsukuba-architect-course-list-urban-admission-2023",
+      "fileName": "工学システム_建築士科目.pdf",
+      "program": "理工学群 社会工学類 都市計画主専攻",
+      "programCode": "0811-129-350",
+      "admissionYears": [
+        2023
+      ],
+      "changeApprovalDate": "2023-03-28",
+      "pageCount": 2,
+      "sha256": "176d6aac33398b409e70b1161cbeb3441bf4bf0f1207cd7d11842743117d5589",
+      "rows": [
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "施設設計演習",
+          "targetYears": "3～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45092",
+              "name": "施設設計演習",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "基本製図",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45142",
+              "name": "基本製図",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "住環境設計演習",
+          "targetYears": "3～4",
+          "credits": 6.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46002",
+              "name": "住環境設計演習",
+              "credits": 6.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "空間デザイン論",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46031",
+              "name": "空間デザイン論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "住環境計画概論",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46021",
+              "name": "住環境計画概論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "都市計画の歴史",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45211",
+              "name": "都市計画の歴史",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FH63081",
+              "name": "都市計画の歴史",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "建築計画論（芸術専門学群開設）",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4061",
+              "name": "建築計画論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "建築設計論（芸術専門学群開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ3601",
+              "name": "建築設計論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "建築通史（芸術専門学群）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4041",
+              "name": "建築通史",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "世界建築史（芸術専門学群開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0411",
+              "name": "世界建築史",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "3",
+          "name": "建築環境工学（工学システム学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45911",
+              "name": "建築環境工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55911",
+              "name": "建築環境工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "3",
+          "name": "建築環境計画論（芸術専門学群開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ3811",
+              "name": "建築環境計画論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "4",
+          "name": "建築設備（工学システム学類開設）",
+          "targetYears": "3～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45901",
+              "name": "建築設備",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "4",
+          "name": "建築設備計画演習（芸術専門学群）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ3831",
+              "name": "建築設備計画演習",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造力学Ⅰ(工学システム学類開設)",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45434",
+              "name": "構造力学I",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55434",
+              "name": "構造力学I",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造力学Ⅱ（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45721",
+              "name": "構造力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55721",
+              "name": "構造力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "土質力学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45451",
+              "name": "土質力学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "地盤工学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45771",
+              "name": "地盤工学",
+              "credits": 2.0,
+              "creditsMatch": false,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG45831",
+              "name": "地盤工学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "材料力学基礎（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG10864",
+              "name": "材料力学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG45554",
+              "name": "材料力学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG55554",
+              "name": "材料力学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "応用材料力学Ⅰ（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45564",
+              "name": "応用材料力学I",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55564",
+              "name": "応用材料力学I",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "応用材料力学Ⅱ（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45604",
+              "name": "応用材料力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55604",
+              "name": "応用材料力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "振動工学（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45611",
+              "name": "振動工学",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55611",
+              "name": "振動工学",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造力学（芸術専門学群）",
+          "targetYears": "2～3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ5011",
+              "name": "構造力学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造計画（芸術専門学群）",
+          "targetYears": "2～3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ5021",
+              "name": "構造計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "建築構法論(芸術専門学群開設)",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4201",
+              "name": "建築構法論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "建築構法論演習(芸術専門学群開設)",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4202",
+              "name": "建築構法論演習",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "鉄筋コンクリート構造学(工学システム学類開設)",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45791",
+              "name": "鉄筋コンクリート構造学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "防災工学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45751",
+              "name": "防災工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG45821",
+              "name": "防災工学",
+              "credits": 1.5,
+              "creditsMatch": false,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "鋼構造学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45801",
+              "name": "鋼構造学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "7",
+          "name": "建築材料論(芸術専門学群開設)",
+          "targetYears": "2～3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0821",
+              "name": "建築材料論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "7",
+          "name": "コンクリート工学(工学システム学類開設)",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG42251",
+              "name": "コンクリート工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "7",
+          "name": "複合材料学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG42621",
+              "name": "複合材料学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG52621",
+              "name": "複合材料学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "7",
+          "name": "材料学基礎（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG12021",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG22301",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG32301",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG42261",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG52261",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "7",
+          "name": "応用材料学（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG42271",
+              "name": "応用材料学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG52271",
+              "name": "応用材料学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "8",
+          "name": "建築経済",
+          "targetYears": "2～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45061",
+              "name": "建築経済",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "8",
+          "name": "建築生産",
+          "targetYears": "2～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45071",
+              "name": "建築生産",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "9",
+          "name": "建築関連法規",
+          "targetYears": "2～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45051",
+              "name": "建築関連法規",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市計画情報演習",
+          "targetYears": "2",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45222",
+              "name": "都市計画情報演習",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市計画原論",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45201",
+              "name": "都市計画原論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FH63071",
+              "name": "都市計画原論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市防災計画",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH47041",
+              "name": "都市防災計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "ランドスケープデザイン論（芸術専門学群開設）",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP3401",
+              "name": "ランドスケープデザイン論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "建築デザイン概論（芸術専門学群開設）",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAQ1011",
+              "name": "建築デザイン概論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "環境デザイン概論（芸術専門学群開設）",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAP1011",
+              "name": "環境デザイン概論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "世界遺産学入門（芸術専門学群開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAX1601",
+              "name": "世界遺産学入門",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "デザイン史概説B（芸術専門学群開設）",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAZ1421",
+              "name": "デザイン史概説B",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "工学者のための倫理（工学システム学類開設）",
+          "targetYears": "4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG18101",
+              "name": "工学者のための倫理",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市緑地計画",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46041",
+              "name": "都市緑地計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "現代まちづくり論",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46051",
+              "name": "現代まちづくり論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "土地利用計画",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH47021",
+              "name": "土地利用計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市デザイン論（芸術専門学群開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP3301",
+              "name": "都市デザイン論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "社会のなかの建築デザイン（芸術専門学群開設）",
+          "targetYears": "3～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [],
+          "mappingState": "unresolved"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市計画入門",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH61151",
+              "name": "都市計画入門",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "デザイン史概説Ａ（芸術専門学群開設）",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAZ1411",
+              "name": "デザイン史概説A",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "現代デザイン論（芸術専門学群）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4051",
+              "name": "現代デザイン論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "地域まちづくり論（芸術専門学群開設）",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP2831",
+              "name": "地域まちづくり論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        }
+      ],
+      "categoryTotals": {
+        "1": 9.0,
+        "2": 13.0,
+        "3": 4.0,
+        "4": 4.0,
+        "5": 18.0,
+        "6": 7.0,
+        "7": 8.0,
+        "8": 2.0,
+        "9": 1.0,
+        "10": 28.0
+      },
+      "totalCategories1To9": 66.0,
+      "totalCategories1To10": 94.0,
+      "graduationApplicability": "都市計画向けの参考資料。工学システムの卒業判定は別途取得した資格取得章の工シス表で照合した。"
+    },
+    {
+      "documentId": "tsukuba-architect-course-list-art-admission-2023",
+      "fileName": "芸術_建築士科目.pdf",
+      "program": "芸術専門学群",
+      "programCode": "0811-129-450",
+      "admissionYears": [
+        2023
+      ],
+      "changeApprovalDate": "2025-03-25",
+      "pageCount": 2,
+      "sha256": "3211f72d8fceffe64445d2244d5b15e419864d9feca53a7402063cb3c4c2835b",
+      "rows": [
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "建築製図基礎演習",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAQ1012",
+              "name": "建築製図基礎演習",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "デザイン演習１-B",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0212",
+              "name": "デザイン演習1-B",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "デザイン演習２-B",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP0222",
+              "name": "デザイン演習2-B",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "デザイン演習５-B",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0252",
+              "name": "デザイン演習5-B",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "デザイン演習６-B",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP0262",
+              "name": "デザイン演習6-B",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "環境デザイン演習A",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP0332",
+              "name": "環境デザイン演習A",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "環境デザイン演習C",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP0352",
+              "name": "環境デザイン演習C",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "建築デザイン演習A",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0342",
+              "name": "建築デザイン演習A",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "建築デザイン演習C",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0362",
+              "name": "建築デザイン演習C",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "建築デザイン演習D",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0372",
+              "name": "建築デザイン演習D",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "デザイン基礎演習2-Ⅰ",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBX4052",
+              "name": "デザイン基礎演習2-I",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "デザイン基礎演習2-Ⅱ",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBX4062",
+              "name": "デザイン基礎演習2-II",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "環境デザイン演習B",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP0342",
+              "name": "環境デザイン演習B",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "1",
+          "name": "建築デザイン演習B",
+          "targetYears": "3",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0352",
+              "name": "建築デザイン演習B",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "建築計画論",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4061",
+              "name": "建築計画論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "建築設計論",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ3601",
+              "name": "建築設計論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "建築通史（芸術専門学群）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4041",
+              "name": "建築通史",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "世界建築史（芸術専門学群開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0411",
+              "name": "世界建築史",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "設計計画論（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG43811",
+              "name": "設計計画論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG43821",
+              "name": "設計計画論",
+              "credits": 1.5,
+              "creditsMatch": false,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "空間デザイン論（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46031",
+              "name": "空間デザイン論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "住環境計画概論（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46021",
+              "name": "住環境計画概論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "2",
+          "name": "都市計画の歴史（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45211",
+              "name": "都市計画の歴史",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FH63081",
+              "name": "都市計画の歴史",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "3",
+          "name": "建築環境計画論",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ3811",
+              "name": "建築環境計画論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "3",
+          "name": "建築環境工学（工学システム学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45911",
+              "name": "建築環境工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55911",
+              "name": "建築環境工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "4",
+          "name": "建築設備（工学システム学類開設）",
+          "targetYears": "3～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45901",
+              "name": "建築設備",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "4",
+          "name": "建築設備計画演習",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ3831",
+              "name": "建築設備計画演習",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造力学Ⅰ（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45434",
+              "name": "構造力学I",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55434",
+              "name": "構造力学I",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造力学Ⅱ（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45721",
+              "name": "構造力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55721",
+              "name": "構造力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "土質力学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45451",
+              "name": "土質力学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "地盤工学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45771",
+              "name": "地盤工学",
+              "credits": 2.0,
+              "creditsMatch": false,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG45831",
+              "name": "地盤工学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造力学",
+          "targetYears": "2～3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ5011",
+              "name": "構造力学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "構造計画",
+          "targetYears": "2～3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ5021",
+              "name": "構造計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "材料力学基礎（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG10864",
+              "name": "材料力学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG45554",
+              "name": "材料力学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG55554",
+              "name": "材料力学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "応用材料力学Ⅰ（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45564",
+              "name": "応用材料力学I",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55564",
+              "name": "応用材料力学I",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "応用材料力学Ⅱ（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45604",
+              "name": "応用材料力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55604",
+              "name": "応用材料力学II",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "5",
+          "name": "振動工学（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 3.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45611",
+              "name": "振動工学",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG55611",
+              "name": "振動工学",
+              "credits": 3.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "建築構法論",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4201",
+              "name": "建築構法論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "建築構法論演習",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4202",
+              "name": "建築構法論演習",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 1,
+          "category": "6",
+          "name": "鉄筋コンクリート構造学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45791",
+              "name": "鉄筋コンクリート構造学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "6",
+          "name": "鋼構造学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45801",
+              "name": "鋼構造学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "6",
+          "name": "防災工学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG45751",
+              "name": "防災工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG45821",
+              "name": "防災工学",
+              "credits": 1.5,
+              "creditsMatch": false,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "7",
+          "name": "建築材料論",
+          "targetYears": "2・3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ0821",
+              "name": "建築材料論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "7",
+          "name": "コンクリート工学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG42251",
+              "name": "コンクリート工学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "7",
+          "name": "複合材料学（工学システム学類開設）",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG42621",
+              "name": "複合材料学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG52621",
+              "name": "複合材料学",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "7",
+          "name": "材料学基礎（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG12021",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG22301",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG32301",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG42261",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            },
+            {
+              "code": "FG52261",
+              "name": "材料学基礎",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "7",
+          "name": "応用材料学（工学システム学類開設）",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG42271",
+              "name": "応用材料学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FG52271",
+              "name": "応用材料学",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "8",
+          "name": "建築経済（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45061",
+              "name": "建築経済",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "8",
+          "name": "建築生産（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45071",
+              "name": "建築生産",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "9",
+          "name": "建築関連法規（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45051",
+              "name": "建築関連法規",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "ランドスケープデザイン論",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP3401",
+              "name": "ランドスケープデザイン論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "建築デザイン概論",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAQ1011",
+              "name": "建築デザイン概論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "環境デザイン概論",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAP1011",
+              "name": "環境デザイン概論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "世界遺産学入門",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAX1601",
+              "name": "世界遺産学入門",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "デザイン史概説B",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAZ1421",
+              "name": "デザイン史概説B",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "工学者のための倫理（工学システム学類開設）",
+          "targetYears": "4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "FG"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FG18101",
+              "name": "工学者のための倫理",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市計画原論（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH45201",
+              "name": "都市計画原論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            },
+            {
+              "code": "FH63071",
+              "name": "都市計画原論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市防災計画（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH47041",
+              "name": "都市防災計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市緑地計画（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46041",
+              "name": "都市緑地計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "現代まちづくり論（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH46051",
+              "name": "現代まちづくり論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "土地利用計画（社会工学類開設）",
+          "targetYears": "2～4",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "FH"
+          ],
+          "catalogMatches": [
+            {
+              "code": "FH47021",
+              "name": "土地利用計画",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "都市デザイン論",
+          "targetYears": "3",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP3301",
+              "name": "都市デザイン論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "社会のなかの建築デザイン",
+          "targetYears": "3～4",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [],
+          "mappingState": "unresolved"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "デザイン史概説Ａ",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAZ1411",
+              "name": "デザイン史概説A",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "プレゼンテーション基礎演習",
+          "targetYears": "1",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YAP1012",
+              "name": "プレゼンテーション基礎演習",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "現代デザイン論",
+          "targetYears": "2",
+          "credits": 1.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBQ4051",
+              "name": "現代デザイン論",
+              "credits": 1.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        },
+        {
+          "pdfPage": 2,
+          "category": "10",
+          "name": "地域まちづくり論",
+          "targetYears": "2",
+          "credits": 2.0,
+          "expectedCodePrefixes": [
+            "YA",
+            "YB"
+          ],
+          "catalogMatches": [
+            {
+              "code": "YBP2831",
+              "name": "地域まちづくり論",
+              "credits": 2.0,
+              "creditsMatch": true,
+              "catalogYears": [
+                2023,
+                2024,
+                2025,
+                2026
+              ]
+            }
+          ],
+          "mappingState": "candidate"
+        }
+      ],
+      "categoryTotals": {
+        "1": 28.0,
+        "2": 14.0,
+        "3": 4.0,
+        "4": 4.0,
+        "5": 18.0,
+        "6": 7.0,
+        "7": 8.0,
+        "8": 2.0,
+        "9": 1.0,
+        "10": 25.0
+      },
+      "totalCategories1To9": 86.0,
+      "totalCategories1To10": 111.0,
+      "graduationApplicability": "芸術の卒業要件の明示指定4科目を補強。資格科目の全件を卒業専門へ追加しない"
+    }
+  ],
+  "catalogSources": [
+    {
+      "academicYear": 2023,
+      "fileName": "public/data/courses/tsukuba-2023.json",
+      "sha256": "146fa83a1a5a3b1cc9e3b79a87869155849ed01cf6ad659d3659e16d6a3e084a",
+      "repositoryCommit": "b3d77356c21bad19dd3578f316b9fcec7f7f47a7"
+    },
+    {
+      "academicYear": 2024,
+      "fileName": "public/data/courses/tsukuba-2024.json",
+      "sha256": "bf1c714541ed7a9d766f9f904d8cb678eaf1df4291aeb572a7757a7f8e6c95d0",
+      "repositoryCommit": "b3d77356c21bad19dd3578f316b9fcec7f7f47a7"
+    },
+    {
+      "academicYear": 2025,
+      "fileName": "public/data/courses/tsukuba-2025.json",
+      "sha256": "30283494e5c4820c284c2733ad006b3f8ee764497fe9ecf0225b084fbb01b9cd",
+      "repositoryCommit": "b3d77356c21bad19dd3578f316b9fcec7f7f47a7"
+    },
+    {
+      "academicYear": 2026,
+      "fileName": "public/data/courses/tsukuba-2026.json",
+      "sha256": "e09eca861c83d5784c364f1ff49f3eb7a69408a9695f448d2c8f44d9cad5cadd",
+      "repositoryCommit": "b3d77356c21bad19dd3578f316b9fcec7f7f47a7"
+    }
+  ]
+}

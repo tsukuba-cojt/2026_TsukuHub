@@ -25,6 +25,13 @@ beforeEach(() => {
 });
 
 describe("graduation check timetable persistence", () => {
+  test("所属コースを時間割履歴の表示へ残し、主専攻は独立して保存する", async () => {
+    const report = checkGraduation([{ id: "EC31011", name: "作物学", unit: 1, grade: "A", year: 2026 }],
+      "bioresources-26", { courseKey: "agrobiology" });
+    const histories = await buildTimetableHistoriesFromGraduationReport({ report, department: "生物資源学類",
+      major: "生物資源科学主専攻", admissionYear: 2026, sharePublic: false, universityId: "university-1" });
+    expect(histories[0]).toMatchObject({ major: "生物資源科学主専攻", trackLabel: "生物資源科学主専攻・農林生物学コース" });
+  });
   test("成績CSVの開講年度ごとに時間割履歴を生成する", async () => {
     const report = checkGraduation(
       [

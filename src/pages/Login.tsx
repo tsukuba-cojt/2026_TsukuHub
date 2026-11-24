@@ -113,6 +113,7 @@ export default function Login() {
             {authError && <p className="auth-error">{authError}</p>}
             <button className="primary-button login-gradient-button" disabled={loading}>{loading ? "ログイン中..." : "ログイン"}</button>
           </form>
+          <p className="forgot-password-text"><Link to={path("/auth/forgot-password")} state={{ email }}>パスワードをお忘れの方</Link></p>
           {university.signup_enabled && <><div className="login-divider"><span>または</span></div><p className="switch-text">アカウントをお持ちでない方は <Link to={path("/signup")}>新規登録はこちら</Link></p></>}
         </section>
         <Link to={path()} className="back-link">← {university.short_name}ページに戻る</Link>

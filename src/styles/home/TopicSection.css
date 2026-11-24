@@ -91,6 +91,23 @@
   height: 28px;
 }
 
+.topicThumb {
+  overflow: hidden;
+}
+
+.topicThumb img {
+  width: 100%;
+  height: 100%;
+}
+
+.topicJobCover { object-fit: cover; }
+.topicJobLogo { object-fit: contain; background: white; }
+.topicJobTags { display: flex; flex-wrap: wrap; gap: 4px; }
+.topicMeta { min-width: 0; }
+.topicPanel .topicList { min-height: 0; }
+.topicPanel .topicItem { flex-shrink: 0; }
+.topicItem:focus-visible { outline: 2px solid #1e57e6; outline-offset: 3px; border-radius: 8px; }
+
 .topicThumb.tagJob { background: #efecff; color: var(--color-label-job); }
 .topicThumb.tagClass { background: #dfe9fd; color: var(--color-primary); }
 .topicThumb.tagClub { background: #d9f4ea; color: var(--color-label-club); }

@@ -1,6 +1,6 @@
 export type CircleCategory = "文化系" | "体育系" | "学術系" | "ボランティア系";
 
-export type CircleTag = "初心者歓迎" | "経験者優遇" | "兼サー可能" | "少人数";
+export type CircleTag = string;
 
 export type CircleNotice = {
   date: string;
@@ -9,13 +9,15 @@ export type CircleNotice = {
 };
 
 export type CircleGradeMembers = {
-  grade: 1 | 2 | 3 | 4;
+  grade: 1 | 2 | 3 | 4 | 5 | 6;
+  program?: "undergraduate" | "graduate";
   count: number;
 };
 
 export type CircleFacultyRatio = {
   name: string;
   percent: number;
+  program?: "undergraduate" | "graduate";
 };
 
 export type CircleExternalLink = {
@@ -934,4 +936,11 @@ export const getCircleReviews = (circle: Circle): CircleReview[] => {
     date: formatDummyDate(index * 6),
   }));
   return byNewest([...circle.detail.reviews, ...extras]);
+};
+
+// 編集ページ（/circles/:circleId/edit）からの保存。デモデータ用に配列内の要素を差し替えるだけで、型・構造は変えない。
+// メモリ上の更新なのでリロードすると初期値に戻る（Supabase 移行時はサービス層の保存処理へ置き換える）
+export const updateCircle = (circle: Circle) => {
+  const index = mockCircles.findIndex((item) => item.id === circle.id);
+  if (index >= 0) mockCircles[index] = circle;
 };

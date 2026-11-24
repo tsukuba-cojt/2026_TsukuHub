@@ -3,9 +3,10 @@ import { supabase } from "../../lib/supabase";
 import { canAccessUniversitySite } from "../../lib/universityAccess";
 import { clearActiveUniversitySlug } from "../../lib/tenantSession";
 import { useUniversity } from "../university/universityContextValue";
+import Unauthorized from "./Unauthorized";
 import { useAuth } from "./authContextValue";
 
-export default function RequireUniversityAccess() {
+export default function RequireUniversityAccess({ allowGuest = false }: { allowGuest?: boolean }) {
   const { user, loading: authLoading, universityId, isAdmin } = useAuth();
   const { university, loading: universityLoading, path } = useUniversity();
   const location = useLocation();
@@ -16,8 +17,10 @@ export default function RequireUniversityAccess() {
   }
   if (!university) return <Navigate to="/404" replace />;
   if (university.status === "suspended") return <Navigate to={path()} replace />;
+  const from = location.pathname + location.search + location.hash;
   if (!user) {
-    return <Navigate to={path("/login")} replace state={{ from: location.pathname }} />;
+    if (allowGuest) return <Outlet />;
+    return <Unauthorized />;
   }
 
   const profileCanAccess = canAccessUniversitySite({
@@ -30,7 +33,7 @@ export default function RequireUniversityAccess() {
   const loginAgain = async () => {
     await supabase.auth.signOut();
     clearActiveUniversitySlug();
-    navigate(path("/login"), { replace: true, state: { from: location.pathname } });
+    navigate(path("/login"), { replace: true, state: { from } });
   };
 
   return (

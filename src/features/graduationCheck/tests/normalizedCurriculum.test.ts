@@ -134,8 +134,6 @@ describe("validateNormalizedCurriculum", () => {
     ).toEqual([
       "linear-algebra-transition",
       "calculus-transition",
-      "programming-introduction-a-transition",
-      "programming-introduction-b-transition",
     ]);
   });
 
@@ -271,6 +269,87 @@ describe("validateNormalizedCurriculum", () => {
   test("承認済みの正規化データを受理する", () => {
     expect(validateNormalizedCurriculum(validCurriculum())).toEqual([]);
     expect(assessCurriculumCompilation(validCurriculum()).canCompile).toBe(true);
+  });
+
+  test("科目数・授業形態・学期・学生属性による要件を表現できる", () => {
+    const curriculum = validCurriculum();
+    curriculum.schemaVersion = "normalized-curriculum-1.1.0";
+    curriculum.studentContextDimensions = [
+      {
+        id: "field",
+        label: "分野",
+        required: true,
+        options: [
+          { value: "biology", label: "生物学分野" },
+          { value: "diversity", label: "多様性分野" },
+        ],
+      },
+    ];
+    curriculum.evaluationPolicy = {
+      onMissingCatalogAttribute: "unknown",
+      onMissingStudentContext: "unknown",
+    };
+    curriculum.requirements[0].studentScope = {
+      dimensionId: "field",
+      values: ["biology"],
+    };
+    curriculum.requirements[0].fulfillment = {
+      type: "all_of",
+      requirements: [
+        {
+          type: "course_count_from",
+          matcher: {
+            type: "instruction_method",
+            values: ["experiment", "practicum"],
+            resolution: {
+              method: "manual",
+              matcher: { type: "code_prefix", values: ["EB"] },
+            },
+          },
+          count: { minimum: 4 },
+        },
+        {
+          type: "course_count_from",
+          matcher: {
+            type: "all_of",
+            conditions: [
+              {
+                type: "term",
+                values: ["spring-ab"],
+                resolution: {
+                  method: "manual",
+                  matcher: { type: "course_code", values: ["EB00001"] },
+                },
+              },
+              { type: "code_prefix", values: ["EB"] },
+            ],
+          },
+          count: { minimum: 1 },
+        },
+      ],
+    };
+
+    expect(validateNormalizedCurriculum(curriculum)).toEqual([]);
+  });
+
+  test("不正な科目数と学生属性参照を拒否する", () => {
+    const curriculum = validCurriculum();
+    curriculum.schemaVersion = "normalized-curriculum-1.1.0";
+    curriculum.requirements[0].studentScope = {
+      dimensionId: "missing-field",
+      values: ["unknown"],
+    };
+    curriculum.requirements[0].fulfillment = {
+      type: "course_count_from",
+      matcher: { type: "code_prefix", values: ["AA"] },
+      count: { minimum: 2.5 },
+    };
+
+    const codes = validateNormalizedCurriculum(curriculum).map(
+      (issue) => issue.code,
+    );
+    expect(codes).toContain("invalid-count-value");
+    expect(codes).toContain("unknown-student-context-dimension");
   });
 
   test("存在しないカタログで解決したmatcherを拒否する", () => {

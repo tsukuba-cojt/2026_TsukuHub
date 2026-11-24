@@ -42,96 +42,134 @@ export type SupportedDepartment = {
   majors: SupportedMajor[];
 };
 
-/** 対応している学類・専攻（未対応の学類・専攻はまだ載せない） */
+/** 運用対象の学類・専攻・入学年度。
+ * 4年制は2023年度以降、6年制の医学類は既存の2022年度以降を維持する。
+ * 過去のルール版・PDF・監査記録の保存範囲とは独立。ID末尾は対応年度を意味しない。
+ */
 export const supportedDepartments: SupportedDepartment[] = [
   {
     key: "humanities",
     label: "人文学類",
     majors: [
-      { key: "humanities-philosophy", label: "哲学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "humanities-philosophy-22" }] },
-      { key: "humanities-history", label: "史学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "humanities-history-22" }] },
-      { key: "humanities-archaeology", label: "考古学・民俗学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "humanities-archaeology-22" }] },
-      { key: "humanities-linguistics", label: "言語学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "humanities-linguistics-22" }] },
+      { key: "humanities-philosophy", label: "哲学主専攻", requirements: [{ admissionYears: [2023], requirementId: "humanities-philosophy-23" }, { admissionYears: [2024], requirementId: "humanities-philosophy-24" }, { admissionYears: [2025, 2026], requirementId: "humanities-philosophy-25" }] },
+      { key: "humanities-history", label: "史学主専攻", requirements: [{ admissionYears: [2023], requirementId: "humanities-history-22" }, { admissionYears: [2024], requirementId: "humanities-history-24" }, { admissionYears: [2025, 2026], requirementId: "humanities-history-25" }] },
+      { key: "humanities-archaeology", label: "考古学・民俗学主専攻", requirements: [{ admissionYears: [2023], requirementId: "humanities-archaeology-22" }, { admissionYears: [2024], requirementId: "humanities-archaeology-24" }, { admissionYears: [2025, 2026], requirementId: "humanities-archaeology-25" }] },
+      { key: "humanities-linguistics", label: "言語学主専攻", requirements: [{ admissionYears: [2023], requirementId: "humanities-linguistics-22" }, { admissionYears: [2024], requirementId: "humanities-linguistics-24" }, { admissionYears: [2025, 2026], requirementId: "humanities-linguistics-25" }] },
     ],
   },
   {
     key: "comparative-culture",
     label: "比較文化学類",
-    majors: [{ key: "comparative-culture", label: "比較文化主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "comparative-culture-22" }] }],
+    majors: [
+      {
+        key: "comparative-culture",
+        label: "比較文化主専攻",
+        requirements: [
+          {
+            admissionYears: [2023, 2024, 2025],
+            requirementId: "comparative-culture-23",
+          },
+          {
+            admissionYears: [2026],
+            requirementId: "comparative-culture-26",
+          },
+        ],
+      },
+    ],
   },
   {
     key: "japanese-culture",
     label: "日本語・日本文化学類",
-    majors: [{ key: "japanese-culture", label: "日本語・日本文化主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "japanese-culture-22" }] }],
+    majors: [{
+      key: "japanese-culture",
+      label: "日本語・日本文化主専攻",
+      requirements: [
+        { admissionYears: [2023, 2024, 2025], requirementId: "japanese-culture-23" },
+        { admissionYears: [2026], requirementId: "japanese-culture-26" },
+      ],
+    }],
   },
   {
     key: "social",
     label: "社会学類",
     majors: [
-      { key: "social-sociology", label: "社会学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "social-sociology-22" }] },
-      { key: "social-law", label: "法学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "social-law-22" }] },
-      { key: "social-politics", label: "政治学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "social-politics-22" }] },
-      { key: "social-economics", label: "経済学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "social-economics-22" }] },
+      { key: "social-sociology", label: "社会学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "social-sociology-23" }] },
+      { key: "social-law", label: "法学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "social-law-23" }] },
+      { key: "social-politics", label: "政治学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "social-politics-23" }] },
+      { key: "social-economics", label: "経済学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "social-economics-23" }] },
     ],
   },
   {
     key: "international",
     label: "国際総合学類",
     majors: [
-      { key: "international-relations", label: "国際関係学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "international-relations-22" }] },
-      { key: "international-development", label: "国際開発学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "international-development-22" }] },
+      { key: "international-relations", label: "国際関係学主専攻", requirements: [
+        { admissionYears: [2023, 2024, 2025, 2026], requirementId: "international-relations-23" },
+      ] },
+      { key: "international-development", label: "国際開発学主専攻", requirements: [
+        { admissionYears: [2023, 2024, 2025, 2026], requirementId: "international-development-23" },
+      ] },
     ],
   },
   {
     key: "education",
     label: "教育学類",
-    majors: [{ key: "education", label: "教育学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "education-22" }] }],
+    majors: [{
+      key: "education",
+      label: "教育学主専攻",
+      requirements: [
+        { admissionYears: [2023, 2024, 2025, 2026], requirementId: "education-23" },
+      ],
+    }],
   },
   {
     key: "psychology",
     label: "心理学類",
-    majors: [{ key: "psychology", label: "心理学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "psychology-22" }] }],
+    majors: [{ key: "psychology", label: "心理学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "psychology-23" }] }],
   },
   {
     key: "disability",
     label: "障害科学類",
-    majors: [{ key: "disability", label: "障害科学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "disability-22" }] }],
+    majors: [{ key: "disability", label: "障害科学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "disability-23" }] }],
   },
   {
     key: "medicine",
     label: "医学類",
     majors: [
-      { key: "medicine", label: "医学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "medicine-22" }] },
-      { key: "new-medicine", label: "新医学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "new-medicine-22" }] },
+      { key: "medicine", label: "医学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025], requirementId: "medicine-22" }, { admissionYears: [2026], requirementId: "medicine-26" }] },
+      { key: "new-medicine", label: "新医学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025], requirementId: "new-medicine-22" }, { admissionYears: [2026], requirementId: "new-medicine-26" }] },
     ],
   },
   {
     key: "nursing",
     label: "看護学類",
     majors: [
-      { key: "nursing", label: "看護師課程", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "nursing-22" }] },
-      { key: "public-health-nursing", label: "保健師課程", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "public-health-nursing-22" }] },
+      { key: "nursing", label: "看護師課程", requirements: [{ admissionYears: [2023, 2024], requirementId: "nursing-22" }, { admissionYears: [2025], requirementId: "nursing-25" }, { admissionYears: [2026], requirementId: "nursing-26" }] },
+      { key: "public-health-nursing", label: "保健師課程", requirements: [{ admissionYears: [2023, 2024], requirementId: "public-health-nursing-22" }, { admissionYears: [2025], requirementId: "public-health-nursing-25" }, { admissionYears: [2026], requirementId: "public-health-nursing-26" }] },
     ],
   },
   {
     key: "medical-science",
     label: "医療科学類",
     majors: [
-      { key: "medical-science", label: "医療科学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "medical-science-22" }] },
-      { key: "international-medical-science", label: "国際医療科学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "international-medical-science-22" }] },
+      { key: "medical-science", label: "医療科学主専攻", requirements: [{ admissionYears: [2023], requirementId: "medical-science-22" }, { admissionYears: [2024], requirementId: "medical-science-24" }, { admissionYears: [2025], requirementId: "medical-science-25" }, { admissionYears: [2026], requirementId: "medical-science-26" }] },
+      { key: "international-medical-science", label: "国際医療科学主専攻", requirements: [{ admissionYears: [2023], requirementId: "international-medical-science-22" }, { admissionYears: [2024], requirementId: "international-medical-science-24" }, { admissionYears: [2025], requirementId: "international-medical-science-25" }, { admissionYears: [2026], requirementId: "international-medical-science-26" }] },
     ],
   },
   {
     key: "physical-education",
     label: "体育専門学群",
-    majors: [{ key: "physical-education", label: "体育学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "physical-education-22" }] }],
+    majors: [{ key: "physical-education", label: "体育学主専攻", requirements: [
+      { admissionYears: [2023, 2024, 2025], requirementId: "physical-education-22" },
+      { admissionYears: [2026], requirementId: "physical-education-26" },
+    ] }],
   },
   {
     key: "art",
     label: "芸術専門学群",
     majors: [
-      { key: "art-studies", label: "芸術学主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "art-studies-22" }] },
-      { key: "japanese-art", label: "日本芸術主専攻", requirements: [{ admissionYears: [2022, 2023, 2024, 2025, 2026], requirementId: "japanese-art-22" }] },
+      { key: "art-studies", label: "芸術学主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "art-studies-22" }] },
+      { key: "japanese-art", label: "日本芸術主専攻", requirements: [{ admissionYears: [2023, 2024, 2025, 2026], requirementId: "japanese-art-22" }] },
     ],
   },
   {
@@ -142,9 +180,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         key: "mast",
         label: "情報メディア創成主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "mast-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "mast-22" },
-          { admissionYears: [2025], requirementId: "mast-25" },
+          { admissionYears: [2023, 2024], requirementId: "mast-23" },
+          { admissionYears: [2025, 2026], requirementId: "mast-25" },
         ],
       },
     ],
@@ -158,8 +195,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "ソフトウェアサイエンス主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025],
-            requirementId: "coins-ss-22",
+            admissionYears: [2023, 2024, 2025],
+            requirementId: "coins-ss-23",
           },
           { admissionYears: [2026], requirementId: "coins-ss-26" },
         ],
@@ -169,8 +206,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "情報システム主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025],
-            requirementId: "coins-is-22",
+            admissionYears: [2023, 2024, 2025],
+            requirementId: "coins-is-23",
           },
           { admissionYears: [2026], requirementId: "coins-is-26" },
         ],
@@ -180,8 +217,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "知能情報メディア主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025],
-            requirementId: "coins-im-22",
+            admissionYears: [2023, 2024, 2025],
+            requirementId: "coins-im-23",
           },
           { admissionYears: [2026], requirementId: "coins-im-26" },
         ],
@@ -197,8 +234,12 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "知的・機能工学システム主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
-            requirementId: "esys-ies-22",
+            admissionYears: [2023],
+            requirementId: "esys-ies-23",
+          },
+          {
+            admissionYears: [2024, 2025, 2026],
+            requirementId: "esys-ies-24",
           },
         ],
       },
@@ -207,8 +248,12 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "エネルギー・メカニクス主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
-            requirementId: "esys-eme-22",
+            admissionYears: [2023],
+            requirementId: "esys-eme-23",
+          },
+          {
+            admissionYears: [2024, 2025, 2026],
+            requirementId: "esys-eme-24",
           },
         ],
       },
@@ -223,8 +268,12 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "数学",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
-            requirementId: "math-22",
+            admissionYears: [2023],
+            requirementId: "math-23",
+          },
+          {
+            admissionYears: [2024, 2025, 2026],
+            requirementId: "math-24",
           },
         ],
       },
@@ -239,8 +288,12 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "生物学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
+            admissionYears: [2023],
             requirementId: "biology-22",
+          },
+          {
+            admissionYears: [2024, 2025, 2026],
+            requirementId: "biology-24",
           },
         ],
       },
@@ -255,13 +308,11 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "生物資源科学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "bioresources-22",
-          },
-          {
-            admissionYears: [2024, 2025, 2026],
+            admissionYears: [2023, 2024],
             requirementId: "bioresources-24",
           },
+          { admissionYears: [2025], requirementId: "bioresources-25" },
+          { admissionYears: [2026], requirementId: "bioresources-26" },
         ],
       },
       {
@@ -269,13 +320,10 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "生命環境学際主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "bioresources-interdisciplinary-22",
-          },
-          {
-            admissionYears: [2024, 2025, 2026],
+            admissionYears: [2023, 2024],
             requirementId: "bioresources-interdisciplinary-24",
           },
+          { admissionYears: [2025, 2026], requirementId: "bioresources-interdisciplinary-25" },
         ],
       },
     ],
@@ -289,12 +337,16 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "地球環境学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "earth-environment-22",
+            admissionYears: [2023],
+            requirementId: "earth-environment-23",
           },
           {
-            admissionYears: [2024, 2025],
+            admissionYears: [2024],
             requirementId: "earth-environment-24",
+          },
+          {
+            admissionYears: [2025],
+            requirementId: "earth-environment-25",
           },
           {
             admissionYears: [2026],
@@ -307,12 +359,16 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "地球進化学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "earth-evolution-22",
+            admissionYears: [2023],
+            requirementId: "earth-evolution-23",
           },
           {
-            admissionYears: [2024, 2025, 2026],
+            admissionYears: [2024],
             requirementId: "earth-evolution-24",
+          },
+          {
+            admissionYears: [2025, 2026],
+            requirementId: "earth-evolution-26",
           },
         ],
       },
@@ -321,12 +377,16 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "生命環境学際主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "earth-interdisciplinary-22",
+            admissionYears: [2023],
+            requirementId: "earth-interdisciplinary-23",
           },
           {
-            admissionYears: [2024, 2025, 2026],
+            admissionYears: [2024, 2025],
             requirementId: "earth-interdisciplinary-24",
+          },
+          {
+            admissionYears: [2026],
+            requirementId: "earth-interdisciplinary-26",
           },
         ],
       },
@@ -341,12 +401,20 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "物理学",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024],
-            requirementId: "physics-22",
+            admissionYears: [2023],
+            requirementId: "physics-23",
           },
           {
-            admissionYears: [2025, 2026],
+            admissionYears: [2024],
+            requirementId: "physics-24",
+          },
+          {
+            admissionYears: [2025],
             requirementId: "physics-25",
+          },
+          {
+            admissionYears: [2026],
+            requirementId: "physics-26",
           },
         ],
       },
@@ -360,9 +428,10 @@ export const supportedDepartments: SupportedDepartment[] = [
         key: "chem",
         label: "化学",
         requirements: [
-          { admissionYears: [2022], requirementId: "chem-22" },
-          { admissionYears: [2023, 2024], requirementId: "chem-23" },
-          { admissionYears: [2025, 2026], requirementId: "chem-25" },
+          { admissionYears: [2023], requirementId: "chem-23" },
+          { admissionYears: [2024], requirementId: "chem-24" },
+          { admissionYears: [2025], requirementId: "chem-25" },
+          { admissionYears: [2026], requirementId: "chem-26" },
         ],
       },
     ],
@@ -376,8 +445,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "応用物理主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "applied-physics-22",
+            admissionYears: [2023],
+            requirementId: "applied-physics-23",
           },
           {
             admissionYears: [2024, 2025, 2026],
@@ -390,8 +459,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "電子・量子工学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "applied-electron-22",
+            admissionYears: [2023],
+            requirementId: "applied-electron-23",
           },
           {
             admissionYears: [2024, 2025, 2026],
@@ -404,8 +473,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "物性工学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "applied-materials-22",
+            admissionYears: [2023],
+            requirementId: "applied-materials-23",
           },
           {
             admissionYears: [2024, 2025, 2026],
@@ -418,8 +487,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "物質・分子工学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023],
-            requirementId: "applied-molecule-22",
+            admissionYears: [2023],
+            requirementId: "applied-molecule-23",
           },
           {
             admissionYears: [2024, 2025, 2026],
@@ -438,8 +507,8 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "社会経済システム主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
-            requirementId: "policy-economics-22",
+            admissionYears: [2023, 2024, 2025, 2026],
+            requirementId: "policy-economics-23",
           },
         ],
       },
@@ -448,8 +517,12 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "経営工学主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
-            requirementId: "policy-engineering-22",
+            admissionYears: [2023, 2024, 2025],
+            requirementId: "policy-engineering-23",
+          },
+          {
+            admissionYears: [2026],
+            requirementId: "policy-engineering-26",
           },
         ],
       },
@@ -458,8 +531,12 @@ export const supportedDepartments: SupportedDepartment[] = [
         label: "都市計画主専攻",
         requirements: [
           {
-            admissionYears: [2022, 2023, 2024, 2025, 2026],
-            requirementId: "policy-urban-22",
+            admissionYears: [2023, 2024, 2025],
+            requirementId: "policy-urban-23",
+          },
+          {
+            admissionYears: [2026],
+            requirementId: "policy-urban-26",
           },
         ],
       },
@@ -473,24 +550,24 @@ export const supportedDepartments: SupportedDepartment[] = [
         key: "klis-ksc",
         label: "知識科学主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "klis-ksc-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "klis-ksc-22" },
+          { admissionYears: [2023, 2024, 2025], requirementId: "klis-ksc-23" },
+          { admissionYears: [2026], requirementId: "klis-ksc-26" },
         ],
       },
       {
         key: "klis-kis",
         label: "知識情報システム主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "klis-kis-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "klis-kis-22" },
+          { admissionYears: [2023, 2024, 2025], requirementId: "klis-kis-23" },
+          { admissionYears: [2026], requirementId: "klis-kis-26" },
         ],
       },
       {
         key: "klis-irm",
         label: "情報資源経営主専攻",
         requirements: [
-          { admissionYears: [2021], requirementId: "klis-irm-21" },
-          { admissionYears: [2022, 2023, 2024], requirementId: "klis-irm-22" },
+          { admissionYears: [2023, 2024, 2025], requirementId: "klis-irm-23" },
+          { admissionYears: [2026], requirementId: "klis-irm-26" },
         ],
       },
     ],

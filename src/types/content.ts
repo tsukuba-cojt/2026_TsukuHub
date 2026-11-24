@@ -21,7 +21,7 @@ export type CareerArticleInput = Omit<CareerArticleRecord, "id" | "created_at" |
 export type AlumniStoryRecord = {
   id: string;
   university_id: string;
-  graduation_year: number;
+  graduation_year: number | null;
   faculty: string;
   destination: string;
   job_role: string;

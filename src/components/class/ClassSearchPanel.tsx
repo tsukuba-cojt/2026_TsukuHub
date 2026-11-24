@@ -88,18 +88,13 @@ export default function ClassSearchPanel({ filters, onChange }: Props) {
       </div>
 
       <form className="classSearchForm" onReset={handleReset}>
-        <label className="classField classFieldYear">
-          <span>開講年度</span>
-          <select
-            value={filters.academicYear}
-            onChange={(e) => onChange({ academicYear: Number(e.target.value) })}
-          >
-            {ACADEMIC_YEAR_OPTIONS.map((year) => (
-              <option key={year} value={year}>
-                {year}年度
-              </option>
-            ))}
-          </select>
+        <label className="classField classFieldCode">
+          <span>授業コード</span>
+          <input
+            placeholder="XXXXXXXX"
+            value={filters.code}
+            onChange={(e) => onChange({ code: e.target.value })}
+          />
         </label>
 
         <label className="classField classFieldText">
@@ -114,13 +109,18 @@ export default function ClassSearchPanel({ filters, onChange }: Props) {
           </div>
         </label>
 
-        <label className="classField classFieldCode">
-          <span>授業コード</span>
-            <input
-              placeholder="XXXXXXXX"
-              value={filters.code}
-              onChange={(e) => onChange({ code: e.target.value })}
-            />
+        <label className="classField classFieldYear">
+          <span>開講年度</span>
+          <select
+            value={filters.academicYear}
+            onChange={(e) => onChange({ academicYear: Number(e.target.value) })}
+          >
+            {ACADEMIC_YEAR_OPTIONS.map((year) => (
+              <option key={year} value={year}>
+                {year}年度
+              </option>
+            ))}
+          </select>
         </label>
 
         {SCHEDULE_SELECTION_MODE === "split" ? (

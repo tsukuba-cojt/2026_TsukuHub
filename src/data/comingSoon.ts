@@ -59,6 +59,7 @@ const KNOWN_STATIC_PATHS: ReadonlySet<string> = new Set([
   "/login",
   "/signup",
   "/auth/confirm",
+  "/auth/forgot-password",
   "/class",
   "/class/top",
   "/graduation-checker",

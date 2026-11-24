@@ -12,11 +12,16 @@ import { supportedDepartments } from "./data/supportedDepartments";
 import { attachCatalogEquivalencies } from "./graduationCatalog";
 import { calcARatePercent, calcGpa, GPA_MAX } from "./gpa";
 import { calculateGraduationProgress } from "./progress";
-import type { Course, GraduationCheckReport, RequirementId } from "./types";
+import type { Course, GraduationCheckReport, GraduationStudentContext, RequirementId } from "./types";
 
-/** 対応している要件データの一覧（UIの選択肢生成用） */
+export const listStudentCourseOptions = (requirementId: RequirementId | null) =>
+  requirementId === null ? [] : gradRequirementData[requirementId].courses.studentCourseOptions ?? [];
+
+/** 運用対象で使うルール版の一覧。対応入学年度は supportedDepartments で管理する。 */
 export const listSupportedRequirements = () =>
-  (Object.keys(gradRequirementData) as RequirementId[]).map((id) => ({
+  [...new Set(supportedDepartments.flatMap((department) => department.majors.flatMap(
+    (major) => major.requirements.map((entry) => entry.requirementId),
+  )))].map((id) => ({
     id,
     ...gradRequirementData[id].header,
   }));
@@ -48,18 +53,33 @@ export const resolveRequirementIds = (
  */
 export const checkGraduation = (
   courses: Course[],
-  requirementId: RequirementId
+  requirementId: RequirementId,
+  studentContext?: GraduationStudentContext,
+  evaluationMode: "five-category" | "detailed" = "detailed",
 ): GraduationCheckReport => {
   const requirement = gradRequirementData[requirementId];
-  const allocation = allocateCourses(courses, requirement);
+  // 科目数上限は詳細監査用。5分類では該当する科目を同じ区分に残す。
+  const allocationRequirement = evaluationMode === "five-category" ? {
+    ...requirement, courses: { ...requirement.courses,
+      select: requirement.courses.select.map((rule) => {
+        const copy = [...rule] as typeof rule;
+        if (copy[6]) copy[6] = { ...copy[6], maximumIncludedCourses: undefined };
+        return copy;
+      }),
+    },
+  } : requirement;
+  const allocation = allocateCourses(courses, allocationRequirement, studentContext);
   const progress = calculateGraduationProgress(
     requirement,
     allocation.compulsoryResults,
-    allocation.selectResults
+    allocation.selectResults,
+    evaluationMode,
   );
   const gpa = calcGpa(courses);
 
   return {
+    evaluationMode,
+    ...(studentContext ? { studentContext } : {}),
     requirement: { id: requirementId, ...requirement.header },
     catalogVerification: {
       source: "transcript_academic_year",
@@ -86,15 +106,16 @@ export const checkGraduation = (
   };
 };
 
-/** 年度別の静的授業JSONで同一授業情報を補ってから卒業要件を判定する。 */
+/** 年度別の静的授業JSONを補完し、プロトタイプ運用用の5分類集計を返す。 */
 export const checkGraduationWithCatalog = async (
   courses: Course[],
   requirementId: RequirementId,
   universitySlug: string,
+  studentContext?: GraduationStudentContext,
 ): Promise<GraduationCheckReport> => {
   const prepared = await attachCatalogEquivalencies(courses, universitySlug);
   return {
-    ...checkGraduation(prepared.courses, requirementId),
+    ...checkGraduation(prepared.courses, requirementId, studentContext, "five-category"),
     catalogVerification: prepared.verification,
   };
 };

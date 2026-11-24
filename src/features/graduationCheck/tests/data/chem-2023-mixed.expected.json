@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "chem-23",
@@ -20,29 +20,29 @@
       "unsupportedAcademicYears": []
     },
     "summary": {
-      "requiredUnits": 124.0,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113.0,
-      "prospectiveShortageUnits": 111.0,
+      "requiredUnits": 124,
+      "earnedUnits": 39,
+      "prospectiveUnits": 44,
+      "shortageUnits": 85,
+      "prospectiveShortageUnits": 80,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 42.5,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 42,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 29,
+        "prospectiveUnits": 33
       },
       "specializedFoundation": {
         "requiredUnits": 17,
-        "earnedUnits": 2,
-        "prospectiveUnits": 2
+        "earnedUnits": 0,
+        "prospectiveUnits": 0
       },
       "common": {
         "requiredUnits": 1,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.04,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
-    },
-    "assignments": {
-      "ZZ0091": "compulsory",
-      "FE12901": "specialized",
-      "FE12902": "specialized",
-      "FE12903": "specialized",
-      "FA00904": "specializedFoundation",
-      "1226991": "common",
-      "ZZ9091": "related",
-      "ZZ9092": "related",
-      "ZZ9093": "related",
-      "": "uncounted"
+      "targetUnits": 45,
+      "aRatePercent": 55.00000000000001
     },
     "compulsoryPassed": {
       "物理化学専門実験": true
+    },
+    "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
+      "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "FE12901": "specialized",
+      "FE12902": "specialized",
+      "FE12903": "specialized",
+      "FA00904": "specialized",
+      "ZZ9091": "related",
+      "ZZ9092": "related",
+      "ZZ9093": "related",
+      "": "uncounted",
+      "FE12401": "specialized",
+      "FE12411": "specialized",
+      "FE12601": "specialized",
+      "FE12611": "specialized",
+      "FE12701": "specialized",
+      "FE12801": "specialized",
+      "FE13101": "specialized",
+      "FE13221": "specialized",
+      "FE13301": "specialized",
+      "FE13611": "specialized",
+      "FE13621": "specialized",
+      "FE13701": "specialized",
+      "FE14021": "specialized",
+      "FE14051": "specialized",
+      "32H1012": "uncounted",
+      "34H1012": "uncounted"
     }
   }
 }

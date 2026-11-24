@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2022,
+  "department": {
+    "key": "math",
+    "label": "数学類"
+  },
+  "major": {
+    "key": "math",
+    "label": "数学"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "math/math/2022",
+    "admissionYear": 2022,
+    "department": {
+      "key": "math",
+      "label": "数学類"
+    },
+    "major": {
+      "key": "math",
+      "label": "数学"
+    },
+    "requirementId": "math-22",
+    "ruleSemanticSha256": "b280defac8dba80212f803bbfb394095444cb8b12ddc3c62e12d49076784bd1d",
+    "snapshotSha256": "038b8f417324b1325c1a76f1bb8d93152183dfcd35651f54808654a37fd0b16a",
+    "review": {
+      "status": "needs_review",
+      "sourceDocumentIds": [],
+      "blockingIssues": [
+        "年度別公式表の全行・注記に対する証拠表の確認が完了していない"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "数学類",
+        "major": "数学",
+        "enrollYear": 2022
+      },
+      "courses": {
+        "compulsory": [
+          "卒業研究",
+          "卒業予備研究",
+          "数学外書輪講Ⅱ",
+          "微積分系::2//['微積分1', '微積分2', '微分積分A']",
+          "線形代数系::2//['線形代数1', '線形代数2', '線形代数A']",
+          "数学リテラシー1",
+          "数学リテラシー2",
+          "ファーストイヤーセミナー//['フレッシュマンセミナー']",
+          "学問への誘い",
+          "体育::2",
+          "必修英語::4",
+          "情報::4"
+        ],
+        "compulsorySumUnit": 32,
+        "select": [
+          [
+            [
+              "FB12",
+              "FB13",
+              "FB14"
+            ],
+            46,
+            70,
+            false,
+            "数学専門科目",
+            0
+          ],
+          [
+            [
+              "FBA",
+              "FC",
+              "FE",
+              "EE"
+            ],
+            15,
+            47,
+            false,
+            "数学専門基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "微積分3",
+                "線形代数3",
+                "生物学序説",
+                "遺伝学概論",
+                "分子細胞生物学概論",
+                "系統分類・進化学概論",
+                "生態学概論",
+                "動物生理学概論",
+                "植物生理学概論"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            1,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*総合科目",
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            16,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "FB",
+              "FC",
+              "FE",
+              "EE",
+              "*総合科目",
+              "*教職に関する科目"
+            ],
+            6,
+            16,
+            true,
+            "専門・専門基礎・共通以外の科目",
+            3
+          ]
+        ],
+        "selectMinimumUnit": 92,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            46,
+            70,
+            "専門科目選択"
+          ],
+          [
+            1,
+            15,
+            47,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            17,
+            "共通科目選択"
+          ],
+          [
+            3,
+            6,
+            16,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

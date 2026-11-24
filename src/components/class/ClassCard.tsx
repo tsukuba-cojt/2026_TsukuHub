@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Bookmark, Calendar, Clock, UserRound } from "lucide-react";
 import RatingStars from "./RatingStars";
@@ -21,6 +22,33 @@ type ClassCardProps = {
   course: ClassCourse;
 };
 
+function CardText({ text }: { text: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [overflowing, setOverflowing] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new ResizeObserver(() => {
+      setOverflowing(element.scrollWidth > element.clientWidth);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [text]);
+
+  return (
+    <span
+      ref={ref}
+      className="classCardText"
+      data-overflowing={overflowing || undefined}
+      title={overflowing ? text : undefined}
+    >
+      {text}
+    </span>
+  );
+}
+
 function ClassCard({ course }: ClassCardProps) {
   const { path } = useUniversity();
   return (
@@ -34,22 +62,22 @@ function ClassCard({ course }: ClassCardProps) {
           <span className="classCode">{course.code}</span>
         </div>
         <div className="classTitleRow">
-          <h2>{course.title}</h2>
+          <h2><CardText text={course.title} /></h2>
           <div className="classTeacher">
             <UserRound aria-hidden="true" />
-            <span>{course.teacher}</span>
+            <CardText text={course.teacher} />
             <small>先生</small>
           </div>
         </div>
         <div className="classBadges">
-          <span className="classTermBadge">{course.term}</span>
+          <span className="classTermBadge"><CardText text={course.term} /></span>
           <span>
             <Calendar aria-hidden="true" />
-            {course.period}
+            <CardText text={course.period} />
           </span>
           <span>
             <Clock aria-hidden="true" />
-            {course.credits}
+            <CardText text={course.credits} />
           </span>
         </div>
       </div>

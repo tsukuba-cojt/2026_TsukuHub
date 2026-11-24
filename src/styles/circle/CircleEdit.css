@@ -1,0 +1,530 @@
+/* サークル編集画面の共通フォーム。共有クラスの調整はこの画面内に限定する。 */
+
+.circleEditPanel {
+  --circle-edit-border: #d9e0ea;
+  --circle-edit-surface: #f5f8fc;
+  --circle-edit-radius: 8px;
+  --circle-edit-control-height: 44px;
+  margin-top: 28px;
+  color: var(--color-text-primary);
+}
+
+.circleEditPanel .ttShareCard {
+  padding: 24px;
+  border-color: var(--circle-edit-border);
+  border-radius: 12px;
+}
+
+.circleEditPanel .ttShareCardTitle {
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.circleEditPanel .ttShareCardTitle > svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.circleEditPanel .ttShareField {
+  margin-top: 20px;
+}
+
+.circleEditPanel .circleEditFirstField,
+.circleEditPanel .circleEditGrid > .ttShareField,
+.circleEditPanel .circleEditNoticeFormGrid > .ttShareField {
+  margin-top: 0;
+}
+
+.circleEditPanel .gradCheckSelectWrap {
+  width: 100%;
+  min-width: 0;
+}
+
+.circleEditPanel .ttShareTextarea,
+.circleEditPanel .gradCheckSelect {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--circle-edit-control-height);
+  border: 1px solid var(--circle-edit-border);
+  border-radius: var(--circle-edit-radius);
+  background: #fff;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.circleEditPanel .ttShareTextarea { padding: 12px; }
+.circleEditPanel .gradCheckSelect { padding: 10px 38px 10px 12px; text-overflow: ellipsis; }
+
+.circleEditPanel .ttShareTextarea:focus,
+.circleEditPanel .gradCheckSelect:focus,
+.circleEditInput:focus {
+  border-color: var(--color-primary);
+  outline: 2px solid #1578fd26;
+  outline-offset: 1px;
+}
+
+.circleEditPanel .classDetailActionBtn,
+.circleEditPanel .ttShareOutlineBtn,
+.circleEditPanel .ttSharePrimaryBtn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 8px;
+  min-height: var(--circle-edit-control-height);
+  padding: 10px 16px;
+  border-radius: var(--circle-edit-radius);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.circleEditPanel .classDetailActionBtn { border-color: var(--circle-edit-border); }
+.circleEditPanel .classDetailActionBtn:hover:not(:disabled),
+.circleEditPanel .ttShareOutlineBtn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: #f2f7ff;
+  color: var(--color-primary);
+}
+.circleEditPanel .classDetailActionBtn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.circleEditPanel button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+.circleEditPanel .ttShareActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--circle-edit-border);
+}
+.circleEditPanel .ttShareActions > button { min-width: 140px; }
+.circleEditPanel .reviewFormError { font-size: 12px; line-height: 1.7; }
+.circleEditPanel .ttShareField > .circleEditHint { margin-top: 6px; }
+
+.circleEditPanel .reviewFormRequired,
+.circleEditPanel .circleEditOptional {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.circleEditSections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* カード見出し直下の最初の項目は上余白を詰める */
+.circleEditFirstField {
+  margin-top: 0;
+}
+
+/* 必須バッジをラベル横に並べる */
+.circleEditPanel .ttShareFieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 8px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* テキスト入力（.ttShareTextarea と同じ見た目の1行版） */
+.circleEditInput {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--circle-edit-control-height);
+  border: 1px solid var(--circle-edit-border);
+  border-radius: var(--circle-edit-radius);
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.circleEditInput.circleNumber {
+  font-family: var(--font-family-logo);
+}
+
+.circleEditInput::placeholder,
+.circleEditPanel .ttShareTextarea::placeholder,
+.circleEditTagInput::placeholder {
+  color: #8592a6;
+}
+
+/* 必須項目の未入力 */
+.circleEditInput.isInvalid,
+.circleEditPanel .ttShareTextarea.isInvalid {
+  border-color: #e5484d; /* .reviewFormError と同じ赤 */
+}
+
+.circleEditHint {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.circleEditLead {
+  margin: -8px 0 20px;
+}
+
+.circleEditEmpty {
+  padding: 14px 8px 0;
+}
+
+.circleEditPanel .classDetailActionBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── 基本情報：画像 ── */
+.circleEditImageRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 詳細ページの画像枠と同じグレーの角丸 */
+.circleEditImage {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  box-sizing: border-box;
+  border: 1px solid var(--circle-edit-border);
+  border-radius: var(--circle-edit-radius);
+  background: var(--circle-edit-surface);
+  overflow: hidden;
+}
+
+.circleEditImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.circleEditImageActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.circleEditImageActions .circleEditHint {
+  flex-basis: 100%;
+}
+
+.circleEditFileInput {
+  display: none;
+}
+
+/* ── 活動情報 ── */
+.circleEditGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.circleEditMembers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.circleEditMembers svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+.circleEditMembers .circleEditInput {
+  width: 110px;
+}
+
+/* ── お知らせ ── */
+.circleEditCardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.circleEditCardHead .ttShareCardTitle {
+  margin-bottom: 0;
+}
+
+/* 追加・編集フォーム（時間割登録の右カラムと同じ淡い青の面） */
+.circleEditNoticeForm {
+  margin-bottom: 20px;
+  border: 1px solid var(--circle-edit-border);
+  border-radius: var(--circle-edit-radius);
+  padding: 20px;
+  background: var(--circle-edit-surface);
+}
+
+.circleEditNoticeFormTitle {
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.circleEditNoticeFormGrid {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 20px;
+}
+
+.circleEditNoticeFormActions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.circleEditNotices li {
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.circleEditPanel .circleEditNotices time { font-size: 12px; }
+.circleEditPanel .circleEditNotices strong { font-size: 14px; }
+
+.circleEditNotices li > div:nth-of-type(1) {
+  flex: 1;
+}
+
+/* 編集画面では本文を省略せず折り返す */
+.circleEditNotices p {
+  white-space: normal;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.circleEditNoticeActions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.circleEditSummaryError {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.circleEditOptional {
+  background: #eef0f3;
+  color: var(--color-text-secondary);
+}
+
+.circleEditTagBox {
+  padding: 12px;
+  border: 1px solid var(--circle-edit-border);
+  border-radius: var(--circle-edit-radius);
+  background: #fff;
+}
+
+.circleEditTagBox:focus-within { border-color: var(--color-primary); outline: 2px solid #1578fd26; outline-offset: 1px; }
+.circleEditTagBox.isInvalid { border-color: #e5484d; }
+
+.circleEditTagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.circleEditTagList li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 4px 6px 4px 12px;
+  border-radius: 6px;
+  background: #edf4ff;
+  color: var(--color-primary);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.circleEditTagList li > span { min-width: 0; }
+.circleEditTagList button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.circleEditTagList button:hover { background: #dcebff; }
+.circleEditTagList svg { width: 16px; height: 16px; }
+
+.circleEditTagEntry { display: flex; align-items: center; gap: 12px; }
+.circleEditTagList:not(:empty) + .circleEditTagEntry { margin-top: 10px; }
+.circleEditTagInput {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--circle-edit-control-height);
+  padding: 10px 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  font: inherit;
+  font-size: 14px;
+}
+.circleEditTagInput:focus { outline: none; }
+.circleEditTagHelp { display: flex; justify-content: space-between; gap: 12px; margin-top: 6px; }
+.circleEditTagHelp p:last-child { flex-shrink: 0; }
+
+.circleEditDistribution {
+  min-width: 0;
+  margin: 24px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.circleEditDistribution legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.circleEditGradeGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.circleEditNumberUnit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.circleEditNumberUnit input { min-width: 0; }
+
+.circleEditRows {
+  display: grid;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.circleEditRatioRow,
+.circleEditLinkRow {
+  display: grid;
+  align-items: end;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--circle-edit-border);
+  border-radius: var(--circle-edit-radius);
+  background: var(--circle-edit-surface);
+}
+
+.circleEditRatioRow {
+  grid-template-columns: 152px minmax(0, 1fr) 112px auto;
+  gap: 16px;
+}
+
+/* 共通のセレクト枠の固定幅を解除し、各グリッド列に収める。 */
+.circleEditRatioRow .gradCheckSelectWrap {
+  width: 100%;
+  min-width: 0;
+}
+
+.circleEditRatioRow .gradCheckSelect,
+.circleEditRatioRow .circleEditInput,
+.circleEditRatioRow .classDetailActionBtn {
+  min-height: var(--circle-edit-control-height);
+}
+
+.circleEditRatioRow .gradCheckSelect {
+  text-overflow: ellipsis;
+}
+
+.circleEditRatioRow .circleEditNumberUnit > span {
+  flex-shrink: 0;
+}
+
+.circleEditLinkRow { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) auto; }
+.circleEditRows label { min-width: 0; }
+.circleEditRows .ttShareFieldLabel { margin-bottom: 8px; }
+.circleEditRows .classDetailActionBtn { justify-self: end; }
+
+@media (max-width: 1000px) {
+  .circleEditRatioRow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .circleEditGradeGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .circleEditPanel { padding: 24px 16px; }
+  .circleEditPanel .ttShareCard { padding: 20px 16px; }
+  .circleEditSections { gap: 16px; }
+  .circleEditPanel .ttShareTitle { font-size: 20px; margin-bottom: 24px; }
+
+  .circleEditGradeGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .circleEditRatioRow,
+  .circleEditLinkRow,
+  .circleEditGrid,
+  .circleEditNoticeFormGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .circleEditTagHelp { flex-wrap: wrap; gap: 4px 12px; }
+  .circleEditPanel .ttShareActions { flex-direction: column-reverse; }
+  .circleEditPanel .ttShareActions > button { width: 100%; }
+  .circleEditNoticeForm { padding: 16px; }
+
+  .circleEditCardHead,
+  .circleEditNotices li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .circleEditImageRow {
+    align-items: flex-start;
+  }
+
+  .circleEditImage {
+    width: 88px;
+    height: 88px;
+  }
+}

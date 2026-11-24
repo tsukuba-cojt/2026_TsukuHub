@@ -41,26 +41,46 @@
   gap: 20px 26px;
 }
 
-.classField.classFieldText,
 .classField.classFieldCode {
-  grid-column: span 4;
+  grid-column: 1 / span 2;
+  grid-row: 1;
+}
+
+.classField.classFieldText {
+  grid-column: 3 / span 4;
+  grid-row: 1;
 }
 
 .classField.classFieldModule {
-  grid-column: span 4;
+  grid-column: 1 / span 4;
+  grid-row: 3;
 }
 
 .classField.classFieldScheduleDay,
-.classField.classFieldScheduleCombined,
-.classField.classFieldClassType,
-.classField.classFieldYear,
-.classField.classFieldSchedulePeriod{
-  grid-column: span 1;
+.classField.classFieldScheduleCombined {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.classField.classFieldYear {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.classField.classFieldSchedulePeriod {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+.classField.classFieldClassType {
+  grid-column: 5;
+  grid-row: 2;
 }
 
 .classClearButton {
-  grid-column: span 2;
-  justify-self: end;
+  grid-column: 5 / span 2;
+  grid-row: 3;
+  justify-self: center;
   align-self: center;
 }
 
@@ -217,9 +237,47 @@
   text-align: center;
 }
 
+@media (min-width: 1101px) {
+  .classField.classFieldCode,
+  .classField.classFieldText {
+    width: calc(100% * 2 / 3);
+  }
+
+  .classField.classFieldText {
+    /* コード欄を縮めた分だけ左へ寄せ、欄の間隔は26pxに保つ。 */
+    margin-left: calc((26px - 100%) / 6);
+  }
+
+  .classField.classFieldScheduleDay,
+  .classField.classFieldScheduleCombined {
+    grid-column: 2;
+  }
+
+  .classField.classFieldSchedulePeriod,
+  .classField.classFieldClassType {
+    grid-column: 3;
+  }
+
+  .classSearchForm:has(.classFieldSchedulePeriod) .classFieldClassType {
+    grid-column: 4;
+  }
+}
+
 @media (max-width: 1100px) {
   .classSearchForm {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .classSearchForm > .classField,
+  .classSearchForm > .classClearButton {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .classField.classFieldText,
+  .classField.classFieldCode,
+  .classField.classFieldModule {
+    grid-column: 1 / -1;
   }
 
 }

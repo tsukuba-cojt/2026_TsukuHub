@@ -7,20 +7,24 @@ import type {
   Internship,
   InternshipInput,
   InternshipStatus,
+  InternshipSummary,
 } from "../types/career";
 
 const internshipColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, company_description, job_category, location, work_style, is_remote, work_conditions, compensation, description, requirements, preferred_skills, acquirable_skills, selection_process, tags, deadline, status, is_featured, created_by, created_at, updated_at";
 
-export async function listPublishedInternships(universityId: string): Promise<Internship[]> {
-  const { data, error } = await supabase
-    .from("internships")
-    .select(`${internshipColumns}, internship_universities!inner(university_id)`)
+const internshipSummaryColumns = "id, company_name, company_logo_url, cover_image_url, title, summary, job_category, location, work_style, is_remote, compensation, tags, deadline, is_featured, created_at";
+
+export async function listPublishedInternships(universityId: string, includeDescription = false): Promise<InternshipSummary[]> {
+  const summarySelect = `${internshipSummaryColumns}, internship_universities!inner(university_id)`;
+  const table = supabase.from("internships");
+  const query = includeDescription ? table.select(`${summarySelect}, description`) : table.select(summarySelect);
+  const { data, error } = await query
     .eq("internship_universities.university_id", universityId)
     .eq("status", "published")
     .order("is_featured", { ascending: false })
     .order("created_at", { ascending: false });
   if (error) throw error;
-  return (data ?? []) as Internship[];
+  return (data ?? []) as InternshipSummary[];
 }
 
 export async function getInternship(id: string, universityId?: string): Promise<Internship | null> {

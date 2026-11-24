@@ -5,7 +5,7 @@
     "admissionYear": 2024
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "bioresources-24",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 35,
+      "prospectiveUnits": 41,
+      "shortageUnits": 89,
+      "prospectiveShortageUnits": 83,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 29,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 53,
-        "earnedUnits": 4,
-        "prospectiveUnits": 6
+        "earnedUnits": 23,
+        "prospectiveUnits": 28
       },
       "specializedFoundation": {
         "requiredUnits": 18,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.161764705882353,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 34,
+      "aRatePercent": 54.83870967741935
+    },
+    "compulsoryPassed": {
+      "専門語学I": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "EC20901": "specialized",
       "EC20902": "specialized",
       "EC20903": "specialized",
       "EG02904": "specialized",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "専門語学I": true
+      "": "uncounted",
+      "EC21071": "specialized",
+      "EC21091": "specialized",
+      "EC22051": "specialized",
+      "EC22061": "specialized",
+      "EC22071": "specialized",
+      "EC22081": "specialized",
+      "EC22111": "specialized",
+      "EC22113": "specialized",
+      "EC23011": "specialized",
+      "EC23041": "specialized",
+      "EC23081": "specialized",
+      "EC23133": "specialized",
+      "EC23203": "specialized",
+      "EC23211": "specialized"
     }
   }
 }

@@ -312,44 +312,48 @@
   font-weight: 700;
 }
 
+/* 縦は見出し行いっぱいに伸ばし、下に余白を確保する。
+   口コミ投稿ボタンはこの下端を基準に置くため、ボタン下端＝決済手段の行の下端になる */
 .cafeteriaDetailScore {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   align-items: center;
   gap: 2px;
+  padding-bottom: 8px;
   color: var(--color-text-secondary);
 }
 
 .cafeteriaDetailScoreLabel {
-  font-size: 9px;
+  font-size: 8px;
 }
 
 .cafeteriaDetailScoreValue {
   color: var(--color-text-primary);
-  font-size: 32px;
+  font-size: 20px;
   line-height: 1.1;
 }
 
 .cafeteriaDetailScore .ratingStars {
-  font-size: 13px;
+  font-size: 9px;
 }
 
 .cafeteriaDetailScoreCount {
-  font-size: 12px;
+  font-size: 9px;
 }
 
 /* ボタンはおすすめ度の下に重ねて配置し、レイアウトの高さには含めない
    （決済手段・混雑グラフの位置を下げないため） */
 .cafeteriaReviewPostBtn {
   position: absolute;
-  top: calc(100% + 10px);
+  top: 100%;
   left: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   border: none;
   border-radius: 50%;
@@ -371,8 +375,8 @@
 }
 
 .cafeteriaReviewPostBtn svg {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
 }
 
 /* ボタンは詳細パネルの右端にあるため、ポップアップは左上に出して画面外へはみ出さないようにする */
@@ -1010,6 +1014,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
+    padding-bottom: 0;
     padding-left: 54px;
   }
 

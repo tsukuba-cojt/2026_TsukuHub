@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "bioresources-interdisciplinary-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 30,
+      "prospectiveUnits": 36,
+      "shortageUnits": 94,
+      "prospectiveShortageUnits": 88,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 43,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 8,
+        "prospectiveUnits": 9
       },
       "specialized": {
         "requiredUnits": 46,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 16,
+        "prospectiveUnits": 21
       },
       "specializedFoundation": {
         "requiredUnits": 10,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 2.9733333333333336,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 30,
+      "aRatePercent": 53.84615384615385
+    },
+    "compulsoryPassed": {
+      "研究演習I": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
+      "32H1012": "compulsory",
+      "34H1012": "compulsory",
       "EG60901": "specialized",
       "EG60902": "specialized",
       "EG60903": "specialized",
       "EG02904": "specializedFoundation",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "研究演習I": true
+      "": "uncounted",
+      "EG60111": "specialized",
+      "EG60121": "specialized",
+      "EG60161": "specialized",
+      "EG60191": "specialized",
+      "EG60232": "specialized",
+      "EG60252": "specialized",
+      "EG60272": "specialized",
+      "EG60361": "specialized",
+      "EG60401": "specialized",
+      "EG60411": "specialized",
+      "EG60421": "specialized",
+      "EG60491": "specialized",
+      "EG60511": "specialized",
+      "EG60551": "specialized"
     }
   }
 }

@@ -15,6 +15,26 @@ import { beginWithMatch, isUnnumberedRecognizedCredit } from "./utils";
 
 type ExpandedCodes = { included: string[]; excepted: string[] };
 
+/** 複数タグのexceptを相互に波及させず、各タグを独立に評価する。 */
+const matchesAnySelectCode = (
+  courseCode: string,
+  codes: readonly string[],
+): boolean =>
+  codes.some((code) => {
+    if (!code.startsWith("*")) {
+      return beginWithMatch(courseCode, [code]);
+    }
+
+    const tag = courseCodeTypes[code.slice(1)];
+    if (tag === undefined) {
+      throw new Error(`未定義の科目番号タグです: ${code}`);
+    }
+    return (
+      beginWithMatch(courseCode, tag.codes) &&
+      !beginWithMatch(courseCode, tag.except)
+    );
+  });
+
 /** "*タグ" を実際の科目番号プレフィックスへ展開する。 */
 export const expandSelectCodes = (codes: readonly string[]): ExpandedCodes => {
   const included: string[] = [];
@@ -43,10 +63,7 @@ export const matchesSelectRequirement = (
   requirement: SelectRequirementTuple
 ): boolean => {
   const [codes, , , isExcludeRequirement, , , options] = requirement;
-  const { included, excepted } = expandSelectCodes(codes);
-  const matchesPrefix =
-    beginWithMatch(course.id, included) &&
-    !beginWithMatch(course.id, excepted);
+  const matchesPrefix = matchesAnySelectCode(course.id, codes);
   const matchesName = options?.includeCourseNames?.includes(course.name) ?? false;
   const isExceptedName =
     options?.excludeCourseNames?.includes(course.name) ?? false;
@@ -54,13 +71,13 @@ export const matchesSelectRequirement = (
     course.id,
     options?.excludeCodes ?? []
   );
-  const isExcepted = isExceptedName || isExceptedCode;
+  const isExceptedEquivalent = (course.equivalentCourseIds ?? []).some((code) =>
+    beginWithMatch(code, options?.excludeEquivalentCodes ?? []));
+  const isExcepted = isExceptedName || isExceptedCode || isExceptedEquivalent;
   const equivalentMatchesPrefix =
     isExcludeRequirement &&
     (course.equivalentCourseIds?.some(
-      (courseCode) =>
-        beginWithMatch(courseCode, included) &&
-        !beginWithMatch(courseCode, excepted),
+      (courseCode) => matchesAnySelectCode(courseCode, codes),
     ) ?? false);
   const matchesConfiguredRule =
     matchesPrefix || matchesName || equivalentMatchesPrefix;

@@ -11,6 +11,7 @@ export type NewsItemRecord = {
   created_at: string;
   updated_at: string;
   university_ids?: string[];
+  source_path?: string | null;
 };
 
 export type NewsItemInput = Omit<

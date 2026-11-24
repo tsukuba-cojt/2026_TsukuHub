@@ -98,6 +98,10 @@
 }
 
 .circleCardTag {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
   padding: 3px 12px;
   border: 1px solid #a9d3fb;
   border-radius: 999px;

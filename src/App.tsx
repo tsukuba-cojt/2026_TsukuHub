@@ -4,15 +4,14 @@ import InternalLinkGuard from "./components/utility/InternalLinkGuard";
 import ScrollToTop from "./components/utility/ScrollToTop";
 import { AuthProvider } from "./components/auth/AuthContext";
 import RequireAdmin from "./components/auth/RequireAdmin";
-import RequireAuth from "./components/auth/RequireAuth";
 import RequireUniversityAccess from "./components/auth/RequireUniversityAccess";
 import Confirm from "./components/auth/Confirm";
 import FeatureGate from "./components/university/FeatureGate";
 import UniversityProvider from "./components/university/UniversityProvider";
 import RequireActiveUniversity from "./components/university/RequireActiveUniversity";
-import UniversityPortal from "./pages/UniversityPortal";
 import UniversityLanding from "./pages/UniversityLanding";
 import Login from "./pages/Login";
+import { RequestPasswordReset, ResetPassword } from "./pages/PasswordRecovery";
 import Signup from "./pages/Signup";
 import Class from "./pages/Class";
 import ClassTop from "./pages/ClassTop";
@@ -25,7 +24,10 @@ import CircleDetail from "./pages/CircleDetail";
 import CircleNoticeList from "./pages/CircleNoticeList";
 import CircleReviewList from "./pages/CircleReviewList";
 import CircleReviewForm from "./pages/CircleReviewForm";
+import CircleEdit from "./pages/CircleEdit";
 import GraduationCheck from "./pages/GraduationCheck";
+import GraduationCheckTest from "./pages/GraduationCheckTest";
+import { graduationCheckTestEnabled } from "./features/graduationCheck/testMode";
 import GraduationCheckResult from "./pages/GraduationCheckResult";
 import Timetable from "./pages/Timetable";
 import TimetableShare from "./pages/TimetableShare";
@@ -54,9 +56,14 @@ import AdminApplications from "./pages/admin/AdminApplications";
 import AdminApplicationDetail from "./pages/admin/AdminApplicationDetail";
 import AdminCareerContent from "./pages/admin/AdminCareerContent";
 import AdminClassManagement from "./pages/admin/AdminClassManagement";
+import AdminClassGuides from "./pages/admin/AdminClassGuides";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminUniversities from "./pages/admin/AdminUniversities";
 import AdminNews from "./pages/admin/AdminNews";
+import AdminCompanyAccess from "./pages/admin/AdminCompanyAccess";
+import CompanyLogin from "./pages/company/CompanyLogin";
+import CompanyDashboard from "./pages/company/CompanyDashboard";
+import CompanyApplicationDetail from "./pages/company/CompanyApplicationDetail";
 import "./styles/responsive.css";
 
 function UniversityLayout() {
@@ -102,15 +109,19 @@ function App() {
       <ScrollToTop />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<UniversityPortal />} />
+          <Route path="/" element={<Navigate to="/tsukuba" replace />} />
           <Route path="/404" element={<Notfound404 />} />
           <Route path="/cafeteria-staff" element={<CafeteriaStaff />} />
           <Route path="/admin/cafeteria-staff" element={<ProtectedAdmin><AdminCafeteriaStaff /></ProtectedAdmin>} />
+          <Route path="/company/login" element={<CompanyLogin />} />
+          <Route path="/company" element={<CompanyDashboard />} />
+          <Route path="/company/applications/:id" element={<CompanyApplicationDetail />} />
 
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedAdmin><AdminDashboard /></ProtectedAdmin>} />
           <Route path="/admin/universities" element={<ProtectedAdmin><AdminUniversities /></ProtectedAdmin>} />
           <Route path="/admin/news" element={<ProtectedAdmin><AdminNews /></ProtectedAdmin>} />
+          <Route path="/admin/company-access" element={<ProtectedAdmin><AdminCompanyAccess /></ProtectedAdmin>} />
           <Route path="/admin/internships" element={<ProtectedAdmin><AdminInternships /></ProtectedAdmin>} />
           <Route path="/admin/internships/new" element={<ProtectedAdmin><AdminInternshipForm /></ProtectedAdmin>} />
           <Route path="/admin/internships/:id/edit" element={<ProtectedAdmin><AdminInternshipForm /></ProtectedAdmin>} />
@@ -118,6 +129,10 @@ function App() {
           <Route path="/admin/applications/:id" element={<ProtectedAdmin><AdminApplicationDetail /></ProtectedAdmin>} />
           <Route path="/admin/career-content" element={<ProtectedAdmin><AdminCareerContent /></ProtectedAdmin>} />
           <Route path="/admin/class-management" element={<ProtectedAdmin><AdminClassManagement /></ProtectedAdmin>} />
+          <Route path="/admin/class-guides" element={<ProtectedAdmin><AdminClassGuides /></ProtectedAdmin>} />
+
+          <Route path="/:accountSlug/auth/forgot-password" element={<RequestPasswordReset />} />
+          <Route path="/:accountSlug/auth/reset-password" element={<ResetPassword />} />
 
           {legacyRoots.map((root) => (
             <Route path={`/${root}/*`} element={<Navigate to="/" replace />} key={root} />
@@ -134,7 +149,7 @@ function App() {
               <Route path="privacy" element={<LegalDocument type="privacy" />} />
             </Route>
 
-            <Route element={<RequireUniversityAccess />}>
+            <Route element={<RequireUniversityAccess allowGuest />}>
               <Route path="mypage" element={<Navigate to=".." replace />} />
               <Route path="mypage/applications" element={<MyApplications />} />
               <Route path="career" element={<Career />} />
@@ -146,6 +161,8 @@ function App() {
               <Route path="circles/:circleId/notices" element={<CircleNoticeList />} />
               <Route path="circles/:circleId/reviews" element={<CircleReviewList />} />
               <Route path="circles/:circleId/review" element={<CircleReviewForm />} />
+              {/* TODO: 団体責任者のみアクセス可（権限制御は後日実装） */}
+              <Route path="circles/:circleId/edit" element={<CircleEdit />} />
 
               <Route element={<FeatureGate feature="news" />}>
                 <Route path="news" element={<NewsList />} />
@@ -157,7 +174,6 @@ function App() {
               </Route>
               <Route element={<FeatureGate feature="internships" />}>
                 <Route path="career/internships" element={<CareerInternships />} />
-                <Route path="career/internships/:internshipId" element={<CareerInternshipDetail />} />
               </Route>
               <Route element={<FeatureGate feature="alumni_stories" />}>
                 <Route path="career/alumni" element={<CareerAlumni />} />
@@ -174,20 +190,19 @@ function App() {
               <Route element={<FeatureGate feature="class_reviews" />}>
                 <Route path="class/:courseCode/review" element={<ClassReviewForm />} />
               </Route>
+            </Route>
+
+            <Route element={<RequireUniversityAccess />}>
+              <Route element={<FeatureGate feature="internships" />}>
+                <Route path="career/internships/:internshipId" element={<CareerInternshipDetail />} />
+              </Route>
               <Route element={<FeatureGate feature="graduation_checker" />}>
-                <Route path="graduation-checker" element={<GraduationCheck />} />
+                <Route path="graduation-checker" element={graduationCheckTestEnabled ? <GraduationCheckTest /> : <GraduationCheck />} />
                 <Route path="graduation-checker/result" element={<GraduationCheckResult />} />
               </Route>
               <Route element={<FeatureGate feature="timetable" />}>
                 <Route path="timetable" element={<Timetable />} />
-                <Route
-                  path="timetable/share"
-                  element={
-                    <RequireAuth>
-                      <TimetableShare />
-                    </RequireAuth>
-                  }
-                />
+                <Route path="timetable/share" element={<TimetableShare />} />
               </Route>
             </Route>
             <Route path="*" element={<Notfound404 />} />

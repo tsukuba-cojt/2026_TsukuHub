@@ -36,11 +36,11 @@ export default function AlumniStoryPreview() {
             <Link className="careerMiniCard" to={path(`/career/alumni/${story.id}`)} key={story.id}>
               <div className={`careerMiniCover${story.cover_image_url ? " hasImage" : ""}`}>
                 {story.cover_image_url ? <img src={story.cover_image_url} alt="" /> : null}
-                <span>{story.graduation_year}年度卒</span>
+                <span>{story.graduation_year ? `${story.graduation_year}年度卒` : "卒業年度非公開"}</span>
               </div>
               <div className="careerMiniCardBody">
                 <h3>{story.title}</h3>
-                <p>{story.destination}・{story.job_role}</p>
+                <p>{story.destination}・部署：{story.job_role}</p>
                 <strong>
                   詳しく読む <ArrowRight aria-hidden="true" />
                 </strong>

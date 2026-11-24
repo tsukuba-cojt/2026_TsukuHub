@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "physics-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 35,
+      "prospectiveUnits": 39,
+      "shortageUnits": 89,
+      "prospectiveShortageUnits": 85,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 33,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 6,
+        "prospectiveUnits": 7
       },
       "specialized": {
         "requiredUnits": 35,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 21,
+        "prospectiveUnits": 24
       },
       "specializedFoundation": {
         "requiredUnits": 25,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 3,
+        "prospectiveUnits": 3
       },
       "related": {
         "requiredUnits": 6,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.1447368421052633,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 38,
+      "aRatePercent": 51.42857142857142
+    },
+    "compulsoryPassed": {
+      "物理学実験I": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
+      "31HA012": "compulsory",
+      "31JA012": "compulsory",
       "FCC2901": "specialized",
       "FCC2902": "specialized",
       "FCC2903": "specialized",
       "FA00904": "specializedFoundation",
-      "1226991": "common",
       "AB00991": "related",
       "AB00992": "related",
       "AB00993": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "物理学実験I": true
+      "": "uncounted",
+      "FCC2374": "specialized",
+      "FCC2384": "specialized",
+      "FCC2414": "specialized",
+      "FCC2444": "specialized",
+      "FCC2454": "specialized",
+      "FCC2464": "specialized",
+      "FCC2531": "specialized",
+      "FCC2554": "specialized",
+      "FCC2561": "specialized",
+      "FCC2713": "specialized",
+      "FCC3094": "specialized",
+      "FCC3101": "specialized",
+      "FCC3134": "specialized",
+      "FCC3144": "specialized",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

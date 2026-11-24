@@ -5,7 +5,7 @@
     "admissionYear": 2023
   },
   "expected": {
-    "courseCount": 10,
+    "courseCount": 30,
     "csvErrors": [],
     "requirement": {
       "id": "biology-22",
@@ -21,23 +21,23 @@
     },
     "summary": {
       "requiredUnits": 124,
-      "earnedUnits": 11,
-      "prospectiveUnits": 13,
-      "shortageUnits": 113,
-      "prospectiveShortageUnits": 111,
+      "earnedUnits": 30,
+      "prospectiveUnits": 36,
+      "shortageUnits": 94,
+      "prospectiveShortageUnits": 88,
       "isSatisfied": false,
       "isProspectivelySatisfied": false
     },
     "categories": {
       "compulsory": {
         "requiredUnits": 40,
-        "earnedUnits": 3,
-        "prospectiveUnits": 3
+        "earnedUnits": 4,
+        "prospectiveUnits": 5
       },
       "specialized": {
         "requiredUnits": 40,
-        "earnedUnits": 2,
-        "prospectiveUnits": 4
+        "earnedUnits": 16,
+        "prospectiveUnits": 21
       },
       "specializedFoundation": {
         "requiredUnits": 0,
@@ -46,8 +46,8 @@
       },
       "common": {
         "requiredUnits": 1,
-        "earnedUnits": 1,
-        "prospectiveUnits": 1
+        "earnedUnits": 5,
+        "prospectiveUnits": 5
       },
       "related": {
         "requiredUnits": 21,
@@ -56,25 +56,45 @@
       }
     },
     "gpa": {
-      "value": 2.89,
+      "value": 3.1551724137931036,
       "max": 4.3,
-      "targetUnits": 10,
-      "aRatePercent": 62.5
+      "targetUnits": 29,
+      "aRatePercent": 57.692307692307686
+    },
+    "compulsoryPassed": {
+      "専門語学（英語）BI": true
     },
     "assignments": {
+      "1226991": "common",
+      "6101101": "compulsory",
+      "6401102": "compulsory",
       "ZZ0091": "compulsory",
       "EB15901": "specialized",
       "EB15902": "specialized",
       "EB15903": "specialized",
       "ZZ10904": "related",
-      "1226991": "common",
       "ZZ9091": "related",
       "ZZ9092": "related",
       "ZZ9093": "related",
-      "": "uncounted"
-    },
-    "compulsoryPassed": {
-      "専門語学（英語）BI": true
+      "": "uncounted",
+      "EB50146": "specialized",
+      "EB50211": "specialized",
+      "EB50246": "specialized",
+      "EB51111": "specialized",
+      "EB51211": "specialized",
+      "EB51363": "specialized",
+      "EB52011": "specialized",
+      "EB52026": "specialized",
+      "EB59063": "specialized",
+      "EB61011": "specialized",
+      "EB61083": "specialized",
+      "EB62011": "specialized",
+      "EB62066": "specialized",
+      "EB62104": "specialized",
+      "31HA012": "common",
+      "31JA012": "common",
+      "32H1012": "common",
+      "34H1012": "common"
     }
   }
 }

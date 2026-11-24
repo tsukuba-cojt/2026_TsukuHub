@@ -65,7 +65,7 @@ export const filterAlumniStories = (
   if (query.sort === "newest") {
     sorted.sort((a, b) => timestamp(b.created_at) - timestamp(a.created_at));
   } else if (query.sort === "year") {
-    sorted.sort((a, b) => b.graduation_year - a.graduation_year);
+    sorted.sort((a, b) => (b.graduation_year ?? 0) - (a.graduation_year ?? 0));
   }
   return sorted;
 };

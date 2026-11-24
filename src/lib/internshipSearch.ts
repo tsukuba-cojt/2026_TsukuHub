@@ -1,4 +1,4 @@
-import type { Internship } from "../types/career";
+import type { InternshipSummary } from "../types/career";
 import { timestamp, uniqueSorted } from "./listingSearch";
 
 export type InternshipSortKey = "recommended" | "newest" | "deadline";
@@ -13,7 +13,7 @@ export type InternshipSearchQuery = {
   sort: InternshipSortKey;
 };
 
-export const collectInternshipFacets = (items: Internship[]) => ({
+export const collectInternshipFacets = (items: InternshipSummary[]) => ({
   jobCategories: uniqueSorted(items.map((item) => item.job_category)),
   locations: uniqueSorted(items.map((item) => item.location)),
   workStyles: uniqueSorted(items.map((item) => item.work_style)),
@@ -21,7 +21,7 @@ export const collectInternshipFacets = (items: Internship[]) => ({
   hasRemote: items.some((item) => item.is_remote),
 });
 
-const matchesQuery = (item: Internship, query: string) => {
+const matchesQuery = (item: InternshipSummary, query: string) => {
   const needle = query.trim().toLowerCase();
   if (!needle) return true;
   const haystack = [
@@ -49,7 +49,7 @@ export const isInternshipSearchFiltered = (query: InternshipSearchQuery) =>
       query.remoteOnly,
   );
 
-export const filterInternships = (items: Internship[], query: InternshipSearchQuery) => {
+export const filterInternships = (items: InternshipSummary[], query: InternshipSearchQuery) => {
   const filtered = items.filter((item) => {
     if (query.jobCategory && item.job_category !== query.jobCategory) return false;
     if (query.location && item.location !== query.location) return false;

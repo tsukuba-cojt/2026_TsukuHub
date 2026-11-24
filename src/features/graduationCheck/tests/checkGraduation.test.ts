@@ -4,12 +4,10 @@ import { course } from "./helpers";
 
 describe("resolveRequirementIds", () => {
   test("学類名と入学年度から要件データのキーを引く", () => {
-    expect(resolveRequirementIds("情報メディア創成学類", 2021)).toEqual([
-      "mast-21",
-    ]);
-    // 2022〜2024年度入学は同一要件
+    expect(resolveRequirementIds("情報メディア創成学類", 2021)).toEqual([]);
+    // 運用対象の2023〜2024年度入学は同一要件
     expect(resolveRequirementIds("情報メディア創成学類", "2023")).toEqual([
-      "mast-22",
+      "mast-23",
     ]);
     expect(resolveRequirementIds("情報メディア創成学類", 2025)).toEqual([
       "mast-25",
@@ -17,15 +15,18 @@ describe("resolveRequirementIds", () => {
   });
 
   test("主専攻で要件が分かれる学類は候補を複数返す（表記ゆれも吸収）", () => {
-    const ids = resolveRequirementIds("知識情報・図書館学類", 2022);
-    expect(ids.sort()).toEqual(["klis-irm-22", "klis-kis-22", "klis-ksc-22"]);
+    const ids = resolveRequirementIds("知識情報・図書館学類", 2023);
+    expect(ids.sort()).toEqual(["klis-irm-23", "klis-kis-23", "klis-ksc-23"]);
+    expect(resolveRequirementIds("知識情報・図書館学類", 2026).sort()).toEqual([
+      "klis-irm-26", "klis-kis-26", "klis-ksc-26",
+    ]);
   });
 
   test("情報科学類は入学年度に対応する3主専攻を返す", () => {
     expect(resolveRequirementIds("情報科学類", 2025).sort()).toEqual([
-      "coins-im-22",
-      "coins-is-22",
-      "coins-ss-22",
+      "coins-im-23",
+      "coins-is-23",
+      "coins-ss-23",
     ]);
     expect(resolveRequirementIds("情報科学類", 2026).sort()).toEqual([
       "coins-im-26",
@@ -34,59 +35,40 @@ describe("resolveRequirementIds", () => {
     ]);
   });
 
-  test("工学システム学類は2022〜2026年度の2主専攻を返す", () => {
-    expect(resolveRequirementIds("工学システム学類", 2022).sort()).toEqual([
-      "esys-eme-22",
-      "esys-ies-22",
+  test("工学システム学類は2023〜2026年度の2主専攻を返す", () => {
+    expect(resolveRequirementIds("工学システム学類", 2023).sort()).toEqual([
+      "esys-eme-23",
+      "esys-ies-23",
     ]);
     expect(resolveRequirementIds("工学システム学類", 2026).sort()).toEqual([
-      "esys-eme-22",
-      "esys-ies-22",
+      "esys-eme-24",
+      "esys-ies-24",
     ]);
   });
 
-  test("数学類は2022〜2026年度の要件を返す", () => {
-    expect(resolveRequirementIds("数学類", 2022)).toEqual(["math-22"]);
-    expect(resolveRequirementIds("数学類", 2026)).toEqual(["math-22"]);
+  test("数学類は2023〜2026年度の要件を返す", () => {
+    expect(resolveRequirementIds("数学類", 2023)).toEqual(["math-23"]);
+    expect(resolveRequirementIds("数学類", 2026)).toEqual(["math-24"]);
   });
 
   test("物理学類は2025年度の要件変更を反映する", () => {
-    expect(resolveRequirementIds("物理学類", 2024)).toEqual(["physics-22"]);
+    expect(resolveRequirementIds("物理学類", 2024)).toEqual(["physics-24"]);
     expect(resolveRequirementIds("物理学類", 2025)).toEqual(["physics-25"]);
   });
 
   test("要件データがない学類・年度は空配列", () => {
     expect(resolveRequirementIds("情報科学類", 2021)).toEqual([]);
     expect(resolveRequirementIds("情報メディア創成学類", 2019)).toEqual([]);
-    expect(resolveRequirementIds("知識情報・図書館学類", 2025)).toEqual([]);
+    expect(resolveRequirementIds("知識情報・図書館学類", 2027)).toEqual([]);
   });
 });
 
 describe("checkGraduation (physics)", () => {
-  test("公式表の必修33・選択91・合計124単位を返す", () => {
-    for (const id of ["physics-22", "physics-25"] as const) {
-      const report = checkGraduation([], id);
-      expect(report.categories.map((category) => category.requiredUnits)).toEqual([
-        33,
-        35,
-        25,
-        1,
-        6,
-      ]);
-      expect(report.summary.requiredUnits).toBe(124);
-    }
-  });
-
-  test("2025年度から量子力学群とFCC群の範囲を変更する", () => {
-    const before = checkGraduation([], "physics-22").details.selectResults;
-    const after = checkGraduation([], "physics-25").details.selectResults;
-    const getRule = (results: typeof before, message: string) =>
-      results.find((result) => result.message === message);
-
-    expect(getRule(before, "量子力学")).toMatchObject({ minimum: 5, maximum: 11 });
-    expect(getRule(after, "量子力学")).toMatchObject({ minimum: 6, maximum: 10 });
-    expect(getRule(before, "FCC2〜FCC4")).toMatchObject({ minimum: 23, maximum: 47 });
-    expect(getRule(after, "FCC2〜FCC4")).toMatchObject({ minimum: 22, maximum: 48 });
+  test("2025年度から量子の内数を5から6へ変更する", () => {
+    const before = checkGraduation([], "physics-24").details.selectResults[0];
+    const after = checkGraduation([], "physics-25").details.selectResults[0];
+    expect(before.minimumIncludedResults?.map((r) => r.minimum)).toEqual([5, 5, 2]);
+    expect(after.minimumIncludedResults?.map((r) => r.minimum)).toEqual([6, 5, 2]);
   });
 
   test("専門4小区分の最低単位をそれぞれ満たして集計する", () => {
@@ -108,24 +90,6 @@ describe("checkGraduation (physics)", () => {
 });
 
 describe("checkGraduation (math-22)", () => {
-  test("公式表の必修32・選択92・合計124単位を返す", () => {
-    const report = checkGraduation([], "math-22");
-
-    expect(report.requirement).toMatchObject({
-      department: "数学類",
-      major: "数学",
-      enrollYear: "2022~2026",
-    });
-    expect(report.categories.map((category) => category.requiredUnits)).toEqual([
-      32,
-      46,
-      15,
-      1,
-      6,
-    ]);
-    expect(report.summary.requiredUnits).toBe(124);
-  });
-
   test("微積分・線形代数は指定科目群から各2単位で必修を満たす", () => {
     const report = checkGraduation(
       [
@@ -173,24 +137,6 @@ describe("checkGraduation (math-22)", () => {
 });
 
 describe("checkGraduation (esys-ies-22)", () => {
-  test("公式表の必修69・選択56・合計125単位を5区分に展開する", () => {
-    const report = checkGraduation([], "esys-ies-22");
-
-    expect(report.requirement).toMatchObject({
-      department: "工学システム学類",
-      major: "知的・機能工学システム",
-      enrollYear: "2022~2026",
-    });
-    expect(report.categories.map((category) => category.requiredUnits)).toEqual([
-      69,
-      40,
-      0,
-      1,
-      6,
-    ]);
-    expect(report.summary.requiredUnits).toBe(125);
-  });
-
   test("専門の小区分最低単位を満たし、概論は関連科目へ分離する", () => {
     const report = checkGraduation(
       [

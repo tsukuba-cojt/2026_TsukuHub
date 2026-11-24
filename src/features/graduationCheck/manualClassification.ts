@@ -63,6 +63,7 @@ export const classifyUncountedCourse = (
     requirement,
     compulsoryResults,
     selectResults,
+    report.evaluationMode,
   );
   const assigned =
     classification === "compulsory"

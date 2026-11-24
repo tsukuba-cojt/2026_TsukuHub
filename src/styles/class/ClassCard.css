@@ -8,6 +8,7 @@
 .classCard {
   display: flex;
   justify-content: space-between;
+  gap: 24px;
   min-height: 132px;
   padding: 22px 40px 20px 18px;
   border-radius: 11px;
@@ -17,6 +18,7 @@
 
 .classCardMain {
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
@@ -57,13 +59,15 @@
 }
 
 .classTitleRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   align-items: end;
   gap: 34px;
   min-width: 0;
 }
 
 .classTitleRow h2 {
+  min-width: 0;
   margin: 0;
   color: var(--color-text-primary);
   font-size: 30px;
@@ -75,12 +79,14 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
   margin-bottom: 3px;
   color: #777;
   white-space: nowrap;
 }
 
 .classTeacher svg {
+  flex-shrink: 0;
   width: 18px;
   height: 18px;
   fill: none;
@@ -94,8 +100,14 @@
 }
 
 .classTeacher small {
+  flex-shrink: 0;
   font-size: 10px;
   font-weight: 500;
+}
+
+.classTeacher .classCardText[data-overflowing] + small {
+  /* 幅を維持し、省略判定と敬称の表示が交互に切り替わるのを防ぐ。 */
+  visibility: hidden;
 }
 
 .classBadges {
@@ -105,11 +117,13 @@
   margin-top: 10px;
 }
 
-.classBadges span {
+.classBadges > span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
+  min-width: 0;
+  white-space: nowrap;
   height: 20px;
   padding: 0 10px;
   border: 1px solid #c9d8ee;
@@ -126,6 +140,7 @@
 }
 
 .classBadges svg {
+  flex-shrink: 0;
   width: 11px;
   height: 11px;
   fill: none;
@@ -135,6 +150,7 @@
 
 .classCardRating {
   display: grid;
+  flex: 0 0 130px;
   grid-template-columns: 34px 1fr;
   align-items: center;
   justify-items: center;
@@ -172,6 +188,18 @@
   font-weight: 700;
 }
 
+.classCardText {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.classCardText[data-overflowing] {
+  -webkit-mask-image: linear-gradient(to right, #000 max(0px, calc(100% - 2.5em)), transparent);
+  mask-image: linear-gradient(to right, #000 max(0px, calc(100% - 2.5em)), transparent);
+}
+
 .classCardRating strong {
   color: #777;
   font-size: 34px;
@@ -198,8 +226,8 @@
   }
 
   .classTitleRow {
+    grid-template-columns: minmax(0, 1fr);
     align-items: flex-start;
-    flex-direction: column;
     gap: 8px;
   }
 
@@ -209,6 +237,7 @@
 
   .classCardRating {
     display: flex;
+    flex: none;
     align-items: center;
     justify-content: space-between;
     min-width: 0;

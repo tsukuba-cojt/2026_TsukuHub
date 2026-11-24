@@ -13,6 +13,8 @@ import "../styles/home/Home.css";
 import { useAuth } from "../components/auth/authContextValue";
 import { useUniversity } from "../components/university/universityContextValue";
 import { listPublishedNews } from "../services/newsService";
+import { listPublishedInternships } from "../services/careerService";
+import type { InternshipSummary } from "../types/career";
 import type { NewsItemRecord } from "../types/news";
 
 function Home() {
@@ -20,6 +22,22 @@ function Home() {
   const { university } = useUniversity();
   const [news, setNews] = useState<NewsItemRecord[]>([]);
   const [topics, setTopics] = useState<NewsItemRecord[]>([]);
+  const [internships, setInternships] = useState<InternshipSummary[]>([]);
+  const [internshipsLoading, setInternshipsLoading] = useState(true);
+  const [internshipsError, setInternshipsError] = useState(false);
+
+  useEffect(() => {
+    if (!university) return;
+    let active = true;
+    setInternships([]);
+    setInternshipsLoading(true);
+    setInternshipsError(false);
+    void listPublishedInternships(university.id)
+      .then((items) => { if (active) setInternships(items); })
+      .catch(() => { if (active) setInternshipsError(true); })
+      .finally(() => { if (active) setInternshipsLoading(false); });
+    return () => { active = false; };
+  }, [university]);
 
   useEffect(() => {
     if (!university) return;
@@ -52,8 +70,8 @@ function Home() {
           gap: '24px'               /* ④ コンポーネント間の隙間（お好みの数値に） */
         }}
       >
-        <TopicSection topics={topics} />
-        <LatestNewsSection newsItems={news} />
+        <TopicSection internships={internships} loading={internshipsLoading} error={internshipsError} />
+        <LatestNewsSection newsItems={topics} />
         <RankingSection />
       </main>
 

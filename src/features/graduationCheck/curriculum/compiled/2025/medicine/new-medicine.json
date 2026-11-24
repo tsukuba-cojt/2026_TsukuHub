@@ -1,0 +1,254 @@
+{
+  "schemaVersion": "grad-requirement-snapshot-2.0.0",
+  "admissionYear": 2025,
+  "department": {
+    "key": "medicine",
+    "label": "医学類"
+  },
+  "major": {
+    "key": "new-medicine",
+    "label": "新医学主専攻"
+  },
+  "generatedFrom": [
+    "data/gradRequirementData.ts",
+    "data/supportedDepartments.ts",
+    "curriculum/rule-reviews.json"
+  ],
+  "snapshot": {
+    "snapshotId": "medicine/new-medicine/2025",
+    "admissionYear": 2025,
+    "department": {
+      "key": "medicine",
+      "label": "医学類"
+    },
+    "major": {
+      "key": "new-medicine",
+      "label": "新医学主専攻"
+    },
+    "requirementId": "new-medicine-22",
+    "ruleSemanticSha256": "27ae8be3f9aabb98a0cd984a2b735c89665b23732fc4dabb47685bc4adc04e2a",
+    "snapshotSha256": "42eb685b3b0f0dd6302af425c6218bfe574f166d87a4157104eef72250eb3d6f",
+    "review": {
+      "status": "needs_review",
+      "humanReviewIds": [
+        "HR-008"
+      ],
+      "sourceDocumentIds": [
+        "tsukuba-graduation-requirements-2025"
+      ],
+      "blockingIssues": [
+        "主専攻差・指定科目・関連4小区分と成績CSV上の科目名表記について独立した人手レビューが未完了"
+      ]
+    },
+    "publishable": false,
+    "requirement": {
+      "header": {
+        "department": "医学類",
+        "major": "新医学主専攻",
+        "enrollYear": 2025
+      },
+      "courses": {
+        "compulsory": [
+          "医学統計学",
+          "医療・福祉現場でのふれあい等",
+          "医療概論I",
+          "医療概論I-B",
+          "医学の基礎",
+          "医学の基礎B",
+          "医科分子生物学",
+          "機能・構造と病態I",
+          "医療概論II",
+          "English Medical Terminology I",
+          "機能・構造と病態II",
+          "医療概論III",
+          "English Medical Terminology II",
+          "クリニカル・クラークシップ準備学習",
+          "社会医学実習",
+          "M4クリニカル・クラークシップ(Phase IA)",
+          "医療概論IV",
+          "アドヴァンストコース",
+          "M5クリニカル・クラークシップ (Phase IB、Phase IIA)",
+          "研究室実習",
+          "医療概論V",
+          "医学総括",
+          "Clinical Communication in English I",
+          "Clinical Communication in English II",
+          "TOEFL演習",
+          "ファーストイヤーセミナー",
+          "学問への誘い",
+          "体育::2",
+          "英語::4",
+          "情報::4",
+          "国語::1"
+        ],
+        "compulsorySumUnit": 186,
+        "select": [
+          [
+            [],
+            5,
+            5,
+            false,
+            "医学類が指定する専門基礎科目",
+            1,
+            {
+              "includeCourseNames": [
+                "力学1",
+                "電磁気学1",
+                "生物学I",
+                "生物学II",
+                "化学2",
+                "化学3",
+                "医科生化学"
+              ]
+            }
+          ],
+          [
+            [
+              "*学士基盤科目"
+            ],
+            1,
+            1,
+            false,
+            "学士基盤科目",
+            2
+          ],
+          [
+            [
+              "*体育",
+              "*外国語",
+              "*情報",
+              "*国語",
+              "*芸術"
+            ],
+            0,
+            1,
+            false,
+            "その他の共通科目",
+            2
+          ],
+          [
+            [
+              "HB"
+            ],
+            1,
+            1,
+            false,
+            "医学類が開設する関連科目",
+            3,
+            {
+              "excludeCourseNames": [
+                "力学1",
+                "電磁気学1",
+                "生物学I",
+                "生物学II",
+                "化学2",
+                "化学3",
+                "医科生化学"
+              ]
+            }
+          ],
+          [
+            [
+              "FA",
+              "FB",
+              "FC",
+              "FE",
+              "FF",
+              "FG",
+              "GA",
+              "GB",
+              "GC",
+              "EB"
+            ],
+            2,
+            2,
+            false,
+            "指定された自然科学系の関連科目",
+            3,
+            {
+              "excludeCourseNames": [
+                "力学1",
+                "電磁気学1",
+                "生物学I",
+                "生物学II",
+                "化学2",
+                "化学3",
+                "医科生化学"
+              ]
+            }
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C"
+            ],
+            2,
+            2,
+            false,
+            "A・B・Cで始まる関連科目",
+            3
+          ],
+          [
+            [
+              "A",
+              "B",
+              "C",
+              "E",
+              "F",
+              "G",
+              "H",
+              "V",
+              "W",
+              "Y"
+            ],
+            2,
+            2,
+            false,
+            "他学群・他学類が開設する関連科目",
+            3,
+            {
+              "excludeCourseNames": [
+                "力学1",
+                "電磁気学1",
+                "生物学I",
+                "生物学II",
+                "化学2",
+                "化学3",
+                "医科生化学"
+              ]
+            }
+          ]
+        ],
+        "selectMinimumUnit": 13,
+        "enforceSelectMinimums": true,
+        "groups": [
+          [
+            0,
+            0,
+            0,
+            "専門科目選択"
+          ],
+          [
+            1,
+            5,
+            5,
+            "専門基礎科目選択"
+          ],
+          [
+            2,
+            1,
+            1,
+            "共通科目選択"
+          ],
+          [
+            3,
+            7,
+            7,
+            "関連科目選択"
+          ]
+        ]
+      }
+    }
+  }
+}

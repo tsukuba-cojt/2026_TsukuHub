@@ -39,7 +39,14 @@ export type Course = {
   year: number;
   /** 同じ開講年度の静的授業カタログで「同一」とされる別科目番号 */
   equivalentCourseIds?: string[];
+  /** 成績CSVとは別に、開講年度の固定カタログから補完する属性。欠損は判定不能。 */
+  catalogInstructionMethod?: "lecture" | "seminar" | "experiment" | "practicum" | "other";
+  /** 固定KdBに「基幹科目」と明記されている生物資源EC2科目。未確認はundefined。 */
+  catalogBioresourcesCore?: true;
 };
+
+export type GraduationStudentContext = { courseKey?: string };
+export type StudentCourseOption = { key: string; label: string; codes: string[] };
 
 /** CSVのパースに失敗した行（UIがエラー表示できる形で返す） */
 export type CsvRowError = {
@@ -75,6 +82,25 @@ export type SelectRequirementTuple = [
     excludeCourseNames?: string[];
     /** プレフィックスには該当するが、この選択要件からは除外する科目番号プレフィックス */
     excludeCodes?: string[];
+    excludeEquivalentCodes?: string[];
+    /** 指定番号群から計上する科目数の上限。同一授業・再履修は1科目とする。 */
+    maximumIncludedCourses?: { codes: string[]; maximum: number }[];
+    /** 親要件に割り当てた単位の内数として、特定コード群に要求する最低単位 */
+    minimumIncludedUnits?: {
+      /** 親要件内でさらに絞り込む科目番号プレフィックス。suffixesとはOR条件 */
+      codes?: string[];
+      /** 親要件内でさらに絞り込む科目番号末尾。codesとはOR条件 */
+      courseIdSuffixes?: string[];
+      /** 親要件内でさらに絞り込む科目名（完全一致）。他の条件とはOR条件 */
+      courseNames?: string[];
+      /** 既存の番号・名称条件とANDで評価する、固定カタログ由来の授業形態。 */
+      instructionMethods?: NonNullable<Course["catalogInstructionMethod"]>[];
+      /** 所属コースの番号群へ絞る。未選択・不正なキーは確認不能。 */
+      studentCourse?: boolean;
+      bioresourcesCore?: boolean;
+      minimum: number;
+      label: string;
+    }[];
   },
 ];
 
@@ -101,6 +127,16 @@ export type GradRequirement = {
     groups: GroupTuple[];
     /** true のとき、選択小区分ごとの最低単位も区分進捗に反映する */
     enforceSelectMinimums?: boolean;
+    studentCourseOptions?: StudentCourseOption[];
+    aggregateRequirements?: { group: number; sourceGroups: number[]; minimum: number; label: string }[];
+    /** 単位合計とは独立した、選択科目の科目数条件。 */
+    courseCountRequirements?: {
+      label: string;
+      group: number;
+      codes: string[];
+      instructionMethods: NonNullable<Course["catalogInstructionMethod"]>[];
+      minimum: number;
+    }[];
   };
 };
 
@@ -108,73 +144,147 @@ export type GradRequirement = {
 export type RequirementId =
   | "mast-21"
   | "mast-22"
+  | "mast-23"
   | "mast-25"
   | "coins-ss-22"
+  | "coins-ss-23"
   | "coins-ss-26"
   | "coins-is-22"
+  | "coins-is-23"
   | "coins-is-26"
   | "coins-im-22"
+  | "coins-im-23"
   | "coins-im-26"
   | "esys-ies-22"
+  | "esys-ies-23"
+  | "esys-ies-24"
   | "esys-eme-22"
+  | "esys-eme-23"
+  | "esys-eme-24"
   | "math-22"
+  | "math-23"
+  | "math-24"
   | "physics-22"
+  | "physics-23"
+  | "physics-24"
+  | "physics-26"
   | "physics-25"
   | "chem-22"
   | "chem-23"
+  | "chem-24"
   | "chem-25"
+  | "chem-26"
   | "applied-physics-22"
+  | "applied-physics-23"
   | "applied-physics-24"
   | "applied-electron-22"
+  | "applied-electron-23"
   | "applied-electron-24"
   | "applied-materials-22"
+  | "applied-materials-23"
   | "applied-materials-24"
   | "applied-molecule-22"
+  | "applied-molecule-23"
   | "applied-molecule-24"
   | "biology-22"
+  | "biology-24"
   | "bioresources-22"
   | "bioresources-24"
+  | "bioresources-25"
+  | "bioresources-26"
   | "bioresources-interdisciplinary-22"
   | "bioresources-interdisciplinary-24"
+  | "bioresources-interdisciplinary-25"
   | "earth-environment-22"
+  | "earth-environment-23"
   | "earth-environment-24"
+  | "earth-environment-25"
   | "earth-environment-26"
   | "earth-evolution-22"
+  | "earth-evolution-23"
   | "earth-evolution-24"
+  | "earth-evolution-26"
   | "earth-interdisciplinary-22"
+  | "earth-interdisciplinary-23"
   | "earth-interdisciplinary-24"
+  | "earth-interdisciplinary-26"
   | "policy-economics-22"
+  | "policy-economics-23"
   | "policy-engineering-22"
+  | "policy-engineering-23"
+  | "policy-engineering-26"
   | "policy-urban-22"
+  | "policy-urban-23"
+  | "policy-urban-26"
   | "humanities-philosophy-22"
+  | "humanities-philosophy-23"
+  | "humanities-philosophy-24"
+  | "humanities-philosophy-25"
   | "humanities-history-22"
+  | "humanities-history-24"
+  | "humanities-history-25"
   | "humanities-archaeology-22"
+  | "humanities-archaeology-24"
+  | "humanities-archaeology-25"
   | "humanities-linguistics-22"
-  | "comparative-culture-22"
+  | "humanities-linguistics-24"
+  | "humanities-linguistics-25"
+  | "comparative-culture-23"
+  | "comparative-culture-26"
   | "japanese-culture-22"
+  | "japanese-culture-23"
+  | "japanese-culture-26"
   | "social-sociology-22"
+  | "social-sociology-23"
   | "social-law-22"
+  | "social-law-23"
   | "social-politics-22"
+  | "social-politics-23"
   | "social-economics-22"
+  | "social-economics-23"
   | "international-relations-22"
+  | "international-relations-23"
   | "international-development-22"
+  | "international-development-23"
   | "education-22"
+  | "education-23"
   | "psychology-22"
+  | "psychology-23"
   | "disability-22"
+  | "disability-23"
   | "medicine-22"
+  | "medicine-26"
   | "new-medicine-22"
+  | "new-medicine-26"
   | "nursing-22"
+  | "nursing-25"
+  | "nursing-26"
   | "public-health-nursing-22"
+  | "public-health-nursing-25"
+  | "public-health-nursing-26"
   | "medical-science-22"
+  | "medical-science-24"
+  | "medical-science-25"
+  | "medical-science-26"
   | "international-medical-science-22"
+  | "international-medical-science-24"
+  | "international-medical-science-25"
+  | "international-medical-science-26"
   | "physical-education-22"
+  | "physical-education-26"
   | "art-studies-22"
   | "japanese-art-22"
   | "klis-ksc-21"
+  | "klis-ksc-23"
+  | "klis-ksc-26"
   | "klis-ksc-22"
   | "klis-kis-21"
+  | "klis-kis-23"
+  | "klis-kis-26"
   | "klis-kis-22"
   | "klis-irm-21"
+  | "klis-irm-23"
+  | "klis-irm-26"
   | "klis-irm-22";
 
 export type GradRequirementTable = Record<RequirementId, GradRequirement>;
@@ -207,6 +317,16 @@ export type SelectResult = {
   group: number;
   /** この要件にマッチした科目 */
   courses: Course[];
+  /** 親要件の単位を二重計上せずに判定する内数条件 */
+  minimumIncludedResults?: {
+    codes?: string[];
+    courseIdSuffixes?: string[];
+    courseNames?: string[];
+    minimum: number;
+    label: string;
+    courses: Course[];
+    unknownCourses?: Course[];
+  }[];
   /** 利用者が未分類科目をこの区分へ手動分類した結果か */
   isManualClassification?: boolean;
 };
@@ -277,6 +397,22 @@ export type RequirementItemProgress = {
   courses: Course[];
   /** 利用者が未分類科目をこの区分へ手動分類した進捗か */
   isManualClassification: boolean;
+  attributeEvaluation?: {
+    status: "satisfied" | "unsatisfied" | "unknown";
+    prospectiveStatus: "satisfied" | "unsatisfied" | "unknown";
+    unknownUnits: number;
+    prospectiveUnknownUnits: number;
+  };
+  /** 科目数条件の場合のみ設定。単位数へ換算しない。 */
+  courseCount?: {
+    minimum: number;
+    earned: number;
+    prospective: number;
+    unknown: number;
+    prospectiveUnknown: number;
+    status: "satisfied" | "unsatisfied" | "unknown";
+    prospectiveStatus: "satisfied" | "unsatisfied" | "unknown";
+  };
 };
 
 export type CategoryResult = UnitProgress & {
@@ -298,6 +434,9 @@ export type CategoryResult = UnitProgress & {
 // ── 最終的な判定結果オブジェクト ──
 
 export type GraduationCheckReport = {
+  /** 省略時は従来の詳細判定。画面では five-category を使用する。 */
+  evaluationMode?: "five-category" | "detailed";
+  studentContext?: GraduationStudentContext;
   /** 使用した要件データの情報 */
   requirement: {
     id: RequirementId;
@@ -318,9 +457,9 @@ export type GraduationCheckReport = {
     shortageUnits: number;
     /** 見込みベースの不足単位数（0で下限） */
     prospectiveShortageUnits: number;
-    /** 全体単位、5区分の合算、個別要件をすべて満たしたか */
+    /** evaluationModeの条件を満たしたか。five-categoryでは総単位と区分下限のみ。 */
     isSatisfied: boolean;
-    /** 履修中を含めて、全体単位、5区分の合算、個別要件をすべて満たすか */
+    /** 履修中を含めてevaluationModeの条件を満たすか。卒業可否の確定ではない。 */
     isProspectivelySatisfied: boolean;
     /** 確定単位で未充足の個別要件数 */
     unsatisfiedRequirementCount: number;
