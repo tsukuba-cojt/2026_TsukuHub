@@ -14,7 +14,7 @@ import { useAuth } from "../components/auth/authContextValue";
 import { useUniversity } from "../components/university/universityContextValue";
 import { listPublishedNews } from "../services/newsService";
 import { listPublishedInternships } from "../services/careerService";
-import type { Internship } from "../types/career";
+import type { InternshipSummary } from "../types/career";
 import type { NewsItemRecord } from "../types/news";
 
 function Home() {
@@ -22,7 +22,7 @@ function Home() {
   const { university } = useUniversity();
   const [news, setNews] = useState<NewsItemRecord[]>([]);
   const [topics, setTopics] = useState<NewsItemRecord[]>([]);
-  const [internships, setInternships] = useState<Internship[]>([]);
+  const [internships, setInternships] = useState<InternshipSummary[]>([]);
   const [internshipsLoading, setInternshipsLoading] = useState(true);
   const [internshipsError, setInternshipsError] = useState(false);
 

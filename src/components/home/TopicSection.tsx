@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import "../../styles/home/TopicSection.css";
 import "../../styles/utility/Tags.css";
-import type { Internship } from "../../types/career";
+import type { InternshipSummary } from "../../types/career";
 import { BriefcaseBusiness } from "lucide-react";
 import crownIcon from "../../assets/home/TopicSection/icon-crown.svg";
 import { useUniversity } from "../university/universityContextValue";
 
-function TopicSection({ internships, loading, error }: { internships: Internship[]; loading: boolean; error: boolean }) {
+function TopicSection({ internships, loading, error }: { internships: InternshipSummary[]; loading: boolean; error: boolean }) {
   const { path } = useUniversity();
   return (
     <section className="panel topicPanel">
