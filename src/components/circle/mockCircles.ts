@@ -1,6 +1,6 @@
 export type CircleCategory = "文化系" | "体育系" | "学術系" | "ボランティア系";
 
-export type CircleTag = "初心者歓迎" | "経験者優遇" | "兼サー可能" | "少人数";
+export type CircleTag = string;
 
 export type CircleNotice = {
   date: string;
@@ -9,13 +9,15 @@ export type CircleNotice = {
 };
 
 export type CircleGradeMembers = {
-  grade: 1 | 2 | 3 | 4;
+  grade: 1 | 2 | 3 | 4 | 5 | 6;
+  program?: "undergraduate" | "graduate";
   count: number;
 };
 
 export type CircleFacultyRatio = {
   name: string;
   percent: number;
+  program?: "undergraduate" | "graduate";
 };
 
 export type CircleExternalLink = {

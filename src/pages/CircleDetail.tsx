@@ -68,8 +68,11 @@ function CircleDetail() {
 
   const { detail } = circle;
   const [membersPrefix, membersCount, membersSuffix] = circle.members.split(/(\d+)/);
-  const gradeMembers = detail.gradeMembers.filter((item) => item.count > 0).sort((a, b) => b.grade - a.grade);
-  const totalMembers = gradeMembers.reduce((sum, item) => sum + item.count, 0);
+  const gradeMembers = detail.gradeMembers.filter((item) => item.count > 0).sort((a, b) =>
+    Number(a.program === "graduate") - Number(b.program === "graduate") || a.grade - b.grade,
+  );
+  const facultyRatios = detail.facultyRatios.filter((item) => item.percent > 0);
+  const ratioTotal = facultyRatios.reduce((sum, item) => sum + item.percent, 0);
   const notices = getCircleNotices(circle);
   const reviews = getCircleReviews(circle);
   const reviewCount = reviews.length;
@@ -201,10 +204,12 @@ function CircleDetail() {
                           <th>活動日</th>
                           <td>
                             {detail.activityDays}
-                            <br />
-                            <span className="circleNumber">{detail.activityTime}</span>
                           </td>
                         </tr>
+                        {detail.activityTime.trim() && <tr>
+                          <th>活動時間</th>
+                          <td className="circleNumber">{detail.activityTime}</td>
+                        </tr>}
                         <tr>
                           <th>活動場所</th>
                           <td>{detail.activityPlace}</td>
@@ -219,57 +224,60 @@ function CircleDetail() {
                       構成人数
                     </h3>
                     <p className="circleDetailTotal">
-                      合計<strong className="circleNumber">{totalMembers}</strong>名
+                      {membersPrefix}<strong className="circleNumber">{membersCount}</strong>{membersSuffix}
                     </p>
-                    <p className="circleDetailGrades">
+                    {gradeMembers.length > 0 && <p className="circleDetailGrades">
                       (
                       {gradeMembers.map((item, index) => (
-                        <span key={item.grade}>
+                        <span key={`${item.program ?? "undergraduate"}-${item.grade}`}>
                           {index > 0 && " / "}
-                          <span className="circleNumber">{item.grade}</span>年
+                          {item.program === "graduate" ? "院" : "学類"}<span className="circleNumber">{item.grade}</span>年
                           <span className="circleNumber">{item.count}</span>名
                         </span>
                       ))}
                       )
-                    </p>
-                    <p className="circleDetailSubhead">所属学類の割合</p>
+                    </p>}
+                    {facultyRatios.length > 0 && <>
+                    <p className="circleDetailSubhead">所属学類・院のコースの割合</p>
                     <div className="circleDetailRatioBar">
-                      {detail.facultyRatios.map((ratio, index) => (
+                      {facultyRatios.map((ratio, index) => (
                         <span
-                          key={ratio.name}
+                          key={`${ratio.program}-${ratio.name}-${index}`}
                           style={{ width: `${ratio.percent}%`, background: facultyColors[index % facultyColors.length] }}
                         />
                       ))}
+                      {ratioTotal < 100 && <span style={{ width: `${100 - ratioTotal}%`, background: "#e3eaf5" }} title="未入力の割合" />}
                     </div>
                     <ul className="circleDetailLegend">
-                      {detail.facultyRatios.map((ratio, index) => (
-                        <li key={ratio.name} style={{ width: `${ratio.percent}%` }}>
+                      {facultyRatios.map((ratio, index) => (
+                        <li key={`${ratio.program}-${ratio.name}-${index}`}>
                           <span>
                             <i style={{ background: facultyColors[index % facultyColors.length] }} />
-                            {ratio.name}
+                            {ratio.program === "graduate" && "院："}{ratio.name}
                           </span>
                           <strong className="circleNumber">{ratio.percent}%</strong>
                         </li>
                       ))}
                     </ul>
+                    </>}
                   </div>
 
-                  <div className="circleDetailBlock">
+                  {(detail.atmosphereTags.length > 0 || detail.atmosphereDescription.trim()) && <div className="circleDetailBlock">
                     <h3>
                       <Smile aria-hidden="true" />
                       雰囲気
                     </h3>
-                    <div className="circleCardTags circleDetailMoodTags">
+                    {detail.atmosphereTags.length > 0 && <div className="circleCardTags circleDetailMoodTags">
                       {detail.atmosphereTags.map((tag) => (
                         <span className="circleCardTag" key={tag}>
                           {tag}
                         </span>
                       ))}
-                    </div>
-                    <p className="circleDetailMoodText">{detail.atmosphereDescription}</p>
-                  </div>
+                    </div>}
+                    {detail.atmosphereDescription.trim() && <p className="circleDetailMoodText">{detail.atmosphereDescription}</p>}
+                  </div>}
 
-                  <div className="circleDetailBlock">
+                  {detail.links.length > 0 && <div className="circleDetailBlock">
                     <h3>
                       <LinkIcon aria-hidden="true" />
                       外部リンク・SNS
@@ -285,7 +293,7 @@ function CircleDetail() {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </div>}
                 </div>
 
                 {detail.additionalInfo && (
