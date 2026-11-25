@@ -32,6 +32,12 @@ describe("resolveTenantPath", () => {
 });
 
 describe("isPlatformPath", () => {
+  it("学食スタッフログインは大学URLへの変換も準備中判定も通さない", () => {
+    expect(isPlatformPath("/cafeteria-staff")).toBe(true);
+    expect(isPlatformPath("/cafeteria-staff/")).toBe(true);
+    expect(isPlatformPath("/tsukuba/cafeteria-staff")).toBe(false);
+    expect(isPlatformPath("/cafeteria-staff-other")).toBe(false);
+  });
   it("管理画面のルートと配下をプラットフォーム共通URLとして扱う", () => {
     expect(isPlatformPath("/admin")).toBe(true);
     expect(isPlatformPath("/admin/")).toBe(true);

@@ -38,6 +38,7 @@ export default function AdminLayout({ title, children }: { title: string; childr
             <NavLink to="/admin/career-content"><GraduationCap />就活コンテンツ</NavLink>
             <NavLink to="/admin/class-guides"><BookOpenCheck />履修戦略・授業選び</NavLink>
             <NavLink to="/admin/class-management"><BookOpenCheck />履修・通報管理</NavLink>
+            <NavLink to="/admin/cafeteria-staff"><BookOpenCheck />学食スタッフ管理</NavLink>
           </nav>
         </aside>
         <main className="adminContent"><header className="adminHeader"><span>管理者画面</span><h1>{title}</h1></header>{children}</main>
